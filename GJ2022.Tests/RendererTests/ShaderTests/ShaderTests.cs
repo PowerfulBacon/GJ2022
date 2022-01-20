@@ -17,8 +17,7 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
 
         uint programUint;
 
-        [TestInitialize]
-        public void ShaderTestsSetup()
+        public ShaderTests()
         {
             try
             {
@@ -37,8 +36,7 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
             }
         }
 
-        [TestCleanup]
-        public void ShaderTestsCleanup()
+        ~ShaderTests()
         {
             if (!setupFailed)
             {

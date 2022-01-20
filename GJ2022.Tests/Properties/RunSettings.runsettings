@@ -61,7 +61,7 @@
       <DeploymentItem filename="Rendering\Shaders\" />
     </Deployment>
     <AssemblyResolution>
-      <Directory path="E:\IntoTheAbyss\Rendering\Shaders" includeSubDirectories="true"/>
+      <Directory path="E:\GJ2022\GJ2022\GJ2022\Rendering\Shaders" includeSubDirectories="true"/>
     </AssemblyResolution>
   </MSTest>
 
