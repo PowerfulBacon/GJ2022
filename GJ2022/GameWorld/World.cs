@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace GJ2022.GameWorld
 {
-    class World
+    public static class World
     {
+
+
+
     }
 }
