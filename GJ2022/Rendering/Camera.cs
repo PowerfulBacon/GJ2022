@@ -12,11 +12,13 @@ namespace GJ2022.Rendering
         //Position of the camera in world space
         private Vector Position = new Vector(3);
 
+        private Vector Scale = new Vector(3, 1, 1, 1);
+
         //View matrix of the camera
         public Matrix ViewMatrix { get; private set; } = Matrix.Identity[4];
 
         //public Matrix ProjectionMatrix { get; private set; } = Matrix.GetPerspectiveMatrix(90.0f, 0.01f, 100.0f);
-        public Matrix ProjectionMatrix { get; private set; } = Matrix.GetScaleMatrix(1, 1, 0.01f);
+        public Matrix ProjectionMatrix { get; private set; } = Matrix.GetScaleMatrix(1080/1920f, 1, 0.01f);
 
         private float speed = 0.04f;
 
@@ -80,13 +82,15 @@ namespace GJ2022.Rendering
             {
                 Position -= GetUpVector() * speed;
             }
-            if (Glfw.GetKey(window, Keys.O) == InputState.Press)
-            {
-                speed *= 2;
-            }
             if (Glfw.GetKey(window, Keys.I) == InputState.Press)
             {
-                speed /= 2;
+                Scale[0] *= 1.1f;
+                Scale[1] *= 1.1f;
+            }
+            if (Glfw.GetKey(window, Keys.O) == InputState.Press)
+            {
+                Scale[0] /= 1.1f;
+                Scale[1] /= 1.1f;
             }
             if (Glfw.GetKey(window, Keys.R) == InputState.Press)
             {
@@ -101,6 +105,7 @@ namespace GJ2022.Rendering
             //ViewMatrix = Matrix.GetTranslationMatrix(3 * (float)Math.Sin(Glfw.Time), 3 * (float)Math.Cos(Glfw.Time), -5);
             //ViewMatrix = Matrix.GetTranslationMatrix((float)Math.Sin(Glfw.Time) * 5.0f, (float)Math.Cos(Glfw.Time) * 5.0f, 0);
             ViewMatrix = Matrix.GetTranslationMatrix(Position[0], Position[1], Position[2]);
+            ViewMatrix *= Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]);
         }
 
     }
