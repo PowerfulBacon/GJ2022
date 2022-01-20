@@ -10,6 +10,7 @@ using GJ2022.Entities.Debug;
 using System.Numerics;
 using GJ2022.Rendering.RenderSystems;
 using System.Drawing;
+using GJ2022.Entities.Background;
 
 namespace GJ2022
 {
@@ -50,6 +51,10 @@ namespace GJ2022
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
             while (!TextureCache.LoadingComplete) { }
             Log.WriteLine("Done loading", LogType.DEBUG);
+
+            //Create the background first
+            BackgroundRenderSystem.Singleton.StartRendering(new BackgroundEntity(new Vector(3)));
+            //new BackgroundEntity(new Vector(3));
 
             //Create a debug thingy
             InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, 0, 0, -5)));
