@@ -1,6 +1,7 @@
 ﻿using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.RenderSystems.RenderData;
+using System;
 using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.RenderSystems
@@ -25,9 +26,6 @@ namespace GJ2022.Rendering.RenderSystems
         //Location of the instance texture data buffer.
         private uint instanceTexDataBuffer;
 
-        //Location of the instance light data buffer
-        private uint instanceLightDataBuffer;
-
         //Location of uniform variables
         private int viewMatrixUniformLocation;
         private int projectionMatrixUniformLocation;
@@ -48,17 +46,7 @@ namespace GJ2022.Rendering.RenderSystems
         {
             renderable.IsRendering = true;
             //Begin rendering
-            foreach (RenderableData renderableData in renderable.ModelData.GetModelRenderableData(renderable, renderable.CubeFaceFlags))
-            {
-                StartRendering(renderableData);
-            }
-        }
-
-        public void StartRendering(Renderable renderable, CubeFaceFlags toggleFlags)
-        {
-            renderable.IsRendering = true;
-            //Begin rendering
-            foreach (RenderableData renderableData in renderable.ModelData.GetModelRenderableData(renderable, toggleFlags))
+            foreach (RenderableData renderableData in renderable.ModelData.GetModelRenderableData(renderable))
             {
                 StartRendering(renderableData);
             }
@@ -70,7 +58,7 @@ namespace GJ2022.Rendering.RenderSystems
         private void StartRendering(RenderableData renderableData)
         {
             //Todo: Convert this to a struct
-            (Model, uint) renderCacheKey = (renderableData.modelData, renderableData.textureData.TextureUint);
+            RenderBatchGroup renderCacheKey = new RenderBatchGroup(renderableData.shader, renderableData.modelData, renderableData.textureData.TextureUint);
             if (renderCache.ContainsKey(renderCacheKey))
             {
                 renderCache[renderCacheKey].AddToBatch(renderableData.attachedRenderable as IInstanceRenderable, renderableData.textureData);
@@ -91,17 +79,7 @@ namespace GJ2022.Rendering.RenderSystems
             renderable.IsRendering = false;
             //Assumes that renderable is actually in the renderCache
             //:oblivious:
-            foreach (RenderableData renderableData in renderable.ModelData.GetModelRenderableData(renderable, renderable.CubeFaceFlags))
-            {
-                StopRendering(renderableData);
-            }
-        }
-
-        public void StopRendering(Renderable renderable, CubeFaceFlags toggleFlags)
-        {
-            //Assumes that renderable is actually in the renderCache
-            //:oblivious:
-            foreach (RenderableData renderableData in renderable.ModelData.GetModelRenderableData(renderable, toggleFlags))
+            foreach (RenderableData renderableData in renderable.ModelData.GetModelRenderableData(renderable))
             {
                 StopRendering(renderableData);
             }
@@ -109,7 +87,7 @@ namespace GJ2022.Rendering.RenderSystems
 
         public void StopRendering(RenderableData renderableData)
         {
-            (Model, uint) renderCacheKey = (renderableData.modelData, renderableData.textureData.TextureUint);
+            RenderBatchGroup renderCacheKey = new RenderBatchGroup(renderableData.shader, renderableData.modelData, renderableData.textureData.TextureUint);
             if (!renderCache.ContainsKey(renderCacheKey))
             {
                 Log.WriteLine($"Failed to locate key in render dict", LogType.WARNING);
@@ -136,50 +114,23 @@ namespace GJ2022.Rendering.RenderSystems
             glBindBuffer(GL_ARRAY_BUFFER, instanceTexDataBuffer);
             //Populate with empty data (We are just reserving the space)
             glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
-
-            //Do the same for instance texture data
-            instanceLightDataBuffer = glGenBuffer();
-            glBindBuffer(GL_ARRAY_BUFFER, instanceLightDataBuffer);
-            //Populate with empty data (We are just reserving the space)
-            glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
-
-            //Attach the shader set so we can grab uniform locations
-            //Link program and use program are required here, not sure what they do exactly.
-            SystemShaders.AttachShaders(programUint);
-            glLinkProgram(programUint);
-
-            //Get the uniform locations
-            viewMatrixUniformLocation = glGetUniformLocation(programUint, "viewMatrix");
-            projectionMatrixUniformLocation = glGetUniformLocation(programUint, "projectionMatrix");
-            textureSamplerUniformLocation = glGetUniformLocation(programUint, "textureSampler");
-            spriteWidthUniformLocation = glGetUniformLocation(programUint, "spriteWidth");
-            spriteHeightUniformLocation = glGetUniformLocation(programUint, "spriteHeight");
-            //Detatch the shaders
-            SystemShaders.DetatchShaders(programUint);
-            //glUseProgram(programUint);
         }
 
         public unsafe override void BeginRender(Camera mainCamera)
         {
-
             //Attach the shader set
             glUseProgram(programUint);
-
-            //Load the camera's view matrix
-            //Put the matrix into that uniform variable
-            glUniformMatrix4fv(viewMatrixUniformLocation, 1, false, mainCamera.ViewMatrix.GetPointer());
-
-            //Load the camera's projection matrix
-            //Put the matrix into that uniform variable
-            glUniformMatrix4fv(projectionMatrixUniformLocation, 1, false, mainCamera.ProjectionMatrix.GetPointer());
         }
 
         //Reuse the same arrays over and over, we don't need to change their size.
         float[] instancePositionArray = new float[3 * RenderBatch.MAX_BATCH_SIZE];
         float[] spriteSheetOffsets = new float[4 * RenderBatch.MAX_BATCH_SIZE];  //vec4(x, y, width, height)
 
-        public unsafe override void RenderModels()
+        public unsafe override void RenderModels(Camera mainCamera)
         {
+
+            uint loadedShader = uint.MaxValue;
+
             //Generate an array for the positions of the things we're rendering
             //Bind the attrib arrays for each model
             //Render the batch
@@ -193,8 +144,36 @@ namespace GJ2022.Rendering.RenderSystems
 
             //Loop through each key of the dictionary
             //TODO: Potential concurrent modification exception
-            foreach ((Model, uint) cacheKey in renderCache.Keys)
+            foreach (RenderBatchGroup cacheKey in renderCache.Keys)
             {
+
+                if (loadedShader != cacheKey.Shaders.GetVertexShader())
+                {
+
+                    //Attach the shader set so we can grab uniform locations
+                    //Link program and use program are required here, not sure what they do exactly.
+                    cacheKey.Shaders.AttachShaders(programUint);
+                    glLinkProgram(programUint);
+
+                    //Load the camera's view matrix
+                    //Put the matrix into that uniform variable
+                    glUniformMatrix4fv(viewMatrixUniformLocation, 1, false, mainCamera.ViewMatrix.GetPointer());
+
+                    //Load the camera's projection matrix
+                    //Put the matrix into that uniform variable
+                    glUniformMatrix4fv(projectionMatrixUniformLocation, 1, false, mainCamera.ProjectionMatrix.GetPointer());
+
+                    //Get the uniform locations
+                    viewMatrixUniformLocation = glGetUniformLocation(programUint, "viewMatrix");
+                    projectionMatrixUniformLocation = glGetUniformLocation(programUint, "projectionMatrix");
+                    textureSamplerUniformLocation = glGetUniformLocation(programUint, "textureSampler");
+                    spriteWidthUniformLocation = glGetUniformLocation(programUint, "spriteWidth");
+                    spriteHeightUniformLocation = glGetUniformLocation(programUint, "spriteHeight");
+                    //Detatch the shaders
+                    cacheKey.Shaders.DetatchShaders(programUint);
+
+                    loadedShader = cacheKey.Shaders.GetVertexShader();
+                }
 
                 //================
                 //SHARED BETWEEN BATCHES
@@ -203,15 +182,13 @@ namespace GJ2022.Rendering.RenderSystems
                 //Get a list of all things to render with this model
                 RenderBatchSet renderBatchSet = renderCache[cacheKey];
                 //Bind the vertex buffer object and the vertex array object
-                BindAttribArray(0, cacheKey.Item1.VertexBufferObject, 3);
-                BindAttribArray(1, cacheKey.Item1.UvBuffer, 2);
+                BindAttribArray(0, cacheKey.Model.VertexBufferObject, 3);
+                BindAttribArray(1, cacheKey.Model.UvBuffer, 2);
 
                 //Enable the 2nd vertex attrib array
                 BindAttribArray(2, instancePositionBuffer, 3);
                 //Enable the 3rd vertex attrib array
                 BindAttribArray(3, instanceTexDataBuffer, 4);
-                //Enable the 4th vertex attrib array
-                BindAttribArray(4, instanceLightDataBuffer, 3);
 
                 //Set the vertex attrib divisors
                 //Always reuse the provided vertices, so don't increment
@@ -222,11 +199,9 @@ namespace GJ2022.Rendering.RenderSystems
                 glVertexAttribDivisor(2, 1);
                 //1 position per instance
                 glVertexAttribDivisor(3, 1);
-                //1 light data per instance
-                glVertexAttribDivisor(4, 1);
 
                 //Load in the textures
-                glBindTexture(GL_TEXTURE0, cacheKey.Item2);
+                glBindTexture(GL_TEXTURE0, cacheKey.TextureUint);
                 glUniform1i(textureSamplerUniformLocation, 0);
                 glUniform1f(spriteWidthUniformLocation, renderBatchSet.textureData.FileWidth);
                 glUniform1f(spriteHeightUniformLocation, renderBatchSet.textureData.FileHeight);
@@ -263,17 +238,10 @@ namespace GJ2022.Rendering.RenderSystems
                         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 4 * count, instanceTexDataArrayPointer);
                     }
 
-                    //Do the same for lighting data
-                    fixed (float* instanceLightingDataArrayPointer = &batch.batchLightData[0])
-                    {
-                        glBindBuffer(GL_ARRAY_BUFFER, instanceLightDataBuffer);
-                        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
-                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 3 * count, instanceLightingDataArrayPointer);
-                    }
-
                     //Perform batch rendering
                     //6 vertices so count of 6.
-                    glDrawArraysInstanced(GL_TRIANGLES, 0, cacheKey.Item1.VerticesLength, count);
+                    glDrawArraysInstanced(GL_TRIANGLES, 0, cacheKey.Model.VerticesLength, count);
+
                 }
 
                 //Disable the vertex arrays
@@ -281,17 +249,12 @@ namespace GJ2022.Rendering.RenderSystems
                 glDisableVertexAttribArray(1);
                 glDisableVertexAttribArray(2);
                 glDisableVertexAttribArray(3);
-                glDisableVertexAttribArray(4);
             }
+
         }
 
         public override void EndRender()
-        {
-            //Detatch the shader set?
-            //glUseProgram(0);
-            //SystemShaders.DetatchShaders(programUint);
-            //string a = glGetProgramInfoLog(programUint);
-        }
+        { }
 
     }
 }

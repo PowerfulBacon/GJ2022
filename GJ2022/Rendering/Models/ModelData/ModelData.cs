@@ -1,4 +1,5 @@
 ﻿using GJ2022.Rendering.RenderSystems.RenderData;
+using GJ2022.Rendering.Shaders;
 
 namespace GJ2022.Rendering.Models
 {
@@ -10,10 +11,13 @@ namespace GJ2022.Rendering.Models
     public class ModelData
     {
 
+        protected ShaderSet shader;
+
         private Model model;
 
-        public ModelData(Model model)
+        public ModelData(ShaderSet shader, Model model)
         {
+            this.shader = shader;
             this.model = model;
         }
 
@@ -21,19 +25,9 @@ namespace GJ2022.Rendering.Models
         /// Returns a model based on what sides the block is blocked on.
         /// </summary>
         /// <param name="renderBlockFlag"></param>
-        public virtual RenderableData[] GetModelRenderableData(Renderable renderable, CubeFaceFlags faceFlag)
+        public virtual RenderableData[] GetModelRenderableData(Renderable renderable)
         {
-            return new RenderableData[] { new RenderableData(model, renderable, renderable.GetRendererTexture(faceFlag)) };
-        }
-
-        /// <summary>
-        /// Returns an array containing all the models rendered by
-        /// this model data object.
-        /// Cubes return 6 models, 1 for each face.
-        /// </summary>
-        public virtual RenderableData[] GetAllModelRenderableData(Renderable renderable)
-        {
-            return new RenderableData[] { new RenderableData(model, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_FRONT)) };
+            return new RenderableData[] { new RenderableData(shader, model, renderable, renderable.GetRendererTexture()) };
         }
 
     }

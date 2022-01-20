@@ -30,18 +30,10 @@ namespace GJ2022.Rendering
         //Is this object being rendered?
         public bool IsRendering { get; set; } = false;
 
-        //The cube face flags
-        public CubeFaceFlags CubeFaceFlags { get; private set; } = CubeFaceFlags.FACE_ALL;
-
-        protected virtual void SetCubeFaceFlags(CubeFaceFlags newFlags)
-        {
-            CubeFaceFlags = newFlags;
-        }
-
         /// <summary>
         /// Get the renderable texture data that can be used by the renderer
         /// </summary>
-        public abstract RendererTextureData GetRendererTexture(CubeFaceFlags faceFlags);
+        public abstract RendererTextureData GetRendererTexture();
 
     }
 }

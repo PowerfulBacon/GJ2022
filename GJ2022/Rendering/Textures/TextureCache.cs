@@ -16,7 +16,7 @@ namespace GJ2022.Rendering.Textures
         /// <summary>
         /// The error icon state to display if things fail
         /// </summary>
-        private const string ERROR_ICON_STATE = "error";
+        public const string ERROR_ICON_STATE = "error";
 
         /// <summary>
         /// A store of the loaded texture files
@@ -29,11 +29,6 @@ namespace GJ2022.Rendering.Textures
         private static Dictionary<string, TextureJson> TextureJsons = new Dictionary<string, TextureJson>();
 
         /// <summary>
-        /// A store of the loaded block textures
-        /// </summary>
-        private static Dictionary<string, BlockTexture> BlockTextureCache = new Dictionary<string, BlockTexture>();
-
-        /// <summary>
         /// Has loading been completed?
         /// </summary>
         public static bool LoadingComplete { get; private set; } = false;
@@ -41,7 +36,7 @@ namespace GJ2022.Rendering.Textures
         /// <summary>
         /// Does the error state exist?
         /// </summary>
-        public static bool ErrorStateExists { get => BlockTextureCache.ContainsKey(ERROR_ICON_STATE); }
+        public static bool ErrorStateExists { get => TextureJsons.ContainsKey(ERROR_ICON_STATE); }
 
         /// <summary>
         /// Test the error state
@@ -49,27 +44,24 @@ namespace GJ2022.Rendering.Textures
         /// <returns></returns>
         public static string GetErrorFile()
         {
-            BlockTexture errTex = BlockTextureCache[ERROR_ICON_STATE];
-            TextureJson topFace = errTex.Faces[CubeFaceFlags.FACE_ABOVE];
-            return $"{ICON_PATH}{topFace.FileName}";
+            TextureJson errTex = TextureJsons[ERROR_ICON_STATE];
+            return $"{ICON_PATH}{errTex.FileName}";
         }
 
         /// <summary>
         /// Gets the texture uint of a loaded texture
         /// </summary>
-        public static RendererTextureData GetTexture(string blockTexture, CubeFaceFlags faceFlag, bool checkSanity = false)
+        public static RendererTextureData GetTexture(string blockTexture, bool checkSanity = false)
         {
-            BlockTexture usingTexture;
+            TextureJson usingJson;
             // Check if the block texture exists
-            if (BlockTextureCache.ContainsKey(blockTexture))
-                usingTexture = BlockTextureCache[blockTexture];
+            if (TextureJsons.ContainsKey(blockTexture))
+                usingJson = TextureJsons[blockTexture];
             else
             {
                 Log.WriteLine($"Error, block texture: {blockTexture} not found!", LogType.WARNING);
-                usingTexture = BlockTextureCache[ERROR_ICON_STATE];
+                usingJson = TextureJsons[ERROR_ICON_STATE];
             }
-            // Find the files that we need to load
-            TextureJson usingJson = usingTexture.Faces[faceFlag];
             //Locate the texture object we need
             if (TextureFileCache.ContainsKey(usingJson.FileName))
                 return new RendererTextureData(TextureFileCache[usingJson.FileName], usingJson);
@@ -92,7 +84,7 @@ namespace GJ2022.Rendering.Textures
                     if (!checkSanity)
                     {
                         //Return a standard error texture
-                        return GetTexture(ERROR_ICON_STATE, faceFlag, true);
+                        return GetTexture(ERROR_ICON_STATE, true);
                     }
                     else
                     {
@@ -157,51 +149,6 @@ namespace GJ2022.Rendering.Textures
             }
             //Loaded Texture cache
             Log.WriteLine($"Successfully loaded data about {TextureJsons.Count} textures.", LogType.MESSAGE);
-            //Load the block textures
-            JToken blockTextureProperty = loadedJson["blockTextures"];
-            foreach (JToken value in blockTextureProperty)
-            {
-                try
-                {
-                    //Load the block texture name
-                    string block = value.Value<string>("block");
-                    JObject faces = value.Value<JObject>("faces");
-                    //Load the face data
-                    string top = faces.Value<string>("top");
-                    string bottom = faces.Value<string>("bottom");
-                    string left = faces.Value<string>("left");
-                    string right = faces.Value<string>("right");
-                    string back = faces.Value<string>("back");
-                    string front = faces.Value<string>("front");
-                    //Create the block texture data
-                    BlockTextureCache.Add(
-                        block,
-                        new BlockTexture(
-                            TextureJsons[top],
-                            TextureJsons[bottom],
-                            TextureJsons[left],
-                            TextureJsons[right],
-                            TextureJsons[back],
-                            TextureJsons[front]
-                        )
-                    );
-                }
-                catch (Exception e)
-                {
-                    if (catchErrors)
-                    {
-                        //TODO: Error handling
-                        Log.WriteLine(e, LogType.ERROR);
-                    }
-                    else
-                    {
-                        LoadingComplete = true;
-                        throw e;
-                    }
-                }
-            }
-            //load the block textures
-            Log.WriteLine($"Loaded {BlockTextureCache.Count} block textures", LogType.MESSAGE);
             //All texture data loaded
             Log.WriteLine("All texture data loaded!", LogType.MESSAGE);
             //Loading completed

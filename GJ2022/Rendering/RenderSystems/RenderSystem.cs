@@ -10,13 +10,10 @@ namespace GJ2022.Rendering.RenderSystems
     public abstract class RenderSystem
     {
 
-        //Relative directory of the shaders to the .exe
-        private const string SHADER_DIRECTORY = "./Rendering/Shaders/";
-
         //The cache of things we are rendering
         //Key: ModelData (objects with the same modeldata should reference the same class)
         //Value: List of Renderables being rendered with that model data
-        protected Dictionary<(Model, uint), RenderBatchSet> renderCache = new Dictionary<(Model, uint), RenderBatchSet>();
+        protected Dictionary<RenderBatchGroup, RenderBatchSet> renderCache = new Dictionary<RenderBatchGroup, RenderBatchSet>();
 
         //Name of the system shader
         protected abstract string SystemShaderName { get; }
@@ -28,7 +25,7 @@ namespace GJ2022.Rendering.RenderSystems
 
         public RenderSystem()
         {
-            SystemShaders = new ShaderSet(SystemShaderName, SHADER_DIRECTORY);
+            SystemShaders = new ShaderSet(SystemShaderName);
 
             programUint = glCreateProgram();
             Log.WriteLine($"Created new program: ID {programUint}", LogType.DEBUG);
@@ -50,7 +47,7 @@ namespace GJ2022.Rendering.RenderSystems
         /// Render the models provided.
         /// Requires the ModelData instance and a list of renderable objects associated with that
         /// </summary>
-        public abstract void RenderModels();
+        public abstract void RenderModels(Camera mainCamera);
 
         /// <summary>
         /// Cleanup anything we did in beginRender

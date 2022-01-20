@@ -16,8 +16,6 @@ namespace GJ2022.Rendering.RenderSystems
 
         public IInstanceRenderable[] instanceRenderables = new IInstanceRenderable[MAX_BATCH_SIZE];
 
-        public float[] batchLightData = new float[3 * MAX_BATCH_SIZE];
-
         public float[] batchPositionArray = new float[3 * MAX_BATCH_SIZE];
 
         public float[] batchSpriteData = new float[4 * MAX_BATCH_SIZE];

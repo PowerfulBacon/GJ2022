@@ -6,6 +6,10 @@ using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
 using static OpenGL.Gl;
+using GJ2022.Entities.Debug;
+using System.Numerics;
+using GJ2022.Rendering.RenderSystems;
+using System.Drawing;
 
 namespace GJ2022
 {
@@ -45,6 +49,17 @@ namespace GJ2022
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
             while (!TextureCache.LoadingComplete) { }
+            Log.WriteLine("Done loading", LogType.DEBUG);
+
+            //Create a debug thingy
+            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, 0, 0, -5)));
+            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, 0, 0, 5)));
+            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, 5, 0, 0)));
+            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, -5, 0, 0)));
+
+            Line.StartDrawingLine(new Vector(3, -5, 0, 0), new Vector(3, 5, 0, 0), Colour.Red);
+            Line.StartDrawingLine(new Vector(3, 0, -5, 0), new Vector(3, 0, 5, 0), Colour.Green);
+            Line.StartDrawingLine(new Vector(3, 0, 0, -5), new Vector(3, 0, 0, 5), Colour.Blue);
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

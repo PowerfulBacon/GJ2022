@@ -1,4 +1,5 @@
 ﻿using GJ2022.Rendering.RenderSystems.RenderData;
+using GJ2022.Rendering.Shaders;
 using System.Collections.Generic;
 
 namespace GJ2022.Rendering.Models
@@ -21,8 +22,12 @@ namespace GJ2022.Rendering.Models
         /// <summary>
         /// Since we are a block, we can load a generic mesh.
         /// </summary>
-        private BlockModelData() : base(null)
+        private BlockModelData() : base(new ShaderSet("instanceShader"), null)
         {
+
+            //Depreciated in this project, we are using 2D
+            Log.WriteLine("Warning: A block model was created despite using a 2D rendering system", LogType.WARNING);
+
             //====================
             //Setup the above face
             //====================
@@ -148,36 +153,23 @@ namespace GJ2022.Rendering.Models
         /// <summary>
         /// Get the face we want
         /// </summary>
-        public override RenderableData[] GetModelRenderableData(Renderable renderable, CubeFaceFlags faceFlag)
+        /*public override RenderableData[] GetModelRenderableData(Renderable renderable)
         {
             List<RenderableData> models = new List<RenderableData>();
             if ((faceFlag & CubeFaceFlags.FACE_ABOVE) == CubeFaceFlags.FACE_ABOVE)
-                models.Add(new RenderableData(topFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_ABOVE)));
+                models.Add(new RenderableData(shader, topFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_ABOVE)));
             if ((faceFlag & CubeFaceFlags.FACE_BELOW) == CubeFaceFlags.FACE_BELOW)
-                models.Add(new RenderableData(bottomFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BELOW)));
+                models.Add(new RenderableData(shader, bottomFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BELOW)));
             if ((faceFlag & CubeFaceFlags.FACE_FRONT) == CubeFaceFlags.FACE_FRONT)
-                models.Add(new RenderableData(frontFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_FRONT)));
+                models.Add(new RenderableData(shader, frontFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_FRONT)));
             if ((faceFlag & CubeFaceFlags.FACE_BACK) == CubeFaceFlags.FACE_BACK)
-                models.Add(new RenderableData(backFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BACK)));
+                models.Add(new RenderableData(shader, backFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BACK)));
             if ((faceFlag & CubeFaceFlags.FACE_RIGHT) == CubeFaceFlags.FACE_RIGHT)
-                models.Add(new RenderableData(rightFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_RIGHT)));
+                models.Add(new RenderableData(shader, rightFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_RIGHT)));
             if ((faceFlag & CubeFaceFlags.FACE_LEFT) == CubeFaceFlags.FACE_LEFT)
-                models.Add(new RenderableData(leftFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_LEFT)));
+                models.Add(new RenderableData(shader, leftFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_LEFT)));
             return models.ToArray();
-        }
-
-        public override RenderableData[] GetAllModelRenderableData(Renderable renderable)
-        {
-            return new RenderableData[]
-            {
-                new RenderableData(topFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_ABOVE)),
-                new RenderableData(bottomFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BELOW)),
-                new RenderableData(frontFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_FRONT)),
-                new RenderableData(backFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BACK)),
-                new RenderableData(rightFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_RIGHT)),
-                new RenderableData(leftFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_LEFT)),
-            };
-        }
+        }*/
 
     }
 }

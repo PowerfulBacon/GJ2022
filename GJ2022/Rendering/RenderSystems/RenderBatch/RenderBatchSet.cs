@@ -43,7 +43,6 @@ namespace GJ2022.Rendering.RenderSystems
             element.SetRenderableBatchIndex(this, renderElements);
             //Cache all these values that are generally constant
             UpdateRenderablePosition(element);
-            UpdateRenderableLightData(element);
             batchToAddTo.batchSpriteData[positionInBatch * 4] = textureData.IndexX;
             batchToAddTo.batchSpriteData[positionInBatch * 4 + 1] = textureData.IndexY;
             batchToAddTo.batchSpriteData[positionInBatch * 4 + 2] = textureData.Width;
@@ -68,18 +67,6 @@ namespace GJ2022.Rendering.RenderSystems
         }
 
         /// <summary>
-        /// Updates the cache with new lighting data of the element.
-        /// </summary>
-        public void UpdateRenderableLightData(IInstanceRenderable element)
-        {
-            int locatedIndex = element.GetRenderableBatchIndex(this) % RenderBatch.MAX_BATCH_SIZE;
-            RenderBatch batch = GetContainingBatch(element.GetRenderableBatchIndex(this));
-            batch.batchLightData[locatedIndex * 3] = element.GetLightingColour().red;
-            batch.batchLightData[locatedIndex * 3 + 1] = element.GetLightingColour().green;
-            batch.batchLightData[locatedIndex * 3 + 2] = element.GetLightingColour().blue;
-        }
-
-        /// <summary>
         /// Removing from batches is a lot harder since we need to rearange things.
         /// As an optimisation, instead of moving everything, we just move the last element.
         /// O(n) [We could do O(1) but it would need more memory]
@@ -101,10 +88,6 @@ namespace GJ2022.Rendering.RenderSystems
             batch.batchPositionArray[locatedIndex * 3] = lastBatch.batchPositionArray[positionOfLast * 3];
             batch.batchPositionArray[locatedIndex * 3 + 1] = lastBatch.batchPositionArray[positionOfLast * 3 + 1];
             batch.batchPositionArray[locatedIndex * 3 + 2] = lastBatch.batchPositionArray[positionOfLast * 3 + 2];
-            //Copy across lighting data
-            batch.batchLightData[locatedIndex * 3] = lastBatch.batchLightData[positionOfLast * 3];
-            batch.batchLightData[locatedIndex * 3 + 1] = lastBatch.batchLightData[positionOfLast * 3 + 1];
-            batch.batchLightData[locatedIndex * 3 + 2] = lastBatch.batchLightData[positionOfLast * 3 + 2];
             //Copy across texture data
             batch.batchSpriteData[locatedIndex * 4] = lastBatch.batchSpriteData[positionOfLast * 4];
             batch.batchSpriteData[locatedIndex * 4 + 1] = lastBatch.batchSpriteData[positionOfLast * 4 + 1];

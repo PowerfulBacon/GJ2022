@@ -2,7 +2,6 @@
 
 in vec2 UV;
 in vec4 texData;
-in vec3 lightData;
 
 out vec4 result;
 
@@ -23,5 +22,5 @@ void main()
     transformedUV *= vec2(texData[2] / spriteWidth, texData[3] / spriteHeight);
     transformedUV += vec2(texData[0] / spritesheetWidth, (spritesheetHeight - texData[1] - 1) / spritesheetHeight);
 
-    result = vec4(texture(textureSampler, transformedUV).rgb * lightData, 1.0);
+    result = vec4(texture(textureSampler, transformedUV).rgb, 1.0);
 } 

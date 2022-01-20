@@ -4,12 +4,10 @@ layout (location = 0) in vec3 pos;
 layout (location = 1) in vec2 vertexUv;
 layout (location = 2) in vec3 instancePos;
 layout (location = 3) in vec4 textureData;
-layout (location = 4) in vec3 lightingData;
 
 //UV data
 out vec2 UV;
 out vec4 texData;
-out vec3 lightData;
 
 // The translation matrix (Model, View)
 //uniform mat4 objectMatrix;
@@ -34,5 +32,4 @@ void main()
     //Output the vertex UV to the fragment shader
     UV = vertexUv;
     texData = textureData;
-    lightData = lightingData;
 }
