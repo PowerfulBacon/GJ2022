@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GJ2022 Debug": {
+      "commandName": "Project",
+      "commandLineArgs": "-debug"
+    }
+  }
+}
