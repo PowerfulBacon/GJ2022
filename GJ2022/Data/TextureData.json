@@ -1,0 +1,79 @@
+{
+  "textures": [
+    {
+      "id": "grass_top",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "grass_side",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 0
+    },
+    {
+      "id": "dirt",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 0
+    },
+    {
+      "id": "stone",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 0
+    },
+    {
+      "id": "error",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 0
+    },
+  ],
+  "blockTextures": [
+    {
+      "block": "grass",
+      "faces": {
+        "top": "grass_top",
+        "bottom": "dirt",
+        "left": "grass_side",
+        "right": "grass_side",
+        "back": "grass_side",
+        "front": "grass_side"
+      }
+    },
+    {
+      "block": "stone",
+      "faces": {
+        "top": "stone",
+        "bottom": "stone",
+        "left": "stone",
+        "right": "stone",
+        "back": "stone",
+        "front": "stone"
+      }
+    },
+    {
+      "block": "error",
+      "faces": {
+        "top": "error",
+        "bottom": "error",
+        "left": "error",
+        "right": "error",
+        "back": "error",
+        "front": "error"
+      }
+    },
+  ]
+}
