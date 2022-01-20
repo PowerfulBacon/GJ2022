@@ -33,7 +33,12 @@ namespace GJ2022.Rendering.RenderSystems
         private int spriteWidthUniformLocation;
         private int spriteHeightUniformLocation;
 
-        public InstanceRenderSystem()
+        public InstanceRenderSystem() : base()
+        {
+            SetSingleton();
+        }
+
+        protected virtual void SetSingleton()
         {
             Singleton = this;
         }
@@ -120,6 +125,29 @@ namespace GJ2022.Rendering.RenderSystems
         {
             //Attach the shader set
             glUseProgram(programUint);
+
+            //Attach the shader set so we can grab uniform locations
+            //Link program and use program are required here, not sure what they do exactly.
+            SystemShaders.AttachShaders(programUint);
+            glLinkProgram(programUint);
+
+            //Load the camera's view matrix
+            //Put the matrix into that uniform variable
+            glUniformMatrix4fv(viewMatrixUniformLocation, 1, false, mainCamera.ViewMatrix.GetPointer());
+
+            //Load the camera's projection matrix
+            //Put the matrix into that uniform variable
+            glUniformMatrix4fv(projectionMatrixUniformLocation, 1, false, mainCamera.ProjectionMatrix.GetPointer());
+
+            //Get the uniform locations
+            viewMatrixUniformLocation = glGetUniformLocation(programUint, "viewMatrix");
+            projectionMatrixUniformLocation = glGetUniformLocation(programUint, "projectionMatrix");
+            textureSamplerUniformLocation = glGetUniformLocation(programUint, "textureSampler");
+            spriteWidthUniformLocation = glGetUniformLocation(programUint, "spriteWidth");
+            spriteHeightUniformLocation = glGetUniformLocation(programUint, "spriteHeight");
+            //Detatch the shaders
+            SystemShaders.DetatchShaders(programUint);
+
         }
 
         //Reuse the same arrays over and over, we don't need to change their size.
@@ -128,8 +156,6 @@ namespace GJ2022.Rendering.RenderSystems
 
         public unsafe override void RenderModels(Camera mainCamera)
         {
-
-            uint loadedShader = uint.MaxValue;
 
             //Generate an array for the positions of the things we're rendering
             //Bind the attrib arrays for each model
@@ -146,34 +172,6 @@ namespace GJ2022.Rendering.RenderSystems
             //TODO: Potential concurrent modification exception
             foreach (RenderBatchGroup cacheKey in renderCache.Keys)
             {
-
-                if (loadedShader != cacheKey.Shaders.GetVertexShader())
-                {
-
-                    //Attach the shader set so we can grab uniform locations
-                    //Link program and use program are required here, not sure what they do exactly.
-                    cacheKey.Shaders.AttachShaders(programUint);
-                    glLinkProgram(programUint);
-
-                    //Load the camera's view matrix
-                    //Put the matrix into that uniform variable
-                    glUniformMatrix4fv(viewMatrixUniformLocation, 1, false, mainCamera.ViewMatrix.GetPointer());
-
-                    //Load the camera's projection matrix
-                    //Put the matrix into that uniform variable
-                    glUniformMatrix4fv(projectionMatrixUniformLocation, 1, false, mainCamera.ProjectionMatrix.GetPointer());
-
-                    //Get the uniform locations
-                    viewMatrixUniformLocation = glGetUniformLocation(programUint, "viewMatrix");
-                    projectionMatrixUniformLocation = glGetUniformLocation(programUint, "projectionMatrix");
-                    textureSamplerUniformLocation = glGetUniformLocation(programUint, "textureSampler");
-                    spriteWidthUniformLocation = glGetUniformLocation(programUint, "spriteWidth");
-                    spriteHeightUniformLocation = glGetUniformLocation(programUint, "spriteHeight");
-                    //Detatch the shaders
-                    cacheKey.Shaders.DetatchShaders(programUint);
-
-                    loadedShader = cacheKey.Shaders.GetVertexShader();
-                }
 
                 //================
                 //SHARED BETWEEN BATCHES

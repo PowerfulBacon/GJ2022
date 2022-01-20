@@ -41,6 +41,12 @@
     <None Update="png16.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Rendering\Shaders\backgroundShader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\backgroundShader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Rendering\Shaders\instanceShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
