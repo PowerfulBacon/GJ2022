@@ -16,7 +16,7 @@ namespace GJ2022.Rendering.Textures
         /// <summary>
         /// The error icon state to display if things fail
         /// </summary>
-        private const string ERROR_ICON_STATE = "error";
+        public const string ERROR_ICON_STATE = "error";
 
         /// <summary>
         /// A store of the loaded texture files

@@ -30,11 +30,6 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
             return new Colour();
         }
 
-        public void UpdateBatchLighting()
-        {
-            throw new NotImplementedException();
-        }
-
         public void SetRenderableBatchIndex(RenderBatchSet associatedSet, int index)
         {
             sample = index;

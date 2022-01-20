@@ -1,6 +1,7 @@
 ﻿using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.RenderSystems.RenderData;
+using System;
 using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.RenderSystems
@@ -117,24 +118,15 @@ namespace GJ2022.Rendering.RenderSystems
 
         public unsafe override void BeginRender(Camera mainCamera)
         {
-
             //Attach the shader set
             glUseProgram(programUint);
-
-            //Load the camera's view matrix
-            //Put the matrix into that uniform variable
-            glUniformMatrix4fv(viewMatrixUniformLocation, 1, false, mainCamera.ViewMatrix.GetPointer());
-
-            //Load the camera's projection matrix
-            //Put the matrix into that uniform variable
-            glUniformMatrix4fv(projectionMatrixUniformLocation, 1, false, mainCamera.ProjectionMatrix.GetPointer());
         }
 
         //Reuse the same arrays over and over, we don't need to change their size.
         float[] instancePositionArray = new float[3 * RenderBatch.MAX_BATCH_SIZE];
         float[] spriteSheetOffsets = new float[4 * RenderBatch.MAX_BATCH_SIZE];  //vec4(x, y, width, height)
 
-        public unsafe override void RenderModels()
+        public unsafe override void RenderModels(Camera mainCamera)
         {
 
             uint loadedShader = uint.MaxValue;
@@ -157,10 +149,19 @@ namespace GJ2022.Rendering.RenderSystems
 
                 if (loadedShader != cacheKey.Shaders.GetVertexShader())
                 {
+
                     //Attach the shader set so we can grab uniform locations
                     //Link program and use program are required here, not sure what they do exactly.
                     cacheKey.Shaders.AttachShaders(programUint);
                     glLinkProgram(programUint);
+
+                    //Load the camera's view matrix
+                    //Put the matrix into that uniform variable
+                    glUniformMatrix4fv(viewMatrixUniformLocation, 1, false, mainCamera.ViewMatrix.GetPointer());
+
+                    //Load the camera's projection matrix
+                    //Put the matrix into that uniform variable
+                    glUniformMatrix4fv(projectionMatrixUniformLocation, 1, false, mainCamera.ProjectionMatrix.GetPointer());
 
                     //Get the uniform locations
                     viewMatrixUniformLocation = glGetUniformLocation(programUint, "viewMatrix");
@@ -240,6 +241,7 @@ namespace GJ2022.Rendering.RenderSystems
                     //Perform batch rendering
                     //6 vertices so count of 6.
                     glDrawArraysInstanced(GL_TRIANGLES, 0, cacheKey.Model.VerticesLength, count);
+
                 }
 
                 //Disable the vertex arrays
@@ -248,6 +250,7 @@ namespace GJ2022.Rendering.RenderSystems
                 glDisableVertexAttribArray(2);
                 glDisableVertexAttribArray(3);
             }
+
         }
 
         public override void EndRender()

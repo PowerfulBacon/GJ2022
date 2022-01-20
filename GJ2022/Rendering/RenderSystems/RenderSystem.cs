@@ -47,7 +47,7 @@ namespace GJ2022.Rendering.RenderSystems
         /// Render the models provided.
         /// Requires the ModelData instance and a list of renderable objects associated with that
         /// </summary>
-        public abstract void RenderModels();
+        public abstract void RenderModels(Camera mainCamera);
 
         /// <summary>
         /// Cleanup anything we did in beginRender

@@ -39,8 +39,8 @@ namespace GJ2022.Rendering
         private static void InitRenderSystems()
         {
             renderSystems = new RenderSystem[] {
-                new InstanceRenderSystem(),
                 new LineRenderer(),
+                new InstanceRenderSystem(),
             };
         }
 
@@ -58,7 +58,7 @@ namespace GJ2022.Rendering
             glEnable(GL_BLEND);
             glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
             //Set a background colour
-            glClearColor(0.0f, 0.5f, 0.0f, 1.0f);
+            glClearColor(255/255f, 105/255f, 180/255f, 1.0f);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace GJ2022.Rendering
             foreach (RenderSystem renderSystem in renderSystems)
             {
                 renderSystem.BeginRender(mainCamera);
-                renderSystem.RenderModels();
+                renderSystem.RenderModels(mainCamera);
                 renderSystem.EndRender();
             }
 

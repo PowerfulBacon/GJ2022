@@ -30,15 +30,5 @@ namespace GJ2022.Rendering.Models
             return new RenderableData[] { new RenderableData(shader, model, renderable, renderable.GetRendererTexture()) };
         }
 
-        /// <summary>
-        /// Returns an array containing all the models rendered by
-        /// this model data object.
-        /// Cubes return 6 models, 1 for each face.
-        /// </summary>
-        public virtual RenderableData[] GetAllModelRenderableData(Renderable renderable)
-        {
-            return new RenderableData[] { new RenderableData(shader, model, renderable, renderable.GetRendererTexture()) };
-        }
-
     }
 }

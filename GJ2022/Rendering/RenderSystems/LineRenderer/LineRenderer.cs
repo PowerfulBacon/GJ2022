@@ -156,7 +156,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         /// 
         /// </summary>
         /// <param name="programUint"></param>
-        public unsafe override void RenderModels()
+        public unsafe override void RenderModels(Camera mainCamera)
         {
 
             //Render each line seperately

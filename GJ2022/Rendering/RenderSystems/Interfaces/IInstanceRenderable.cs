@@ -9,8 +9,6 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
 
         int GetRenderableBatchIndex(RenderBatchSet associatedSet);
 
-        void UpdateBatchLighting();
-
         //Required getters
         Vector GetInstancePosition();
 
