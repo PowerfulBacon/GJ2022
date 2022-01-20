@@ -1,7 +1,4 @@
-﻿
-#define DEBUG
-
-using GLFW;
+﻿using GLFW;
 using GJ2022.Rendering;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.Textures;
