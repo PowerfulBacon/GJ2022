@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using static OpenGL.Gl;
 
@@ -7,14 +8,26 @@ namespace GJ2022.Rendering.Shaders
     public class ShaderSet
     {
 
+        //Relative directory of the shaders to the .exe
+        public const string SHADER_DIRECTORY = "./Rendering/Shaders/";
+
+        private static Dictionary<string, ShaderSet> loadedShaders = new Dictionary<string, ShaderSet>();
+
         string name;
         uint vertex_shader;
         uint fragment_shader;
 
-        public ShaderSet(string name, string base_directory)
+        public ShaderSet(string name, string base_directory = SHADER_DIRECTORY)
         {
             //Set the name
             this.name = name;
+            //Check for cached shaders
+            if (loadedShaders.ContainsKey(name))
+            {
+                vertex_shader = loadedShaders[name].vertex_shader;
+                fragment_shader = loadedShaders[name].fragment_shader;
+                return;
+            }
             //Generate the shaders
             vertex_shader = glCreateShader(GL_VERTEX_SHADER);
             fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -32,6 +45,8 @@ namespace GJ2022.Rendering.Shaders
                 Log.WriteLine($"{name}.frag: {glGetShaderInfoLog(fragment_shader)}");
                 //Print a debug message
                 Log.WriteLine($"Loaded {name} shaders successfully.");
+                //Cache the shaders for faster loading later
+                loadedShaders.Add(name, this);
             }
             catch (Exception e)
             {

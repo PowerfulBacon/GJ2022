@@ -64,8 +64,6 @@ namespace GJ2022.Rendering
             return new Vector(3, output[1, 1], output[1, 2], output[1, 3]);
         }
 
-        private Line savedLine;
-
         public void DebugMove(Window window)
         {
             if (Glfw.GetKey(window, Keys.W) == InputState.Press)
