@@ -10,6 +10,8 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
     [DeploymentItem(@".\GLFW.NET.dll")]
     [DeploymentItem(@".\Rendering\Shaders\instanceShader.vert")]
     [DeploymentItem(@".\Rendering\Shaders\instanceShader.frag")]
+    [DeploymentItem(@".\Rendering\Shaders\backgroundShader.vert")]
+    [DeploymentItem(@".\Rendering\Shaders\backgroundShader.frag")]
     public class ShaderTests
     {
 
@@ -55,21 +57,27 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
         }
 
         [TestMethod]
+        public void TestBackgroundFragmentShaderCompilation()
+        {
+            if (setupFailed) Assert.Inconclusive();
+            string name = "backgroundShader";
+            Assert.IsTrue(TestShader(name, GL_FRAGMENT_SHADER));
+        }
+
+        [TestMethod]
+        public void TestBackgroundVertexShaderCompilation()
+        {
+            if (setupFailed) Assert.Inconclusive();
+            string name = "backgroundShader";
+            Assert.IsTrue(TestShader(name, GL_VERTEX_SHADER));
+        }
+
+        [TestMethod]
         public void TestFragmentShaderCompilation()
         {
             if (setupFailed) Assert.Inconclusive();
             string name = "instanceShader";
-            //Generate the shaders
-            uint shader = glCreateShader(GL_FRAGMENT_SHADER);
-            //Load and compile shaders
-            //Read the shader sources
-            glShaderSource(shader, File.ReadAllText($"{name}.frag"));
-            //Compile the shaders
-            glCompileShader(shader);
-            //Print the result of compiling the shader
-            Log.WriteLine($"{name}.vert: {glGetShaderInfoLog(shader)}");
-            //Print a debug message
-            Log.WriteLine($"Loaded {name} shaders successfully.");
+            Assert.IsTrue(TestShader(name, GL_FRAGMENT_SHADER));
         }
 
         [TestMethod]
@@ -77,17 +85,25 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
         {
             if (setupFailed) Assert.Inconclusive();
             string name = "instanceShader";
+            Assert.IsTrue(TestShader(name, GL_VERTEX_SHADER));
+        }
+
+        private bool TestShader(string shaderName, int type)
+        {
+            string extension = type == GL_VERTEX_SHADER ? "vert" : "frag";
             //Generate the shaders
-            uint shader = glCreateShader(GL_VERTEX_SHADER);
+            uint shader = glCreateShader(type);
             //Load and compile shaders
             //Read the shader sources
-            glShaderSource(shader, File.ReadAllText($"{name}.vert"));
+            glShaderSource(shader, File.ReadAllText($"{shaderName}.{extension}"));
             //Compile the shaders
             glCompileShader(shader);
+            string shaderLog = glGetShaderInfoLog(shader);
             //Print the result of compiling the shader
-            Log.WriteLine($"{name}.vert: {glGetShaderInfoLog(shader)}");
+            Log.WriteLine($"{shaderName}.{extension}: {shaderLog}");
             //Print a debug message
-            Log.WriteLine($"Loaded {name} shaders successfully.");
+            Log.WriteLine($"Loaded {shaderName} shaders successfully.");
+            return shaderLog == string.Empty;
         }
 
     }
