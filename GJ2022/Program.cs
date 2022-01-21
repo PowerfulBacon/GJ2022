@@ -12,6 +12,7 @@ using GJ2022.Rendering.RenderSystems;
 using System.Drawing;
 using GJ2022.Entities.Background;
 using System;
+using GJ2022.Entities.StationPart.Hallways;
 
 namespace GJ2022
 {
@@ -73,6 +74,9 @@ namespace GJ2022
             Line.StartDrawingLine(new Vector(3, -5, 0, 0), new Vector(3, 5, 0, 0), Colour.Red);
             Line.StartDrawingLine(new Vector(3, 0, -5, 0), new Vector(3, 0, 5, 0), Colour.Green);
             Line.StartDrawingLine(new Vector(3, 0, 0, -5), new Vector(3, 0, 0, 5), Colour.Blue);
+
+            //Create rooms
+            OutlineQuadRenderSystem.Singleton.StartRendering(new HallwayCross(new Vector(3, 2, 2, 0)));
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

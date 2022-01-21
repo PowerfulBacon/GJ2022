@@ -41,6 +41,12 @@
     <None Update="png16.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Rendering\Shaders\outlineShader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\outlineShader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Rendering\Shaders\backgroundShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -65,7 +71,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\StationPart\Hallways\" />
     <Folder Include="Entities\StationPart\Rooms\" />
   </ItemGroup>
 

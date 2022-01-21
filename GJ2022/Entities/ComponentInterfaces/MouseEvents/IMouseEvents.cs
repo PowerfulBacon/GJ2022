@@ -9,9 +9,9 @@ namespace GJ2022.Entities.ComponentInterfaces.MouseEvents
     public interface IMouseEvent
     {
 
-        float ScreenX { get; }
+        float WorldX { get; }
 
-        float ScreenY { get; }
+        float WorldY { get; }
 
         float Width { get; }
 

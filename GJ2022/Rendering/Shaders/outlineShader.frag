@@ -11,8 +11,8 @@ uniform sampler2D textureSampler;
 
 const float border = 0.001;
 
-const vec3 topLeftColour = vec3(66.0/255.0, 91.0/255.0, 135.0/255.0);
-const vec3 bottomRightColour = vec3(46.0/255.0, 48.0/255.0, 51/255.0);
+const vec3 topLeftColour = vec3(217.0/255.0, 157.0/255.0, 54.0/255.0);
+const vec3 bottomRightColour = vec3(189.0/255.0, 153.0/255.0, 92.0/255.0);
 
 void main()
 {

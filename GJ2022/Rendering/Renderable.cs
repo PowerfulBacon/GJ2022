@@ -12,7 +12,7 @@ namespace GJ2022.Rendering
         //====================
 
         //The object matrix -> Our translation from the origin of the world (Only changes if we move)
-        public Matrix ObjectMatrix { get; set; } = Matrix.Identity[4];
+        public virtual Matrix ObjectMatrix { get; set; } = Matrix.Identity[4];
 
         //The model associated with this object
         //We need to sort in terms of models for optimisations

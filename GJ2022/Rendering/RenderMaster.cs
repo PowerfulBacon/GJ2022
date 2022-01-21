@@ -41,6 +41,7 @@ namespace GJ2022.Rendering
             renderSystems = new RenderSystem[] {
                 new LineRenderer(),
                 new InstanceRenderSystem(),
+                new OutlineQuadRenderSystem(),
                 new BackgroundRenderSystem(),
             };
         }

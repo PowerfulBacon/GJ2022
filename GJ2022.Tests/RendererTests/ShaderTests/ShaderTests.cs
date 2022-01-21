@@ -12,6 +12,8 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
     [DeploymentItem(@".\Rendering\Shaders\instanceShader.frag")]
     [DeploymentItem(@".\Rendering\Shaders\backgroundShader.vert")]
     [DeploymentItem(@".\Rendering\Shaders\backgroundShader.frag")]
+    [DeploymentItem(@".\Rendering\Shaders\outlineShader.vert")]
+    [DeploymentItem(@".\Rendering\Shaders\outlineShader.frag")]
     public class ShaderTests
     {
 
@@ -54,6 +56,15 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
             //Sanity checks
             //Tests the functionality of these tests
             Assert.IsTrue(File.Exists(@"instanceShader.vert"), "Couldn't locate instance shader file, it is likely this test is incorrectly setup.");
+        }
+
+        [TestMethod]
+        public void TestOutlineShaderCompilation()
+        {
+            if (setupFailed) Assert.Inconclusive();
+            string name = "outlineShader";
+            Assert.IsTrue(TestShader(name, GL_FRAGMENT_SHADER));
+            Assert.IsTrue(TestShader(name, GL_VERTEX_SHADER));
         }
 
         [TestMethod]
