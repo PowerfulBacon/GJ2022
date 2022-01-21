@@ -4,6 +4,7 @@ layout (location = 0) in vec3 pos;
 layout (location = 1) in vec2 vertexUv;
 layout (location = 2) in vec3 instancePos;
 layout (location = 3) in vec4 textureData;
+layout (location = 4) in vec2 instanceScale;
 
 //UV data
 out vec2 UV;
@@ -26,7 +27,7 @@ void main()
         0.0, 0.0, 0.0, 1.0
     );
 	mat4 MVP = projectionMatrix * viewMatrix;
-    gl_Position = MVP * correctionMatrix * vec4(pos + instancePos, 1.0);
+    gl_Position = MVP * correctionMatrix * vec4((pos * vec3(instanceScale, 1.0)) + instancePos, 1.0);
     gl_Position.x = -gl_Position.x;
     gl_Position.y = -gl_Position.y;
     //Output the vertex UV to the fragment shader

@@ -20,5 +20,7 @@ namespace GJ2022.Rendering.RenderSystems
 
         public float[] batchSpriteData = new float[4 * MAX_BATCH_SIZE];
 
+        public float[] batchSizeArray = new float[2 * MAX_BATCH_SIZE];
+
     }
 }

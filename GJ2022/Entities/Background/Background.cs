@@ -56,5 +56,9 @@ namespace GJ2022.Entities.Background
             return position;
         }
 
+        public Vector GetInstanceScale()
+        {
+            return new Vector(2, 1, 1);
+        }
     }
 }

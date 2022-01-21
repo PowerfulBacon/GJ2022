@@ -91,5 +91,10 @@ namespace GJ2022.Entities.Debug
         {
             return false;
         }
+
+        public Vector GetInstanceScale()
+        {
+            return new Vector(2, 1, 1);
+        }
     }
 }

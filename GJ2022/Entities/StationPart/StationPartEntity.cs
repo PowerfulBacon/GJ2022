@@ -24,7 +24,6 @@ namespace GJ2022.Entities.StationPart
         //Ctor
         public StationPartEntity(Vector position) : base(position) { }
 
-
         private Dictionary<RenderBatchSet, int> renderableBatchIndex = new Dictionary<RenderBatchSet, int>();
 
         public void SetRenderableBatchIndex(RenderBatchSet associatedSet, int index)
@@ -50,6 +49,11 @@ namespace GJ2022.Entities.StationPart
         public Vector GetInstancePosition()
         {
             return position;
+        }
+
+        public Vector GetInstanceScale()
+        {
+            return new Vector(2, 3, 1);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace GJ2022.Rendering.RenderSystems
         //The cache of things we are rendering
         //Key: ModelData (objects with the same modeldata should reference the same class)
         //Value: List of Renderables being rendered with that model data
-        protected Dictionary<RenderBatchGroup, RenderBatchSet> renderCache = new Dictionary<RenderBatchGroup, RenderBatchSet>();
+        protected virtual Dictionary<RenderBatchGroup, RenderBatchSet> renderCache { get; } = new Dictionary<RenderBatchGroup, RenderBatchSet>();
 
         //Name of the system shader
         protected abstract string SystemShaderName { get; }
