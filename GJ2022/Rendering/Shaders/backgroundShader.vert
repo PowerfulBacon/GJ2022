@@ -2,13 +2,9 @@
 //The vertex data relative to the model.
 layout (location = 0) in vec3 pos;
 layout (location = 1) in vec2 vertexUv;
-layout (location = 2) in vec3 instancePos;
-layout (location = 3) in vec4 textureData;
-layout (location = 3) in vec2 instanceScale;
 
 //UV data
 out vec2 UV;
-out vec4 texData;
 
 // The translation matrix (Model, View)
 //uniform mat4 objectMatrix;

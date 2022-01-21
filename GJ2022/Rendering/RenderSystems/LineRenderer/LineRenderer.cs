@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Rendering.RenderSystems.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,9 @@ using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.RenderSystems.LineRenderer
 {
-    class LineRenderer : RenderSystem
+    //TODO:
+    //Currently this is just a full renderer replacement
+    class LineRenderer : RenderSystem<IInstanceRenderable>
     {
 
         public static LineRenderer Singleton;
@@ -179,5 +182,14 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
 
         }
 
+        protected override void SetSingleton()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override float[] GetBufferData(IInstanceRenderable renderableInterface)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

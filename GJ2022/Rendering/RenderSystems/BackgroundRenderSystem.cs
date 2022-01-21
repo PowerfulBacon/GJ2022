@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Rendering.RenderSystems.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Rendering.RenderSystems
 {
-    class BackgroundRenderSystem : InstanceRenderSystem
+    class BackgroundRenderSystem : RenderSystem<IBackgroundRenderable, BackgroundRenderSystem>
     {
 
         public static new BackgroundRenderSystem Singleton;

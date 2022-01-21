@@ -36,16 +36,6 @@ namespace GJ2022.Rendering.RenderSystems
         private int spriteWidthUniformLocation;
         private int spriteHeightUniformLocation;
 
-        public InstanceRenderSystem() : base()
-        {
-            SetSingleton();
-        }
-
-        protected virtual void SetSingleton()
-        {
-            Singleton = this;
-        }
-
         /// <summary>
         /// Start rendering the models of the renderable provided.
         /// TODO: Make this abstract and make it so not all rendering systems are required to use instance renderables
@@ -65,7 +55,6 @@ namespace GJ2022.Rendering.RenderSystems
         /// </summary>
         private void StartRendering(RenderableData renderableData)
         {
-            //Todo: Convert this to a struct
             RenderBatchGroup renderCacheKey = new RenderBatchGroup(renderableData.shader, renderableData.modelData, renderableData.textureData.TextureUint);
             if (renderCache.ContainsKey(renderCacheKey))
             {
