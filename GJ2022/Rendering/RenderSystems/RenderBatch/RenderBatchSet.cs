@@ -1,5 +1,6 @@
 ﻿using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
+using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -44,6 +45,7 @@ namespace GJ2022.Rendering.RenderSystems
             //Cache all these values that are generally constant
             UpdateRenderablePosition(element);
             UpdateRenderableScales(element);
+            UpdateRenderableGeneralData(element);
             batchToAddTo.batchSpriteData[positionInBatch * 4] = textureData.IndexX;
             batchToAddTo.batchSpriteData[positionInBatch * 4 + 1] = textureData.IndexY;
             batchToAddTo.batchSpriteData[positionInBatch * 4 + 2] = textureData.Width;
@@ -79,6 +81,17 @@ namespace GJ2022.Rendering.RenderSystems
             batch.batchSizeArray[locatedIndex * 2 + 1] = element.GetInstanceScale()[1];
         }
 
+        public void UpdateRenderableGeneralData(IInstanceRenderable element)
+        {
+            int locatedIndex = element.GetRenderableBatchIndex(this) % RenderBatch.MAX_BATCH_SIZE;
+            RenderBatch batch = GetContainingBatch(element.GetRenderableBatchIndex(this));
+            Vector instanceData = element.GetInstanceGeneralData();
+            batch.batchDataArray[locatedIndex * 4] = instanceData[0];
+            batch.batchDataArray[locatedIndex * 4 + 1] = instanceData[1];
+            batch.batchDataArray[locatedIndex * 4 + 2] = instanceData[2];
+            batch.batchDataArray[locatedIndex * 4 + 3] = instanceData[3];
+        }
+
         /// <summary>
         /// Removing from batches is a lot harder since we need to rearange things.
         /// As an optimisation, instead of moving everything, we just move the last element.
@@ -109,6 +122,11 @@ namespace GJ2022.Rendering.RenderSystems
             //Copy across the scale data
             batch.batchSizeArray[locatedIndex * 2] = lastBatch.batchSizeArray[positionOfLast * 2];
             batch.batchSizeArray[locatedIndex * 2 + 1] = lastBatch.batchSizeArray[positionOfLast * 2 + 1];
+            //Copy across texture data
+            batch.batchDataArray[locatedIndex * 4] = lastBatch.batchDataArray[positionOfLast * 4];
+            batch.batchDataArray[locatedIndex * 4 + 1] = lastBatch.batchDataArray[positionOfLast * 4 + 1];
+            batch.batchDataArray[locatedIndex * 4 + 2] = lastBatch.batchDataArray[positionOfLast * 4 + 2];
+            batch.batchDataArray[locatedIndex * 4 + 3] = lastBatch.batchDataArray[positionOfLast * 4 + 3];
             //Decrease the render elements amount
             renderElements--;
             //If the position of the last element was the first in the array, remove the batch

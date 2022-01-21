@@ -22,5 +22,8 @@ namespace GJ2022.Rendering.RenderSystems
 
         public float[] batchSizeArray = new float[2 * MAX_BATCH_SIZE];
 
+        //General data, can be used for any purpose.
+        public float[] batchDataArray = new float[4 * MAX_BATCH_SIZE];
+
     }
 }
