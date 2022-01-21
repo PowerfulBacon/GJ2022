@@ -64,4 +64,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\StationPart\Hallways\" />
+    <Folder Include="Entities\StationPart\Rooms\" />
+  </ItemGroup>
+
 </Project>

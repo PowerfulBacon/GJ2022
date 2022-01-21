@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GLFW;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +16,12 @@ namespace GJ2022.Subsystems
 
         private List<IInitializeBehaviour> initializeQueue = new List<IInitializeBehaviour>();
 
-        public override void Fire()
+        /// <summary>
+        /// Queue the subsystem for intialization
+        /// </summary>
+        protected InitializeSubsystem() : base() { }
+
+        public override void Fire(Window window)
         {
             throw new NotImplementedException("Initialize SS should not fire.");
         }

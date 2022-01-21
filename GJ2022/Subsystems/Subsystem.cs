@@ -1,9 +1,11 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GLFW;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace GJ2022.Subsystems
@@ -56,17 +58,17 @@ namespace GJ2022.Subsystems
             if (queuedSystems != null)
                 queuedSystems.Add(this);
             else
-                Initialize();
+                throw new System.Exception("Subsystem created post subsystem initialization!");
         }
 
         /// <summary>
         /// Run initialization on all queued subsystems
         /// </summary>
-        public static void InitializeSubsystems()
+        public static void InitializeSubsystems(Window window)
         {
             foreach (Subsystem ss in queuedSystems)
             {
-                ss.Initialize();
+                ss.Initialize(window);
             }
             queuedSystems = null;
         }
@@ -74,7 +76,7 @@ namespace GJ2022.Subsystems
         /// <summary>
         /// Run initialization on the subsystem
         /// </summary>
-        private void Initialize()
+        private void Initialize(Window window)
         {
             //Log
             Log.WriteLine($"Initializing system {ToString()}", LogType.DEBUG);
@@ -86,13 +88,43 @@ namespace GJ2022.Subsystems
             //If the subsystem doesn't process or fire, don't start a thread for it.
             if ((SubsystemFlags & SubsystemFlags.NO_UPDATE) != SubsystemFlags.NO_UPDATE)
             {
-                Thread thread = new Thread(new ThreadStart(Update));
+                Thread thread = new Thread(() => Update(window));
                 thread.Start();
             }
         }
 
         //Method called after the world has been initialized.
         protected abstract void AfterWorldInit();
+
+        /// <summary>
+        /// Method gets the singleton of all subsystems, forcing them to be created if they aren't already.
+        /// The compiler will optimise this method away since it technically does nothing, but it is actually
+        /// quite important so we need to disable optimization for this method.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.NoOptimization)]
+        public static void InitializeSingletons()
+        {
+            //https://stackoverflow.com/questions/857705/get-all-derived-types-of-a-type
+            //Locate all types of subsystem
+            Type[] subsystems = (
+                from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
+                    // alternative: from domainAssembly in domainAssembly.GetExportedTypes()
+                from assemblyType in domainAssembly.GetTypes()
+                where typeof(Subsystem).IsAssignableFrom(assemblyType)
+                // alternative: where assemblyType.IsSubclassOf(typeof(B))
+                // alternative: && ! assemblyType.IsAbstract
+                select assemblyType).ToArray();
+            foreach (Type subsystem in subsystems)
+            {
+                //TODO Add proper network checks onto this
+                if (subsystem.IsAbstract)
+                    continue;
+                PropertyInfo propInfo = subsystem.GetProperty("Singleton");
+                if (propInfo == null)
+                    continue;
+                propInfo.GetValue(null, null);
+            }
+        }
 
         public static void WorldInitialize()
         {
@@ -131,7 +163,7 @@ namespace GJ2022.Subsystems
         //Executed on a seperate thread from the renderer.
         //Will sleep for a set time between each loop.
         //When firing is set to false, the subsystem should shut down.
-        private void Update()
+        private void Update(Window window)
         {
             while (Firing)
             {
@@ -149,7 +181,7 @@ namespace GJ2022.Subsystems
                         {
                             //Fire the subsystem.
                             //This method is overriden by the subclasses. (Polymorphism)
-                            Fire();
+                            Fire(window);
                         }
                         catch (System.Exception e)
                         {
@@ -245,7 +277,7 @@ namespace GJ2022.Subsystems
         /// Virtual fire class, handles the actions of the subsystem.
         /// Should be overriden by the subclass if nofire is set to false.
         /// </summary>
-        public abstract void Fire();
+        public abstract void Fire(Window window);
 
         /// <summary>
         /// Adds an entity to the processing queue, so its process() method will be called.
@@ -253,7 +285,7 @@ namespace GJ2022.Subsystems
         public void StartProcessing(IProcessable e)
         {
             if ((SubsystemFlags & SubsystemFlags.NO_PROCESSING) == SubsystemFlags.NO_PROCESSING)
-                throw new Exception($"Subsystem {GetType()} does not support processing.");
+                throw new System.Exception($"Subsystem {GetType()} does not support processing.");
             ProcessingEntities.Add(e);
         }
 
