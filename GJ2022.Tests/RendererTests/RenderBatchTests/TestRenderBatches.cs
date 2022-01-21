@@ -39,6 +39,11 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
         {
             return sample;
         }
+
+        public Vector GetInstanceScale()
+        {
+            return new Vector(2, 1, 1);
+        }
     }
 
     [TestClass]

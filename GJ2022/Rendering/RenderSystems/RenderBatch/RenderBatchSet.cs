@@ -43,6 +43,7 @@ namespace GJ2022.Rendering.RenderSystems
             element.SetRenderableBatchIndex(this, renderElements);
             //Cache all these values that are generally constant
             UpdateRenderablePosition(element);
+            UpdateRenderableScales(element);
             batchToAddTo.batchSpriteData[positionInBatch * 4] = textureData.IndexX;
             batchToAddTo.batchSpriteData[positionInBatch * 4 + 1] = textureData.IndexY;
             batchToAddTo.batchSpriteData[positionInBatch * 4 + 2] = textureData.Width;
@@ -64,6 +65,18 @@ namespace GJ2022.Rendering.RenderSystems
             batch.batchPositionArray[locatedIndex * 3] = element.GetInstancePosition()[0];
             batch.batchPositionArray[locatedIndex * 3 + 1] = element.GetInstancePosition()[1];
             batch.batchPositionArray[locatedIndex * 3 + 2] = element.GetInstancePosition()[2];
+        }
+
+        /// <summary>
+        /// Updates the cache with the new scale of the element.
+        /// This must be called every single time a renderable element has its scale changed.
+        /// </summary>
+        public void UpdateRenderableScales(IInstanceRenderable element)
+        {
+            int locatedIndex = element.GetRenderableBatchIndex(this) % RenderBatch.MAX_BATCH_SIZE;
+            RenderBatch batch = GetContainingBatch(element.GetRenderableBatchIndex(this));
+            batch.batchSizeArray[locatedIndex * 2] = element.GetInstanceScale()[0];
+            batch.batchSizeArray[locatedIndex * 2 + 1] = element.GetInstanceScale()[1];
         }
 
         /// <summary>
@@ -93,6 +106,9 @@ namespace GJ2022.Rendering.RenderSystems
             batch.batchSpriteData[locatedIndex * 4 + 1] = lastBatch.batchSpriteData[positionOfLast * 4 + 1];
             batch.batchSpriteData[locatedIndex * 4 + 2] = lastBatch.batchSpriteData[positionOfLast * 4 + 2];
             batch.batchSpriteData[locatedIndex * 4 + 3] = lastBatch.batchSpriteData[positionOfLast * 4 + 3];
+            //Copy across the scale data
+            batch.batchSizeArray[locatedIndex * 2] = lastBatch.batchSizeArray[positionOfLast * 2];
+            batch.batchSizeArray[locatedIndex * 2 + 1] = lastBatch.batchSizeArray[positionOfLast * 2 + 1];
             //Decrease the render elements amount
             renderElements--;
             //If the position of the last element was the first in the array, remove the batch

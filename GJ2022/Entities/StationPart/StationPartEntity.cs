@@ -1,33 +1,28 @@
-﻿using System;
+﻿using GJ2022.Rendering.Models;
+using GJ2022.Rendering.RenderSystems;
+using GJ2022.Rendering.RenderSystems.Interfaces;
+using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GJ2022.Rendering.Models;
-using GJ2022.Rendering.RenderSystems;
-using GJ2022.Rendering.RenderSystems.Interfaces;
-using GJ2022.Rendering.Shaders;
-using GJ2022.Rendering.Textures;
-using GJ2022.Utility.MathConstructs;
 
-namespace GJ2022.Entities.Background
+namespace GJ2022.Entities.StationPart
 {
-    class BackgroundEntity : Entity, IInstanceRenderable
+    public abstract class StationPartEntity : Entity, IInstanceRenderable
     {
 
         public override ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
-        public BackgroundEntity(Vector position) : base(position)
-        { }
+        //List of rooms connected to this one
+        public List<StationPartEntity> AttachedRooms { get; } = new List<StationPartEntity>();
 
-        public override RendererTextureData GetRendererTexture()
-        {
-            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
-        }
+        //Set the relative connection points
+        public virtual Vector[] RelativeConnectionPoints { get; protected set; }
 
-        /// <summary>
-        /// Instance renderable stuff
-        /// </summary>
+        //Ctor
+        public StationPartEntity(Vector position) : base(position) { }
 
         private Dictionary<RenderBatchSet, int> renderableBatchIndex = new Dictionary<RenderBatchSet, int>();
 
@@ -58,7 +53,7 @@ namespace GJ2022.Entities.Background
 
         public Vector GetInstanceScale()
         {
-            return new Vector(2, 1, 1);
+            return new Vector(2, 3, 1);
         }
     }
 }

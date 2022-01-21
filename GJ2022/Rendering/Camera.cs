@@ -108,5 +108,15 @@ namespace GJ2022.Rendering
             ViewMatrix *= Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]);
         }
 
+        public void OnWindowResized(int width, int height)
+        {
+            //todo
+            ProjectionMatrix = Matrix.GetScaleMatrix((float)height / width, 1, 0.01f);
+            //float xScale = width / 1920.0f;
+            //float yScale = height / 1080.0f;
+            //float aspectRatio = (float)height / width;
+            //ProjectionMatrix = Matrix.GetTranslationMatrix(-xScale * 0.5f, 0, 0) * Matrix.GetScaleMatrix(xScale, yScale, 0.01f);
+        }
+
     }
 }

@@ -11,6 +11,8 @@ using System.Numerics;
 using GJ2022.Rendering.RenderSystems;
 using System.Drawing;
 using GJ2022.Entities.Background;
+using System;
+using GJ2022.Entities.StationPart.Hallways;
 
 namespace GJ2022
 {
@@ -29,11 +31,6 @@ namespace GJ2022
         static void Main(string[] args)
         {
 
-            //Start subsystems
-            Subsystem.InitializeSubsystems();
-
-            Subsystem.WorldInitialize();
-
             //Start texture loading
             TextureCache.LoadTextureDataJson();
 
@@ -43,6 +40,18 @@ namespace GJ2022
             //Create the window
             Window window = SetupWindow();
             UsingOpenGL = true;
+
+            //Create callbacks
+            SetCallbacks(window);
+
+            //Start subsystems
+            Subsystem.InitializeSingletons();
+            Subsystem.InitializeSubsystems(window);
+
+            //World creation here
+
+            //Trigger on world init
+            Subsystem.WorldInitialize();
 
             //Initialize the renderer
             RenderMaster.Initialize();
@@ -66,6 +75,9 @@ namespace GJ2022
             Line.StartDrawingLine(new Vector(3, 0, -5, 0), new Vector(3, 0, 5, 0), Colour.Green);
             Line.StartDrawingLine(new Vector(3, 0, 0, -5), new Vector(3, 0, 0, 5), Colour.Blue);
 
+            //Create rooms
+            OutlineQuadRenderSystem.Singleton.StartRendering(new HallwayCross(new Vector(3, 2, 2, 0)));
+
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))
             {
@@ -74,7 +86,7 @@ namespace GJ2022
                     //Perform rendering
                     RenderMaster.RenderWorld(window);
                 }
-                catch (Exception e)
+                catch (System.Exception e)
                 {
                     Log.WriteLine(e, LogType.ERROR);
                 }
@@ -95,6 +107,7 @@ namespace GJ2022
             Glfw.WindowHint(Hint.ContextVersionMajor, 3);
             Glfw.WindowHint(Hint.ContextVersionMinor, 3);
             Glfw.WindowHint(Hint.OpenglProfile, Profile.Core);
+            Glfw.WindowHint(Hint.Resizable, false);
         }
 
         /// <summary>
@@ -107,6 +120,23 @@ namespace GJ2022
             Glfw.MakeContextCurrent(window);
             Import(Glfw.GetProcAddress);
             return window;
+        }
+
+        /// <summary>
+        /// Setup the callback methods
+        /// </summary>
+        static void SetCallbacks(Window window)
+        {
+            Glfw.SetWindowSizeCallback(window, (IntPtr windowPtr, int width, int height) => WindowSizeCallback(windowPtr, width, height));
+        }
+
+        /// <summary>
+        /// Called when the window has been resized.
+        /// Recalculate the view matrix of the camera
+        /// </summary>
+        static void WindowSizeCallback(IntPtr window, int width, int height)
+        {
+            RenderMaster.mainCamera.OnWindowResized(width, height);
         }
 
     }

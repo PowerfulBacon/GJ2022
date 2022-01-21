@@ -26,6 +26,9 @@ namespace GJ2022.Rendering.RenderSystems
         //Location of the instance texture data buffer.
         private uint instanceTexDataBuffer;
 
+        //Location of the instance scale data buffer
+        private uint instanceScaleDataBuffer;
+
         //Location of uniform variables
         private int viewMatrixUniformLocation;
         private int projectionMatrixUniformLocation;
@@ -119,6 +122,12 @@ namespace GJ2022.Rendering.RenderSystems
             glBindBuffer(GL_ARRAY_BUFFER, instanceTexDataBuffer);
             //Populate with empty data (We are just reserving the space)
             glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
+
+            //Do the same for instance scale data
+            instanceScaleDataBuffer = glGenBuffer();
+            glBindBuffer(GL_ARRAY_BUFFER, instanceScaleDataBuffer);
+            //Populate with empty data (We are just reserving the space)
+            glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
         }
 
         public unsafe override void BeginRender(Camera mainCamera)
@@ -149,10 +158,6 @@ namespace GJ2022.Rendering.RenderSystems
             SystemShaders.DetatchShaders(programUint);
 
         }
-
-        //Reuse the same arrays over and over, we don't need to change their size.
-        float[] instancePositionArray = new float[3 * RenderBatch.MAX_BATCH_SIZE];
-        float[] spriteSheetOffsets = new float[4 * RenderBatch.MAX_BATCH_SIZE];  //vec4(x, y, width, height)
 
         public unsafe override void RenderModels(Camera mainCamera)
         {
@@ -187,6 +192,8 @@ namespace GJ2022.Rendering.RenderSystems
                 BindAttribArray(2, instancePositionBuffer, 3);
                 //Enable the 3rd vertex attrib array
                 BindAttribArray(3, instanceTexDataBuffer, 4);
+                //Enable the 4th vertex attrib array
+                BindAttribArray(4, instanceScaleDataBuffer, 2);
 
                 //Set the vertex attrib divisors
                 //Always reuse the provided vertices, so don't increment
@@ -197,6 +204,8 @@ namespace GJ2022.Rendering.RenderSystems
                 glVertexAttribDivisor(2, 1);
                 //1 position per instance
                 glVertexAttribDivisor(3, 1);
+                //1 scale per instance
+                glVertexAttribDivisor(4, 1);
 
                 //Load in the textures
                 glBindTexture(GL_TEXTURE0, cacheKey.TextureUint);
@@ -236,6 +245,14 @@ namespace GJ2022.Rendering.RenderSystems
                         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 4 * count, instanceTexDataArrayPointer);
                     }
 
+                    //Finally, do the same for scaling data
+                    fixed (float* instanceScaleArrayPointer = &batch.batchSizeArray[0])
+                    {
+                        glBindBuffer(GL_ARRAY_BUFFER, instanceScaleDataBuffer);
+                        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
+                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 2 * count, instanceScaleArrayPointer);
+                    }
+
                     //Perform batch rendering
                     //6 vertices so count of 6.
                     glDrawArraysInstanced(GL_TRIANGLES, 0, cacheKey.Model.VerticesLength, count);
@@ -247,6 +264,7 @@ namespace GJ2022.Rendering.RenderSystems
                 glDisableVertexAttribArray(1);
                 glDisableVertexAttribArray(2);
                 glDisableVertexAttribArray(3);
+                glDisableVertexAttribArray(4);
             }
 
         }

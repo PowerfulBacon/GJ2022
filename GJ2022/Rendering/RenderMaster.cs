@@ -15,7 +15,7 @@ namespace GJ2022.Rendering
         private static RenderSystem[] renderSystems;
 
         //The main camera
-        private static Camera mainCamera;
+        public static Camera mainCamera;
 
         /// <summary>
         /// Initialize the renderer:
@@ -41,6 +41,7 @@ namespace GJ2022.Rendering
             renderSystems = new RenderSystem[] {
                 new LineRenderer(),
                 new InstanceRenderSystem(),
+                new OutlineQuadRenderSystem(),
                 new BackgroundRenderSystem(),
             };
         }
