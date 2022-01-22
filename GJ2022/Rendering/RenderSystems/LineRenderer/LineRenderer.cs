@@ -10,7 +10,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
 {
     //TODO:
     //Currently this is just a full renderer replacement
-    class LineRenderer : RenderSystem<IInstanceRenderable>
+    class LineRenderer : RenderSystem<IStandardRenderable, LineRenderer>
     {
 
         public static LineRenderer Singleton;
@@ -19,6 +19,12 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         public List<Line> rendering { get; } = new List<Line>();
 
         protected override string SystemShaderName => "simple";
+
+        protected override int BufferCount => 0;
+
+        protected override int[] BufferWidths => throw new NotImplementedException();
+
+        protected override uint[] BufferDataPointsPerInstance => throw new NotImplementedException();
 
         //Location of uniform variables
         private int objectMatrixUniformLocation;
@@ -33,7 +39,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
 
         public LineRenderer()
         {
-            Singleton = this;
+            SetSingleton();
         }
 
         /// <summary>
@@ -184,10 +190,15 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
 
         protected override void SetSingleton()
         {
+            Singleton = this;
+        }
+
+        protected override RenderBatchGroup GetBatchGroup(IStandardRenderable renderable)
+        {
             throw new NotImplementedException();
         }
 
-        public override float[] GetBufferData(IInstanceRenderable renderableInterface)
+        public override float[] GetBufferData(IStandardRenderable targetItem, int bufferIndex)
         {
             throw new NotImplementedException();
         }

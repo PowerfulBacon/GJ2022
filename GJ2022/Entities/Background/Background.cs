@@ -17,7 +17,7 @@ namespace GJ2022.Entities.Background
 
         public override ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
-        public RenderSystem<IBackgroundRenderable, BackgroundRenderSystem> TargetRenderSystem => BackgroundRenderSystem.Singleton;
+        public RenderSystem<IBackgroundRenderable, BackgroundRenderSystem> RenderSystem => BackgroundRenderSystem.Singleton;
 
         public BackgroundEntity(Vector position) : base(position)
         { }
@@ -51,6 +51,11 @@ namespace GJ2022.Entities.Background
                 return renderableBatchIndex[associatedSet];
             else
                 return -1;
+        }
+
+        public RendererTextureData GetRendererTextureData()
+        {
+            throw new NotImplementedException();
         }
     }
 }

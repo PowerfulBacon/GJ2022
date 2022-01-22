@@ -16,6 +16,8 @@ namespace GJ2022.Rendering.RenderSystems
         where TargetRenderSystem : RenderSystem<RenderTargetInterface, TargetRenderSystem>
     {
 
+        private const int USER_BUFFER_OFFSET = 2;
+
         //The cache of things we are rendering
         //Key: ModelData (objects with the same modeldata should reference the same class)
         //Value: List of Renderables being rendered with that model data
@@ -42,14 +44,11 @@ namespace GJ2022.Rendering.RenderSystems
         //1 indicates that each instance gets its own set of data (positions, colours etc.)
         protected abstract uint[] BufferDataPointsPerInstance { get; }
 
-        //True if the buffer with ID index require updating each frame
-        protected abstract bool[] IsInstanceBuffer { get; }
-
         //The buffer locations
         private uint[] bufferLocations;
 
         //The names of the uniform variables used by this render system
-        protected string[] UniformVariableNames => new string[] {
+        protected virtual string[] UniformVariableNames => new string[] {
             "viewMatrix",
             "projectionMatrix",
             "textureSampler",
@@ -123,16 +122,17 @@ namespace GJ2022.Rendering.RenderSystems
         /// </summary>
         protected abstract void SetSingleton();
 
-        /// <summary>
-        /// Provides the pointer to the buffer of data at the specified index
-        /// </summary>
-        public abstract unsafe float* GetBufferPointer(RenderBatch<RenderTargetInterface, TargetRenderSystem> targetBatch, int index);
+        public abstract float[] GetBufferData(RenderTargetInterface targetItem, int bufferIndex);
 
         /// <summary>
-        /// Get the location of an unmanaged buffer
-        /// TODO: Remove
+        /// Provides the pointer to the buffer of data at the specified index.
+        /// Fetches it from the buffer arrays.
         /// </summary>
-        protected abstract uint GetUnmanagedBufferLocation(uint target, RenderBatchGroup targetBatch);
+        public virtual unsafe float* GetBufferPointer(RenderBatch<RenderTargetInterface, TargetRenderSystem> targetBatch, int index)
+        {
+            fixed (float* ptr = &targetBatch.bufferArrays[0][index - USER_BUFFER_OFFSET])
+                return ptr;
+        }
 
         /// <summary>
         /// Initialize the rendering system.
@@ -145,9 +145,6 @@ namespace GJ2022.Rendering.RenderSystems
 
             for (int i = 0; i < BufferCount; i++)
             {
-                //Manually handled buffer
-                if (!IsInstanceBuffer[i])
-                    continue;
                 //Generate a buffer and store it in the appropriate location
                 bufferLocations[i] = glGenBuffer();
                 //Bind the buffer
@@ -233,11 +230,18 @@ namespace GJ2022.Rendering.RenderSystems
                 //Get a list of all things to render with this model
                 RenderBatchSet<RenderTargetInterface, TargetRenderSystem> renderBatchSet = renderCache[cacheKey];
 
+                //Bind the model and UV buffer
+                BindAttribArray(0, cacheKey.Model.VertexBufferObject, 3);
+                BindAttribArray(1, cacheKey.Model.UvBuffer, 2);
+
+                glVertexAttribDivisor(0, 0);
+                glVertexAttribDivisor(1, 0);
+
                 //Bind the buffers
                 for (uint i = 0; i < BufferCount; i++)
                 {
-                    BindAttribArray(i, IsInstanceBuffer[i] ? bufferLocations[i] : GetUnmanagedBufferLocation(i, cacheKey), BufferWidths[i]);
-                    glVertexAttribDivisor(i, BufferDataPointsPerInstance[i]);
+                    BindAttribArray(i + USER_BUFFER_OFFSET, bufferLocations[i], BufferWidths[i]);
+                    glVertexAttribDivisor(i + USER_BUFFER_OFFSET, BufferDataPointsPerInstance[i]);
                 }
 
                 //Load in the textures
@@ -262,9 +266,6 @@ namespace GJ2022.Rendering.RenderSystems
                     //We only need to do this buffering on buffers that change
                     for (int bufferI = 0; bufferI < BufferCount; bufferI++)
                     {
-                        //If the buffer doesn't change, don't put subdata into it
-                        if (!IsInstanceBuffer[bufferI])
-                            continue;
                         //Otherwise provide the pointer to the array
                         float* bufferPointer = GetBufferPointer(batch, bufferI);
                         glBindBuffer(GL_ARRAY_BUFFER, bufferLocations[bufferI]);
@@ -279,7 +280,7 @@ namespace GJ2022.Rendering.RenderSystems
                 }
 
                 //Disable the vertex arrays
-                for (uint i = 0; i < BufferCount; i++)
+                for (uint i = 0; i < BufferCount + USER_BUFFER_OFFSET; i++)
                 {
                     glDisableVertexAttribArray(i);
                 }

@@ -45,9 +45,7 @@ namespace GJ2022.Rendering.RenderSystems
             for (int i = 0; i < bufferArrays.Length; i++)
             {
                 RenderInterface target = instanceRenderables[i];
-                TargetRenderSystem targetSystem = target.TargetRenderSystem;
-                float[] bufferData = target.
-                float[] bufferData = instanceRenderables[index].GetBufferData(i);
+                float[] bufferData = target.RenderSystem.GetBufferData(target, i);
                 UpdateBuffer(i, index, bufferData);
             }
         }

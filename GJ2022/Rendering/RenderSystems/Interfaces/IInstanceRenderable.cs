@@ -7,9 +7,8 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
         where TargetInterface : IInternalRenderable
         where TargetRenderSystem : RenderSystem<TargetInterface, TargetRenderSystem>
     {
-
+        //wrapper I guess
         RenderSystem<TargetInterface, TargetRenderSystem> RenderSystem { get; }
-
     }
 
     //NOTE:
@@ -20,6 +19,7 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
     //This prevents us dealing with a mess of generic classes self looping.
     public interface IInternalRenderable
     {
+
         //Store the renderable batch index somewhere, so it can be fetched later
         void SetRenderableBatchIndex(object associatedSet, int index);
 

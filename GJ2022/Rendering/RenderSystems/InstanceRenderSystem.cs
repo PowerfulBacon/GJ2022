@@ -1,6 +1,8 @@
 ﻿using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.RenderSystems.RenderData;
+using GJ2022.Rendering.Textures;
+using GJ2022.Utility.MathConstructs;
 using System;
 using static OpenGL.Gl;
 
@@ -23,8 +25,6 @@ namespace GJ2022.Rendering.RenderSystems
 
         protected override uint[] BufferDataPointsPerInstance { get; } = new uint[] { 1, 1 };
 
-        protected override bool[] IsInstanceBuffer { get; } = new bool[] { true, true };
-
         protected override RenderBatchGroup GetBatchGroup(IStandardRenderable renderable)
         {
             return new RenderBatchGroup(renderable.GetModel(), renderable.GetTextureUint());
@@ -35,31 +35,32 @@ namespace GJ2022.Rendering.RenderSystems
             Singleton = this;
         }
 
-        public override unsafe float* GetBufferPointer(RenderBatch<IStandardRenderable, InstanceRenderSystem> targetBatch, int index)
-        {
-            switch (index)
-            {
-                case 2:
-                    return &targetBatch.bufferArrays[0];
-            }
-            return null;
-        }
-
         public override void EndRender()
         {
-            throw new NotImplementedException();
+            return;
         }
 
-        protected override uint GetUnmanagedBufferLocation(uint target, RenderBatchGroup targetBatch)
+        public override float[] GetBufferData(IStandardRenderable targetItem, int bufferIndex)
         {
-            switch (target)
+            switch (bufferIndex)
             {
                 case 0:
-                    return targetBatch.Model.VertexBufferObject;
+                    Vector position = targetItem.GetPosition();
+                    return new float[] {
+                        position[0],
+                        position[1],
+                        position[2]
+                    };
                 case 1:
-                    return targetBatch.Model.UvBuffer;
+                    RendererTextureData texData = targetItem.GetRendererTextureData();
+                    return new float[] {
+                        texData.IndexX,
+                        texData.IndexY,
+                        texData.Width,
+                        texData.Height,
+                    };
             }
-            return 0;
+            throw new ArgumentException($"Invalid argument buffer index supplied: buffer supplied {bufferIndex}, maxBuffer: {BufferCount}");
         }
     }
 }

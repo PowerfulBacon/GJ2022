@@ -13,7 +13,7 @@ namespace GJ2022.Rendering.Models
 
         protected ShaderSet shader;
 
-        private Model model;
+        public Model model;
 
         public ModelData(ShaderSet shader, Model model)
         {
