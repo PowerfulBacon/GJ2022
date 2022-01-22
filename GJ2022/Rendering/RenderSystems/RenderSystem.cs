@@ -42,6 +42,9 @@ namespace GJ2022.Rendering.RenderSystems
         //1 indicates that each instance gets its own set of data (positions, colours etc.)
         protected abstract uint[] BufferDataPointsPerInstance { get; }
 
+        //True if the buffer with ID index require updating each frame
+        protected abstract bool[] IsInstanceBuffer { get; }
+
         //The buffer locations
         private uint[] bufferLocations;
 
@@ -121,9 +124,15 @@ namespace GJ2022.Rendering.RenderSystems
         protected abstract void SetSingleton();
 
         /// <summary>
-        /// Returns the buffer data for a specified renderable.
+        /// Provides the pointer to the buffer of data at the specified index
         /// </summary>
-        public abstract float[] GetBufferData(RenderTargetInterface renderableInterface);
+        public abstract unsafe float* GetBufferPointer(RenderBatch<RenderTargetInterface, TargetRenderSystem> targetBatch, int index);
+
+        /// <summary>
+        /// Get the location of an unmanaged buffer
+        /// TODO: Remove
+        /// </summary>
+        protected abstract uint GetUnmanagedBufferLocation(uint target, RenderBatchGroup targetBatch);
 
         /// <summary>
         /// Initialize the rendering system.
@@ -136,6 +145,9 @@ namespace GJ2022.Rendering.RenderSystems
 
             for (int i = 0; i < BufferCount; i++)
             {
+                //Manually handled buffer
+                if (!IsInstanceBuffer[i])
+                    continue;
                 //Generate a buffer and store it in the appropriate location
                 bufferLocations[i] = glGenBuffer();
                 //Bind the buffer
@@ -196,7 +208,7 @@ namespace GJ2022.Rendering.RenderSystems
         /// Render the models provided.
         /// Requires the ModelData instance and a list of renderable objects associated with that
         /// </summary>
-        public virtual void RenderModels(Camera mainCamera)
+        public virtual unsafe void RenderModels(Camera mainCamera)
         {
             //Generate an array for the positions of the things we're rendering
             //Bind the attrib arrays for each model
@@ -224,7 +236,7 @@ namespace GJ2022.Rendering.RenderSystems
                 //Bind the buffers
                 for (uint i = 0; i < BufferCount; i++)
                 {
-                    BindAttribArray(i, bufferLocations[i], BufferWidths[i]);
+                    BindAttribArray(i, IsInstanceBuffer[i] ? bufferLocations[i] : GetUnmanagedBufferLocation(i, cacheKey), BufferWidths[i]);
                     glVertexAttribDivisor(i, BufferDataPointsPerInstance[i]);
                 }
 
@@ -247,29 +259,17 @@ namespace GJ2022.Rendering.RenderSystems
                     //if its not the end batch then its the batch size (Non-last batches are full)
                     int count = i == renderBatchSet.renderBatches.Count - 1 ? renderBatchSet.renderElements % RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE : RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE;
 
-                    //Now that we have the instance positions in an array, we
-                    //can send it to openGL and render.
-                    fixed (float* instancePositionArrayPointer = &batch.batchPositionArray[0])
+                    //We only need to do this buffering on buffers that change
+                    for (int bufferI = 0; bufferI < BufferCount; bufferI++)
                     {
-                        glBindBuffer(GL_ARRAY_BUFFER, instancePositionBuffer);
-                        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
-                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 3 * count, instancePositionArrayPointer);
-                    }
-
-                    //Do the same for texture data
-                    fixed (float* instanceTexDataArrayPointer = &batch.batchSpriteData[0])
-                    {
-                        glBindBuffer(GL_ARRAY_BUFFER, instanceTexDataBuffer);
-                        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
-                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 4 * count, instanceTexDataArrayPointer);
-                    }
-
-                    //Finally, do the same for scaling data
-                    fixed (float* instanceScaleArrayPointer = &batch.batchSizeArray[0])
-                    {
-                        glBindBuffer(GL_ARRAY_BUFFER, instanceScaleDataBuffer);
-                        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 2 * RenderBatch.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
-                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 2 * count, instanceScaleArrayPointer);
+                        //If the buffer doesn't change, don't put subdata into it
+                        if (!IsInstanceBuffer[bufferI])
+                            continue;
+                        //Otherwise provide the pointer to the array
+                        float* bufferPointer = GetBufferPointer(batch, bufferI);
+                        glBindBuffer(GL_ARRAY_BUFFER, bufferLocations[bufferI]);
+                        glBufferData(GL_ARRAY_BUFFER, sizeof(float) * BufferWidths[bufferI] * RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
+                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 4 * count, bufferPointer);
                     }
 
                     //Perform batch rendering
@@ -279,11 +279,10 @@ namespace GJ2022.Rendering.RenderSystems
                 }
 
                 //Disable the vertex arrays
-                glDisableVertexAttribArray(0);
-                glDisableVertexAttribArray(1);
-                glDisableVertexAttribArray(2);
-                glDisableVertexAttribArray(3);
-                glDisableVertexAttribArray(4);
+                for (uint i = 0; i < BufferCount; i++)
+                {
+                    glDisableVertexAttribArray(i);
+                }
             }
 
         }
