@@ -17,7 +17,6 @@ namespace GJ2022.Rendering.RenderSystems
         where TargetRenderSystem : RenderSystem<RenderInterface, TargetRenderSystem>
     {
 
-        //TODO
         public const int MAX_BATCH_SIZE = 25000;
 
         public RenderInterface[] instanceRenderables = new RenderInterface[MAX_BATCH_SIZE];
