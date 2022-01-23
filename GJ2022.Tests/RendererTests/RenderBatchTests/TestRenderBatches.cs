@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.RenderSystems;
+﻿using GJ2022.Rendering.Models;
+using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
@@ -19,9 +20,11 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
 
     }
 
-    public class TestRenderable : IInstanceRenderable
+    public class TestRenderable : IStandardRenderable
     {
         private int sample;
+
+        public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => InstanceRenderSystem.Singleton;
 
         public Vector GetInstancePosition() { return new Vector(3); }
 
@@ -30,12 +33,12 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
             return new Colour();
         }
 
-        public void SetRenderableBatchIndex(RenderBatchSet associatedSet, int index)
+        public void SetRenderableBatchIndex(object associatedSet, int index)
         {
             sample = index;
         }
 
-        public int GetRenderableBatchIndex(RenderBatchSet associatedSet)
+        public int GetRenderableBatchIndex(object associatedSet)
         {
             return sample;
         }
@@ -43,6 +46,26 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
         public Vector GetInstanceScale()
         {
             return new Vector(2, 1, 1);
+        }
+
+        public RendererTextureData GetRendererTextureData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Model GetModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint GetTextureUint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector GetPosition()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -55,9 +78,9 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
         [TestMethod]
         public void TestBasicAdding()
         {
-            RenderBatchSet set = new RenderBatchSet(sampleTextureData);
+            RenderBatchSet<IStandardRenderable, InstanceRenderSystem> set = new RenderBatchSet<IStandardRenderable, InstanceRenderSystem>(sampleTextureData, 0, new int[] { });
             Assert.AreEqual(0, set.renderElements, "Set should contain no render elements");
-            IInstanceRenderable testRenderable = new TestRenderable();
+            IStandardRenderable testRenderable = new TestRenderable();
             set.AddToBatch(testRenderable, sampleTextureData);
             Assert.AreEqual(1, set.renderElements, "Set should contain 1 render elements");
         }
@@ -65,12 +88,12 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
         [TestMethod]
         public void TestBasicRemoving()
         {
-            RenderBatchSet set = new RenderBatchSet(sampleTextureData);
+            RenderBatchSet<IStandardRenderable, InstanceRenderSystem> set = new RenderBatchSet<IStandardRenderable, InstanceRenderSystem>(sampleTextureData, 0, new int[] { });
             Assert.AreEqual(0, set.renderElements, "Set should contain no render elements");
-            IInstanceRenderable testRenderable = new TestRenderable();
+            IStandardRenderable testRenderable = new TestRenderable();
             set.AddToBatch(testRenderable, sampleTextureData);
             Assert.AreEqual(1, set.renderElements, "Set should contain 1 render elements");
-            IInstanceRenderable testRenderable2 = new TestRenderable();
+            IStandardRenderable testRenderable2 = new TestRenderable();
             set.AddToBatch(testRenderable2, sampleTextureData);
             Assert.AreEqual(2, set.renderElements, "Set should contain 2 render elements");
             Assert.AreEqual(testRenderable, set.renderBatches[0].instanceRenderables[0], "Instance 1 should be stored at 0");
@@ -83,12 +106,12 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
         [TestMethod]
         public void TestClearing()
         {
-            RenderBatchSet set = new RenderBatchSet(sampleTextureData);
+            RenderBatchSet<IStandardRenderable, InstanceRenderSystem> set = new RenderBatchSet<IStandardRenderable, InstanceRenderSystem>(sampleTextureData, 0, new int[] { });
             Assert.AreEqual(0, set.renderElements, "Set should contain no render elements");
-            IInstanceRenderable testRenderable = new TestRenderable();
+            IStandardRenderable testRenderable = new TestRenderable();
             set.AddToBatch(testRenderable, sampleTextureData);
             Assert.AreEqual(1, set.renderElements, "Set should contain 1 render elements");
-            IInstanceRenderable testRenderable2 = new TestRenderable();
+            IStandardRenderable testRenderable2 = new TestRenderable();
             set.AddToBatch(testRenderable2, sampleTextureData);
             Assert.AreEqual(2, set.renderElements, "Set should contain 2 render elements");
             set.RemoveFromBatch(testRenderable);
@@ -100,32 +123,32 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
         [TestMethod]
         public void TestBatchOverflowing()
         {
-            RenderBatchSet set = new RenderBatchSet(sampleTextureData);
+            RenderBatchSet<IStandardRenderable, InstanceRenderSystem> set = new RenderBatchSet<IStandardRenderable, InstanceRenderSystem>(sampleTextureData, 0, new int[] { });
 
             //Fill with 25000 elements
 
             //THIS IS REUSED, USING THIS WILL CAUSE PROBLEMS AND IS NOT THE POINT OF THIS TEST
-            IInstanceRenderable reusableTestRenderable = new TestRenderable();
+            IStandardRenderable reusableTestRenderable = new TestRenderable();
 
-            for (int i = 0; i < RenderBatch.MAX_BATCH_SIZE; i++)
+            for (int i = 0; i < RenderBatch<IStandardRenderable, InstanceRenderSystem>.MAX_BATCH_SIZE; i++)
             {
                 set.AddToBatch(reusableTestRenderable, sampleTextureData);
             }
 
-            Assert.AreEqual(RenderBatch.MAX_BATCH_SIZE, set.renderElements, $"There should be {RenderBatch.MAX_BATCH_SIZE} items inside the render batch.");
+            Assert.AreEqual(RenderBatch<IStandardRenderable, InstanceRenderSystem>.MAX_BATCH_SIZE, set.renderElements, $"There should be {RenderBatch<IStandardRenderable, InstanceRenderSystem>.MAX_BATCH_SIZE} items inside the render batch.");
             Assert.AreEqual(1, set.renderBatches.Count, "There should only be 1 render batch");
 
             //Cause an overflow
-            IInstanceRenderable overflowingElement = new TestRenderable();
+            IStandardRenderable overflowingElement = new TestRenderable();
             set.AddToBatch(overflowingElement, sampleTextureData);
 
-            Assert.AreEqual(RenderBatch.MAX_BATCH_SIZE + 1, set.renderElements, $"There should be {RenderBatch.MAX_BATCH_SIZE + 1} items inside the render batch.");
+            Assert.AreEqual(RenderBatch<IStandardRenderable, InstanceRenderSystem>.MAX_BATCH_SIZE + 1, set.renderElements, $"There should be {RenderBatch<IStandardRenderable, InstanceRenderSystem>.MAX_BATCH_SIZE + 1} items inside the render batch.");
             Assert.AreEqual(2, set.renderBatches.Count, "Due to an overflow, there should be 2 render batches");
 
             //Remove it
             set.RemoveFromBatch(overflowingElement);
 
-            Assert.AreEqual(RenderBatch.MAX_BATCH_SIZE, set.renderElements, "Testing correct batch size");
+            Assert.AreEqual(RenderBatch<IStandardRenderable, InstanceRenderSystem>.MAX_BATCH_SIZE, set.renderElements, "Testing correct batch size");
             Assert.AreEqual(1, set.renderBatches.Count, "Testing correct batch count: Extra batch should have been deleted");
 
         }

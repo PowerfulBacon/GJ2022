@@ -16,6 +16,7 @@ using GJ2022.Entities.StationPart.Hallways;
 
 namespace GJ2022
 {
+
     public class Program
     {
 
