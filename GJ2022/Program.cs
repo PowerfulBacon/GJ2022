@@ -129,6 +129,7 @@ namespace GJ2022
         static void SetCallbacks(Window window)
         {
             Glfw.SetWindowSizeCallback(window, (IntPtr windowPtr, int width, int height) => WindowSizeCallback(windowPtr, width, height));
+            Glfw.SetScrollCallback(window, (IntPtr windowPtr, double x, double y) => RenderMaster.mainCamera.OnScroll(y)); ;
         }
 
         /// <summary>
