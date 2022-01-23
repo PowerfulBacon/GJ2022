@@ -7,8 +7,9 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
         where TargetInterface : IInternalRenderable
         where TargetRenderSystem : RenderSystem<TargetInterface, TargetRenderSystem>
     {
-        //wrapper I guess
+
         RenderSystem<TargetInterface, TargetRenderSystem> RenderSystem { get; }
+
     }
 
     //NOTE:

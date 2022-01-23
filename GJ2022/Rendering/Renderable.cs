@@ -18,7 +18,6 @@ namespace GJ2022.Rendering
         //We need to sort in terms of models for optimisations
         public virtual ModelData ModelData { get; set; } = BlockModelData.Singleton;
 
-
         //The position of the object in 3D space
         public Vector position = new Vector(3);
 
@@ -26,14 +25,6 @@ namespace GJ2022.Rendering
         {
             this.position = position;
         }
-
-        //Is this object being rendered?
-        public bool IsRendering { get; set; } = false;
-
-        /// <summary>
-        /// Get the renderable texture data that can be used by the renderer
-        /// </summary>
-        public abstract RendererTextureData GetRendererTexture();
 
     }
 }

@@ -7,11 +7,19 @@ using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.RenderSystems
 {
+
+    public abstract class RenderSystem
+    {
+        public abstract unsafe void BeginRender(Camera mainCamera);
+        public abstract unsafe void RenderModels(Camera mainCamera);
+        public abstract void EndRender();
+    }
+
     /// <summary>
     /// Render systems, handles rendering related stuff
     /// </summary>
     /// <typeparam name="RenderTargetInterface">The interface used by things rendered by this system</typeparam>
-    public abstract class RenderSystem<RenderTargetInterface, TargetRenderSystem>
+    public abstract class RenderSystem<RenderTargetInterface, TargetRenderSystem> : RenderSystem
         where RenderTargetInterface : IInternalRenderable
         where TargetRenderSystem : RenderSystem<RenderTargetInterface, TargetRenderSystem>
     {
@@ -130,7 +138,7 @@ namespace GJ2022.Rendering.RenderSystems
         /// </summary>
         public virtual unsafe float* GetBufferPointer(RenderBatch<RenderTargetInterface, TargetRenderSystem> targetBatch, int index)
         {
-            fixed (float* ptr = &targetBatch.bufferArrays[0][index - USER_BUFFER_OFFSET])
+            fixed (float* ptr = &targetBatch.bufferArrays[index][0])
                 return ptr;
         }
 
@@ -168,7 +176,7 @@ namespace GJ2022.Rendering.RenderSystems
         /// <summary>
         /// Prepare the system for rendering
         /// </summary>
-        public virtual unsafe void BeginRender(Camera mainCamera)
+        public override unsafe void BeginRender(Camera mainCamera)
         {
             //Attach the shader set
             glUseProgram(programUint);
@@ -205,7 +213,7 @@ namespace GJ2022.Rendering.RenderSystems
         /// Render the models provided.
         /// Requires the ModelData instance and a list of renderable objects associated with that
         /// </summary>
-        public virtual unsafe void RenderModels(Camera mainCamera)
+        public override unsafe void RenderModels(Camera mainCamera)
         {
             //Generate an array for the positions of the things we're rendering
             //Bind the attrib arrays for each model
@@ -294,11 +302,6 @@ namespace GJ2022.Rendering.RenderSystems
             glUniform1f(uniformVariableLocations["spriteWidth"], renderBatchSet.textureData.FileWidth);
             glUniform1f(uniformVariableLocations["spriteHeight"], renderBatchSet.textureData.FileHeight);
         }
-
-        /// <summary>
-        /// Cleanup anything we did in beginRender
-        /// </summary>
-        public abstract void EndRender();
 
         /// <summary>
         /// Binds the atrib array at index provided, with the buffer data provided.

@@ -28,5 +28,4 @@ void main()
 	gl_Position.z = 1.0;
     //Output the vertex UV to the fragment shader
     UV = vertexUv;
-    texData = textureData;
 }

@@ -22,11 +22,6 @@ namespace GJ2022.Entities.Background
         public BackgroundEntity(Vector position) : base(position)
         { }
 
-        public override RendererTextureData GetRendererTexture()
-        {
-            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
-        }
-
         /// <summary>
         /// Instance renderable stuff
         /// </summary>
@@ -55,7 +50,7 @@ namespace GJ2022.Entities.Background
 
         public RendererTextureData GetRendererTextureData()
         {
-            throw new NotImplementedException();
+            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
         }
     }
 }

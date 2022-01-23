@@ -15,9 +15,5 @@ namespace GJ2022.Entities.StationPart.Hallways
 
         public HallwayCross(Vector position) : base(position) { }
 
-        public override RendererTextureData GetRendererTexture()
-        {
-            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
-        }
     }
 }

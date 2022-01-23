@@ -3,6 +3,7 @@ using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Utility.MathConstructs;
 using static OpenGL.Gl;
+using GJ2022.Rendering.RenderSystems.Interfaces;
 
 namespace GJ2022.Rendering
 {

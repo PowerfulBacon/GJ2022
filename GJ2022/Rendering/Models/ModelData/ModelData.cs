@@ -21,14 +21,5 @@ namespace GJ2022.Rendering.Models
             this.model = model;
         }
 
-        /// <summary>
-        /// Returns a model based on what sides the block is blocked on.
-        /// </summary>
-        /// <param name="renderBlockFlag"></param>
-        public virtual RenderableData[] GetModelRenderableData(Renderable renderable)
-        {
-            return new RenderableData[] { new RenderableData(shader, model, renderable, renderable.GetRendererTexture()) };
-        }
-
     }
 }
