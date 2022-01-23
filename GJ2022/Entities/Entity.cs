@@ -3,13 +3,15 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities
 {
-    public abstract class Entity : Renderable
+    public abstract class Entity
     {
 
-        public Entity(Vector position) : base(position)
+        //The position of the object in 3D space
+        public Vector position = new Vector(0, 0, 0);
+
+        public Entity(Vector position)
         {
-            //If this contains an initialize behaviour it will be added, otherwise it will be null and skipped
-            //InitializeSubsystem.Singleton.Initialize(this as IInitializeBehaviour);
+            this.position = position;
         }
 
     }

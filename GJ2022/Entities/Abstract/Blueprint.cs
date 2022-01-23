@@ -22,7 +22,7 @@ namespace GJ2022.Entities.Abstract
 
         public RenderSystem<IBlueprintRenderable, BlueprintRenderSystem> RenderSystem => BlueprintRenderSystem.Singleton;
 
-        public override ModelData ModelData { get; set; } = QuadModelData.Singleton;
+        public ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
         private string usingTexture = "";
 
