@@ -5,9 +5,39 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
     public class Line
     {
 
-        public Vector Start { get; set; }
+        private Vector _start;
+        public Vector Start
+        {
+            get
+            {
+                return _start;
+            }
+            set
+            {
+                _start = value;
+                //Calculate delta
+                Vector delta = End - Start;
+                //Calculate object matrix
+                ObjectMatrix = Matrix.GetTranslationMatrix(-Start[0], -Start[1], -Start[2]) * Matrix.GetScaleMatrix(delta[0], delta[1], delta[2]);
+            }
+        }
 
-        public Vector End { get; set; }
+        private Vector _end;
+        public Vector End
+        {
+            get
+            {
+                return _end;
+            }
+            set
+            {
+                _end = value;
+                //Calculate delta
+                Vector delta = End - Start;
+                //Calculate object matrix
+                ObjectMatrix = Matrix.GetTranslationMatrix(-Start[0], -Start[1], -Start[2]) * Matrix.GetScaleMatrix(delta[0], delta[1], delta[2]);
+            }
+        }
 
         public Colour Colour { get; set; }
 
@@ -30,8 +60,8 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
 
         public Line(Vector start, Vector end, Colour colour)
         {
-            Start = start;
-            End = end;
+            _start = start;
+            _end = end;
             Colour = colour;
             //Calculate delta
             Vector delta = End - Start;
