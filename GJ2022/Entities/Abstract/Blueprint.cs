@@ -1,4 +1,7 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Game.Construction;
+using GJ2022.Game.Construction.Walls;
+using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -8,10 +11,12 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Abstract
 {
-    public class Blueprint : Entity, IDestroyable
+    public class Blueprint : Entity, IStandardRenderable, IDestroyable
     {
 
         private bool isDestroyed = false;
+
+        public BlueprintDetail BlueprintDetail { get; set; } = new FoundationBlueprint();
 
         public Blueprint(Vector position) : base(position)
         { }
@@ -29,5 +34,11 @@ namespace GJ2022.Entities.Abstract
         {
             return isDestroyed;
         }
+
+        public override RendererTextureData GetRendererTexture()
+        {
+            return TextureCache.GetTexture("stone");
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Rendering;
+using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
@@ -54,23 +55,8 @@ namespace GJ2022.Subsystems
             int windowWidth;
             int windowHeight;
             Glfw.GetWindowSize(window, out windowWidth, out windowHeight);
-            //Calculate the proportional position of the mouse
-            cursorX /= windowWidth;
-            cursorY /= windowHeight;
-            //Convert from bounds [0, 1] to [-1, 1]
-            cursorX = cursorX * 2 - 1;
-            cursorY = cursorY * 2 - 1;
-            //Guess
-            Matrix cameraMatrix = RenderMaster.mainCamera.ProjectionMatrix * RenderMaster.mainCamera.ViewMatrix;
-            float translationX = cameraMatrix[4, 1];
-            float translationY = cameraMatrix[4, 2];
-            float scaleX = cameraMatrix[1, 1];
-            float scaleY = cameraMatrix[2, 2];
-            //Convert the cursor screen pos into world position.
-            cursorX += translationX;
-            cursorY += -translationY;
-            cursorX /= scaleX;
-            cursorY /= -scaleY;
+            //Convert to world coords
+            Vector worldCoordinates = ScreenToWorldHelper.GetWorldCoordinates(new Vector(2, (float)cursorX, (float)cursorY), new Vector(2, windowWidth, windowHeight));
             //Go through all tracking events and handle them
             for (int i = trackingEvents.Count - 1; i >= 0; i--)
             {
@@ -82,7 +68,10 @@ namespace GJ2022.Subsystems
                 double minimumY = mouseEventHolder.WorldY;
                 double maximumY = minimumY + mouseEventHolder.Height;
                 //Check if colliding
-                bool colliding = cursorX >= minimumX && cursorX <= maximumX && cursorY >= minimumY && cursorY <= maximumY;
+                bool colliding = worldCoordinates[0] >= minimumX
+                    && worldCoordinates[0] <= maximumX
+                    && worldCoordinates[1] >= minimumY
+                    && worldCoordinates[1] <= maximumY;
                 switch (collisionState)
                 {
                     case MouseCollisionState.NONE:
