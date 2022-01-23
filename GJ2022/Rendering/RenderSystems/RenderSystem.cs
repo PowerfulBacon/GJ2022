@@ -267,7 +267,17 @@ namespace GJ2022.Rendering.RenderSystems
                     //Get the count of elements in this batch
                     //If its the end batch, its the amount of render elements mod the batch size,
                     //if its not the end batch then its the batch size (Non-last batches are full)
-                    int count = i == renderBatchSet.renderBatches.Count - 1 ? renderBatchSet.renderElements % RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE : RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE;
+                    int count =
+                        i == renderBatchSet.renderBatches.Count - 1
+                        ? renderBatchSet.renderElements % RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE
+                        : RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE;
+
+                    //Correction for when N = max size, since if there are max size elements in the list, instead of rendering 0 at the end
+                    //we want to render all of them.
+                    if (count == 0 && renderBatchSet.renderBatches.Count != 0)
+                    {
+                        count = RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE;
+                    }
 
                     //We only need to do this buffering on buffers that change
                     for (int bufferI = 0; bufferI < BufferCount; bufferI++)
@@ -276,7 +286,7 @@ namespace GJ2022.Rendering.RenderSystems
                         float* bufferPointer = GetBufferPointer(batch, bufferI);
                         glBindBuffer(GL_ARRAY_BUFFER, bufferLocations[bufferI]);
                         glBufferData(GL_ARRAY_BUFFER, sizeof(float) * BufferWidths[bufferI] * RenderBatch<RenderTargetInterface, TargetRenderSystem>.MAX_BATCH_SIZE, NULL, GL_STREAM_DRAW);
-                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * 4 * count, bufferPointer);
+                        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * BufferWidths[bufferI] * count, bufferPointer);
                     }
 
                     //Perform batch rendering
