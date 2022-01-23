@@ -9,4 +9,12 @@ The game should have some kind of anomalous thingy that lets you get powers, but
 
 Will I be able to implement all of this in 10 days without using a game engine? Probably not, but hopefully there is a basic simulation by the end of it where you can watch your people and build a station.
 
+## Update:
+
+The game plan has changed to be a rimworld style game where you build a space station. Similar to before, except now rather than pre-determined room sizes the rooms will be designed by drag and drop.
+This should be about the same difficulty to perform, although might require less abstraction down the line meaning more features will be required, however pathfinding should be easier and the game looks better and plays better.
+
+![image](https://user-images.githubusercontent.com/26465327/150687457-2d106f7a-9949-4485-8a70-315d7c270c65.png)
+
+
 # Screenshots
