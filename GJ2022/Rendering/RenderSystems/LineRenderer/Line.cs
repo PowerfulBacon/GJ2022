@@ -5,8 +5,8 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
     public class Line
     {
 
-        private Vector _start;
-        public Vector Start
+        private Vector<float> _start;
+        public Vector<float> Start
         {
             get
             {
@@ -16,14 +16,14 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
             {
                 _start = value;
                 //Calculate delta
-                Vector delta = End - Start;
+                Vector<float> delta = End - Start;
                 //Calculate object matrix
                 ObjectMatrix = Matrix.GetTranslationMatrix(-Start[0], -Start[1], -Start[2]) * Matrix.GetScaleMatrix(delta[0], delta[1], delta[2]);
             }
         }
 
-        private Vector _end;
-        public Vector End
+        private Vector<float> _end;
+        public Vector<float> End
         {
             get
             {
@@ -33,7 +33,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
             {
                 _end = value;
                 //Calculate delta
-                Vector delta = End - Start;
+                Vector<float> delta = End - Start;
                 //Calculate object matrix
                 ObjectMatrix = Matrix.GetTranslationMatrix(-Start[0], -Start[1], -Start[2]) * Matrix.GetScaleMatrix(delta[0], delta[1], delta[2]);
             }
@@ -43,7 +43,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
 
         public Matrix ObjectMatrix { get; private set; }
 
-        public static Line StartDrawingLine(Vector start, Vector end, Colour? colour = null)
+        public static Line StartDrawingLine(Vector<float> start, Vector<float> end, Colour? colour = null)
         {
             Colour lineColour;
             if (colour == null)
@@ -58,13 +58,13 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
             return line;
         }
 
-        public Line(Vector start, Vector end, Colour colour)
+        public Line(Vector<float> start, Vector<float> end, Colour colour)
         {
             _start = start;
             _end = end;
             Colour = colour;
             //Calculate delta
-            Vector delta = End - Start;
+            Vector<float> delta = End - Start;
             //Calculate object matrix
             ObjectMatrix = Matrix.GetTranslationMatrix(-Start[0], -Start[1], -Start[2]) * Matrix.GetScaleMatrix(delta[0], delta[1], delta[2]);
         }

@@ -12,7 +12,7 @@ namespace GJ2022.Entities.Background
 
         public RenderSystem<IBackgroundRenderable, BackgroundRenderSystem> RenderSystem => BackgroundRenderSystem.Singleton;
 
-        public BackgroundEntity(Vector position) : base(position)
+        public BackgroundEntity(Vector<float> position) : base(position)
         { }
 
         /// <summary>

@@ -38,7 +38,7 @@ namespace GJ2022.Rendering.RenderSystems
             switch (bufferIndex)
             {
                 case 0:
-                    Vector position = targetItem.GetPosition();
+                    Vector<float> position = targetItem.GetPosition();
                     return new float[] {
                         position[0],
                         position[1],

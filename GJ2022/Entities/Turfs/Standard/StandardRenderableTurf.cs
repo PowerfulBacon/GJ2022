@@ -29,9 +29,9 @@ namespace GJ2022.Entities.Turfs.Standard
             return QuadModelData.Singleton.model;
         }
 
-        public Vector GetPosition()
+        public Vector<float> GetPosition()
         {
-            return new Vector(X, Y, 0);
+            return new Vector<float>(X, Y, 0);
         }
 
         public RendererTextureData GetRendererTextureData()

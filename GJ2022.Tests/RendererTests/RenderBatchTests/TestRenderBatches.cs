@@ -26,7 +26,7 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
 
         public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => InstanceRenderSystem.Singleton;
 
-        public Vector GetInstancePosition() { return new Vector(0, 0, 0); }
+        public Vector<float> GetInstancePosition() { return new Vector<float>(0, 0, 0); }
 
         public Colour GetLightingColour()
         {
@@ -43,9 +43,9 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
             return sample;
         }
 
-        public Vector GetInstanceScale()
+        public Vector<float> GetInstanceScale()
         {
-            return new Vector(1, 1);
+            return new Vector<float>(1, 1);
         }
 
         public RendererTextureData GetRendererTextureData()
@@ -63,7 +63,7 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
             throw new NotImplementedException();
         }
 
-        public Vector GetPosition()
+        public Vector<float> GetPosition()
         {
             throw new NotImplementedException();
         }
