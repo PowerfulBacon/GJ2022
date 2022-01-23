@@ -31,7 +31,7 @@ namespace GJ2022.Entities.Debug
 
         protected virtual string Texture { get; set; } = TextureCache.ERROR_ICON_STATE;
 
-        public DebugEntity(Vector position) : base(position)
+        public DebugEntity(Vector<float> position) : base(position)
         {
             MouseCollisionSubsystem.Singleton.StartTracking(this);
             InstanceRenderSystem.Singleton.StartRendering(this);
@@ -63,7 +63,7 @@ namespace GJ2022.Entities.Debug
                 return -1;
         }
 
-        public Vector GetInstancePosition()
+        public Vector<float> GetInstancePosition()
         {
             return position;
         }
@@ -88,9 +88,9 @@ namespace GJ2022.Entities.Debug
             return false;
         }
 
-        public Vector GetInstanceScale()
+        public Vector<float> GetInstanceScale()
         {
-            return new Vector(1, 1);
+            return new Vector<float>(1, 1);
         }
 
         public Model GetModel()
@@ -103,7 +103,7 @@ namespace GJ2022.Entities.Debug
             return GetRendererTextureData().TextureUint;
         }
 
-        public Vector GetPosition()
+        public Vector<float> GetPosition()
         {
             return position;
         }

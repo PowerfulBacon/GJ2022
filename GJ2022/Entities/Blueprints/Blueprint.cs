@@ -31,7 +31,7 @@ namespace GJ2022.Entities.Blueprints
 
         public int BlueprintPriority { get; }
 
-        public Blueprint(Vector position, string texture, Type createdType, int priority) : base(position)
+        public Blueprint(Vector<float> position, string texture, Type createdType, int priority) : base(position)
         {
             //Set using texture
             usingTexture = texture;
@@ -85,9 +85,9 @@ namespace GJ2022.Entities.Blueprints
             return GetRendererTextureData().TextureUint;
         }
 
-        public Vector GetPosition()
+        public Vector<float> GetPosition()
         {
-            return new Vector(position[0], position[1], 2);
+            return new Vector<float>(position[0], position[1], 2);
         }
 
         public RendererTextureData GetRendererTextureData()

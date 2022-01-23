@@ -10,14 +10,14 @@ namespace GJ2022.Game.GameWorld
     {
 
         //Array of turfs in the world
-        public static Dictionary<Vector, Turf> WorldTurfs = new Dictionary<Vector, Turf>();
+        public static Dictionary<Vector<float>, Turf> WorldTurfs = new Dictionary<Vector<float>, Turf>();
 
         /// <summary>
         /// Get the turf at the specified location.
         /// </summary>
         public static Turf GetTurf(int x, int y)
         {
-            Vector targetPosition = new Vector(x, y);
+            Vector<float> targetPosition = new Vector<float>(x, y);
             if (WorldTurfs.ContainsKey(targetPosition))
                 return WorldTurfs[targetPosition];
             return null;
@@ -28,7 +28,7 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static void SetTurf(int x, int y, Turf turf)
         {
-            Vector targetPosition = new Vector(x, y);
+            Vector<float> targetPosition = new Vector<float>(x, y);
             if (turf == null)
                 WorldTurfs.Remove(targetPosition);
             else

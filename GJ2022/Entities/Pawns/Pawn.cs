@@ -16,7 +16,7 @@ namespace GJ2022.Entities.Pawns
     public class Pawn : Entity, ICircleRenderable, IProcessable
     {
 
-        public Pawn(Vector position) : base(position)
+        public Pawn(Vector<float> position) : base(position)
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
             CircleRenderSystem.Singleton.StartRendering(this);
@@ -39,7 +39,7 @@ namespace GJ2022.Entities.Pawns
             {
                 if (PawnControllerSystem.QueuedBlueprints.Count > 0)
                 {
-                    Vector workTargetPosition = ListPicker.Pick(PawnControllerSystem.QueuedBlueprints.Keys);
+                    Vector<float> workTargetPosition = ListPicker.Pick(PawnControllerSystem.QueuedBlueprints.Keys);
                     workTarget = PawnControllerSystem.QueuedBlueprints[workTargetPosition].Values.ElementAt(0);
                     if (line == null)
                     {
@@ -71,7 +71,7 @@ namespace GJ2022.Entities.Pawns
             }
         }
 
-        public Vector GetPosition()
+        public Vector<float> GetPosition()
         {
             return position;
         }

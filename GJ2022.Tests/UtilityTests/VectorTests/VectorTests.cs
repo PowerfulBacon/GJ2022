@@ -11,29 +11,29 @@ namespace GJ2022.Tests.UtilityTests.VectorTests
         [TestMethod]
         public void TestVectorLength()
         {
-            Vector vector = new Vector(3, 4, 0);
+            Vector<float> vector = new Vector<float>(3, 4, 0);
             Assert.AreEqual(5, vector.Length());
         }
 
         [TestMethod]
         public void TestVectorEquivilance()
         {
-            Vector a = new Vector(1, 2, 3);
-            Vector b = new Vector(1, 2, 3);
+            Vector<float> a = new Vector<float>(1, 2, 3);
+            Vector<float> b = new Vector<float>(1, 2, 3);
             Assert.AreEqual(a, b);
         }
 
         [TestMethod]
         public void TestDictionaryKey()
         {
-            Vector a = new Vector(1, 1, 1);
-            Dictionary<Vector, bool> testDict = new Dictionary<Vector, bool>();
+            Vector<float> a = new Vector<float>(1, 1, 1);
+            Dictionary<Vector<float>, bool> testDict = new Dictionary<Vector<float>, bool>();
             testDict.Add(a, true);
             Assert.IsTrue(testDict.ContainsKey(a), "Could not located same struct");
-            Assert.IsTrue(testDict.ContainsKey(new Vector(1, 1, 1)), "Could not locate identical struct");
-            Assert.IsTrue(testDict.ContainsKey(new Vector((int)1.4, 1, 1)), "Could not locate integer converted struct");
-            Assert.IsFalse(testDict.ContainsKey(new Vector(2, 1, 1)), "Hash collisions detected");
-            Assert.IsFalse(a.GetHashCode() == new Vector(2, 1, 1).GetHashCode(), "Hash collision detected.");
+            Assert.IsTrue(testDict.ContainsKey(new Vector<float>(1, 1, 1)), "Could not locate identical struct");
+            Assert.IsTrue(testDict.ContainsKey(new Vector<float>((int)1.4, 1, 1)), "Could not locate integer converted struct");
+            Assert.IsFalse(testDict.ContainsKey(new Vector<float>(2, 1, 1)), "Hash collisions detected");
+            Assert.IsFalse(a.GetHashCode() == new Vector<float>(2, 1, 1).GetHashCode(), "Hash collision detected.");
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace GJ2022.Tests.UtilityTests.VectorTests
         [TestMethod]
         public void TestVectorDotProduct()
         {
-            Vector a = new Vector(1, 1, 1);
-            Vector b = new Vector(2, 2, 2);
-            Assert.AreEqual(6, Vector.DotProduct(a, b));
+            Vector<float> a = new Vector<float>(1, 1, 1);
+            Vector<float> b = new Vector<float>(2, 2, 2);
+            Assert.AreEqual(6, Vector<float>.DotProduct(a, b));
         }
 
         /// <summary>
@@ -57,19 +57,19 @@ namespace GJ2022.Tests.UtilityTests.VectorTests
         [TestMethod]
         public void TestVectorMultiplication()
         {
-            Vector a = new Vector(1, 1, 1);
-            Vector b = new Vector(2, 2, 2);
-            Assert.AreEqual(new Vector(2, 2, 2), a * b);
-            Assert.AreEqual(new Vector(2, 2, 2), a * 2);
-            Assert.AreEqual(new Vector(5, 5, 5), b * 2.5f);
+            Vector<float> a = new Vector<float>(1, 1, 1);
+            Vector<float> b = new Vector<float>(2, 2, 2);
+            Assert.AreEqual(new Vector<float>(2, 2, 2), a * b);
+            Assert.AreEqual(new Vector<float>(2, 2, 2), a * 2);
+            Assert.AreEqual(new Vector<float>(5, 5, 5), b * 2.5f);
         }
 
         [TestMethod]
         public void TestVectorAddition()
         {
-            Vector a = new Vector(1, 1, 1);
-            Vector b = new Vector(2, 2, 2);
-            Assert.AreEqual(new Vector(3, 3, 3), a + b);
+            Vector<float> a = new Vector<float>(1, 1, 1);
+            Vector<float> b = new Vector<float>(2, 2, 2);
+            Assert.AreEqual(new Vector<float>(3, 3, 3), a + b);
         }
 
     }

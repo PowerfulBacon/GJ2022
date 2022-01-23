@@ -18,7 +18,7 @@ namespace GJ2022.Entities.Abstract
 
         public float Height { get; private set; }
 
-        public CollisionZone(Vector position, Vector scale)
+        public CollisionZone(Vector<float> position, Vector<float> scale)
         {
             WorldX = position[0];
             WorldY = position[1];

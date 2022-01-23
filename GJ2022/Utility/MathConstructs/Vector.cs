@@ -2,20 +2,21 @@
 
 namespace GJ2022.Utility.MathConstructs
 {
-    public struct Vector
+
+    public struct Vector<T>
     {
 
-        public Vector(params float[] values)
+        public Vector(params T[] values)
         {
             Values = values;
         }
 
-        private float[] Values;
+        private T[] Values;
 
         /// <summary>
         /// Overload for the [] operator, returns the element of the vector.
         /// </summary>
-        public float this[int x]
+        public T this[int x]
         {
             get { return Values[x]; }
             set { Values[x] = value; }
@@ -29,16 +30,16 @@ namespace GJ2022.Utility.MathConstructs
             get { return Values.Length; }
         }
 
-        public Vector IgnoreZ()
+        public Vector<T> IgnoreZ()
         {
-            return new Vector(Values[0], Values[1]);
+            return new Vector<T>(Values[0], Values[1]);
         }
 
         //TODO: REFACTOR THE LAYERING SYSTEM
-        public void MoveTowards(Vector target, float speed, float deltaTime, bool ignoreZ = true)
+        public void MoveTowards(Vector<T> target, float speed, float deltaTime, bool ignoreZ = true)
         {
-            Vector trueTarget = target;
-            Vector trueThis = this;
+            Vector<T> trueTarget = target;
+            Vector<T> trueThis = this;
             if (ignoreZ)
             {
                 trueTarget = trueTarget.IgnoreZ();
@@ -57,47 +58,47 @@ namespace GJ2022.Utility.MathConstructs
             }
             for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
             {
-                float dist = trueTarget[i] - trueThis.Values[i];
-                Values[i] += dist / totalDistance * (speed / deltaTime);
+                float dist = (dynamic)trueTarget[i] - trueThis.Values[i];
+                Values[i] += (dynamic)(dist / totalDistance * (speed / deltaTime));
             }
         }
 
-        public static bool operator ==(Vector a, Vector b)
+        public static bool operator ==(Vector<T> a, Vector<T> b)
         {
             if (a.Dimensions != b.Dimensions) return false;
-            for (int i = 0; i < a.Dimensions; i++) if (a[i] != b[i]) return false;
+            for (int i = 0; i < a.Dimensions; i++) if ((dynamic)a[i] != b[i]) return false;
             return true;
         }
 
-        public static bool operator !=(Vector a, Vector b)
+        public static bool operator !=(Vector<T> a, Vector<T> b)
         {
             if (a.Dimensions != b.Dimensions) return true;
-            for (int i = 0; i < a.Dimensions; i++) if (a[i] != b[i]) return true;
+            for (int i = 0; i < a.Dimensions; i++) if ((dynamic)a[i] != b[i]) return true;
             return false;
         }
 
         /// <summary>
         /// Returns the vector multiplied by -1
         /// </summary>
-        public static Vector operator -(Vector input) => input * -1;
+        public static Vector<T> operator -(Vector<T> input) => (dynamic)input * -1;
 
         /// <summary>
         /// Returns the vector.
         /// </summary>
-        public static Vector operator +(Vector input) => input;
+        public static Vector<T> operator +(Vector<T> input) => input;
 
         /// <summary>
         /// Adds 2 vectors together
         /// </summary>
-        public static Vector operator +(Vector a, Vector b)
+        public static Vector<T> operator +(Vector<T> a, Vector<T> b)
         {
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(new float[resultingDimensions]);
+            Vector<T> vector = new Vector<T>(new T[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
-                vector[i] = (i < a.Dimensions ? a[i] : 0) + (i < b.Dimensions ? b[i] : 0);
+                vector[i] = (i < a.Dimensions ? (dynamic)a[i] : 0) + (i < b.Dimensions ? (dynamic)b[i] : 0);
             //Return the resulting vector
             return vector;
         }
@@ -105,13 +106,13 @@ namespace GJ2022.Utility.MathConstructs
         /// <summary>
         /// Adds a constant value b to all values of a
         /// </summary>
-        public static Vector operator +(Vector a, float b)
+        public static Vector<T> operator +(Vector<T> a, T b)
         {
             //Create the new vector
-            Vector vector = new Vector(new float[a.Dimensions]);
+            Vector<T> vector = new Vector<T>(new T[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
-                vector[i] = a[i] + b;
+                vector[i] = (dynamic)a[i] + b;
             //Return the resulting vector
             return vector;
         }
@@ -119,15 +120,15 @@ namespace GJ2022.Utility.MathConstructs
         /// <summary>
         /// Takes the difference of 2 vectors
         /// </summary>
-        public static Vector operator -(Vector a, Vector b)
+        public static Vector<T> operator -(Vector<T> a, Vector<T> b)
         {
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(new float[resultingDimensions]);
+            Vector<T> vector = new Vector<T>(new T[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
-                vector[i] = (i < a.Dimensions ? a[i] : 0) - (i < b.Dimensions ? b[i] : 0);
+                vector[i] = (i < a.Dimensions ? (dynamic)a[i] : 0) - (i < b.Dimensions ? (dynamic)b[i] : 0);
             //Return the resulting vector
             return vector;
         }
@@ -135,13 +136,13 @@ namespace GJ2022.Utility.MathConstructs
         /// <summary>
         /// Subtracts a constant value of b from all values of a.
         /// </summary>
-        public static Vector operator -(Vector a, float b)
+        public static Vector<T> operator -(Vector<T> a, T b)
         {
             //Create the new vector
-            Vector vector = new Vector(new float[a.Dimensions]);
+            Vector<T> vector = new Vector<T>(new T[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
-                vector[i] = a[i] - b;
+                vector[i] = (dynamic)a[i] - b;
             //Return the resulting vector
             return vector;
         }
@@ -153,7 +154,7 @@ namespace GJ2022.Utility.MathConstructs
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static float DotProduct(Vector a, Vector b)
+        public static T DotProduct(Vector<T> a, Vector<T> b)
         {
             return a.DotProduct(b);
         }
@@ -163,28 +164,28 @@ namespace GJ2022.Utility.MathConstructs
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public float DotProduct(Vector other)
+        public T DotProduct(Vector<T> other)
         {
-            float result = 0;
+            dynamic result = 0;
             //Add the values
             for (int i = 0; i < Math.Max(Dimensions, other.Dimensions); i++)
-                result += this[i] * other[i];
+                result += (dynamic)this[i] * other[i];
             //Return the resulting vector
-            return result;
+            return (T)result;
         }
 
         /// <summary>
         /// Calculates the dot product of a and b
         /// </summary>
-        public static Vector operator *(Vector a, Vector b)
+        public static Vector<T> operator *(Vector<T> a, Vector<T> b)
         {
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(new float[resultingDimensions]);
+            Vector<T> vector = new Vector<T>(new T[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
-                vector[i] = (i < a.Dimensions ? a[i] : 0) * (i < b.Dimensions ? b[i] : 0);
+                vector[i] = (i < a.Dimensions ? (dynamic)a[i] : 0) * (i < b.Dimensions ? (dynamic)b[i] : 0);
             //Return the resulting vector
             return vector;
         }
@@ -192,14 +193,14 @@ namespace GJ2022.Utility.MathConstructs
         /// <summary>
         /// Multiplies a by a scalar b
         /// </summary>
-        public static Vector operator *(float b, Vector a) => a * b;
-        public static Vector operator *(Vector a, float b)
+        public static Vector<T> operator *(T b, Vector<T> a) => a * b;
+        public static Vector<T> operator *(Vector<T> a, T b)
         {
             //Create the new vector
-            Vector vector = new Vector(new float[a.Dimensions]);
+            Vector<T> vector = new Vector<T>(new T[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
-                vector[i] = a[i] * b;
+                vector[i] = (dynamic)a[i] * b;
             //Return the resulting vector
             return vector;
         }
@@ -207,15 +208,15 @@ namespace GJ2022.Utility.MathConstructs
         /// <summary>
         /// Divides the vector a by the values of the vector b
         /// </summary>
-        public static Vector operator /(Vector a, Vector b)
+        public static Vector<T> operator /(Vector<T> a, Vector<T> b)
         {
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(new float[resultingDimensions]);
+            Vector<T> vector = new Vector<T>(new T[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
-                vector[i] = (i < a.Dimensions ? a[i] : 0) / (i < b.Dimensions ? b[i] : 0);
+                vector[i] = (i < a.Dimensions ? (dynamic)a[i] : 0) / (i < b.Dimensions ? (dynamic)b[i] : 0);
             //Return the resulting vector
             return vector;
         }
@@ -223,13 +224,13 @@ namespace GJ2022.Utility.MathConstructs
         /// <summary>
         /// Divides the values of a by the scalar b
         /// </summary>
-        public static Vector operator /(Vector a, float b)
+        public static Vector<T> operator /(Vector<T> a, T b)
         {
             //Create the new vector
-            Vector vector = new Vector(new float[a.Dimensions]);
+            Vector<T> vector = new Vector<T>(new T[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
-                vector[i] = a[i] / b;
+                vector[i] = (dynamic)a[i] / b;
             //Return the resulting vector
             return vector;
         }
@@ -237,13 +238,13 @@ namespace GJ2022.Utility.MathConstructs
         /// <summary>
         /// Raises a to the power of b
         /// </summary>
-        public static Vector operator ^(Vector a, float b)
+        public static Vector<T> operator ^(Vector<T> a, T b)
         {
             //Create the new vector
-            Vector vector = new Vector(new float[a.Dimensions]);
+            Vector<T> vector = new Vector<T>(new T[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
-                vector[i] = (float)Math.Pow(a[i], b);
+                vector[i] = (T)Math.Pow((dynamic)a[i], (dynamic)b);
             //Return the resulting vector
             return vector;
         }
@@ -253,7 +254,7 @@ namespace GJ2022.Utility.MathConstructs
         /// </summary>
         public float Length()
         {
-            return (float)Math.Sqrt(DotProduct(this, this));
+            return (float)Math.Sqrt((dynamic)DotProduct(this, this));
         }
 
         public override string ToString()
@@ -263,15 +264,15 @@ namespace GJ2022.Utility.MathConstructs
 
         public override bool Equals(object obj)
         {
-            return obj is Vector && (Vector)obj == this;
+            return obj is Vector<T> && (Vector<T>)obj == this;
         }
 
         public override int GetHashCode()
         {
             int hashCode = -1466858141;
-            foreach (int value in Values)
+            foreach (dynamic value in Values)
             {
-                hashCode = unchecked(hashCode * 17 + value);
+                hashCode = unchecked(hashCode * 17 + (int)value);
             }
             hashCode = hashCode * -1521134295 + Dimensions.GetHashCode();
             return hashCode;

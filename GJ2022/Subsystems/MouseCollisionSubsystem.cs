@@ -51,7 +51,7 @@ namespace GJ2022.Subsystems
             int windowHeight;
             Glfw.GetWindowSize(window, out windowWidth, out windowHeight);
             //Convert to world coords
-            Vector worldCoordinates = ScreenToWorldHelper.GetWorldCoordinates(new Vector((float)cursorX, (float)cursorY), new Vector(2, windowWidth, windowHeight));
+            Vector<float> worldCoordinates = ScreenToWorldHelper.GetWorldCoordinates(new Vector<float>((float)cursorX, (float)cursorY), new Vector<float>(windowWidth, windowHeight));
             //Go through all tracking events and handle them
             for (int i = trackingEvents.Count - 1; i >= 0; i--)
             {

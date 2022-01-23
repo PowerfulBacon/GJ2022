@@ -7,7 +7,7 @@ namespace GJ2022.Utility.Helpers
     public static class ScreenToWorldHelper
     {
 
-        public static Vector GetWorldCoordinates(Vector screenCoordinates, Vector screenWidth)
+        public static Vector<float> GetWorldCoordinates(Vector<float> screenCoordinates, Vector<float> screenWidth)
         {
             float cursorX = screenCoordinates[0];
             float cursorY = screenCoordinates[1];
@@ -28,10 +28,10 @@ namespace GJ2022.Utility.Helpers
             cursorY += -translationY;
             cursorX /= scaleX;
             cursorY /= -scaleY;
-            return new Vector(cursorX, cursorY);
+            return new Vector<float>(cursorX, cursorY);
         }
 
-        public static Vector GetWorldCoordinates(Window window)
+        public static Vector<float> GetWorldCoordinates(Window window)
         {
             //Fetch position of the mouse
             double cursorX;
@@ -58,7 +58,7 @@ namespace GJ2022.Utility.Helpers
             cursorY += -translationY;
             cursorX /= scaleX;
             cursorY /= -scaleY;
-            return new Vector((float)cursorX, (float)cursorY);
+            return new Vector<float>((float)cursorX, (float)cursorY);
         }
 
     }

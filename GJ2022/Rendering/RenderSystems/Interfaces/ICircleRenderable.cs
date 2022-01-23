@@ -7,7 +7,7 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
 
         Colour Colour { get; }
 
-        Vector GetPosition();
+        Vector<float> GetPosition();
 
     }
 }

@@ -11,7 +11,7 @@ namespace GJ2022.Entities.Blueprints
     public class TurfBlueprint : Blueprint
     {
 
-        public TurfBlueprint(Vector position, string texture, Type createdType, int priority) : base(position, texture, createdType, priority)
+        public TurfBlueprint(Vector<float> position, string texture, Type createdType, int priority) : base(position, texture, createdType, priority)
         { }
 
         public override void Complete()
