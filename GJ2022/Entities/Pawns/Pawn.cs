@@ -2,6 +2,7 @@
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
+using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.Utility.Helpers;
@@ -25,6 +26,7 @@ namespace GJ2022.Entities.Pawns
         public RenderSystem<ICircleRenderable, CircleRenderSystem> RenderSystem => CircleRenderSystem.Singleton;
 
         private Blueprint workTarget;
+        private Line line;
 
         public void Process(float deltaTime)
         {
@@ -42,12 +44,26 @@ namespace GJ2022.Entities.Pawns
                         workTarget = blueprintTarget[0];
                     else
                         workTarget = blueprintTarget[1];
+                    if (line == null)
+                    {
+                        line = Line.StartDrawingLine(position, workTargetPosition, Colour.Cyan);
+                    }
+                    else
+                    {
+                        line.End = workTarget.position;
+                    }
                 }
                 else
+                {
+                    line?.StopDrawing();
+                    line = null;
                     return;
+                }
             }
             //Move towards
             position.MoveTowards(workTarget.position, 0.1f, deltaTime);
+            //ugly line
+            line.Start = position;
             //Update position in renderer
             if (renderableBatchIndex.Count > 0)
                 (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<ICircleRenderable, CircleRenderSystem>)?.UpdateBatchData(this, 0);
