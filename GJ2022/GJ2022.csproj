@@ -27,6 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Data\IconFiles\debug.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

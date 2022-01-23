@@ -16,5 +16,11 @@ This should be about the same difficulty to perform, although might require less
 
 ![image](https://user-images.githubusercontent.com/26465327/150687457-2d106f7a-9949-4485-8a70-315d7c270c65.png)
 
-
 # Screenshots
+
+![image](https://user-images.githubusercontent.com/26465327/150699998-b8a64d51-fbb2-422a-8849-2b1fd1a79870.png)
+
+![image](https://user-images.githubusercontent.com/26465327/150700011-4fad9372-22ab-463f-bdd6-0a97cbe6ec23.png)
+
+![image](https://user-images.githubusercontent.com/26465327/150700037-9a8343f0-7fa6-490f-847a-3ba4f01f1f14.png)
+

@@ -4,7 +4,7 @@ namespace GJ2022.Entities.Debug
 {
     public class DebugSolid : DebugEntity
     {
-        public DebugSolid(Vector position) : base(position)
+        public DebugSolid(Vector<float> position) : base(position)
         { }
 
         protected override string Texture { get; set; } = "stone";

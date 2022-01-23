@@ -17,9 +17,9 @@ namespace GJ2022.Subsystems
 
         public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_FIRE;
 
-        public static Dictionary<Vector, Dictionary<int, Blueprint>> QueuedBlueprints { get; set; } = new Dictionary<Vector, Dictionary<int, Blueprint>>();
+        public static Dictionary<Vector<float>, Dictionary<int, Blueprint>> QueuedBlueprints { get; set; } = new Dictionary<Vector<float>, Dictionary<int, Blueprint>>();
 
-        public static void QueueBlueprint(Vector position, Blueprint blueprint, int layer)
+        public static void QueueBlueprint(Vector<float> position, Blueprint blueprint, int layer)
         {
             //Check if the blueprint is redundant
             if (World.GetTurf((int)position[0], (int)position[1])?.GetType() == blueprint.CreatedType)

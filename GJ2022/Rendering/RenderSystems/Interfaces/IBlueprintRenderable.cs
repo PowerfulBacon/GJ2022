@@ -10,7 +10,7 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
 
         uint GetTextureUint();
 
-        Vector GetPosition();
+        Vector<float> GetPosition();
 
     }
 }

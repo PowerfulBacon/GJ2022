@@ -23,10 +23,10 @@ namespace GJ2022.Subsystems
         private bool buildModeActive = false;
         private bool isDragging = false;
 
-        private Vector dragStartPoint;
-        private Vector dragEndPoint;
+        private Vector<float> dragStartPoint;
+        private Vector<float> dragEndPoint;
 
-        private static Dictionary<Vector, Blueprint> dragHighlights = new Dictionary<Vector, Blueprint>();
+        private static Dictionary<Vector<float>, Blueprint> dragHighlights = new Dictionary<Vector<float>, Blueprint>();
 
         private BlueprintDetail selectedBlueprint = new FoundationBlueprint();
 
@@ -58,7 +58,7 @@ namespace GJ2022.Subsystems
                     //Check for border
                     bool isBorder = x == (int)dragStartPoint[0] || x == (int)dragEndPoint[0] || y == (int)dragStartPoint[1] || y == (int)dragEndPoint[1];
                     //Blueprint
-                    Vector position = new Vector(x, y, 2);
+                    Vector<float> position = new Vector<float>(x, y, 2);
                     Blueprint blueprint = Activator.CreateInstance(
                         selectedBlueprint.BlueprintType,
                         position,
@@ -93,7 +93,7 @@ namespace GJ2022.Subsystems
         private void ConfirmBuild()
         {
             //Copy the drag highlight list into the AI controller system
-            foreach (Vector position in dragHighlights.Keys)
+            foreach (Vector<float> position in dragHighlights.Keys)
             {
                 PawnControllerSystem.QueueBlueprint(position, dragHighlights[position], selectedBlueprint.BlueprintLayer);
             }

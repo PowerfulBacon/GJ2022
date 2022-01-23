@@ -9,9 +9,9 @@ namespace GJ2022.Rendering
     {
 
         //Position of the camera in world space
-        private Vector Position = new Vector(0, 0, 0);
+        private Vector<float> Position = new Vector<float>(0, 0, 0);
 
-        private Vector Scale = new Vector(1, 1, 1);
+        private Vector<float> Scale = new Vector<float>(1, 1, 1);
 
         //View matrix of the camera
         public Matrix ViewMatrix { get; private set; } = Matrix.Identity[4];
@@ -21,7 +21,7 @@ namespace GJ2022.Rendering
 
         private float speed = 0.04f;
 
-        private Vector GetForwardVector()
+        private Vector<float> GetForwardVector()
         {
             Matrix rotation = Matrix.GetRotationMatrix(0, 0, 0) * Matrix.GetRotationMatrix(0, 0, 0);
             Matrix unitVector = new Matrix(new float[,]
@@ -32,10 +32,10 @@ namespace GJ2022.Rendering
                 { 1 },
             });
             Matrix output = rotation * unitVector;
-            return new Vector(output[1, 1], output[1, 2], output[1, 3]);
+            return new Vector<float>(output[1, 1], output[1, 2], output[1, 3]);
         }
 
-        private Vector GetUpVector()
+        private Vector<float> GetUpVector()
         {
             Matrix rotation = Matrix.GetRotationMatrix(0, 0, 0) * Matrix.GetRotationMatrix(0, 0, 0);
             Matrix unitVector = new Matrix(new float[,]
@@ -46,10 +46,10 @@ namespace GJ2022.Rendering
                 { 1 },
             });
             Matrix output = rotation * unitVector;
-            return new Vector(output[1, 1], output[1, 2], output[1, 3]);
+            return new Vector<float>(output[1, 1], output[1, 2], output[1, 3]);
         }
 
-        private Vector GetRightVector()
+        private Vector<float> GetRightVector()
         {
             Matrix rotation = Matrix.GetRotationMatrix(0, 0, 0) * Matrix.GetRotationMatrix(0, 0, 0);
             Matrix unitVector = new Matrix(new float[,]
@@ -60,7 +60,7 @@ namespace GJ2022.Rendering
                 { 1 },
             });
             Matrix output = rotation * unitVector;
-            return new Vector(output[1, 1], output[1, 2], output[1, 3]);
+            return new Vector<float>(output[1, 1], output[1, 2], output[1, 3]);
         }
 
         public void DebugMove(Window window)

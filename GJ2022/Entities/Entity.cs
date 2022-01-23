@@ -7,9 +7,9 @@ namespace GJ2022.Entities
     {
 
         //The position of the object in 3D space
-        public Vector position = new Vector(0, 0, 0);
+        public Vector<float> position = new Vector<float>(0, 0, 0);
 
-        public Entity(Vector position)
+        public Entity(Vector<float> position)
         {
             this.position = position;
         }
