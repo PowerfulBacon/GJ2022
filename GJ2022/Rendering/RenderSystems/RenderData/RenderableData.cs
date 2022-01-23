@@ -15,20 +15,14 @@ namespace GJ2022.Rendering.RenderSystems.RenderData
         public Model modelData;
 
         /// <summary>
-        /// Positional data
-        /// </summary>
-        public Renderable attachedRenderable;
-
-        /// <summary>
         /// Texture data
         /// </summary>
         public RendererTextureData textureData;
 
-        public RenderableData(ShaderSet shader, Model modelData, Renderable attachedRenderable, RendererTextureData textureData)
+        public RenderableData(ShaderSet shader, Model modelData, RendererTextureData textureData)
         {
             this.shader = shader;
             this.modelData = modelData;
-            this.attachedRenderable = attachedRenderable;
             this.textureData = textureData;
         }
     }

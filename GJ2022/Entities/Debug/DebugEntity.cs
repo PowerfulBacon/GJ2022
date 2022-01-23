@@ -17,7 +17,7 @@ namespace GJ2022.Entities.Debug
     public class DebugEntity : Entity, IStandardRenderable, IMouseEnter, IMouseExit, IDestroyable
     {
 
-        public override ModelData ModelData { get; set; } = QuadModelData.Singleton;
+        public ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
         public float WorldX => position[0] - 0.5f;
 

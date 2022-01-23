@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Abstract;
+using GJ2022.Entities.Blueprints;
 using GJ2022.Game.Construction;
 using GJ2022.Game.Construction.Walls;
 using GJ2022.Rendering.RenderSystems;
@@ -25,7 +26,7 @@ namespace GJ2022.Subsystems
         private Vector dragStartPoint;
         private Vector dragEndPoint;
 
-        private Dictionary<Vector, Blueprint> dragHighlights = new Dictionary<Vector, Blueprint>();
+        private static Dictionary<Vector, Blueprint> dragHighlights = new Dictionary<Vector, Blueprint>();
 
         private BlueprintDetail selectedBlueprint = new FoundationBlueprint();
 
@@ -57,9 +58,14 @@ namespace GJ2022.Subsystems
                     //Check for border
                     bool isBorder = x == (int)dragStartPoint[0] || x == (int)dragEndPoint[0] || y == (int)dragStartPoint[1] || y == (int)dragEndPoint[1];
                     //Blueprint
-                    Blueprint blueprint = new Blueprint(new Vector(x, y, 0), isBorder ? selectedBlueprint.BorderTexture : selectedBlueprint.FloorTexture, isBorder ? selectedBlueprint.BorderType : selectedBlueprint.FloorType);
+                    Vector position = new Vector(x, y, 2);
+                    Blueprint blueprint = Activator.CreateInstance(
+                        selectedBlueprint.BlueprintType,
+                        position,
+                        isBorder ? selectedBlueprint.BorderTexture : selectedBlueprint.FloorTexture,
+                        isBorder ? selectedBlueprint.BorderType : selectedBlueprint.FloorType,
+                        isBorder ? selectedBlueprint.BorderPriority : selectedBlueprint.FloorPriority) as Blueprint;
                     BlueprintRenderSystem.Singleton.StartRendering(blueprint);
-                    Vector position = new Vector(x, y, 0);
                     dragHighlights.Add(position, blueprint);
                 }
             }
@@ -89,16 +95,7 @@ namespace GJ2022.Subsystems
             //Copy the drag highlight list into the AI controller system
             foreach (Vector position in dragHighlights.Keys)
             {
-                if (!PawnControllerSystem.Singleton.QueuedBlueprints.ContainsKey(position))
-                {
-                    PawnControllerSystem.Singleton.QueuedBlueprints.Add(position, new Blueprint[BlueprintDetail.MAX_BLUEPRINT_LAYER]);
-                }
-                else
-                {
-                    //Remove existing blueprint
-                    PawnControllerSystem.Singleton.QueuedBlueprints[position][selectedBlueprint.BlueprintLayer]?.Destroy();
-                }
-                PawnControllerSystem.Singleton.QueuedBlueprints[position][selectedBlueprint.BlueprintLayer] = dragHighlights[position];
+                PawnControllerSystem.QueueBlueprint(position, dragHighlights[position], selectedBlueprint.BlueprintLayer);
             }
             //Reset our list
             dragHighlights.Clear();

@@ -10,8 +10,6 @@ namespace GJ2022.Entities.Background
     class BackgroundEntity : Entity, IBackgroundRenderable
     {
 
-        public override ModelData ModelData { get; set; } = QuadModelData.Singleton;
-
         public RenderSystem<IBackgroundRenderable, BackgroundRenderSystem> RenderSystem => BackgroundRenderSystem.Singleton;
 
         public BackgroundEntity(Vector position) : base(position)

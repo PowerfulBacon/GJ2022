@@ -1,5 +1,6 @@
 ﻿using GJ2022.Utility.MathConstructs;
 using GLFW;
+using System;
 using static OpenGL.Gl;
 
 namespace GJ2022.Rendering
@@ -64,6 +65,7 @@ namespace GJ2022.Rendering
 
         public void DebugMove(Window window)
         {
+            speed = 0.04f / Scale[0];
             if (Glfw.GetKey(window, Keys.D) == InputState.Press)
             {
                 Position += GetRightVector() * speed;
@@ -80,16 +82,6 @@ namespace GJ2022.Rendering
             {
                 Position -= GetUpVector() * speed;
             }
-            if (Glfw.GetKey(window, Keys.I) == InputState.Press)
-            {
-                Scale[0] *= 1.1f;
-                Scale[1] *= 1.1f;
-            }
-            if (Glfw.GetKey(window, Keys.O) == InputState.Press)
-            {
-                Scale[0] /= 1.1f;
-                Scale[1] /= 1.1f;
-            }
             if (Glfw.GetKey(window, Keys.R) == InputState.Press)
             {
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -102,8 +94,13 @@ namespace GJ2022.Rendering
             //ProjectionMatrix = Matrix.Identity[4];
             //ViewMatrix = Matrix.GetTranslationMatrix(3 * (float)Math.Sin(Glfw.Time), 3 * (float)Math.Cos(Glfw.Time), -5);
             //ViewMatrix = Matrix.GetTranslationMatrix((float)Math.Sin(Glfw.Time) * 5.0f, (float)Math.Cos(Glfw.Time) * 5.0f, 0);
-            ViewMatrix = Matrix.GetTranslationMatrix(Position[0], Position[1], Position[2]);
-            ViewMatrix *= Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]);
+            ViewMatrix = Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]) * Matrix.GetTranslationMatrix(Position[0], Position[1], Position[2]);
+        }
+
+        public void OnScroll(double offset)
+        {
+            Scale[0] *= Math.Sign((float)offset) * 0.1f + 1;
+            Scale[1] *= Math.Sign((float)offset) * 0.1f + 1;
         }
 
         public void OnWindowResized(int width, int height)
