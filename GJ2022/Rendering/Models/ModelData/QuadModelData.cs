@@ -1,9 +1,4 @@
 ﻿using GJ2022.Rendering.Shaders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Rendering.Models
 {
@@ -34,7 +29,8 @@ namespace GJ2022.Rendering.Models
                     0.0f, 1.0f,
                     0.0f, 0.0f
                 })
-            ) { }
+            )
+        { }
 
     }
 }

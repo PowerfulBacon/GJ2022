@@ -5,16 +5,12 @@ using System;
 
 namespace GJ2022.Rendering.RenderSystems
 {
-    /// <summary>
-    /// Rendering system optimised for batch rendering
-    /// tons of the same object.
-    /// </summary>
-    public class InstanceRenderSystem : RenderSystem<IStandardRenderable, InstanceRenderSystem>
+    public class BlueprintRenderSystem : RenderSystem<IBlueprintRenderable, BlueprintRenderSystem>
     {
 
-        public static InstanceRenderSystem Singleton;
+        public static BlueprintRenderSystem Singleton;
 
-        protected override string SystemShaderName => "instanceShader";
+        protected override string SystemShaderName => "blueprintShader";
 
         protected override int BufferCount => 2;
 
@@ -22,7 +18,7 @@ namespace GJ2022.Rendering.RenderSystems
 
         protected override uint[] BufferDataPointsPerInstance { get; } = new uint[] { 1, 1 };
 
-        protected override RenderBatchGroup GetBatchGroup(IStandardRenderable renderable)
+        protected override RenderBatchGroup GetBatchGroup(IBlueprintRenderable renderable)
         {
             return new RenderBatchGroup(renderable.GetModel(), renderable.GetTextureUint());
         }
@@ -37,7 +33,7 @@ namespace GJ2022.Rendering.RenderSystems
             return;
         }
 
-        public override float[] GetBufferData(IStandardRenderable targetItem, int bufferIndex)
+        public override float[] GetBufferData(IBlueprintRenderable targetItem, int bufferIndex)
         {
             switch (bufferIndex)
             {
@@ -59,5 +55,6 @@ namespace GJ2022.Rendering.RenderSystems
             }
             throw new ArgumentException($"Invalid argument buffer index supplied: buffer supplied {bufferIndex}, maxBuffer: {BufferCount}");
         }
+
     }
 }

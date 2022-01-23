@@ -3,7 +3,7 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Rendering.RenderSystems.Interfaces
 {
-    public interface IStandardRenderable : IInstanceRenderable<IStandardRenderable, InstanceRenderSystem>
+    public interface IBlueprintRenderable : IInstanceRenderable<IBlueprintRenderable, BlueprintRenderSystem>
     {
 
         Model GetModel();

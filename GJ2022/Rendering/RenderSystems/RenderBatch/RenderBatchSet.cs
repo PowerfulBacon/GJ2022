@@ -33,6 +33,16 @@ namespace GJ2022.Rendering.RenderSystems
         }
 
         /// <summary>
+        /// Updates batch data, allowing data changes
+        /// </summary>
+        public void UpdateBatchData(RenderInterface target, int bufferIndex)
+        {
+            int locatedIndex = target.GetRenderableBatchIndex(this) % RenderBatch<RenderInterface, TargetRenderSystem>.MAX_BATCH_SIZE;
+            RenderBatch<RenderInterface, TargetRenderSystem> batch = GetContainingBatch(target.GetRenderableBatchIndex(this));
+            batch.UpdateBuffer(bufferIndex, locatedIndex, (target as IInstanceRenderable<RenderInterface, TargetRenderSystem>).RenderSystem.GetBufferData(target, bufferIndex));
+        }
+
+        /// <summary>
         /// Adding to batches is simple, since we just stick it on the end.
         /// </summary>
         public void AddToBatch(RenderInterface element, RendererTextureData textureData)
@@ -85,8 +95,8 @@ namespace GJ2022.Rendering.RenderSystems
             if (positionOfLast == 0)
             {
                 renderBatches.Remove(renderBatches.Last());
+                Log.WriteLine($"Removed element from batch (+removed a batch), new batch size: {renderElements}, new batch count: {renderBatches.Count}", LogType.DEBUG);
             }
-            Log.WriteLine($"Removed element from batch, new batch size: {renderElements}, new batch count: {renderBatches.Count}", LogType.DEBUG);
         }
 
         public RenderBatch<RenderInterface, TargetRenderSystem> GetContainingBatch(int index)

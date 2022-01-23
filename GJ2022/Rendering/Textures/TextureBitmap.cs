@@ -1,5 +1,4 @@
-﻿using GJ2022.Utility;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using static OpenGL.Gl;
@@ -51,7 +50,7 @@ namespace GJ2022.Rendering.Textures
             //See https://en.wikipedia.org/wiki/BMP_file_format for more details.
             //Texture data index pointer is stored at 0x0A in BMP images
             //We *should* also handle different types of compression
-            int textureDataIndex = (int)header[0x0A];
+            int textureDataIndex = header[0x0A];
             //Calculates the width and height of the image. (4 bytes are used for width and height of images)
             //TODO: BytesToInt doesn't work
             //Width = ByteConverter.BytesToInt(header, 0x12, 2);

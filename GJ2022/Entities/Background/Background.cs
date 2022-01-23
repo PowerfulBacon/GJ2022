@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GJ2022.Rendering.Models;
+﻿using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
-using GJ2022.Rendering.Shaders;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
+using System.Collections.Generic;
 
 namespace GJ2022.Entities.Background
 {

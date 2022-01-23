@@ -337,5 +337,5 @@ namespace GJ2022.Utility.MathConstructs
             }
         }*/
 
-        }
     }
+}

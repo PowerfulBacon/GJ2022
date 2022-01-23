@@ -1,5 +1,4 @@
 ﻿using GJ2022.Rendering.Textures;
-using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Rendering.RenderSystems.Interfaces
 {

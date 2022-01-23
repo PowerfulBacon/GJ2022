@@ -1,5 +1,4 @@
-﻿using GLFW;
-using static OpenGL.Gl;
+﻿using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.Models
 {
@@ -29,7 +28,7 @@ namespace GJ2022.Rendering.Models
         /// </summary>
         public Model(float[] vertices, float[] uvs)
         {
-            if(Program.UsingOpenGL)
+            if (Program.UsingOpenGL)
                 GenerateBuffers(vertices, uvs);
         }
 

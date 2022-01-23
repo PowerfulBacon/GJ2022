@@ -1,18 +1,15 @@
-﻿using GLFW;
+﻿using GJ2022.Entities.Background;
+using GJ2022.Entities.Pawns;
+using GJ2022.Entities.StationPart.Hallways;
 using GJ2022.Rendering;
+using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
-using System.Collections.Generic;
-using static OpenGL.Gl;
-using GJ2022.Entities.Debug;
-using System.Numerics;
-using GJ2022.Rendering.RenderSystems;
-using System.Drawing;
-using GJ2022.Entities.Background;
+using GLFW;
 using System;
-using GJ2022.Entities.StationPart.Hallways;
+using static OpenGL.Gl;
 
 namespace GJ2022
 {
@@ -47,15 +44,16 @@ namespace GJ2022
 
             //Start subsystems
             Subsystem.InitializeSingletons();
-            Subsystem.InitializeSubsystems(window);
 
             //World creation here
 
-            //Trigger on world init
-            Subsystem.WorldInitialize();
 
             //Initialize the renderer
             RenderMaster.Initialize();
+
+            //Trigger on world init
+            Subsystem.InitializeSubsystems(window);
+            Subsystem.WorldInitialize();
 
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
@@ -66,18 +64,20 @@ namespace GJ2022
             BackgroundRenderSystem.Singleton.StartRendering(new BackgroundEntity(new Vector(3)));
             //new BackgroundEntity(new Vector(3));
 
-            //Create a debug thingy
-            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, 0, 0, -5)));
-            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, 0, 0, 5)));
-            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, 5, 0, 0)));
-            InstanceRenderSystem.Singleton.StartRendering(new DebugEntity(new Vector(3, -5, 0, 0)));
-
             Line.StartDrawingLine(new Vector(3, -5, 0, 0), new Vector(3, 5, 0, 0), Colour.Red);
             Line.StartDrawingLine(new Vector(3, 0, -5, 0), new Vector(3, 0, 5, 0), Colour.Green);
             Line.StartDrawingLine(new Vector(3, 0, 0, -5), new Vector(3, 0, 0, 5), Colour.Blue);
 
             //Create rooms
             OutlineQuadRenderSystem.Singleton.StartRendering(new HallwayCross(new Vector(3, 2, 2, 0)));
+
+            BuildModeSubsystem.Singleton.ActivateBuildMode();
+
+            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
+            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
+            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
+            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
+            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

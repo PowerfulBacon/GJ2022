@@ -1,7 +1,5 @@
-﻿using GLFW;
-using GJ2022.Rendering.RenderSystems.LineRenderer;
-using GJ2022.Utility.MathConstructs;
-using System;
+﻿using GJ2022.Utility.MathConstructs;
+using GLFW;
 using static OpenGL.Gl;
 
 namespace GJ2022.Rendering
@@ -18,7 +16,7 @@ namespace GJ2022.Rendering
         public Matrix ViewMatrix { get; private set; } = Matrix.Identity[4];
 
         //public Matrix ProjectionMatrix { get; private set; } = Matrix.GetPerspectiveMatrix(90.0f, 0.01f, 100.0f);
-        public Matrix ProjectionMatrix { get; private set; } = Matrix.GetScaleMatrix(1080/1920f, 1, 0.01f);
+        public Matrix ProjectionMatrix { get; private set; } = Matrix.GetScaleMatrix(1080 / 1920f, 1, 0.01f);
 
         private float speed = 0.04f;
 
