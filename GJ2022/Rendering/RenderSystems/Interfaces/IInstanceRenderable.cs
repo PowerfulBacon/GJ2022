@@ -1,17 +1,35 @@
-﻿using GJ2022.Utility.MathConstructs;
+﻿using GJ2022.Rendering.Textures;
+using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Rendering.RenderSystems.Interfaces
 {
-    public interface IInstanceRenderable
+    public interface IInstanceRenderable<TargetInterface, TargetRenderSystem> : IInternalRenderable
+        where TargetInterface : IInternalRenderable
+        where TargetRenderSystem : RenderSystem<TargetInterface, TargetRenderSystem>
     {
 
-        void SetRenderableBatchIndex(RenderBatchSet associatedSet, int index);
-
-        int GetRenderableBatchIndex(RenderBatchSet associatedSet);
-
-        //Required getters
-        Vector GetInstancePosition();
-        Vector GetInstanceScale();
+        RenderSystem<TargetInterface, TargetRenderSystem> RenderSystem { get; }
 
     }
+
+    //NOTE:
+    //I spent a really long time messing about with generic classes trying
+    //to get this working, but the problem I have created is impossible to solve.
+    //Since we don't actually care about what the associatedSet type is and only
+    //use it as a key, just pass it as an object so it can be whatever we want.
+    //This prevents us dealing with a mess of generic classes self looping.
+    public interface IInternalRenderable
+    {
+
+        //Store the renderable batch index somewhere, so it can be fetched later
+        void SetRenderableBatchIndex(object associatedSet, int index);
+
+        //Fetch the renderable batch index
+        int GetRenderableBatchIndex(object associatedSet);
+
+        //Get the attached renderable texture data
+        RendererTextureData GetRendererTextureData();
+
+    }
+
 }

@@ -18,7 +18,7 @@ namespace GJ2022.Entities.Debug
     /// <summary>
     /// Debug entity, add whatever you want to this for testing.
     /// </summary>
-    public class DebugEntity : Entity, IInstanceRenderable, IMouseEnter, IMouseExit, IDestroyable
+    public class DebugEntity : Entity, IStandardRenderable, IMouseEnter, IMouseExit, IDestroyable
     {
 
         public override ModelData ModelData { get; set; } = QuadModelData.Singleton;
@@ -31,23 +31,20 @@ namespace GJ2022.Entities.Debug
 
         public float Height => 1.0f;
 
+        public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => InstanceRenderSystem.Singleton;
+
         public DebugEntity(Vector position) : base(position)
         {
             MouseCollisionSubsystem.Singleton.StartTracking(this);
-        }
-
-        public override RendererTextureData GetRendererTexture()
-        {
-            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
         }
 
         /// <summary>
         /// Instance renderable stuff
         /// </summary>
 
-        private Dictionary<RenderBatchSet, int> renderableBatchIndex = new Dictionary<RenderBatchSet, int>();
+        private Dictionary<object, int> renderableBatchIndex = new Dictionary<object, int>();
 
-        public void SetRenderableBatchIndex(RenderBatchSet associatedSet, int index)
+        public void SetRenderableBatchIndex(object associatedSet, int index)
         {
             if (renderableBatchIndex.ContainsKey(associatedSet))
                 renderableBatchIndex[associatedSet] = index;
@@ -59,7 +56,7 @@ namespace GJ2022.Entities.Debug
         /// Returns the renderable batch index in the provided set.
         /// Returns -1 if failed.
         /// </summary>
-        public int GetRenderableBatchIndex(RenderBatchSet associatedSet)
+        public int GetRenderableBatchIndex(object associatedSet)
         {
             if (renderableBatchIndex.ContainsKey(associatedSet))
                 return renderableBatchIndex[associatedSet];
@@ -95,6 +92,26 @@ namespace GJ2022.Entities.Debug
         public Vector GetInstanceScale()
         {
             return new Vector(2, 1, 1);
+        }
+
+        public Model GetModel()
+        {
+            return ModelData.model;
+        }
+
+        public uint GetTextureUint()
+        {
+            return GetRendererTextureData().TextureUint;
+        }
+
+        public Vector GetPosition()
+        {
+            return position;
+        }
+
+        public RendererTextureData GetRendererTextureData()
+        {
+            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
         }
     }
 }

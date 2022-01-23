@@ -12,26 +12,23 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Background
 {
-    class BackgroundEntity : Entity, IInstanceRenderable
+    class BackgroundEntity : Entity, IBackgroundRenderable
     {
 
         public override ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
+        public RenderSystem<IBackgroundRenderable, BackgroundRenderSystem> RenderSystem => BackgroundRenderSystem.Singleton;
+
         public BackgroundEntity(Vector position) : base(position)
         { }
-
-        public override RendererTextureData GetRendererTexture()
-        {
-            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
-        }
 
         /// <summary>
         /// Instance renderable stuff
         /// </summary>
 
-        private Dictionary<RenderBatchSet, int> renderableBatchIndex = new Dictionary<RenderBatchSet, int>();
+        private Dictionary<object, int> renderableBatchIndex = new Dictionary<object, int>();
 
-        public void SetRenderableBatchIndex(RenderBatchSet associatedSet, int index)
+        public void SetRenderableBatchIndex(object associatedSet, int index)
         {
             if (renderableBatchIndex.ContainsKey(associatedSet))
                 renderableBatchIndex[associatedSet] = index;
@@ -43,7 +40,7 @@ namespace GJ2022.Entities.Background
         /// Returns the renderable batch index in the provided set.
         /// Returns -1 if failed.
         /// </summary>
-        public int GetRenderableBatchIndex(RenderBatchSet associatedSet)
+        public int GetRenderableBatchIndex(object associatedSet)
         {
             if (renderableBatchIndex.ContainsKey(associatedSet))
                 return renderableBatchIndex[associatedSet];
@@ -51,14 +48,9 @@ namespace GJ2022.Entities.Background
                 return -1;
         }
 
-        public Vector GetInstancePosition()
+        public RendererTextureData GetRendererTextureData()
         {
-            return position;
-        }
-
-        public Vector GetInstanceScale()
-        {
-            return new Vector(2, 1, 1);
+            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
         }
     }
 }

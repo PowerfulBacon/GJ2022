@@ -150,26 +150,5 @@ namespace GJ2022.Rendering.Models
                 });
         }
 
-        /// <summary>
-        /// Get the face we want
-        /// </summary>
-        /*public override RenderableData[] GetModelRenderableData(Renderable renderable)
-        {
-            List<RenderableData> models = new List<RenderableData>();
-            if ((faceFlag & CubeFaceFlags.FACE_ABOVE) == CubeFaceFlags.FACE_ABOVE)
-                models.Add(new RenderableData(shader, topFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_ABOVE)));
-            if ((faceFlag & CubeFaceFlags.FACE_BELOW) == CubeFaceFlags.FACE_BELOW)
-                models.Add(new RenderableData(shader, bottomFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BELOW)));
-            if ((faceFlag & CubeFaceFlags.FACE_FRONT) == CubeFaceFlags.FACE_FRONT)
-                models.Add(new RenderableData(shader, frontFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_FRONT)));
-            if ((faceFlag & CubeFaceFlags.FACE_BACK) == CubeFaceFlags.FACE_BACK)
-                models.Add(new RenderableData(shader, backFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_BACK)));
-            if ((faceFlag & CubeFaceFlags.FACE_RIGHT) == CubeFaceFlags.FACE_RIGHT)
-                models.Add(new RenderableData(shader, rightFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_RIGHT)));
-            if ((faceFlag & CubeFaceFlags.FACE_LEFT) == CubeFaceFlags.FACE_LEFT)
-                models.Add(new RenderableData(shader, leftFace, renderable, renderable.GetRendererTexture(CubeFaceFlags.FACE_LEFT)));
-            return models.ToArray();
-        }*/
-
     }
 }
