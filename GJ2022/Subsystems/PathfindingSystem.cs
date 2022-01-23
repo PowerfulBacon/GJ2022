@@ -11,8 +11,8 @@ namespace GJ2022.Subsystems
     public class PathfindingSystem : Subsystem
     {
 
-        //20 fps :)
-        public override int sleepDelay => 50;
+        //Little delay
+        public override int sleepDelay => 20;
 
         //No processing, but fires
         public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
@@ -32,6 +32,8 @@ namespace GJ2022.Subsystems
         {
 
         }
+
+        private void 
 
     }
 }

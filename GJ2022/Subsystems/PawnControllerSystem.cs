@@ -42,7 +42,6 @@ namespace GJ2022.Subsystems
             //Make a new blueprint at this location
             if (!QueuedBlueprints.ContainsKey(position))
             {
-                Log.WriteLine($"key created at {position}");
                 QueuedBlueprints.Add(position, new Dictionary<int, Blueprint>());
             }
             QueuedBlueprints[position].Add(layer, blueprint);
