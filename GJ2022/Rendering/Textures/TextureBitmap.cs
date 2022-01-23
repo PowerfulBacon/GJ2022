@@ -58,6 +58,8 @@ namespace GJ2022.Rendering.Textures
             Width = (header[0x12] * 4096) + (header[0x13] * 256) + (header[0x14] * 16) + (header[0x15]);
             Height = (header[0x16] * 4096) + (header[0x17] * 256) + (header[0x18] * 16) + (header[0x19]);
 
+            BitmapCompressionMethod compressionMethod = (BitmapCompressionMethod)header[0x1E];
+
             //If the texture ata index was not included
             //we start reading from 54.
             if (textureDataIndex == 0)
@@ -84,7 +86,7 @@ namespace GJ2022.Rendering.Textures
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-            Log.WriteLine($"Texture {fileName} loaded successfully.", LogType.DEBUG);
+            Log.WriteLine($"Texture {fileName} loaded successfully. (Mode: {compressionMethod})", LogType.DEBUG);
 
         }
 

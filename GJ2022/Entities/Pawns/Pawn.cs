@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Abstract;
+using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
@@ -36,14 +37,10 @@ namespace GJ2022.Entities.Pawns
             //Move towards the nearest blueprint and build it
             if (workTarget == null)
             {
-                if (PawnControllerSystem.Singleton.QueuedBlueprints.Count > 0)
+                if (PawnControllerSystem.QueuedBlueprints.Count > 0)
                 {
-                    Vector workTargetPosition = ListPicker.Pick(PawnControllerSystem.Singleton.QueuedBlueprints.Keys);
-                    Blueprint[] blueprintTarget = PawnControllerSystem.Singleton.QueuedBlueprints[workTargetPosition];
-                    if (blueprintTarget[0] != null)
-                        workTarget = blueprintTarget[0];
-                    else
-                        workTarget = blueprintTarget[1];
+                    Vector workTargetPosition = ListPicker.Pick(PawnControllerSystem.QueuedBlueprints.Keys);
+                    workTarget = PawnControllerSystem.QueuedBlueprints[workTargetPosition].Values.ElementAt(0);
                     if (line == null)
                     {
                         line = Line.StartDrawingLine(position, workTargetPosition, Colour.Cyan);

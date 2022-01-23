@@ -33,6 +33,9 @@
     <None Update="Data\IconFiles\ground.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\IconFiles\turf\floors.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\TextureData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -84,10 +87,6 @@
     <None Update="zlib1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\StationPart\Rooms\" />
   </ItemGroup>
 
 </Project>

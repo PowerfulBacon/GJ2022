@@ -1,6 +1,5 @@
 ﻿using GJ2022.Entities.Background;
 using GJ2022.Entities.Pawns;
-using GJ2022.Entities.StationPart.Hallways;
 using GJ2022.Rendering;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
@@ -67,9 +66,6 @@ namespace GJ2022
             Line.StartDrawingLine(new Vector(-5, 0, 0), new Vector(5, 0, 0), Colour.Red);
             Line.StartDrawingLine(new Vector(0, -5, 0), new Vector(0, 5, 0), Colour.Green);
             Line.StartDrawingLine(new Vector(0, 0, -5), new Vector(0, 0, 5), Colour.Blue);
-
-            //Create rooms
-            OutlineQuadRenderSystem.Singleton.StartRendering(new HallwayCross(new Vector(2, 2, 0)));
 
             BuildModeSubsystem.Singleton.ActivateBuildMode();
 

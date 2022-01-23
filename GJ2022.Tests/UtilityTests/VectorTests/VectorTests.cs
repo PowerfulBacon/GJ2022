@@ -31,6 +31,7 @@ namespace GJ2022.Tests.UtilityTests.VectorTests
             testDict.Add(a, true);
             Assert.IsTrue(testDict.ContainsKey(a), "Could not located same struct");
             Assert.IsTrue(testDict.ContainsKey(new Vector(1, 1, 1)), "Could not locate identical struct");
+            Assert.IsTrue(testDict.ContainsKey(new Vector((int)1.4, 1, 1)), "Could not locate integer converted struct");
             Assert.IsFalse(testDict.ContainsKey(new Vector(2, 1, 1)), "Hash collisions detected");
             Assert.IsFalse(a.GetHashCode() == new Vector(2, 1, 1).GetHashCode(), "Hash collision detected.");
         }
