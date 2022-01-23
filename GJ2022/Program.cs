@@ -1,19 +1,15 @@
-﻿using GLFW;
+﻿using GJ2022.Entities.Background;
+using GJ2022.Entities.Pawns;
+using GJ2022.Entities.StationPart.Hallways;
 using GJ2022.Rendering;
+using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
-using System.Collections.Generic;
-using static OpenGL.Gl;
-using GJ2022.Entities.Debug;
-using System.Numerics;
-using GJ2022.Rendering.RenderSystems;
-using System.Drawing;
-using GJ2022.Entities.Background;
+using GLFW;
 using System;
-using GJ2022.Entities.StationPart.Hallways;
-using GJ2022.Entities.Pawns;
+using static OpenGL.Gl;
 
 namespace GJ2022
 {

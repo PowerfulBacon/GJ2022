@@ -1,6 +1,5 @@
 ﻿using GJ2022.Rendering;
 using GJ2022.Utility.MathConstructs;
-using System;
 
 namespace GJ2022.Entities
 {

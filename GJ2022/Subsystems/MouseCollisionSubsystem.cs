@@ -1,14 +1,9 @@
 ﻿using GJ2022.Entities.ComponentInterfaces.MouseEvents;
-using GJ2022.Rendering;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OpenGL.Gl;
 
 namespace GJ2022.Subsystems
 {

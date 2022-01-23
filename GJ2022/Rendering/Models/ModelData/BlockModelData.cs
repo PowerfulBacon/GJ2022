@@ -1,6 +1,4 @@
-﻿using GJ2022.Rendering.RenderSystems.RenderData;
-using GJ2022.Rendering.Shaders;
-using System.Collections.Generic;
+﻿using GJ2022.Rendering.Shaders;
 
 namespace GJ2022.Rendering.Models
 {

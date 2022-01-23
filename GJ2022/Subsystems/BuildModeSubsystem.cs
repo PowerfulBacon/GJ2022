@@ -1,16 +1,12 @@
 ﻿using GJ2022.Entities.Abstract;
 using GJ2022.Game.Construction;
 using GJ2022.Game.Construction.Walls;
-using GJ2022.GlobalDataComponents;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Subsystems
 {
@@ -51,7 +47,7 @@ namespace GJ2022.Subsystems
             }
             //Draw highlights
             dragEndPoint = ScreenToWorldHelper.GetWorldCoordinates(window);
-            
+
             //Create drag highlights
             ClearDragHighlights();
             for (int x = (int)Math.Min(dragStartPoint[0], dragEndPoint[0]); x <= (int)Math.Max(dragStartPoint[0], dragEndPoint[0]); x++)
@@ -110,7 +106,7 @@ namespace GJ2022.Subsystems
 
         private void ClearDragHighlights()
         {
-            foreach(Blueprint bp in dragHighlights.Values)
+            foreach (Blueprint bp in dragHighlights.Values)
             {
                 bp.Destroy();
             }

@@ -1,10 +1,7 @@
-﻿using GJ2022.Rendering.Models;
-using GJ2022.Rendering.RenderSystems.Interfaces;
-using GJ2022.Rendering.RenderSystems.RenderData;
+﻿using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
 using System;
-using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.RenderSystems
 {

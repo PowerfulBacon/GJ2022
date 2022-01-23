@@ -1,9 +1,7 @@
-﻿using GLFW;
-using GJ2022.Rendering.RenderSystems;
+﻿using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
-using GJ2022.Utility.MathConstructs;
+using GLFW;
 using static OpenGL.Gl;
-using GJ2022.Rendering.RenderSystems.Interfaces;
 
 namespace GJ2022.Rendering
 {
@@ -63,7 +61,7 @@ namespace GJ2022.Rendering
             glEnable(GL_BLEND);
             glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
             //Set a background colour
-            glClearColor(255/255f, 105/255f, 180/255f, 1.0f);
+            glClearColor(255 / 255f, 105 / 255f, 180 / 255f, 1.0f);
         }
 
         /// <summary>

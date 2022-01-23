@@ -1,6 +1,4 @@
-﻿using GJ2022.Rendering.Models;
-using GJ2022.Rendering.RenderSystems.Interfaces;
-using GJ2022.Rendering.RenderSystems.RenderData;
+﻿using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Shaders;
 using System.Collections.Generic;
 using static OpenGL.Gl;
