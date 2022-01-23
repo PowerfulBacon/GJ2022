@@ -8,9 +8,9 @@ namespace GJ2022.Rendering
     {
 
         //Position of the camera in world space
-        private Vector Position = new Vector(3);
+        private Vector Position = new Vector(0, 0, 0);
 
-        private Vector Scale = new Vector(3, 1, 1, 1);
+        private Vector Scale = new Vector(1, 1, 1);
 
         //View matrix of the camera
         public Matrix ViewMatrix { get; private set; } = Matrix.Identity[4];
@@ -31,7 +31,7 @@ namespace GJ2022.Rendering
                 { 1 },
             });
             Matrix output = rotation * unitVector;
-            return new Vector(3, output[1, 1], output[1, 2], output[1, 3]);
+            return new Vector(output[1, 1], output[1, 2], output[1, 3]);
         }
 
         private Vector GetUpVector()
@@ -45,7 +45,7 @@ namespace GJ2022.Rendering
                 { 1 },
             });
             Matrix output = rotation * unitVector;
-            return new Vector(3, output[1, 1], output[1, 2], output[1, 3]);
+            return new Vector(output[1, 1], output[1, 2], output[1, 3]);
         }
 
         private Vector GetRightVector()
@@ -59,7 +59,7 @@ namespace GJ2022.Rendering
                 { 1 },
             });
             Matrix output = rotation * unitVector;
-            return new Vector(3, output[1, 1], output[1, 2], output[1, 3]);
+            return new Vector(output[1, 1], output[1, 2], output[1, 3]);
         }
 
         public void DebugMove(Window window)

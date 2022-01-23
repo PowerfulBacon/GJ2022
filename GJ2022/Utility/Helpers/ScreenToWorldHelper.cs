@@ -28,7 +28,7 @@ namespace GJ2022.Utility.Helpers
             cursorY += -translationY;
             cursorX /= scaleX;
             cursorY /= -scaleY;
-            return new Vector(2, cursorX, cursorY);
+            return new Vector(cursorX, cursorY);
         }
 
         public static Vector GetWorldCoordinates(Window window)
@@ -58,7 +58,7 @@ namespace GJ2022.Utility.Helpers
             cursorY += -translationY;
             cursorX /= scaleX;
             cursorY /= -scaleY;
-            return new Vector(2, (float)cursorX, (float)cursorY);
+            return new Vector((float)cursorX, (float)cursorY);
         }
 
     }

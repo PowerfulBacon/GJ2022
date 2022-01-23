@@ -18,7 +18,7 @@ namespace GJ2022.Rendering
         public virtual ModelData ModelData { get; set; } = BlockModelData.Singleton;
 
         //The position of the object in 3D space
-        public Vector position = new Vector(3);
+        public Vector position = new Vector(0, 0, 0);
 
         public Renderable(Vector position)
         {
