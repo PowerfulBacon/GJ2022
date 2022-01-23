@@ -15,6 +15,8 @@ void main()
 {
     vec2 transformedUV = UV * (1-2*border);
 
+    transformedUV = vec2(transformedUV.y, 1.0-transformedUV.x);
+
     float spritesheetWidth = spriteWidth / 32.0;
     float spritesheetHeight = spriteHeight / 32.0;
 
@@ -22,5 +24,8 @@ void main()
     transformedUV *= vec2(texData[2] / spriteWidth, texData[3] / spriteHeight);
     transformedUV += vec2(texData[0] / spritesheetWidth, (spritesheetHeight - texData[1] - 1) / spritesheetHeight);
 
-    result = vec4(texture(textureSampler, transformedUV).rg, 1.0, 0.4);
+    vec3 colour = texture(textureSampler, transformedUV).rgb;
+    float greyScaleColour = 0.299 * colour.r + 0.587 * colour.g + 0.114 * colour.b;
+
+    result = vec4(greyScaleColour * 0.4 + 0.3, greyScaleColour * 0.4 + 0.3, 1.0, 1.0);
 } 

@@ -15,6 +15,8 @@ void main()
 {
     vec2 transformedUV = UV * (1-2*border);
 
+    transformedUV = vec2(transformedUV.y, 1.0 - transformedUV.x);
+
     float spritesheetWidth = spriteWidth / 32.0;
     float spritesheetHeight = spriteHeight / 32.0;
 
