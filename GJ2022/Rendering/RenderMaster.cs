@@ -30,17 +30,19 @@ namespace GJ2022.Rendering
             //Create the camera
             mainCamera = new Camera();
 
-            //Load the render systems
-            InitRenderSystems();
-
             //Set the openGL stuff
             SetOpenGlFlags();
+
+            //Load the render systems
+            InitRenderSystems();
         }
 
         private static void InitRenderSystems()
         {
             renderSystems = new RenderSystem[] {
                 new LineRenderer(),
+                new CircleRenderSystem(),
+                new BlueprintRenderSystem(),
                 new InstanceRenderSystem(),
                 new OutlineQuadRenderSystem(),
                 new BackgroundRenderSystem(),

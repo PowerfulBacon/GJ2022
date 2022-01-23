@@ -15,6 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\TextureData.json~RF8ecf5ae2.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CalmBit.LibNoise" Version="1.0.0" />
     <PackageReference Include="glfw-net" Version="3.3.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
@@ -39,6 +43,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="png16.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\blueprintShader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\blueprintShader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\circleShader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\circleShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Rendering\Shaders\outlineShader.frag">

@@ -35,6 +35,39 @@ namespace GJ2022.Utility.MathConstructs
             get { return Values.Length; }
         }
 
+        public Vector IgnoreZ()
+        {
+            return new Vector(2, Values[0], Values[1]);
+        }
+
+        //TODO: REFACTOR THE LAYERING SYSTEM
+        public void MoveTowards(Vector target, float speed, float deltaTime, bool ignoreZ = true)
+        {
+            Vector trueTarget = target;
+            Vector trueThis = this;
+            if (ignoreZ)
+            {
+                trueTarget = trueTarget.IgnoreZ();
+                trueThis = trueThis.IgnoreZ();
+            }
+            float totalDistance = (trueTarget - trueThis).Length();
+            float distanceMoved = speed / deltaTime;
+            if (totalDistance < distanceMoved)
+            {
+                //Dimensional safe copy
+                for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
+                {
+                    Values[i] = trueTarget.Values[i];
+                }
+                return;
+            }
+            for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
+            {
+                float dist = trueTarget[i] - trueThis.Values[i];
+                Values[i] += dist / totalDistance * (speed / deltaTime);
+            }
+        }
+
         public static bool operator ==(Vector a, Vector b)
         {
             if (a.Dimensions != b.Dimensions) return false;

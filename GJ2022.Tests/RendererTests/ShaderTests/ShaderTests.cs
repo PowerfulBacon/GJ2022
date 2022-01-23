@@ -8,12 +8,7 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
     [TestClass]
     [DeploymentItem(@".\glfw.dll")]
     [DeploymentItem(@".\GLFW.NET.dll")]
-    [DeploymentItem(@".\Rendering\Shaders\instanceShader.vert")]
-    [DeploymentItem(@".\Rendering\Shaders\instanceShader.frag")]
-    [DeploymentItem(@".\Rendering\Shaders\backgroundShader.vert")]
-    [DeploymentItem(@".\Rendering\Shaders\backgroundShader.frag")]
-    [DeploymentItem(@".\Rendering\Shaders\outlineShader.vert")]
-    [DeploymentItem(@".\Rendering\Shaders\outlineShader.frag")]
+    [DeploymentItem(@".\Rendering\Shaders\")]
     public class ShaderTests
     {
 
@@ -51,52 +46,16 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
         }
 
         [TestMethod]
-        public void TestShaderExists()
-        {
-            //Sanity checks
-            //Tests the functionality of these tests
-            Assert.IsTrue(File.Exists(@"instanceShader.vert"), "Couldn't locate instance shader file, it is likely this test is incorrectly setup.");
-        }
-
-        [TestMethod]
-        public void TestOutlineShaderCompilation()
+        public void TestShaderCompilation()
         {
             if (setupFailed) Assert.Inconclusive();
-            string name = "outlineShader";
-            Assert.IsTrue(TestShader(name, GL_FRAGMENT_SHADER));
-            Assert.IsTrue(TestShader(name, GL_VERTEX_SHADER));
-        }
-
-        [TestMethod]
-        public void TestBackgroundFragmentShaderCompilation()
-        {
-            if (setupFailed) Assert.Inconclusive();
-            string name = "backgroundShader";
-            Assert.IsTrue(TestShader(name, GL_FRAGMENT_SHADER));
-        }
-
-        [TestMethod]
-        public void TestBackgroundVertexShaderCompilation()
-        {
-            if (setupFailed) Assert.Inconclusive();
-            string name = "backgroundShader";
-            Assert.IsTrue(TestShader(name, GL_VERTEX_SHADER));
-        }
-
-        [TestMethod]
-        public void TestFragmentShaderCompilation()
-        {
-            if (setupFailed) Assert.Inconclusive();
-            string name = "instanceShader";
-            Assert.IsTrue(TestShader(name, GL_FRAGMENT_SHADER));
-        }
-
-        [TestMethod]
-        public void TestVertexShaderCompilation()
-        {
-            if (setupFailed) Assert.Inconclusive();
-            string name = "instanceShader";
-            Assert.IsTrue(TestShader(name, GL_VERTEX_SHADER));
+            foreach (string fileName in Directory.GetFiles(@".\", "*.vert"))
+            {
+                string sanitizedName = fileName.Replace(".vert", "");
+                Assert.IsTrue(TestShader(sanitizedName, GL_FRAGMENT_SHADER), $"{sanitizedName}.frag failed to compile!");
+                Assert.IsTrue(TestShader(sanitizedName, GL_VERTEX_SHADER), $"{sanitizedName}.vert failed to compile!");
+                Log.WriteLine($"Compiled {sanitizedName} successfully.");
+            }
         }
 
         private bool TestShader(string shaderName, int type)

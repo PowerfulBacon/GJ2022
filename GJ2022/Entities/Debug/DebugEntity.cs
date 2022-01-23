@@ -33,9 +33,12 @@ namespace GJ2022.Entities.Debug
 
         public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => InstanceRenderSystem.Singleton;
 
+        protected virtual string Texture { get; set; } = TextureCache.ERROR_ICON_STATE;
+
         public DebugEntity(Vector position) : base(position)
         {
             MouseCollisionSubsystem.Singleton.StartTracking(this);
+            InstanceRenderSystem.Singleton.StartRendering(this);
         }
 
         /// <summary>
@@ -111,7 +114,7 @@ namespace GJ2022.Entities.Debug
 
         public RendererTextureData GetRendererTextureData()
         {
-            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
+            return TextureCache.GetTexture(Texture);
         }
     }
 }
