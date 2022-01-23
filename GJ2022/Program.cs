@@ -61,23 +61,23 @@ namespace GJ2022
             Log.WriteLine("Done loading", LogType.DEBUG);
 
             //Create the background first
-            BackgroundRenderSystem.Singleton.StartRendering(new BackgroundEntity(new Vector(3)));
+            BackgroundRenderSystem.Singleton.StartRendering(new BackgroundEntity(new Vector(0, 0, 0)));
             //new BackgroundEntity(new Vector(3));
 
-            Line.StartDrawingLine(new Vector(3, -5, 0, 0), new Vector(3, 5, 0, 0), Colour.Red);
-            Line.StartDrawingLine(new Vector(3, 0, -5, 0), new Vector(3, 0, 5, 0), Colour.Green);
-            Line.StartDrawingLine(new Vector(3, 0, 0, -5), new Vector(3, 0, 0, 5), Colour.Blue);
+            Line.StartDrawingLine(new Vector(-5, 0, 0), new Vector(5, 0, 0), Colour.Red);
+            Line.StartDrawingLine(new Vector(0, -5, 0), new Vector(0, 5, 0), Colour.Green);
+            Line.StartDrawingLine(new Vector(0, 0, -5), new Vector(0, 0, 5), Colour.Blue);
 
             //Create rooms
-            OutlineQuadRenderSystem.Singleton.StartRendering(new HallwayCross(new Vector(3, 2, 2, 0)));
+            OutlineQuadRenderSystem.Singleton.StartRendering(new HallwayCross(new Vector(2, 2, 0)));
 
             BuildModeSubsystem.Singleton.ActivateBuildMode();
 
-            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
-            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
-            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
-            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
-            new Pawn(new Vector(3, 2.3f, 7.3f, 5));
+            new Pawn(new Vector(2.3f, 7.3f, 5));
+            new Pawn(new Vector(2.3f, 7.3f, 5));
+            new Pawn(new Vector(2.3f, 7.3f, 5));
+            new Pawn(new Vector(2.3f, 7.3f, 5));
+            new Pawn(new Vector(2.3f, 7.3f, 5));
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

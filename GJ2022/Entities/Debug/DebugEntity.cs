@@ -90,7 +90,7 @@ namespace GJ2022.Entities.Debug
 
         public Vector GetInstanceScale()
         {
-            return new Vector(2, 1, 1);
+            return new Vector(1, 1);
         }
 
         public Model GetModel()

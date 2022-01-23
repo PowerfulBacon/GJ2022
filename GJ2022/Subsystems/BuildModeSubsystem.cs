@@ -57,9 +57,9 @@ namespace GJ2022.Subsystems
                     //Check for border
                     bool isBorder = x == (int)dragStartPoint[0] || x == (int)dragEndPoint[0] || y == (int)dragStartPoint[1] || y == (int)dragEndPoint[1];
                     //Blueprint
-                    Blueprint blueprint = new Blueprint(new Vector(3, x, y), isBorder ? selectedBlueprint.BorderTexture : selectedBlueprint.FloorTexture, isBorder ? selectedBlueprint.BorderType : selectedBlueprint.FloorType);
+                    Blueprint blueprint = new Blueprint(new Vector(x, y, 0), isBorder ? selectedBlueprint.BorderTexture : selectedBlueprint.FloorTexture, isBorder ? selectedBlueprint.BorderType : selectedBlueprint.FloorType);
                     BlueprintRenderSystem.Singleton.StartRendering(blueprint);
-                    Vector position = new Vector(3, x, y, 0);
+                    Vector position = new Vector(x, y, 0);
                     dragHighlights.Add(position, blueprint);
                 }
             }

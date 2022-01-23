@@ -5,15 +5,9 @@ namespace GJ2022.Utility.MathConstructs
     public struct Vector
     {
 
-        public Vector(int dimensions, params float[] values)
+        public Vector(params float[] values)
         {
-            //Set the dimension of the vector
-            Values = new float[dimensions];
-            //Set the values
-            for (int i = 0; i < values.Length; i++)
-            {
-                Values[i] = values[i];
-            }
+            Values = values;
         }
 
         private float[] Values;
@@ -37,7 +31,7 @@ namespace GJ2022.Utility.MathConstructs
 
         public Vector IgnoreZ()
         {
-            return new Vector(2, Values[0], Values[1]);
+            return new Vector(Values[0], Values[1]);
         }
 
         //TODO: REFACTOR THE LAYERING SYSTEM
@@ -100,7 +94,7 @@ namespace GJ2022.Utility.MathConstructs
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(resultingDimensions);
+            Vector vector = new Vector(new float[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
                 vector[i] = (i < a.Dimensions ? a[i] : 0) + (i < b.Dimensions ? b[i] : 0);
@@ -114,7 +108,7 @@ namespace GJ2022.Utility.MathConstructs
         public static Vector operator +(Vector a, float b)
         {
             //Create the new vector
-            Vector vector = new Vector(a.Dimensions);
+            Vector vector = new Vector(new float[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
                 vector[i] = a[i] + b;
@@ -130,7 +124,7 @@ namespace GJ2022.Utility.MathConstructs
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(resultingDimensions);
+            Vector vector = new Vector(new float[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
                 vector[i] = (i < a.Dimensions ? a[i] : 0) - (i < b.Dimensions ? b[i] : 0);
@@ -144,7 +138,7 @@ namespace GJ2022.Utility.MathConstructs
         public static Vector operator -(Vector a, float b)
         {
             //Create the new vector
-            Vector vector = new Vector(a.Dimensions);
+            Vector vector = new Vector(new float[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
                 vector[i] = a[i] - b;
@@ -187,7 +181,7 @@ namespace GJ2022.Utility.MathConstructs
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(resultingDimensions);
+            Vector vector = new Vector(new float[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
                 vector[i] = (i < a.Dimensions ? a[i] : 0) * (i < b.Dimensions ? b[i] : 0);
@@ -202,7 +196,7 @@ namespace GJ2022.Utility.MathConstructs
         public static Vector operator *(Vector a, float b)
         {
             //Create the new vector
-            Vector vector = new Vector(a.Dimensions);
+            Vector vector = new Vector(new float[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
                 vector[i] = a[i] * b;
@@ -218,7 +212,7 @@ namespace GJ2022.Utility.MathConstructs
             //Calculate the resulting dimensions of the new vector
             int resultingDimensions = Math.Max(a.Dimensions, b.Dimensions);
             //Create the new vector
-            Vector vector = new Vector(resultingDimensions);
+            Vector vector = new Vector(new float[resultingDimensions]);
             //Add the values
             for (int i = 0; i < resultingDimensions; i++)
                 vector[i] = (i < a.Dimensions ? a[i] : 0) / (i < b.Dimensions ? b[i] : 0);
@@ -232,7 +226,7 @@ namespace GJ2022.Utility.MathConstructs
         public static Vector operator /(Vector a, float b)
         {
             //Create the new vector
-            Vector vector = new Vector(a.Dimensions);
+            Vector vector = new Vector(new float[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
                 vector[i] = a[i] / b;
@@ -246,7 +240,7 @@ namespace GJ2022.Utility.MathConstructs
         public static Vector operator ^(Vector a, float b)
         {
             //Create the new vector
-            Vector vector = new Vector(a.Dimensions);
+            Vector vector = new Vector(new float[a.Dimensions]);
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
                 vector[i] = (float)Math.Pow(a[i], b);

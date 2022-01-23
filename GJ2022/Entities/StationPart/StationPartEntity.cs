@@ -52,7 +52,7 @@ namespace GJ2022.Entities.StationPart
 
         public Vector GetInstanceScale()
         {
-            return new Vector(2, 3, 1);
+            return new Vector(3, 1);
         }
 
         public Model GetModel()
