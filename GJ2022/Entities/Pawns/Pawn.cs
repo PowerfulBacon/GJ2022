@@ -179,7 +179,8 @@ namespace GJ2022.Entities.Pawns
                             //Null the work target
                             workTarget = null;
                             //Drop held items
-                            itemTarget.Location = null;
+                            if(itemTarget != null)
+                                itemTarget.Location = null;
                             heldItem = null;
                         }
                     ));
