@@ -41,7 +41,7 @@ namespace GJ2022.Utility.MathConstructs
         }
 
         //TODO: REFACTOR THE LAYERING SYSTEM
-        public void MoveTowards(Vector<T> target, float speed, float deltaTime, bool ignoreZ = true)
+        public Vector<T> MoveTowards(Vector<T> target, float speed, float deltaTime, bool ignoreZ = true)
         {
             Vector<T> trueTarget = target;
             Vector<T> trueThis = this;
@@ -59,13 +59,14 @@ namespace GJ2022.Utility.MathConstructs
                 {
                     Values[i] = trueTarget.Values[i];
                 }
-                return;
+                return this;
             }
             for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
             {
                 float dist = (dynamic)trueTarget[i] - trueThis.Values[i];
                 Values[i] += (dynamic)(dist / totalDistance * (speed / deltaTime));
             }
+            return this;
         }
 
         public static bool operator ==(Vector<T> a, Vector<T> b)

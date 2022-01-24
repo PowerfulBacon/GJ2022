@@ -1,13 +1,11 @@
-﻿using GJ2022.Entities.Abstract;
-using GJ2022.Entities.Blueprints;
+﻿using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
+using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Pathfinding;
-using GJ2022.Rendering.RenderSystems;
-using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
-using GJ2022.Rendering.Textures;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
@@ -17,18 +15,12 @@ using System.Linq;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, ICircleRenderable, IProcessable, IMovable
+    public class Pawn : Entity, IProcessable
     {
 
-        public Pawn(Vector<float> position) : base(position)
-        {
-            PawnControllerSystem.Singleton.StartProcessing(this);
-            CircleRenderSystem.Singleton.StartRendering(this);
-        }
+        protected override Renderable Renderable { get; set; } = new CircleRenderable(Colour.Yellow);
 
-        public Colour Colour { get; } = Colour.Yellow;
-
-        public RenderSystem<ICircleRenderable, CircleRenderSystem> RenderSystem => CircleRenderSystem.Singleton;
+        public bool Destroyed { get; set; } = false;
 
         private Item heldItem;
 
@@ -41,10 +33,15 @@ namespace GJ2022.Entities.Pawns
         private Path followingPath = null;
         private int positionOnPath;
 
+        public Pawn(Vector<float> position) : base(position, Layers.LAYER_PAWN)
+        {
+            PawnControllerSystem.Singleton.StartProcessing(this);
+        }
+
         public void Process(float deltaTime)
         {
             //Target no longer exists
-            if (workTarget != null && workTarget.IsDestroyed())
+            if (workTarget != null && workTarget.Destroyed)
                 workTarget = null;
             //Move towards the nearest blueprint and build it
             if (workTarget == null)
@@ -145,8 +142,7 @@ namespace GJ2022.Entities.Pawns
                 nextPosition = itemTarget?.Position ?? workTarget.Position;
             }
             //Move towards
-            Position.MoveTowards(nextPosition, 0.1f, deltaTime);
-            UpdatePosition();
+            Position = Position.MoveTowards(nextPosition, 0.1f, deltaTime);
             //ugly line
             line.Start = Position;
 
@@ -154,7 +150,7 @@ namespace GJ2022.Entities.Pawns
             if (Position.IgnoreZ() == itemTarget?.Position.IgnoreZ())
             {
                 //Pickup the item
-                itemTarget.PutInside(this);
+                itemTarget.Location = this;
                 //Null the item target
                 heldItem = itemTarget;
                 itemTarget = null;
@@ -178,11 +174,12 @@ namespace GJ2022.Entities.Pawns
                             followingPath = path;
                             positionOnPath = 0;
                         },
-                        () => {
+                        () =>
+                        {
                             //Null the work target
                             workTarget = null;
                             //Drop held items
-                            itemTarget.PutInside(null);
+                            itemTarget.Location = null;
                             heldItem = null;
                         }
                     ));
@@ -190,7 +187,7 @@ namespace GJ2022.Entities.Pawns
             else if (Position.IgnoreZ() == workTarget.Position.IgnoreZ())
             {
                 //Put materials into the work target
-                if(heldItem != null)
+                if (heldItem != null)
                     workTarget.PutMaterials(heldItem);
                 heldItem = null;
                 if (workTarget.HasMaterials())
@@ -203,64 +200,12 @@ namespace GJ2022.Entities.Pawns
                 positionOnPath++;
             }
         }
-
-        public Vector<float> GetPosition()
+        public override bool Destroy()
         {
-            return Position;
-        }
-
-        public RendererTextureData GetRendererTextureData()
-        {
-            return TextureCache.GetTexture(TextureCache.ERROR_ICON_STATE);
-        }
-
-        private Dictionary<object, int> renderableBatchIndex = new Dictionary<object, int>();
-
-        public void SetRenderableBatchIndex(object associatedSet, int index)
-        {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                renderableBatchIndex[associatedSet] = index;
-            else
-                renderableBatchIndex.Add(associatedSet, index);
-        }
-
-        /// <summary>
-        /// Returns the renderable batch index in the provided set.
-        /// Returns -1 if failed.
-        /// </summary>
-        public int GetRenderableBatchIndex(object associatedSet)
-        {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                return renderableBatchIndex[associatedSet];
-            else
-                return -1;
-        }
-
-        private bool destroyed = false;
-
-        public bool Destroy()
-        {
-            CircleRenderSystem.Singleton.StopRendering(this);
+            base.Destroy();
             PawnControllerSystem.Singleton.StopProcessing(this);
-            destroyed = true;
+            Destroyed = true;
             return true;
-        }
-
-        public bool IsDestroyed()
-        {
-            return destroyed;
-        }
-
-        public void UpdatePositionBatch()
-        {
-            //Update position in renderer
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<ICircleRenderable, CircleRenderSystem>)?.UpdateBatchData(this, 0);
-        }
-
-        public void OnMoved(Vector<float> previousPosition)
-        {
-            return;
         }
 
     }

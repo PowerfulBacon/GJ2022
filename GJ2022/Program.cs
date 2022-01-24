@@ -1,10 +1,9 @@
-﻿using GJ2022.Entities.Background;
-using GJ2022.Entities.Items.Stacks;
+﻿using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Pawns;
 using GJ2022.Managers;
 using GJ2022.Rendering;
-using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
@@ -62,7 +61,7 @@ namespace GJ2022
             Log.WriteLine("Done loading", LogType.DEBUG);
 
             //Create the background first
-            BackgroundRenderSystem.Singleton.StartRendering(new BackgroundEntity(new Vector<float>(0, 0, 0)));
+            new BackgroundRenderable().StartRendering();
             //new BackgroundEntity(new Vector(3));
 
             Line.StartDrawingLine(new Vector<float>(-5, 0, 0), new Vector<float>(5, 0, 0), Colour.Red);

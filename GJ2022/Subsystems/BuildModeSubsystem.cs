@@ -1,9 +1,6 @@
-﻿using GJ2022.Entities.Abstract;
-using GJ2022.Entities.Blueprints;
-using GJ2022.Game.Construction;
+﻿using GJ2022.Entities.Blueprints;
 using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Game.Construction.BlueprintSets;
-using GJ2022.Rendering.RenderSystems;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
@@ -65,7 +62,6 @@ namespace GJ2022.Subsystems
                         blueprintDetail.BlueprintType,
                         position,
                         blueprintDetail) as Blueprint;
-                    BlueprintRenderSystem.Singleton.StartRendering(blueprint);
                     dragHighlights.Add(position, blueprint);
                 }
             }
