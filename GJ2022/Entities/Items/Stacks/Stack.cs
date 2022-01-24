@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GJ2022.Utility.MathConstructs;
 
-namespace GJ2022.Entities.Items.Stack
+namespace GJ2022.Entities.Items.Stacks
 {
     public abstract class Stack : Item
     {

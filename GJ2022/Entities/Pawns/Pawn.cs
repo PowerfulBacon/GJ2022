@@ -82,6 +82,7 @@ namespace GJ2022.Entities.Pawns
             }
             //Move towards
             Position.MoveTowards(workTarget.Position, 0.1f, deltaTime);
+            UpdatePosition();
             //ugly line
             line.Start = Position;
             

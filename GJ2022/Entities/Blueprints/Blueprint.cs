@@ -1,6 +1,6 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.Construction;
-using GJ2022.Game.Construction.Walls;
+using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
@@ -19,26 +19,16 @@ namespace GJ2022.Entities.Blueprints
 
         private bool isDestroyed = false;
 
-        public BlueprintDetail BlueprintDetail { get; set; } = new FoundationBlueprint();
+        public BlueprintDetail BlueprintDetail { get; set; }
 
         public RenderSystem<IBlueprintRenderable, BlueprintRenderSystem> RenderSystem => BlueprintRenderSystem.Singleton;
 
         public ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
-        private string usingTexture = "";
-
-        public Type CreatedType { get; }
-
-        public int BlueprintPriority { get; }
-
-        public Blueprint(Vector<float> position, string texture, Type createdType, int priority) : base(position)
+        public Blueprint(Vector<float> position, BlueprintDetail blueprint) : base(position)
         {
-            //Set using texture
-            usingTexture = texture;
-            //Set the created type
-            CreatedType = createdType;
-            //Set the priority
-            BlueprintPriority = priority;
+            //Set the blueprint details
+            BlueprintDetail = blueprint;
             //Update batch
             if (renderableBatchIndex.Count > 0)
                 (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IBlueprintRenderable, BlueprintRenderSystem>)?.UpdateBatchData(this, 1);

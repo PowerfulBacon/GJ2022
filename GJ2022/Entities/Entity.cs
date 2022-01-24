@@ -23,9 +23,14 @@ namespace GJ2022.Entities
             }
         }
 
+        public void UpdatePosition()
+        {
+            Position = _position;
+        }
+
         public Entity(Vector<float> position)
         {
-            Position = position;
+            _position = position;
         }
 
     }
