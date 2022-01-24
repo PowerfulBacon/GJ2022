@@ -27,7 +27,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public StandardRenderable(string texture)
         {
             _texture = texture;
-            RenderSystem.StartRendering(this);
+            StartRendering();
         }
 
         //===================

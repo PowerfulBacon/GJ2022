@@ -23,7 +23,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public CircleRenderable(Colour colour)
         {
             _colour = colour;
-            RenderSystem.StartRendering(this);
+            StartRendering();
         }
 
         private Colour _colour;

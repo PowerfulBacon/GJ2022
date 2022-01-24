@@ -40,7 +40,6 @@ namespace GJ2022.Entities
         //Default destroy behaviour
         public virtual bool Destroy()
         {
-            Log.WriteLine("banana");
             Renderable?.StopRendering();
             Renderable = null;
             return true;
