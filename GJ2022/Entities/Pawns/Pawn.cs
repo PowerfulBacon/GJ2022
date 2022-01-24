@@ -32,6 +32,9 @@ namespace GJ2022.Entities.Pawns
 
         private List<Line> lines = new List<Line>();
 
+        private Path followingPath = null;
+        private int positionOnPath;
+
         public void Process(float deltaTime)
         {
             //Target no longer exists
@@ -69,8 +72,10 @@ namespace GJ2022.Entities.Pawns
                                 {
                                     lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
                                 }
+                                followingPath = path;
+                                positionOnPath = 0;
                             },
-                            () => { Log.WriteLine($"Failed to locate path from {Position} to {workTargetPosition}"); }
+                            () => { workTarget = null; }
                         ));
                 }
                 else
@@ -80,16 +85,31 @@ namespace GJ2022.Entities.Pawns
                     return;
                 }
             }
+            if (followingPath == null || workTarget == null)
+                return;
+            Vector<float> nextPosition;
+            if (positionOnPath < followingPath.Points.Count)
+            {
+                nextPosition = followingPath.Points[positionOnPath];
+            }
+            else
+            {
+                nextPosition = workTarget.Position;
+            }
             //Move towards
-            Position.MoveTowards(workTarget.Position, 0.1f, deltaTime);
+            Position.MoveTowards(nextPosition, 0.1f, deltaTime);
             UpdatePosition();
             //ugly line
             line.Start = Position;
-            
+
             //If distance < build range, build it
             if (Position.IgnoreZ() == workTarget.Position.IgnoreZ())
             {
                 workTarget.Complete();
+            }
+            else if (Position.IgnoreZ() == nextPosition.IgnoreZ())
+            {
+                positionOnPath++;
             }
         }
 
