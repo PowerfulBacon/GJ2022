@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, ICircleRenderable, IProcessable
+    public class Pawn : Entity, ICircleRenderable, IProcessable, IMovable
     {
 
         public Pawn(Vector<float> position) : base(position)
@@ -46,16 +46,16 @@ namespace GJ2022.Entities.Pawns
                     workTarget = PawnControllerSystem.QueuedBlueprints[workTargetPosition].Values.ElementAt(0);
                     if (line == null)
                     {
-                        line = Line.StartDrawingLine(position, workTargetPosition, Colour.Cyan);
+                        line = Line.StartDrawingLine(Position, workTargetPosition, Colour.Cyan);
                     }
                     else
                     {
-                        line.End = workTarget.position;
+                        line.End = workTarget.Position;
                     }
                     //Pathfind
                     PathfindingSystem.Singleton.RequestPath(
                         new PathfindingRequest(
-                            position, 
+                            Position, 
                             workTargetPosition,
                             (Path path) =>
                             {
@@ -70,7 +70,7 @@ namespace GJ2022.Entities.Pawns
                                     lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
                                 }
                             },
-                            () => { Log.WriteLine($"Failed to locate path from {position} to {workTargetPosition}"); }
+                            () => { Log.WriteLine($"Failed to locate path from {Position} to {workTargetPosition}"); }
                         ));
                 }
                 else
@@ -81,14 +81,12 @@ namespace GJ2022.Entities.Pawns
                 }
             }
             //Move towards
-            position.MoveTowards(workTarget.position, 0.1f, deltaTime);
+            Position.MoveTowards(workTarget.Position, 0.1f, deltaTime);
             //ugly line
-            line.Start = position;
-            //Update position in renderer
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<ICircleRenderable, CircleRenderSystem>)?.UpdateBatchData(this, 0);
+            line.Start = Position;
+            
             //If distance < build range, build it
-            if (position.IgnoreZ() == workTarget.position.IgnoreZ())
+            if (Position.IgnoreZ() == workTarget.Position.IgnoreZ())
             {
                 workTarget.Complete();
             }
@@ -96,7 +94,7 @@ namespace GJ2022.Entities.Pawns
 
         public Vector<float> GetPosition()
         {
-            return position;
+            return Position;
         }
 
         public RendererTextureData GetRendererTextureData()
@@ -140,5 +138,18 @@ namespace GJ2022.Entities.Pawns
         {
             return destroyed;
         }
+
+        public void UpdatePositionBatch()
+        {
+            //Update position in renderer
+            if (renderableBatchIndex.Count > 0)
+                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<ICircleRenderable, CircleRenderSystem>)?.UpdateBatchData(this, 0);
+        }
+
+        public void OnMoved(Vector<float> previousPosition)
+        {
+            return;
+        }
+
     }
 }

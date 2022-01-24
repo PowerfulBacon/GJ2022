@@ -17,9 +17,9 @@ namespace GJ2022.Entities.Blueprints
         public override void Complete()
         {
             //Destroy existing one
-            World.SetTurf((int)position[0], (int)position[1], null);
+            World.SetTurf((int)Position[0], (int)Position[1], null);
             //Create an instance of the thingy
-            Activator.CreateInstance(CreatedType, (int)position[0], (int)position[1]);
+            Activator.CreateInstance(CreatedType, (int)Position[0], (int)Position[1]);
             //Destroy the blueprint
             Destroy();
         }

@@ -19,9 +19,9 @@ namespace GJ2022.Entities.Debug
 
         public ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
-        public float WorldX => position[0] - 0.5f;
+        public float WorldX => Position[0] - 0.5f;
 
-        public float WorldY => position[1] - 0.5f;
+        public float WorldY => Position[1] - 0.5f;
 
         public float Width => 1.0f;
 
@@ -65,7 +65,7 @@ namespace GJ2022.Entities.Debug
 
         public Vector<float> GetInstancePosition()
         {
-            return position;
+            return Position;
         }
 
         public void OnMouseEnter()
@@ -105,7 +105,7 @@ namespace GJ2022.Entities.Debug
 
         public Vector<float> GetPosition()
         {
-            return position;
+            return Position;
         }
 
         public RendererTextureData GetRendererTextureData()

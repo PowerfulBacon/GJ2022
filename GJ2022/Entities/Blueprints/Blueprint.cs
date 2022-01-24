@@ -52,12 +52,12 @@ namespace GJ2022.Entities.Blueprints
             BlueprintRenderSystem.Singleton.StopRendering(this);
             //Remove from the pawn list
             //TODO: Contain this inside pawn controller system rather than here
-            if (PawnControllerSystem.QueuedBlueprints.ContainsKey(position))
+            if (PawnControllerSystem.QueuedBlueprints.ContainsKey(Position))
             {
-                if (PawnControllerSystem.QueuedBlueprints[position][BlueprintDetail.BlueprintLayer] == this)
-                    PawnControllerSystem.QueuedBlueprints[position].Remove(BlueprintDetail.BlueprintLayer);
-                if (PawnControllerSystem.QueuedBlueprints[position].Count == 0)
-                    PawnControllerSystem.QueuedBlueprints.Remove(position);
+                if (PawnControllerSystem.QueuedBlueprints[Position][BlueprintDetail.BlueprintLayer] == this)
+                    PawnControllerSystem.QueuedBlueprints[Position].Remove(BlueprintDetail.BlueprintLayer);
+                if (PawnControllerSystem.QueuedBlueprints[Position].Count == 0)
+                    PawnControllerSystem.QueuedBlueprints.Remove(Position);
             }
             return true;
         }
@@ -65,7 +65,7 @@ namespace GJ2022.Entities.Blueprints
         public virtual void Complete()
         {
             //Create an instance of the thingy
-            Activator.CreateInstance(CreatedType, position);
+            Activator.CreateInstance(CreatedType, Position);
             //Destroy the blueprint
             Destroy();
         }
@@ -87,7 +87,7 @@ namespace GJ2022.Entities.Blueprints
 
         public Vector<float> GetPosition()
         {
-            return new Vector<float>(position[0], position[1], 2);
+            return new Vector<float>(Position[0], Position[1], 2);
         }
 
         public RendererTextureData GetRendererTextureData()
