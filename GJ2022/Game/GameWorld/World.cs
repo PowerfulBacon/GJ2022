@@ -47,7 +47,7 @@ namespace GJ2022.Game.GameWorld
         {
             Turf locatedTurf = GetTurf(x, y);
             //TODO: Proper ISolid + directional solidity
-            return locatedTurf == null || !(locatedTurf is ISolid);
+            return locatedTurf != null && locatedTurf is ISolid;
         }
 
     }

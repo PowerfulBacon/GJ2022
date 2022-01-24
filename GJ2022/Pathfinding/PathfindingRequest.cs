@@ -26,8 +26,8 @@ namespace GJ2022.Pathfinding
         //Constructor
         public PathfindingRequest(Vector<int> start, Vector<int> end, PathFoundDelegate foundDelegate, PathFailedDelegate failedDelegate = null)
         {
-            Start = start;
-            End = end;
+            Start = start.IgnoreZ();
+            End = end.IgnoreZ();
             this.foundDelegate = foundDelegate;
             this.failedDelegate = failedDelegate;
         }
