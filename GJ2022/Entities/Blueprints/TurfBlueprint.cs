@@ -1,4 +1,5 @@
-﻿using GJ2022.Game.GameWorld;
+﻿using GJ2022.Game.Construction.Blueprints;
+using GJ2022.Game.GameWorld;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace GJ2022.Entities.Blueprints
     public class TurfBlueprint : Blueprint
     {
 
-        public TurfBlueprint(Vector<float> position, string texture, Type createdType, int priority) : base(position, texture, createdType, priority)
+        public TurfBlueprint(Vector<float> position, BlueprintDetail detail) : base(position, detail)
         { }
 
         public override void Complete()
@@ -19,7 +20,7 @@ namespace GJ2022.Entities.Blueprints
             //Destroy existing one
             World.SetTurf((int)Position[0], (int)Position[1], null);
             //Create an instance of the thingy
-            Activator.CreateInstance(CreatedType, (int)Position[0], (int)Position[1]);
+            Activator.CreateInstance(BlueprintDetail.CreatedType, (int)Position[0], (int)Position[1]);
             //Destroy the blueprint
             Destroy();
         }

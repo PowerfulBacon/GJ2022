@@ -62,7 +62,7 @@ namespace GJ2022.Subsystems
                     Vector<float> position = new Vector<float>(x, y, 2);
                     BlueprintDetail blueprintDetail = isBorder ? selectedBlueprint.BlueprintDetail : selectedBlueprint.FillerBlueprint;
                     Blueprint blueprint = Activator.CreateInstance(
-                        blueprintDetail.BlueprintType
+                        blueprintDetail.BlueprintType,
                         position,
                         blueprintDetail) as Blueprint;
                     BlueprintRenderSystem.Singleton.StartRendering(blueprint);

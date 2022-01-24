@@ -55,7 +55,7 @@ namespace GJ2022.Entities.Blueprints
         public virtual void Complete()
         {
             //Create an instance of the thingy
-            Activator.CreateInstance(CreatedType, Position);
+            Activator.CreateInstance(BlueprintDetail.CreatedType, Position);
             //Destroy the blueprint
             Destroy();
         }
@@ -82,7 +82,7 @@ namespace GJ2022.Entities.Blueprints
 
         public RendererTextureData GetRendererTextureData()
         {
-            return TextureCache.GetTexture(usingTexture);
+            return TextureCache.GetTexture(BlueprintDetail.Texture);
         }
 
         private Dictionary<object, int> renderableBatchIndex = new Dictionary<object, int>();
