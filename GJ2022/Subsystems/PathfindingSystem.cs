@@ -127,13 +127,13 @@ namespace GJ2022.Subsystems
                 CheckAddNode(current, ref processData, new Vector<int>(0, -1));
             if ((validDirections & ConnectingDirections.WEST) != 0)
                 CheckAddNode(current, ref processData, new Vector<int>(-1, 0));
-            if ((validDirections & ConnectingDirections.NORTH_EAST) == ConnectingDirections.NORTH_EAST)
+            if ((validDirections & ConnectingDirections.NORTH_EAST) == ConnectingDirections.NORTH_EAST && !World.IsSolid(current.Position + new Vector<int>(1, 1)))
                 CheckAddNode(current, ref processData, new Vector<int>(1, 1));
-            if ((validDirections & ConnectingDirections.SOUTH_EAST) == ConnectingDirections.SOUTH_EAST)
+            if ((validDirections & ConnectingDirections.SOUTH_EAST) == ConnectingDirections.SOUTH_EAST && !World.IsSolid(current.Position + new Vector<int>(1, -1)))
                 CheckAddNode(current, ref processData, new Vector<int>(1, -1));
-            if ((validDirections & ConnectingDirections.SOUTH_WEST) == ConnectingDirections.SOUTH_WEST)
+            if ((validDirections & ConnectingDirections.SOUTH_WEST) == ConnectingDirections.SOUTH_WEST && !World.IsSolid(current.Position + new Vector<int>(-1, -1)))
                 CheckAddNode(current, ref processData, new Vector<int>(-1, -1));
-            if ((validDirections & ConnectingDirections.NORTH_WEST) == ConnectingDirections.NORTH_WEST)
+            if ((validDirections & ConnectingDirections.NORTH_WEST) == ConnectingDirections.NORTH_WEST && !World.IsSolid(current.Position + new Vector<int>(-1, 1)))
                 CheckAddNode(current, ref processData, new Vector<int>(-1, 1));
         }
 
