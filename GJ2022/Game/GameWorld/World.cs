@@ -35,6 +35,21 @@ namespace GJ2022.Game.GameWorld
                 WorldTurfs.Add(targetPosition, turf);
         }
 
+        public static bool IsSolid(Vector<int> position)
+        {
+            return IsSolid(position[0], position[1]);
+        }
+
+        /// <summary>
+        /// Check if a position is solid or not
+        /// </summary>
+        public static bool IsSolid(int x, int y)
+        {
+            Turf locatedTurf = GetTurf(x, y);
+            //TODO: Proper ISolid + directional solidity
+            return locatedTurf == null || !(locatedTurf is ISolid);
+        }
+
     }
 
 }

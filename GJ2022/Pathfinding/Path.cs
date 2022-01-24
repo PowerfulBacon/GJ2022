@@ -11,7 +11,7 @@ namespace GJ2022.Pathfinding
     {
 
         //List of points this path covers
-        public List<Vector> points;
+        public List<Vector<float>> points;
 
     }
 }

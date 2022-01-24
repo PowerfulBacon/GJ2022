@@ -14,9 +14,9 @@ namespace GJ2022.Pathfinding
         public delegate void PathFailedDelegate();
 
         //Start position of the pathfinding request
-        public Vector Start { get; }
+        public Vector<int> Start { get; }
         //End position of the pathfinding request
-        public Vector End { get; }
+        public Vector<int> End { get; }
 
         //Delegate to be called when the path is found
         public PathFoundDelegate foundDelegate { get; }
@@ -24,7 +24,7 @@ namespace GJ2022.Pathfinding
         public PathFailedDelegate failedDelegate { get; }
 
         //Constructor
-        public PathfindingRequest(Vector start, Vector end, PathFoundDelegate foundDelegate, PathFailedDelegate failedDelegate = null)
+        public PathfindingRequest(Vector<int> start, Vector<int> end, PathFoundDelegate foundDelegate, PathFailedDelegate failedDelegate = null)
         {
             Start = start;
             End = end;
