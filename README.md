@@ -16,6 +16,13 @@ This should be about the same difficulty to perform, although might require less
 
 ![image](https://user-images.githubusercontent.com/26465327/150687457-2d106f7a-9949-4485-8a70-315d7c270c65.png)
 
+## Code:
+
+Subsybstem - Subsystems run processes on a seperate thread.
+Managers - Managers store data. Used when seperate thread processing isn't needed for subsystems.
+Utility - Stores no data, provides helper methods.
+GlobalDataComponents - This should be managers (//TODO)
+
 # Screenshots
 
 ![image](https://user-images.githubusercontent.com/26465327/150699998-b8a64d51-fbb2-422a-8849-2b1fd1a79870.png)
