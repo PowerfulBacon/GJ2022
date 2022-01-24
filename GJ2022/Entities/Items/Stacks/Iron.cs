@@ -7,13 +7,13 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Items.Stacks
 {
-    class Iron : Stack
+    public class Iron : Stack
     {
         public Iron(Vector<float> position, int maxStackSize = 50, int stackSize = 1) : base(position, maxStackSize, stackSize)
         {
         }
 
-        public override string Texture => throw new NotImplementedException();
+        public override string Texture => "iron";
 
     }
 }

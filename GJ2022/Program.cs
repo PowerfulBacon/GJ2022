@@ -1,5 +1,7 @@
 ﻿using GJ2022.Entities.Background;
+using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Pawns;
+using GJ2022.Managers;
 using GJ2022.Rendering;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
@@ -74,6 +76,9 @@ namespace GJ2022
             new Pawn(new Vector<float>(2.3f, 7.3f, 5));
             new Pawn(new Vector<float>(2.3f, 7.3f, 5));
             new Pawn(new Vector<float>(2.3f, 7.3f, 5));
+
+            Iron iron = new Iron(new Vector<float>(20, 20, 20), 50, 50);
+            StockpileManager.AddItem(iron);
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.Items;
 using GJ2022.Game.Construction;
 using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Rendering.Models;
@@ -19,11 +20,16 @@ namespace GJ2022.Entities.Blueprints
 
         private bool isDestroyed = false;
 
+        //Materials loaded into this blueprint
+        public Dictionary<Type, int> LoadedMaterials { get; } = new Dictionary<Type, int>();
+
         public BlueprintDetail BlueprintDetail { get; set; }
 
         public RenderSystem<IBlueprintRenderable, BlueprintRenderSystem> RenderSystem => BlueprintRenderSystem.Singleton;
 
         public ModelData ModelData { get; set; } = QuadModelData.Singleton;
+
+        private List<Item> contents = new List<Item>();
 
         public Blueprint(Vector<float> position, BlueprintDetail blueprint) : base(position)
         {
@@ -38,6 +44,12 @@ namespace GJ2022.Entities.Blueprints
         {
             //Set destroyed
             isDestroyed = true;
+            //Drop our contents
+            foreach (Item item in contents)
+            {
+                item.PutInside(null);
+            }
+            contents.Clear();
             //Stop rendering
             BlueprintRenderSystem.Singleton.StopRendering(this);
             //Remove from the pawn list
@@ -52,8 +64,49 @@ namespace GJ2022.Entities.Blueprints
             return true;
         }
 
+        public void PutMaterials(Item item)
+        {
+            item.PutInside(this);
+            contents.Add(item);
+            LoadedMaterials.Add(item.GetType(), 99999999);
+        }
+
+        /// <summary>
+        /// Returns a tuple containing the first required material type and the amount needed
+        /// </summary>
+        public (Type, int)? GetRequiredMaterial()
+        {
+            foreach (Type requiredType in BlueprintDetail.Cost.Cost.Keys)
+            {
+                int requiredAmount = BlueprintDetail.Cost.Cost[requiredType];
+                if (!LoadedMaterials.ContainsKey(requiredType))
+                {
+                    return (requiredType, requiredAmount);
+                }
+                if(LoadedMaterials[requiredType] < requiredAmount)
+                {
+                    return (requiredType, requiredAmount - LoadedMaterials[requiredType]);
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns true if the blueprint has all the materials needed loaded
+        /// </summary>
+        public bool HasMaterials()
+        {
+            return GetRequiredMaterial() == null;
+        }
+
         public virtual void Complete()
         {
+            //Clear and delete all contents
+            foreach (Item item in contents)
+            {
+                item.Destroy();
+            }
+            contents.Clear();
             //Create an instance of the thingy
             Activator.CreateInstance(BlueprintDetail.CreatedType, Position);
             //Destroy the blueprint

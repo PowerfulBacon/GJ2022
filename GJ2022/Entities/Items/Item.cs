@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
@@ -11,7 +12,7 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Items
 {
-    public abstract class Item : Entity, IStandardRenderable
+    public abstract class Item : Entity, IStandardRenderable, IDestroyable, IMovable
     {
 
         //Location of the item, null if the item is on the ground
@@ -19,10 +20,22 @@ namespace GJ2022.Entities.Items
 
         public abstract string Texture { get; }
 
+        private bool isDestroyed = false;
+
         public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => InstanceRenderSystem.Singleton;
 
         public Item(Vector<float> position) : base(position)
-        { }
+        {
+            RenderSystem.StartRendering(this);
+        }
+
+        public bool Destroy()
+        {
+            if(Location == null)
+                InstanceRenderSystem.Singleton.StopRendering(this);
+            isDestroyed = true;
+            return true;
+        }
 
         //Put the item inside another entity
         public void PutInside(Entity target)
@@ -75,5 +88,21 @@ namespace GJ2022.Entities.Items
                 return -1;
         }
 
+        public bool IsDestroyed()
+        {
+            return isDestroyed;
+        }
+
+        public void UpdatePositionBatch()
+        {
+            //Update position in renderer
+            if (renderableBatchIndex.Count > 0)
+                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 0);
+        }
+
+        public virtual void OnMoved(Vector<float> previousPosition)
+        {
+            return;
+        }
     }
 }
