@@ -1,11 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
-using GJ2022.Utility.MathConstructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Turfs
 {
@@ -17,8 +11,7 @@ namespace GJ2022.Entities.Turfs
         public int X { get; }
         public int Y { get; }
 
-        //Is this destroyed?
-        private bool destroyed = false;
+        public bool Destroyed { get; set; } = false;
 
         public Turf(int x, int y)
         {
@@ -36,15 +29,10 @@ namespace GJ2022.Entities.Turfs
             //Dereference
             World.SetTurf(X, Y, null);
             //Set destroyed
-            destroyed = true;
+            Destroyed = true;
             return true;
         }
 
-        //Are we destroyed?
-        public bool IsDestroyed()
-        {
-            return destroyed;
-        }
     }
 
 }

@@ -1,6 +1,4 @@
-﻿using GJ2022.Entities.Abstract;
-using GJ2022.Entities.Blueprints;
-using GJ2022.Game.Construction;
+﻿using GJ2022.Entities.Blueprints;
 using GJ2022.Game.GameWorld;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
@@ -22,7 +20,7 @@ namespace GJ2022.Subsystems
         public static void QueueBlueprint(Vector<float> position, Blueprint blueprint, int layer)
         {
             //Check if the blueprint is redundant
-            if (World.GetTurf((int)position[0], (int)position[1])?.GetType() == blueprint.CreatedType)
+            if (World.GetTurf((int)position[0], (int)position[1])?.GetType() == blueprint.BlueprintDetail.CreatedType)
             {
                 blueprint.Destroy();
                 return;
@@ -30,7 +28,7 @@ namespace GJ2022.Subsystems
             //Check for existing blurprints
             if (QueuedBlueprints.ContainsKey(position) && QueuedBlueprints[position].ContainsKey(layer))
             {
-                if (QueuedBlueprints[position][layer].BlueprintPriority <= blueprint.BlueprintPriority)
+                if (QueuedBlueprints[position][layer].BlueprintDetail.Priority <= blueprint.BlueprintDetail.Priority)
                     QueuedBlueprints[position][layer].Destroy();
                 else
                 {

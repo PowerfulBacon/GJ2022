@@ -1,120 +1,112 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
-using GJ2022.Game.Construction;
-using GJ2022.Game.Construction.Walls;
+using GJ2022.Entities.Items;
+using GJ2022.Game.Construction.Blueprints;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
-using GJ2022.Rendering.Textures;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace GJ2022.Entities.Blueprints
 {
-    public class Blueprint : Entity, IBlueprintRenderable, IDestroyable
+    public class Blueprint : Entity, IDestroyable
     {
+        //Materials loaded into this blueprint
+        public Dictionary<Type, int> LoadedMaterials { get; } = new Dictionary<Type, int>();
 
-        private bool isDestroyed = false;
-
-        public BlueprintDetail BlueprintDetail { get; set; } = new FoundationBlueprint();
+        public BlueprintDetail BlueprintDetail { get; set; }
 
         public RenderSystem<IBlueprintRenderable, BlueprintRenderSystem> RenderSystem => BlueprintRenderSystem.Singleton;
 
         public ModelData ModelData { get; set; } = QuadModelData.Singleton;
 
-        private string usingTexture = "";
+        public bool Destroyed { get; set; } = false;
 
-        public Type CreatedType { get; }
+        protected override Renderable Renderable { get; set; } = new BlueprintRenderable("error");
 
-        public int BlueprintPriority { get; }
+        private List<Item> contents = new List<Item>();
 
-        public Blueprint(Vector<float> position, string texture, Type createdType, int priority) : base(position)
+        public Blueprint(Vector<float> position, BlueprintDetail blueprint) : base(position, Layers.LAYER_BLUEPRINT)
         {
-            //Set using texture
-            usingTexture = texture;
-            //Set the created type
-            CreatedType = createdType;
-            //Set the priority
-            BlueprintPriority = priority;
-            //Update batch
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IBlueprintRenderable, BlueprintRenderSystem>)?.UpdateBatchData(this, 1);
+            //Set the blueprint details
+            BlueprintDetail = blueprint;
+            //Update the texture
+            Texture = BlueprintDetail.Texture;
         }
 
-        public bool Destroy()
+        public override bool Destroy()
         {
+            base.Destroy();
             //Set destroyed
-            isDestroyed = true;
-            //Stop rendering
-            BlueprintRenderSystem.Singleton.StopRendering(this);
+            Destroyed = true;
+            //Drop our contents
+            foreach (Item item in contents)
+            {
+                item.Location = null;
+                item.Position = Position;
+            }
             //Remove from the pawn list
             //TODO: Contain this inside pawn controller system rather than here
-            if (PawnControllerSystem.QueuedBlueprints.ContainsKey(position))
+            if (PawnControllerSystem.QueuedBlueprints.ContainsKey(Position))
             {
-                if (PawnControllerSystem.QueuedBlueprints[position][BlueprintDetail.BlueprintLayer] == this)
-                    PawnControllerSystem.QueuedBlueprints[position].Remove(BlueprintDetail.BlueprintLayer);
-                if (PawnControllerSystem.QueuedBlueprints[position].Count == 0)
-                    PawnControllerSystem.QueuedBlueprints.Remove(position);
+                if (PawnControllerSystem.QueuedBlueprints[Position][BlueprintDetail.BlueprintLayer] == this)
+                    PawnControllerSystem.QueuedBlueprints[Position].Remove(BlueprintDetail.BlueprintLayer);
+                if (PawnControllerSystem.QueuedBlueprints[Position].Count == 0)
+                    PawnControllerSystem.QueuedBlueprints.Remove(Position);
             }
             return true;
         }
 
-        public virtual void Complete()
+        public void PutMaterials(Item item)
         {
-            //Create an instance of the thingy
-            Activator.CreateInstance(CreatedType, position);
-            //Destroy the blueprint
-            Destroy();
-        }
-
-        public bool IsDestroyed()
-        {
-            return isDestroyed;
-        }
-
-        public Model GetModel()
-        {
-            return ModelData.model;
-        }
-
-        public uint GetTextureUint()
-        {
-            return GetRendererTextureData().TextureUint;
-        }
-
-        public Vector<float> GetPosition()
-        {
-            return new Vector<float>(position[0], position[1], 2);
-        }
-
-        public RendererTextureData GetRendererTextureData()
-        {
-            return TextureCache.GetTexture(usingTexture);
-        }
-
-        private Dictionary<object, int> renderableBatchIndex = new Dictionary<object, int>();
-
-        public void SetRenderableBatchIndex(object associatedSet, int index)
-        {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                renderableBatchIndex[associatedSet] = index;
-            else
-                renderableBatchIndex.Add(associatedSet, index);
+            item.Location = this;
+            LoadedMaterials.Add(item.GetType(), 99999999);
         }
 
         /// <summary>
-        /// Returns the renderable batch index in the provided set.
-        /// Returns -1 if failed.
+        /// Returns a tuple containing the first required material type and the amount needed
         /// </summary>
-        public int GetRenderableBatchIndex(object associatedSet)
+        public (Type, int)? GetRequiredMaterial()
         {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                return renderableBatchIndex[associatedSet];
-            else
-                return -1;
+            foreach (Type requiredType in BlueprintDetail.Cost.Cost.Keys)
+            {
+                int requiredAmount = BlueprintDetail.Cost.Cost[requiredType];
+                if (!LoadedMaterials.ContainsKey(requiredType))
+                {
+                    return (requiredType, requiredAmount);
+                }
+                if (LoadedMaterials[requiredType] < requiredAmount)
+                {
+                    return (requiredType, requiredAmount - LoadedMaterials[requiredType]);
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns true if the blueprint has all the materials needed loaded
+        /// </summary>
+        public bool HasMaterials()
+        {
+            return GetRequiredMaterial() == null;
+        }
+
+        public virtual void Complete()
+        {
+            //Clear and delete all contents
+            foreach (Item item in contents)
+            {
+                item.Destroy();
+            }
+            contents.Clear();
+            //Create an instance of the thingy
+            Activator.CreateInstance(BlueprintDetail.CreatedType, Position);
+            //Destroy the blueprint
+            Destroy();
         }
 
     }

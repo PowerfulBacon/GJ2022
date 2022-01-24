@@ -261,7 +261,7 @@ namespace GJ2022.Subsystems
             for (int i = ProcessingEntities.Count - 1; i >= 0; i--)
             {
                 //If the entity is destroyed, stop processing.
-                if (ProcessingEntities[i].IsDestroyed())
+                if (ProcessingEntities[i].Destroyed)
                 {
                     ProcessingEntities.RemoveAt(i);
                 }

@@ -3,10 +3,10 @@
     public interface IDestroyable
     {
 
+        bool Destroyed { get; }
+
         //Returns false if destruction was insuccessful
         bool Destroy();
-
-        bool IsDestroyed();
 
     }
 }
