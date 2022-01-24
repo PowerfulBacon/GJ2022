@@ -1,6 +1,7 @@
 ﻿using GJ2022.Entities.Abstract;
 using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Pathfinding;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
@@ -29,6 +30,8 @@ namespace GJ2022.Entities.Pawns
         private Blueprint workTarget;
         private Line line;
 
+        private List<Line> lines = new List<Line>();
+
         public void Process(float deltaTime)
         {
             //Target no longer exists
@@ -49,6 +52,26 @@ namespace GJ2022.Entities.Pawns
                     {
                         line.End = workTarget.position;
                     }
+                    //Pathfind
+                    PathfindingSystem.Singleton.RequestPath(
+                        new PathfindingRequest(
+                            position, 
+                            workTargetPosition,
+                            (Path path) =>
+                            {
+                                foreach (Line l in lines)
+                                {
+                                    l.StopDrawing();
+                                }
+                                lines.Clear();
+                                Log.WriteLine($"Located path with length {path.Points}");
+                                for (int i = 0; i < path.Points.Count - 1; i++)
+                                {
+                                    lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                }
+                            },
+                            () => { Log.WriteLine($"Failed to locate path from {position} to {workTargetPosition}"); }
+                        ));
                 }
                 else
                 {

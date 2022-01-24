@@ -35,6 +35,11 @@ namespace GJ2022.Utility.MathConstructs
             return new Vector<T>(Values[0], Values[1]);
         }
 
+        public Vector<T> SetZ(T zValue)
+        {
+            return new Vector<T>(Values[0], Values[1], zValue);
+        }
+
         //TODO: REFACTOR THE LAYERING SYSTEM
         public void MoveTowards(Vector<T> target, float speed, float deltaTime, bool ignoreZ = true)
         {
@@ -245,6 +250,25 @@ namespace GJ2022.Utility.MathConstructs
             //Add the values
             for (int i = 0; i < a.Dimensions; i++)
                 vector[i] = (T)Math.Pow((dynamic)a[i], (dynamic)b);
+            //Return the resulting vector
+            return vector;
+        }
+
+        /// <summary>
+        /// Casting
+        /// </summary>
+        public static implicit operator Vector<int>(Vector<T> a) => Convert<int>(a);
+        public static implicit operator Vector<float>(Vector<T> a) => Convert<float>(a);
+        public static implicit operator Vector<double>(Vector<T> a) => Convert<double>(a);
+        public static implicit operator Vector<long>(Vector<T> a) => Convert<long>(a);
+
+        private static Vector<L> Convert<L>(Vector<T> a)
+        {
+            //Create the new vector
+            Vector<L> vector = new Vector<L>(new L[a.Dimensions]);
+            //Add the values
+            for (int i = 0; i < a.Dimensions; i++)
+                vector[i] = (L)(dynamic)a[i];
             //Return the resulting vector
             return vector;
         }
