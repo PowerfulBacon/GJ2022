@@ -39,6 +39,7 @@ namespace GJ2022.Rendering
         {
             renderSystems = new RenderSystem[] {
                 new LineRenderer(),
+                new TextRenderSystem(),
                 new CircleRenderSystem(),
                 new BlueprintRenderSystem(),
                 new InstanceRenderSystem(),
