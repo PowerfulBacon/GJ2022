@@ -171,8 +171,11 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
             //of debugging.
             //We should probably disable the line renderer
             //all together if in release build.
-            foreach (Line line in rendering)
+            for(int i = rendering.Count - 1; i >= 0; i--)
             {
+                //Thread safe fetching
+                Line line = rendering[i];
+
                 //Send in data to the uniform values
                 glUniformMatrix4fv(objectMatrixUniformLocation, 1, false, line.ObjectMatrix.GetPointer());
 
