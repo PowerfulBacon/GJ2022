@@ -182,7 +182,7 @@ namespace GJ2022.Rendering.RenderSystems
             //Attach the shader set so we can grab uniform locations
             //Link program and use program are required here, not sure what they do exactly.
             SystemShaders.AttachShaders(programUint);
-            glLinkProgram(programUint);
+            //glLinkProgram(programUint);
 
             //Load the camera's view matrix
             //Put the matrix into that uniform variable
