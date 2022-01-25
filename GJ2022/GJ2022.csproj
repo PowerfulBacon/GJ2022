@@ -58,46 +58,58 @@
     <None Update="png16.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\blueprintShader.frag">
+    <None Update="Rendering\Shaders\BlueprintShader\blueprintShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\blueprintShader.vert">
+    <None Update="Rendering\Shaders\BlueprintShader\blueprintShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\circleShader.frag">
+    <None Update="Rendering\Shaders\ButtonShader\buttonShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\circleShader.vert">
+    <None Update="Rendering\Shaders\ButtonShader\buttonShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\outlineShader.frag">
+    <None Update="Rendering\Shaders\CircleShader\circleShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\outlineShader.vert">
+    <None Update="Rendering\Shaders\CircleShader\circleShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\backgroundShader.frag">
+    <None Update="Rendering\Shaders\OutlineShader\outlineShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\backgroundShader.vert">
+    <None Update="Rendering\Shaders\OutlineShader\outlineShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\instanceShader.frag">
+    <None Update="Rendering\Shaders\BackgroundShader\backgroundShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\instanceShader.vert">
+    <None Update="Rendering\Shaders\BackgroundShader\backgroundShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\simple.frag">
+    <None Update="Rendering\Shaders\InstanceShader\instanceShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\simple.vert">
+    <None Update="Rendering\Shaders\InstanceShader\instanceShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\textShader.frag">
+    <None Update="Rendering\Shaders\SimpleShader\SimpleShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Rendering\Shaders\textShader.vert">
+    <None Update="Rendering\Shaders\SimpleShader\SimpleShader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\TextShader\textShader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\TextShader\textShader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\UserInterfaceShader\userInterfaceShader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\UserInterfaceShader\userInterfaceShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="zlib1.dll">

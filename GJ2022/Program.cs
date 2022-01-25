@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Items.Stacks;
+﻿using GJ2022.Entities.Debug;
+using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Pawns;
 using GJ2022.Managers;
 using GJ2022.Rendering;
@@ -8,9 +9,14 @@ using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
+using GJ2022.UserInterface.Components;
+using GJ2022.UserInterface.Components.Advanced;
+using GJ2022.UserInterface.Factory;
+using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using static GJ2022.UserInterface.Components.UserInterfaceButton;
 using static OpenGL.Gl;
 
 namespace GJ2022
@@ -75,17 +81,44 @@ namespace GJ2022
 
             BuildModeSubsystem.Singleton.ActivateBuildMode();
 
-            new Pawn(new Vector<float>(2.3f, 7.3f, 5));
-            new Pawn(new Vector<float>(2.3f, 7.3f, 5));
-            new Pawn(new Vector<float>(2.3f, 7.3f, 5));
-            new Pawn(new Vector<float>(2.3f, 7.3f, 5));
-            new Pawn(new Vector<float>(2.3f, 7.3f, 5));
+            for (int i = 0; i < 5; i++)
+            {
+                new Pawn(new Vector<float>(2.3f, 7.3f, 5));
+            }
 
             Iron iron = new Iron(new Vector<float>(20, 20, 20), 50, 50);
             StockpileManager.AddItem(iron);
 
-            new TextObject("Debug Screen", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.SCREEN_POSITION, 0.2f);
-            new TextObject("Debug World", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.WORLD_POSITION, 0.2f);
+            //new TextObject("Debug Screen", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.SCREEN_POSITION, 0.2f);
+            new TextObject("Debug World", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.WORLD_POSITION, 1.0f);
+
+            new DebugEntity(new Vector<float>(-5, -5));
+
+            new UserInterfaceTextIcon(
+                "Iron - 50",
+                "iron",
+                Colour.White,
+                CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 60, 1080 - 70)),
+                CoordinateHelper.PixelsToScreen(new Vector<float>(100, 100)),
+                TextObject.PositionModes.SCREEN_POSITION,
+                CoordinateHelper.PixelsToScreen(100),
+                10);
+
+            DropdownFactory.CreateDropdown(
+                CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 150, -1080 + 40)),
+                "Building",
+                new string[] { "Foundation" },
+                new OnButtonPressed[] { null });
+            DropdownFactory.CreateDropdown(
+                CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 450, -1080 + 40)),
+                "Actions",
+                new string[] { "Deconstruct", "Mine" },
+                new OnButtonPressed[] { null, null });
+            DropdownFactory.CreateDropdown(
+                CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 750, -1080 + 40)),
+                "Debug",
+                new string[] { "1", "2", "3", "4", "5", "6", "7", "8" },
+                new OnButtonPressed[] { null, null, null, null, null, null, null, null, null });
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

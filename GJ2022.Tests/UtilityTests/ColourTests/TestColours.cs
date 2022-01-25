@@ -41,7 +41,7 @@ namespace GJ2022.Tests.UtilityTests.ColourTests
         [TestMethod]
         public void TestNormalize()
         {
-            Colour test = new Colour(5, 3, 0.2f);
+            Colour test = new Colour(5 * 256.0f, 3 * 256.0f, 0.2f * 256.0f);
             Colour normalized = test.GetNormalized();
             Assert.AreEqual(1, normalized.red);
             Assert.AreEqual(0.6f, normalized.green);

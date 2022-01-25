@@ -12,11 +12,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public delegate void MoveDelegate(Vector<float> position);
         public delegate void LayerChangeDelegate(float layer);
         public delegate void TextureChangeDelegate(string texture);
+        public delegate void ButtonStateChangeDelegate(bool hovered);
 
         //Events
         public abstract MoveDelegate moveHandler { get; }
         public abstract LayerChangeDelegate layerChangeHandler { get; }
         public abstract TextureChangeDelegate textureChangeHandler { get; }
+        public virtual ButtonStateChangeDelegate buttonStateChangeHandler { get; }
 
         public abstract RendererTextureData GetRendererTextureData();
 

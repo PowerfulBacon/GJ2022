@@ -35,8 +35,8 @@ namespace GJ2022.Rendering.Shaders
             try
             {
                 //Read the shader sources
-                glShaderSource(vertex_shader, File.ReadAllText($"{base_directory}{name}.vert"));
-                glShaderSource(fragment_shader, File.ReadAllText($"{base_directory}{name}.frag"));
+                glShaderSource(vertex_shader, File.ReadAllText($"{base_directory}{name}/{name}.vert"));
+                glShaderSource(fragment_shader, File.ReadAllText($"{base_directory}{name}/{name}.frag"));
                 //Compile the shaders
                 glCompileShader(vertex_shader);
                 glCompileShader(fragment_shader);

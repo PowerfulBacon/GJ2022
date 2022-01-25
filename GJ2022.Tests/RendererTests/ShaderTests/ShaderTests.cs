@@ -49,7 +49,7 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
         public void TestShaderCompilation()
         {
             if (setupFailed) Assert.Inconclusive();
-            foreach (string fileName in Directory.GetFiles(@".\", "*.vert"))
+            foreach (string fileName in Directory.GetFiles(@".\", "*.vert", SearchOption.AllDirectories))
             {
                 string sanitizedName = fileName.Replace(".vert", "");
                 Assert.IsTrue(TestShader(sanitizedName, GL_FRAGMENT_SHADER), $"{sanitizedName}.frag failed to compile!");

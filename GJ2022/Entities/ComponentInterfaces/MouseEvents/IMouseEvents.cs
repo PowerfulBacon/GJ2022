@@ -1,7 +1,16 @@
 ﻿namespace GJ2022.Entities.ComponentInterfaces.MouseEvents
 {
+
+    public enum CursorSpace
+    {
+        WORLD_SPACE,
+        SCREEN_SPACE
+    }
+
     public interface IMouseEvent
     {
+
+        CursorSpace PositionSpace { get; }
 
         float WorldX { get; }
 

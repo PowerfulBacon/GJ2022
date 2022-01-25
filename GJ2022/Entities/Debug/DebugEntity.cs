@@ -26,6 +26,8 @@ namespace GJ2022.Entities.Debug
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("error");
 
+        public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
+
         public DebugEntity(Vector<float> position) : base(position, Layers.LAYER_TURF)
         {
             MouseCollisionSubsystem.Singleton.StartTracking(this);

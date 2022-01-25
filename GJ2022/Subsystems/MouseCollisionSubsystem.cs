@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces.MouseEvents;
+using GJ2022.GlobalDataComponents;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
@@ -16,8 +17,9 @@ namespace GJ2022.Subsystems
 
         private enum MouseCollisionState
         {
-            NONE,
-            MOUSE_OVER
+            NONE = 0,
+            MOUSE_OVER = 1 << 0,
+            MOUSE_CLICK = 1 << 1,
         };
 
         public static MouseCollisionSubsystem Singleton { get; } = new MouseCollisionSubsystem();
@@ -52,6 +54,9 @@ namespace GJ2022.Subsystems
             Glfw.GetWindowSize(window, out windowWidth, out windowHeight);
             //Convert to world coords
             Vector<float> worldCoordinates = ScreenToWorldHelper.GetWorldCoordinates(new Vector<float>((float)cursorX, (float)cursorY), new Vector<float>(windowWidth, windowHeight));
+            Vector<float> screenCoordinates = new Vector<float>((float)cursorX / windowWidth * 2.0f - 1, (float)cursorY / windowHeight * 2.0f - 1);
+            //Log.WriteLine(screenCoordinates);
+            bool mousePressed = Glfw.GetMouseButton(window, MouseButton.Left) == InputState.Press;
             //Go through all tracking events and handle them
             for (int i = trackingEvents.Count - 1; i >= 0; i--)
             {
@@ -62,12 +67,13 @@ namespace GJ2022.Subsystems
                 double maximumX = minimumX + mouseEventHolder.Width;
                 double minimumY = mouseEventHolder.WorldY;
                 double maximumY = minimumY + mouseEventHolder.Height;
+                Vector<float> coordinates = mouseEventHolder.PositionSpace == CursorSpace.SCREEN_SPACE ? screenCoordinates : worldCoordinates;
                 //Check if colliding
-                bool colliding = worldCoordinates[0] >= minimumX
-                    && worldCoordinates[0] <= maximumX
-                    && worldCoordinates[1] >= minimumY
-                    && worldCoordinates[1] <= maximumY;
-                switch (collisionState)
+                bool colliding = coordinates[0] >= minimumX
+                    && coordinates[0] <= maximumX
+                    && coordinates[1] >= minimumY
+                    && coordinates[1] <= maximumY;
+                switch (collisionState & MouseCollisionState.MOUSE_OVER)
                 {
                     case MouseCollisionState.NONE:
                         if (colliding && mouseEventHolder is IMouseEnter)
@@ -76,10 +82,28 @@ namespace GJ2022.Subsystems
                     case MouseCollisionState.MOUSE_OVER:
                         if (!colliding && mouseEventHolder is IMouseExit)
                             (mouseEventHolder as IMouseExit).OnMouseExit();
+                        if (colliding)
+                        {
+                            if ((collisionState & MouseCollisionState.MOUSE_CLICK) == 0)
+                            {
+                                if (mousePressed)
+                                {
+                                    collisionState |= MouseCollisionState.MOUSE_CLICK;
+                                }
+                            }
+                            else if (!mousePressed)
+                            {
+                                (mouseEventHolder as IMousePress)?.OnPressed();
+                                collisionState &= ~MouseCollisionState.MOUSE_CLICK;
+                            }
+                        }
                         break;
                 }
                 //Set new collision state
-                collisionState = colliding ? MouseCollisionState.MOUSE_OVER : MouseCollisionState.NONE;
+                if (colliding)
+                    collisionState |= MouseCollisionState.MOUSE_OVER;
+                else
+                    collisionState &= ~MouseCollisionState.MOUSE_OVER;
                 trackingEvents[mouseEventHolder] = collisionState;
             }
         }
