@@ -73,7 +73,6 @@ namespace GJ2022.Entities.Pawns
                                     {
                                         l.StopDrawing();
                                     }
-                                    Log.WriteLine($"Located path with length {path.Points}");
                                     for (int i = 0; i < path.Points.Count - 1; i++)
                                     {
                                         lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
@@ -113,7 +112,6 @@ namespace GJ2022.Entities.Pawns
                                     {
                                         l.StopDrawing();
                                     }
-                                    Log.WriteLine($"Located path with length {path.Points}");
                                     for (int i = 0; i < path.Points.Count - 1; i++)
                                     {
                                         lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
@@ -170,7 +168,6 @@ namespace GJ2022.Entities.Pawns
                             {
                                 l.StopDrawing();
                             }
-                            Log.WriteLine($"Located path with length {path.Points}");
                             for (int i = 0; i < path.Points.Count - 1; i++)
                             {
                                 lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));

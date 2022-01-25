@@ -28,7 +28,7 @@ namespace GJ2022.Subsystems
 
         private static Dictionary<Vector<float>, Blueprint> dragHighlights = new Dictionary<Vector<float>, Blueprint>();
 
-        private BlueprintSet selectedBlueprint = new BuildingBlueprint();
+        private BlueprintSet selectedBlueprint = null;
 
         private Blueprint buildModeHighlight;
 
@@ -57,6 +57,12 @@ namespace GJ2022.Subsystems
                     else
                         buildModeHighlight.Position = ScreenToWorldHelper.GetWorldTile(window);
                     cancelDisable = false;
+                    //If we press the right mouse button, disable build mode
+                    if (Glfw.GetMouseButton(window, MouseButton.Right) == InputState.Press)
+                    {
+                        DisableBuildMode();
+                        return;
+                    }
                     return;
                 }
                 else if (cancelDisable)
@@ -132,14 +138,19 @@ namespace GJ2022.Subsystems
             dragHighlights.Clear();
         }
 
-        public void ActivateBuildMode()
+        public void ActivateBuildMode(BlueprintSet buildModeBlueprint)
         {
+            selectedBlueprint = buildModeBlueprint;
+            if (buildModeActive)
+                return;
             buildModeActive = true;
             MouseHookTracker.AddHook("buildmode", 50);
         }
 
         public void DisableBuildMode()
         {
+            if (!buildModeActive)
+                return;
             buildModeActive = false;
             buildModeHighlight?.Destroy();
             buildModeHighlight = null;

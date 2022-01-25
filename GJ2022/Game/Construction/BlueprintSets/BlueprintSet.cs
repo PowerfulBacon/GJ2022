@@ -2,14 +2,23 @@
 
 namespace GJ2022.Game.Construction.BlueprintSets
 {
-    public abstract class BlueprintSet
+    public class BlueprintSet
     {
 
-        public abstract bool IsRoom { get; }
+        public bool IsRoom { get; }
 
-        public abstract BlueprintDetail BlueprintDetail { get; }
+        public string Name { get; }
 
-        public virtual BlueprintDetail FillerBlueprint { get; }
+        public BlueprintDetail BlueprintDetail { get; }
 
+        public BlueprintDetail FillerBlueprint { get; }
+
+        public BlueprintSet(string name, bool isRoom, BlueprintDetail blueprintDetail, BlueprintDetail fillerBlueprint)
+        {
+            Name = name;
+            IsRoom = isRoom;
+            BlueprintDetail = blueprintDetail;
+            FillerBlueprint = fillerBlueprint;
+        }
     }
 }
