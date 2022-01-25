@@ -154,6 +154,7 @@ namespace GJ2022.Entities.Pawns
                 //Null the item target
                 heldItem = itemTarget;
                 itemTarget = null;
+                followingPath = null;
                 //Path towards the work target
                 PathfindingSystem.Singleton.RequestPath(
                     new PathfindingRequest(
@@ -187,6 +188,7 @@ namespace GJ2022.Entities.Pawns
             }
             else if (Position.IgnoreZ() == workTarget.Position.IgnoreZ())
             {
+                followingPath = null;
                 //Put materials into the work target
                 if (heldItem != null)
                     workTarget.PutMaterials(heldItem);

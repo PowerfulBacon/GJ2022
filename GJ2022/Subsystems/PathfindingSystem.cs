@@ -3,6 +3,7 @@ using GJ2022.Pathfinding;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using System.Threading.Tasks;
 
 namespace GJ2022.Subsystems
 {
@@ -41,12 +42,11 @@ namespace GJ2022.Subsystems
         public override int sleepDelay => 20;
 
         //No processing, but fires
-        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
+        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_UPDATE;
 
         public override void Fire(Window window)
         {
-            //TODO
-            return;
+            throw new NotImplementedException("Pathfinding system does not fire.");
         }
 
         public override void InitSystem() { }
@@ -55,8 +55,7 @@ namespace GJ2022.Subsystems
 
         public void RequestPath(PathfindingRequest request)
         {
-            //TODO
-            ProcessPath(request);
+            new Task(() => ProcessPath(request)).Start();
         }
 
         /// <summary>
