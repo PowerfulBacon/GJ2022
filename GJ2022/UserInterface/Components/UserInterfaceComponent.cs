@@ -17,7 +17,7 @@ namespace GJ2022.UserInterface.Components
             WORLD_POSITION = 1,
         }
 
-        public UserInterfaceComponent Parent { get; set; }
+        public virtual UserInterfaceComponent Parent { get; set; }
 
         //The renderable attached to thie UI component.
         public abstract Renderable Renderable { get; }

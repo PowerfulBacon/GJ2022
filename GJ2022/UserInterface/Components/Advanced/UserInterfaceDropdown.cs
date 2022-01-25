@@ -45,6 +45,9 @@ namespace GJ2022.UserInterface.Components.Advanced
     public class UserInterfaceDropdown : UserInterfaceButton
     {
 
+        //List of all dropdowns with no parents
+        private static List<UserInterfaceDropdown> TopLevelDropdowns = new List<UserInterfaceDropdown>();
+
         //The settings of the dropdown menu
         private DropdownSettings settings;
 
@@ -54,10 +57,24 @@ namespace GJ2022.UserInterface.Components.Advanced
 
         private float cachedHeight = 0;
 
+        public override UserInterfaceComponent Parent
+        {
+            get => base.Parent;
+            set
+            {
+                base.Parent = value;
+                if (value == null && TopLevelDropdowns.Contains(this))
+                    TopLevelDropdowns.Remove(this);
+                else if (value != null && !TopLevelDropdowns.Contains(this))
+                    TopLevelDropdowns.Add(this);
+            }
+        }
+
         public UserInterfaceDropdown(Vector<float> position, string text, DropdownSettings settings) : base(position, settings.Scale, text, settings.TextScale, settings.Colour)
         {
             this.settings = settings;
             onButtonPressed = Toggle;
+            TopLevelDropdowns.Add(this);
         }
 
         public void AddDropdownComponent(UserInterfaceComponent component)
@@ -124,7 +141,6 @@ namespace GJ2022.UserInterface.Components.Advanced
                 UserInterfaceDropdown dropdown = component as UserInterfaceDropdown;
                 if (dropdown == null || component == exclusion)
                     continue;
-                dropdown.CloseAllChildrenDropdownsExcluding(exclusion);
                 dropdown.Close();
             }
         }
@@ -138,6 +154,15 @@ namespace GJ2022.UserInterface.Components.Advanced
                 Open();
         }
 
+        private void CloseAllTopLevelDropdownsExcluding(UserInterfaceDropdown exclusion)
+        {
+            foreach (UserInterfaceDropdown dropdown in TopLevelDropdowns)
+            {
+                if(dropdown != exclusion)
+                    dropdown.Close();
+            }
+        }
+
         /// <summary>
         /// Open the dropdown menu and create the subbuttons.
         /// </summary>
@@ -147,7 +172,10 @@ namespace GJ2022.UserInterface.Components.Advanced
                 return;
             toggled = true;
             //Close children dropdowns
-            (Parent as UserInterfaceDropdown)?.CloseAllChildrenDropdownsExcluding(this);
+            if (Parent == null)
+                CloseAllTopLevelDropdownsExcluding(this);
+            else
+                (Parent as UserInterfaceDropdown)?.CloseAllChildrenDropdownsExcluding(this);
             //Open our dropdowns
             foreach (UserInterfaceComponent component in DropdownComponents)
             {
