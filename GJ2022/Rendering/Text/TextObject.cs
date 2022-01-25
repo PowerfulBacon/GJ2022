@@ -15,8 +15,8 @@ namespace GJ2022.Rendering.Text
 
         public enum PositionModes
         {
-            SCREEN_POSITION,
-            WORLD_POSITION
+            SCREEN_POSITION = 0,
+            WORLD_POSITION = 1,
         }
 
         private string _text = "";
@@ -70,11 +70,11 @@ namespace GJ2022.Rendering.Text
                         Colour
                     ));
                     //Apply offset
-                    currentXOffset += textChar.width_offset;
+                    currentXOffset += (textChar.width_offset + textChar.base_width) / 32.0f;
                     if (currentXOffset > Width)
                     {
                         currentXOffset = 0;
-                        currentYOffset += 32;
+                        currentYOffset -= 0.3f;
                     }
                 }
             }

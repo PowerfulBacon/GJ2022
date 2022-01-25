@@ -84,7 +84,8 @@ namespace GJ2022
             Iron iron = new Iron(new Vector<float>(20, 20, 20), 50, 50);
             StockpileManager.AddItem(iron);
 
-            new TextObject("Test", Colour.White, new Vector<float>(0, 0));
+            new TextObject("Debug Screen", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.SCREEN_POSITION, 0.2f);
+            new TextObject("Debug World", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.WORLD_POSITION, 0.2f);
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

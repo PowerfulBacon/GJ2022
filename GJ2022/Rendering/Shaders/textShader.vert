@@ -28,7 +28,11 @@ void main()
         0.0, 0.0, -1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     );
-    mat4 MVP = projectionMatrix * viewMatrix;
+    mat4 MVP = projectionMatrix;
+    if(instancePos[3] == 1.0)
+    {
+        MVP = MVP * viewMatrix;
+    }
     gl_Position = MVP * correctionMatrix * vec4(pos + instancePos.xyz, 1.0);
     gl_Position.x = -gl_Position.x;
     gl_Position.y = -gl_Position.y;

@@ -14,7 +14,7 @@ void main()
 {
     vec2 transformedUV = UV * (1-2*border);
 
-    transformedUV = vec2(transformedUV.y, 1.0 - transformedUV.x);
+    transformedUV = vec2(1.0 - transformedUV.y, transformedUV.x);
 
     float spritesheetWidth = texData[3] / texData[2];
     float spritesheetHeight = texData[3] / texData[2];
@@ -22,6 +22,8 @@ void main()
     transformedUV += vec2(border, border);
     transformedUV /= vec2(spritesheetWidth, spritesheetHeight);
     transformedUV += vec2(mod(texData[0], spritesheetWidth) / spritesheetWidth, (floor(texData[0] / spritesheetWidth) / spritesheetHeight));
+
+    transformedUV = vec2(transformedUV.x, 1.0 - transformedUV.y);
 
     result = texture(textureSampler, transformedUV).rgba;
 

@@ -47,7 +47,7 @@ namespace GJ2022.Rendering.RenderSystems
 
         protected override unsafe void BindUniformData(RenderBatchSet<ITextRenderable, TextRenderSystem> renderBatchSet)
         {
-            glUniform1i(uniformVariableLocations["textureSampler"], 1);
+            glUniform1i(uniformVariableLocations["textureSampler"], 0);
         }
 
         public override float[] GetBufferData(ITextRenderable targetItem, int bufferIndex)
