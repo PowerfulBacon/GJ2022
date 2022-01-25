@@ -1,0 +1,43 @@
+{
+  "blueprintCategories": [
+    {
+      "name": "Structure",
+      "contents": [
+        "steel_building"
+      ]
+    }
+  ],
+  "blueprintSets": [
+    {
+      "id": "steel_building",
+      "name": "Steel Building",
+      "isRoom": true,
+      "edge": "steel_wall",
+      "fill": "plating"
+    }
+  ],
+  "blueprints": [
+    {
+      "id": "steel_wall",
+      "created_type": "Wall",
+      "priority": 1,
+      "blueprintType": "TurfBlueprint",
+      "texture": "wall",
+      "layer": 1,
+      "cost": {
+        "Iron": 5
+      }
+    },
+    {
+      "id": "plating",
+      "created_type": "Plating",
+      "priority": 2,
+      "blueprintType": "TurfBlueprint",
+      "texture": "plating",
+      "layer": 1,
+      "cost": {
+        "Iron": 2
+      }
+    }
+  ]
+}

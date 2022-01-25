@@ -104,15 +104,13 @@ namespace GJ2022.Subsystems
                 AddSurroundingNodes(processing, ref processData);
                 i++;
             }
-            request.failedDelegate?.Invoke();
-            Log.WriteLine($"Searched {i} nodes in the range ({processData.MinimumX}, {processData.MinimumY}) to ({processData.MaximumX}, {processData.MaximumY})");
+            request.failedDelegate?.Invoke();;
         }
 
         private void AddSurroundingNodes(PathNode current, ref PathfindingProcessData processData)
         {
             //Get the valid directions you can travel in from this point.
             ConnectingDirections validDirections = GetValidDirections(processData, current.Position);
-            //Log.WriteLine($"Checking {current.Position}, ValidDirections: {validDirections}, Score : {current.NodeScore}");
             //Process north node
             if ((validDirections & ConnectingDirections.NORTH) != 0)
                 CheckAddNode(current, ref processData, new Vector<int>(0, 1));

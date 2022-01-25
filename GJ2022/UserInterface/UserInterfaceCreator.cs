@@ -1,4 +1,7 @@
-﻿using GJ2022.Rendering.Text;
+﻿using GJ2022.Game.Construction;
+using GJ2022.Game.Construction.BlueprintSets;
+using GJ2022.Rendering.Text;
+using GJ2022.Subsystems;
 using GJ2022.UserInterface.Components;
 using GJ2022.UserInterface.Components.Advanced;
 using GJ2022.UserInterface.Factory;
@@ -35,55 +38,30 @@ namespace GJ2022.UserInterface
                 defaultDropdownSettings
                 );
 
-            //============================
-            //Create the options for Zones
-            //============================
-            UserInterfaceDropdown zoneDropdown = new UserInterfaceDropdown(
-                new Vector<float>(0, 0),
-                "Zones",
-                new DropdownSettings()
-                    .SetOpenToSide(true)
-                );
-            //Add all the possible structure options
-            zoneDropdown.AddDropdownComponent(new UserInterfaceButton(
-                new Vector<float>(0, 0),
-                CoordinateHelper.PixelsToScreen(500, 80),
-                "Stockpile Zone",
-                CoordinateHelper.PixelsToScreen(100),
-                Colour.UserInterfaceColour
-                ));
-
-            //============================
-            //Create the options for structures
-            //============================
-            UserInterfaceDropdown structureDropdown = new UserInterfaceDropdown(
-                new Vector<float>(0, 0),
-                "Structure",
-                new DropdownSettings()
-                    .SetOpenToSide(true)
-                );
-            //Add all the possible structure options
-            structureDropdown.AddDropdownComponent(new UserInterfaceButton(
-                new Vector<float>(0, 0),
-                CoordinateHelper.PixelsToScreen(500, 80),
-                "Steel Foundations",
-                CoordinateHelper.PixelsToScreen(100),
-                Colour.UserInterfaceColour
-                ));
-            structureDropdown.AddDropdownComponent(new UserInterfaceButton(
-                new Vector<float>(0, 0),
-                CoordinateHelper.PixelsToScreen(500, 80),
-                "Debugium Foundations",
-                CoordinateHelper.PixelsToScreen(100),
-                Colour.UserInterfaceColour
-                ));
-
-            //============================
-            //Add all the dropdown options to the parent building dropdown
-            //============================
-            buildingDropdown.AddDropdownComponent(zoneDropdown);
-            buildingDropdown.AddDropdownComponent(structureDropdown);
-
+            foreach (BlueprintCategory category in BlueprintLoader.BlueprintCategories.Values)
+            {
+                UserInterfaceDropdown dropdownOption = new UserInterfaceDropdown(
+                    new Vector<float>(0, 0),
+                    category.Name,
+                    new DropdownSettings()
+                        .SetOpenToSide(true)
+                    );
+                //Add category buttons
+                foreach (BlueprintSet blueprintSet in category.Contents)
+                {
+                    UserInterfaceButton button = new UserInterfaceButton(
+                        new Vector<float>(0, 0),
+                        CoordinateHelper.PixelsToScreen(500, 80),
+                        blueprintSet.Name,
+                        CoordinateHelper.PixelsToScreen(100),
+                        Colour.UserInterfaceColour
+                        );
+                    button.onButtonPressed = () => BuildModeSubsystem.Singleton.ActivateBuildMode(blueprintSet);
+                    dropdownOption.AddDropdownComponent(button);
+                }
+                //Add to the master dropdown
+                buildingDropdown.AddDropdownComponent(dropdownOption);
+            }
 
             DropdownFactory.CreateDropdown(
                 CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 450, -1080 + 40)),

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace GJ2022.Game.Construction.Cost
 {
-    public abstract class ConstructionCostData
+    public class ConstructionCostData
     {
 
-        public abstract Dictionary<Type, int> Cost { get; }
+        public Dictionary<Type, int> Cost { get; } = new Dictionary<Type, int>();
 
     }
 }

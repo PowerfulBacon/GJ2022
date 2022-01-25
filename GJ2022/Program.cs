@@ -1,6 +1,7 @@
 ﻿using GJ2022.Entities.Debug;
 using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Pawns;
+using GJ2022.Game.Construction;
 using GJ2022.Managers;
 using GJ2022.Rendering;
 using GJ2022.Rendering.RenderSystems;
@@ -40,6 +41,7 @@ namespace GJ2022
 
             //Start texture loading
             TextureCache.LoadTextureDataJson();
+            BlueprintLoader.LoadBlueprints();
 
             //Set the window hints
             SetWindowHints();
@@ -69,13 +71,11 @@ namespace GJ2022
 
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
-            while (!TextureCache.LoadingComplete) { }
+            while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) { }
             Log.WriteLine("Done loading", LogType.DEBUG);
 
             //Create the background first
             new BackgroundRenderable().StartRendering();
-
-            BuildModeSubsystem.Singleton.ActivateBuildMode();
 
             for (int i = 0; i < 5; i++)
             {

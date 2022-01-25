@@ -31,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\ConstructionData\BlueprintData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\FontData.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
