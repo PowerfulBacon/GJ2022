@@ -18,11 +18,20 @@ namespace GJ2022.UserInterface.Components
             }
         }
 
-        public UserInterfaceImage(Vector<float> position, string icon)
+        public UserInterfaceImage(Vector<float> position, Vector<float> scale, string icon)
         {
-            Renderable = new UserInterfaceRenderable(position, PositionMode, new Vector<float>(2.0f, 0.3f), icon);
+            Renderable = new UserInterfaceRenderable(position, PositionMode, scale, icon);
             _position = position;
         }
 
+        public override void Hide()
+        {
+            Renderable.StopRendering();
+        }
+
+        public override void Show()
+        {
+            Renderable.StartRendering();
+        }
     }
 }

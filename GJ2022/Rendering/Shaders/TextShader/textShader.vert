@@ -23,19 +23,21 @@ void main()
     //when compared to our physical coords.
     //correct that here.
     mat4 correctionMatrix = mat4(
-        -scaleData[0], 0.0, 0.0, 0.0,
-        0.0, -scaleData[0], 0.0, 0.0,
+        -1.0, 0.0, 0.0, 0.0,
+        0.0, -1.0, 0.0, 0.0,
         0.0, 0.0, -1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     );
     mat4 MVP = projectionMatrix;
+	float divisor = 1.0;
     if(instancePos[3] == 1.0)
     {
         MVP = MVP * viewMatrix;
     }
-    gl_Position = MVP * correctionMatrix * vec4(pos + instancePos.xyz, 1.0);
+    gl_Position = MVP * correctionMatrix * vec4((pos * vec3(scaleData.x, scaleData.x, 1.0)) + (instancePos.xyz), 1.0);
     gl_Position.x = -gl_Position.x;
     gl_Position.y = -gl_Position.y;
+
     //Output the vertex UV to the fragment shader
     UV = vertexUv;
     texData = textureData;

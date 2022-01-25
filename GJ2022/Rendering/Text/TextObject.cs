@@ -28,6 +28,8 @@ namespace GJ2022.Rendering.Text
 
         private List<RenderableCharacter> characters = new List<RenderableCharacter>();
 
+        private bool isRendering = true;
+
         public TextObject(
             string text,
             Colour colour,
@@ -49,9 +51,12 @@ namespace GJ2022.Rendering.Text
             get { return _text; }
             set {
                 _text = value;
-                foreach (RenderableCharacter renderableChar in characters)
+                if (isRendering)
                 {
-                    TextRenderSystem.Singleton.StopRendering(renderableChar);
+                    foreach (RenderableCharacter renderableChar in characters)
+                    {
+                        TextRenderSystem.Singleton.StopRendering(renderableChar);
+                    }
                 }
                 characters.Clear();
                 float currentXOffset = 0;
@@ -60,7 +65,7 @@ namespace GJ2022.Rendering.Text
                 {
                     TextCharacter textChar = TextLoader.textCharacters[character];
                     //Create the character
-                    characters.Add(new RenderableCharacter(
+                    RenderableCharacter createdCharacter = new RenderableCharacter(
                         character,
                         Position + new Vector<float>(currentXOffset, currentYOffset),
                         PositionMode,
@@ -68,15 +73,39 @@ namespace GJ2022.Rendering.Text
                         textChar.base_width,
                         32,
                         Colour
-                    ));
+                    );
+                    if (!isRendering)
+                        TextRenderSystem.Singleton.StopRendering(createdCharacter);
+                    characters.Add(createdCharacter);
                     //Apply offset
-                    currentXOffset += (textChar.width_offset + textChar.base_width) / 32.0f;
+                    currentXOffset += Scale * (textChar.width_offset + textChar.base_width) / 32.0f;
                     if (currentXOffset > Width)
                     {
                         currentXOffset = 0;
                         currentYOffset -= 0.3f;
                     }
                 }
+            }
+        }
+
+        public void StartRendering()
+        {
+            if (isRendering)
+                return;
+            isRendering = true;
+            foreach (RenderableCharacter renderableChar in characters)
+            {
+                TextRenderSystem.Singleton.StartRendering(renderableChar);
+            }
+        }
+
+        public void StopRendering()
+        {
+            if (!isRendering)
+                isRendering = false;
+            foreach (RenderableCharacter renderableChar in characters)
+            {
+                TextRenderSystem.Singleton.StopRendering(renderableChar);
             }
         }
 

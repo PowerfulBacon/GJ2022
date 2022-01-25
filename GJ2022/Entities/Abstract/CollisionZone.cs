@@ -18,6 +18,8 @@ namespace GJ2022.Entities.Abstract
 
         public float Height { get; private set; }
 
+        public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
+
         public CollisionZone(Vector<float> position, Vector<float> scale)
         {
             WorldX = position[0];

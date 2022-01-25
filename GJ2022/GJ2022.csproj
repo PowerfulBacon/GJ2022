@@ -64,6 +64,12 @@
     <None Update="Rendering\Shaders\BlueprintShader\blueprintShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Rendering\Shaders\ButtonShader\buttonShader.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rendering\Shaders\ButtonShader\buttonShader.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Rendering\Shaders\CircleShader\circleShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

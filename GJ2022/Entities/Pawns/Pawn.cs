@@ -61,17 +61,18 @@ namespace GJ2022.Entities.Pawns
                     //Locate materials
                     if (workTarget.HasMaterials())
                     {
+                        Line[] copy = lines.ToArray();
+                        lines.Clear();
                         PathfindingSystem.Singleton.RequestPath(
                             new PathfindingRequest(
                                 Position,
                                 workTargetPosition,
                                 (Path path) =>
                                 {
-                                    foreach (Line l in lines)
+                                    foreach (Line l in copy)
                                     {
                                         l.StopDrawing();
                                     }
-                                    lines.Clear();
                                     Log.WriteLine($"Located path with length {path.Points}");
                                     for (int i = 0; i < path.Points.Count - 1; i++)
                                     {
@@ -100,17 +101,18 @@ namespace GJ2022.Entities.Pawns
                         }
                         //Path towards the item
                         itemTarget = locatedItem;
+                        Line[] copy = lines.ToArray();
+                        lines.Clear();
                         PathfindingSystem.Singleton.RequestPath(
                             new PathfindingRequest(
                                 Position,
                                 itemTarget.Position,
                                 (Path path) =>
                                 {
-                                    foreach (Line l in lines)
+                                    foreach (Line l in copy)
                                     {
                                         l.StopDrawing();
                                     }
-                                    lines.Clear();
                                     Log.WriteLine($"Located path with length {path.Points}");
                                     for (int i = 0; i < path.Points.Count - 1; i++)
                                     {
@@ -156,17 +158,18 @@ namespace GJ2022.Entities.Pawns
                 itemTarget = null;
                 followingPath = null;
                 //Path towards the work target
+                Line[] copy = lines.ToArray();
+                lines.Clear();
                 PathfindingSystem.Singleton.RequestPath(
                     new PathfindingRequest(
                         Position,
                         workTarget.Position.IgnoreZ(),
                         (Path path) =>
                         {
-                            foreach (Line l in lines)
+                            foreach (Line l in copy)
                             {
                                 l.StopDrawing();
                             }
-                            lines.Clear();
                             Log.WriteLine($"Located path with length {path.Points}");
                             for (int i = 0; i < path.Points.Count - 1; i++)
                             {

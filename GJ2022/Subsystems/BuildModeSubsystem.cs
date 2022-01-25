@@ -1,6 +1,7 @@
 ﻿using GJ2022.Entities.Blueprints;
 using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Game.Construction.BlueprintSets;
+using GJ2022.GlobalDataComponents;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
@@ -33,6 +34,8 @@ namespace GJ2022.Subsystems
         {
             //Don't fire if build mode isn't active
             if (!buildModeActive)
+                return;
+            if (!MouseHookTracker.HasMouseControl("buildmode") && !isDragging)
                 return;
             //Check if dragging
             if (!isDragging)
@@ -116,11 +119,13 @@ namespace GJ2022.Subsystems
         public void ActivateBuildMode()
         {
             buildModeActive = true;
+            MouseHookTracker.AddHook("buildmode", 50);
         }
 
         public void DisableBuildMode()
         {
             buildModeActive = false;
+            MouseHookTracker.RemoveHook("buildmode");
         }
 
     }

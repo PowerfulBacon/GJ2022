@@ -47,6 +47,8 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         /// <param name="line">The line to start rendering</param>
         public void StartRendering(Line line)
         {
+            if (line == null)
+                throw new ArgumentNullException();
             rendering.Add(line);
         }
 
@@ -171,10 +173,13 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
             //of debugging.
             //We should probably disable the line renderer
             //all together if in release build.
-            for(int i = rendering.Count - 1; i >= 0; i--)
+            for(int i = rendering.Count - 1; i >= 0; i = Math.Min(i - 1, rendering.Count - 1))
             {
                 //Thread safe fetching
                 Line line = rendering[i];
+
+                if (line == null)
+                    continue;
 
                 //Send in data to the uniform values
                 glUniformMatrix4fv(objectMatrixUniformLocation, 1, false, line.ObjectMatrix.GetPointer());

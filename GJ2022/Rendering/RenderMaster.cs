@@ -41,6 +41,7 @@ namespace GJ2022.Rendering
                 new LineRenderer(),
                 new UserInterfaceRenderSystem(),
                 new TextRenderSystem(),
+                new ButtonRenderSystem(),
                 new CircleRenderSystem(),
                 new BlueprintRenderSystem(),
                 new InstanceRenderSystem(),

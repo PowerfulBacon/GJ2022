@@ -18,9 +18,10 @@ namespace GJ2022.Utility.MathConstructs
 
         public Colour(float red = 0, float green = 0, float blue = 0, float alpha = 1.0f)
         {
-            this.red = red;
-            this.green = green;
-            this.blue = blue;
+            bool isRegularFormat = red + green + blue > 3;
+            this.red = red / (isRegularFormat ? 255.0f : 1);
+            this.green = green / (isRegularFormat ? 255.0f : 1);
+            this.blue = blue / (isRegularFormat ? 255.0f : 1);
             this.alpha = alpha;
         }
 

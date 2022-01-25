@@ -26,5 +26,9 @@ namespace GJ2022.UserInterface.Components
         //Positional mode
         public PositionModes PositionMode { get; set; } = PositionModes.SCREEN_POSITION;
 
+        public abstract void Hide();
+
+        public abstract void Show();
+
     }
 }
