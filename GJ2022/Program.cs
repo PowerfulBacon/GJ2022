@@ -11,10 +11,12 @@ using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.UserInterface.Components;
 using GJ2022.UserInterface.Components.Advanced;
+using GJ2022.UserInterface.Factory;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using static GJ2022.UserInterface.Components.UserInterfaceButton;
 using static OpenGL.Gl;
 
 namespace GJ2022
@@ -101,32 +103,22 @@ namespace GJ2022
                 TextObject.PositionModes.SCREEN_POSITION,
                 CoordinateHelper.PixelsToScreen(100),
                 10);
-            new UserInterfaceButton(
-                CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 150, -1080 + 40)),
-                CoordinateHelper.PixelsToScreen(new Vector<float>(300, 80)),
-                "Building",
-                CoordinateHelper.PixelsToScreen(100),
-                new Colour(15, 38, 74));
 
-            //TODO: Create a dropdown factory
-            UserInterfaceDropdown dropdown = new UserInterfaceDropdown(
+            DropdownFactory.CreateDropdown(
+                CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 150, -1080 + 40)),
+                "Building",
+                new string[] { "Foundation" },
+                new OnButtonPressed[] { null });
+            DropdownFactory.CreateDropdown(
                 CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 450, -1080 + 40)),
-                CoordinateHelper.PixelsToScreen(new Vector<float>(300, 80)),
-                "Test Dropdown",
-                CoordinateHelper.PixelsToScreen(100),
-                new Colour(15, 38, 74));
-            dropdown.AddDropdownComponent(new UserInterfaceButton(
-                CoordinateHelper.PixelsToScreen(new Vector<float>(0, 0)),
-                CoordinateHelper.PixelsToScreen(new Vector<float>(300, 80)),
-                "Test 1",
-                CoordinateHelper.PixelsToScreen(100),
-                new Colour(15, 38, 74)));
-            dropdown.AddDropdownComponent(new UserInterfaceButton(
-                CoordinateHelper.PixelsToScreen(new Vector<float>(0, 0)),
-                CoordinateHelper.PixelsToScreen(new Vector<float>(300, 80)),
-                "Test 2",
-                CoordinateHelper.PixelsToScreen(100),
-                new Colour(15, 38, 74)));
+                "Actions",
+                new string[] { "Deconstruct", "Mine" },
+                new OnButtonPressed[] { null, null });
+            DropdownFactory.CreateDropdown(
+                CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 750, -1080 + 40)),
+                "Debug",
+                new string[] { "1", "2", "3", "4", "5", "6", "7", "8" },
+                new OnButtonPressed[] { null, null, null, null, null, null, null, null, null });
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))
