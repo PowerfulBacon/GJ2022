@@ -31,3 +31,5 @@ GlobalDataComponents - This should be managers (//TODO)
 
 ![image](https://user-images.githubusercontent.com/26465327/150700037-9a8343f0-7fa6-490f-847a-3ba4f01f1f14.png)
 
+![image](https://user-images.githubusercontent.com/26465327/150989860-b57af124-09da-44e2-9b07-b696c05d7854.png)
+(Running on the lab VMs)
