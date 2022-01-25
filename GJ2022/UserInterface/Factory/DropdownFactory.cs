@@ -14,14 +14,17 @@ namespace GJ2022.UserInterface.Factory
     public static class DropdownFactory
     {
 
-        public static UserInterfaceDropdown CreateDropdown(Vector<float> position, string dropdownTitle, string[] options, OnButtonPressed[] actions)
+        public static UserInterfaceDropdown CreateDropdown(
+            Vector<float> position,
+            string dropdownTitle,
+            string[] options,
+            OnButtonPressed[] actions,
+            DropdownSettings settings = null)
         {
             UserInterfaceDropdown dropdown = new UserInterfaceDropdown(
                 position,
-                CoordinateHelper.PixelsToScreen(new Vector<float>(300, 80)),
                 dropdownTitle,
-                CoordinateHelper.PixelsToScreen(100),
-                new Colour(15, 38, 74));
+                settings ?? new DropdownSettings());
             for (int i = 0; i < options.Length; i++)
             {
                 UserInterfaceButton button = new UserInterfaceButton(

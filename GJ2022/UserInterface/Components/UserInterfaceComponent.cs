@@ -17,11 +17,16 @@ namespace GJ2022.UserInterface.Components
             WORLD_POSITION = 1,
         }
 
+        public UserInterfaceComponent Parent { get; set; }
+
         //The renderable attached to thie UI component.
         public abstract Renderable Renderable { get; }
 
         //Positional stuff
         public abstract Vector<float> Position { get; set; }
+
+        //Scale getter
+        public abstract Vector<float> Scale { get; }
 
         //Positional mode
         public PositionModes PositionMode { get; set; } = PositionModes.SCREEN_POSITION;

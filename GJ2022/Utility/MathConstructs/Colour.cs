@@ -14,6 +14,7 @@ namespace GJ2022.Utility.MathConstructs
         public static Colour Yellow { get; } = new Colour(1, 1, 0);
         public static Colour Cyan { get; } = new Colour(0, 1, 1);
         public static Colour Purple { get; } = new Colour(1, 0, 1);
+        public static Colour UserInterfaceColour { get; } = new Colour(15, 38, 74);
         public static Colour Random { get => new Colour((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble()); }
 
         public Colour(float red = 0, float green = 0, float blue = 0, float alpha = 1.0f)
