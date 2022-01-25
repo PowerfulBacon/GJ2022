@@ -2,8 +2,10 @@
 using GJ2022.Entities.Pawns;
 using GJ2022.Managers;
 using GJ2022.Rendering;
+using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using GJ2022.Rendering.Text;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
@@ -45,6 +47,9 @@ namespace GJ2022
             //Start subsystems
             Subsystem.InitializeSingletons();
 
+            //Load text
+            TextLoader.LoadText();
+
             //World creation here
 
 
@@ -78,6 +83,9 @@ namespace GJ2022
 
             Iron iron = new Iron(new Vector<float>(20, 20, 20), 50, 50);
             StockpileManager.AddItem(iron);
+
+            new TextObject("Debug Screen", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.SCREEN_POSITION, 0.2f);
+            new TextObject("Debug World", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.WORLD_POSITION, 0.2f);
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

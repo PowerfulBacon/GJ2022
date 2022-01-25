@@ -22,7 +22,7 @@ namespace GJ2022.Rendering.RenderSystems
         where TargetRenderSystem : RenderSystem<RenderTargetInterface, TargetRenderSystem>
     {
 
-        private const int USER_BUFFER_OFFSET = 2;
+        protected const int USER_BUFFER_OFFSET = 2;
 
         //The cache of things we are rendering
         //Key: ModelData (objects with the same modeldata should reference the same class)
@@ -51,7 +51,7 @@ namespace GJ2022.Rendering.RenderSystems
         protected abstract uint[] BufferDataPointsPerInstance { get; }
 
         //The buffer locations
-        private uint[] bufferLocations;
+        protected uint[] bufferLocations;
 
         //The names of the uniform variables used by this render system
         protected virtual string[] UniformVariableNames => new string[] {
@@ -251,7 +251,8 @@ namespace GJ2022.Rendering.RenderSystems
                 }
 
                 //Load in the textures
-                glBindTexture(GL_TEXTURE0, cacheKey.TextureUint);
+                glActiveTexture(GL_TEXTURE0);
+                glBindTexture(GL_TEXTURE_2D, cacheKey.TextureUint);
                 BindUniformData(renderBatchSet);
 
                 //================
