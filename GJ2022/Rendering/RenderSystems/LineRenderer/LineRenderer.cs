@@ -15,7 +15,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         //List of lines we are rendering
         public List<Line> rendering { get; } = new List<Line>();
 
-        protected override string SystemShaderName => "simple";
+        protected override string SystemShaderName => "SimpleShader";
 
         protected override int BufferCount => 0;
 

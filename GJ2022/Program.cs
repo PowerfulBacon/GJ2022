@@ -8,6 +8,7 @@ using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
+using GJ2022.UserInterface.Components;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
@@ -86,6 +87,8 @@ namespace GJ2022
 
             new TextObject("Debug Screen", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.SCREEN_POSITION, 0.2f);
             new TextObject("Debug World", Colour.Red, new Vector<float>(0, 0), TextObject.PositionModes.WORLD_POSITION, 0.2f);
+
+            new UserInterfaceImage(new Vector<float>(0, 0), "iron");
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

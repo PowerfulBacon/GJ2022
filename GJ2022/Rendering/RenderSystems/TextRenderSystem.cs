@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.Models;
+﻿using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
@@ -59,7 +60,7 @@ namespace GJ2022.Rendering.RenderSystems
                     return new float[] {
                         position[0],
                         position[1],
-                        10.0f,
+                        Layers.LAYER_TEXT,
                         (float)targetItem.PositionMode
                     };
                 case 1:
