@@ -20,6 +20,7 @@ namespace GJ2022.Subsystems
 
         private bool buildModeActive = false;
         private bool isDragging = false;
+        private bool cancelDisable = false;
 
         private Vector<float> dragStartPoint;
         private Vector<float> dragEndPoint;
@@ -38,6 +39,11 @@ namespace GJ2022.Subsystems
             {
                 //Mouse button isn't down.
                 if (Glfw.GetMouseButton(window, MouseButton.Left) != InputState.Press)
+                {
+                    cancelDisable = false;
+                    return;
+                }
+                else if (cancelDisable)
                     return;
                 //Mouse button is down, start dragging
                 isDragging = true;
@@ -71,6 +77,7 @@ namespace GJ2022.Subsystems
             {
                 ClearDragHighlights();
                 isDragging = false;
+                cancelDisable = true;
             }
             //Check if released left click (confirm)
             else if (Glfw.GetMouseButton(window, MouseButton.Left) == InputState.Release)
