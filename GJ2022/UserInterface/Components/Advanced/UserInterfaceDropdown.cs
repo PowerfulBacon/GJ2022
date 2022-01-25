@@ -22,13 +22,14 @@ namespace GJ2022.UserInterface.Components.Advanced
 
         public void AddDropdownComponent(UserInterfaceComponent component)
         {
-            cachedHeight -= CoordinateHelper.PixelsToScreen(80);
+            cachedHeight += CoordinateHelper.PixelsToScreen(80);
             component.Position = new Vector<float>(Position[0], Position[1] + cachedHeight);
             if (!toggled)
             {
                 //Hide if we are toggled off.
                 component.Hide();
             }
+            DropdownComponents.Add(component);
         }
 
         private void Toggle()
