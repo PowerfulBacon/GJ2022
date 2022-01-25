@@ -18,6 +18,8 @@ namespace GJ2022.UserInterface.Components
             }
         }
 
+        public override Vector<float> Scale => (Renderable as UserInterfaceRenderable).Scale;
+
         public UserInterfaceImage(Vector<float> position, Vector<float> scale, string icon)
         {
             Renderable = new UserInterfaceRenderable(position, PositionMode, scale, icon);

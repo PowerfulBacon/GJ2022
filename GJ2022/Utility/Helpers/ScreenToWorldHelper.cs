@@ -1,6 +1,7 @@
 ﻿using GJ2022.Rendering;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
+using System;
 
 namespace GJ2022.Utility.Helpers
 {
@@ -59,6 +60,12 @@ namespace GJ2022.Utility.Helpers
             cursorX /= scaleX;
             cursorY /= -scaleY;
             return new Vector<float>((float)cursorX, (float)cursorY);
+        }
+
+        public static Vector<int> GetWorldTile(Window window)
+        {
+            Vector<float> worldCoordinates = GetWorldCoordinates(window);
+            return new Vector<int>((int)Math.Floor(worldCoordinates[0] + 0.5f), (int)Math.Floor(worldCoordinates[1] + 0.5f));
         }
 
     }

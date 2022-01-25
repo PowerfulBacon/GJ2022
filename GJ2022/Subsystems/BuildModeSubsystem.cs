@@ -30,11 +30,20 @@ namespace GJ2022.Subsystems
 
         private BlueprintSet selectedBlueprint = new BuildingBlueprint();
 
+        private Blueprint buildModeHighlight;
+
         public override void Fire(Window window)
         {
             //Don't fire if build mode isn't active
             if (!buildModeActive)
                 return;
+            //Exit build mode
+            if (Glfw.GetKey(window, Keys.Escape) == InputState.Press)
+            {
+                DisableBuildMode();
+                return;
+            }
+            //Ignore if we aren't the primary hook
             if (!MouseHookTracker.HasMouseControl("buildmode") && !isDragging)
                 return;
             //Check if dragging
@@ -43,18 +52,25 @@ namespace GJ2022.Subsystems
                 //Mouse button isn't down.
                 if (Glfw.GetMouseButton(window, MouseButton.Left) != InputState.Press)
                 {
+                    if (buildModeHighlight == null)
+                        buildModeHighlight = new Blueprint((Vector<int>)ScreenToWorldHelper.GetWorldCoordinates(window), selectedBlueprint.BlueprintDetail);
+                    else
+                        buildModeHighlight.Position = ScreenToWorldHelper.GetWorldTile(window);
                     cancelDisable = false;
                     return;
                 }
                 else if (cancelDisable)
                     return;
+                //Remove the build mode highlight
+                buildModeHighlight?.Destroy();
+                buildModeHighlight = null;
                 //Mouse button is down, start dragging
                 isDragging = true;
                 //Mark the location of where we started dragging from
-                dragStartPoint = ScreenToWorldHelper.GetWorldCoordinates(window);
+                dragStartPoint = ScreenToWorldHelper.GetWorldTile(window);
             }
             //Draw highlights
-            dragEndPoint = ScreenToWorldHelper.GetWorldCoordinates(window);
+            dragEndPoint = ScreenToWorldHelper.GetWorldTile(window);
 
             //Create drag highlights
             ClearDragHighlights();
@@ -125,6 +141,9 @@ namespace GJ2022.Subsystems
         public void DisableBuildMode()
         {
             buildModeActive = false;
+            buildModeHighlight?.Destroy();
+            buildModeHighlight = null;
+            ClearDragHighlights();
             MouseHookTracker.RemoveHook("buildmode");
         }
 

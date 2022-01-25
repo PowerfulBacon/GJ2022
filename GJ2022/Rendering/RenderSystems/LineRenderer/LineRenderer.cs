@@ -1,6 +1,8 @@
 ﻿using GJ2022.Rendering.RenderSystems.Interfaces;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.RenderSystems.LineRenderer
@@ -13,7 +15,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         public static LineRenderer Singleton;
 
         //List of lines we are rendering
-        public List<Line> rendering { get; } = new List<Line>();
+        public ConcurrentDictionary<Line, bool> rendering { get; } = new ConcurrentDictionary<Line, bool>();
 
         protected override string SystemShaderName => "SimpleShader";
 
@@ -49,7 +51,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         {
             if (line == null)
                 throw new ArgumentNullException();
-            rendering.Add(line);
+            rendering.TryAdd(line, true);
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         /// <param name="line">The line to stop rendering</param>
         public void StopRendering(Line line)
         {
-            rendering.Remove(line);
+            rendering.TryRemove(line, out _);
         }
 
         public unsafe override void Initialize()
@@ -166,7 +168,6 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
         /// <param name="programUint"></param>
         public unsafe override void RenderModels(Camera mainCamera)
         {
-
             //Render each line seperately
             //A lot slower than the instance renderer,
             //however lines will rarely be rendered outside
@@ -176,7 +177,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
             for(int i = rendering.Count - 1; i >= 0; i = Math.Min(i - 1, rendering.Count - 1))
             {
                 //Thread safe fetching
-                Line line = rendering[i];
+                Line line = rendering.Keys.ElementAt(i);
 
                 if (line == null)
                     continue;

@@ -36,7 +36,7 @@ namespace GJ2022.UserInterface.Components
 
         public float Height => Scale[1];
 
-        private Vector<float> Scale { get; }
+        public override Vector<float> Scale { get; }
 
         private Vector<float> _position;
         public override Vector<float> Position
