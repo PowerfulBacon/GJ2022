@@ -4,7 +4,7 @@ using GJ2022.Utility.Helpers;
 using System;
 using System.Collections.Generic;
 
-namespace GJ2022.Managers
+namespace GJ2022.Managers.Stockpile
 {
     public static class StockpileManager
     {
