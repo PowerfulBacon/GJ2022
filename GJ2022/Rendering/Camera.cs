@@ -99,8 +99,8 @@ namespace GJ2022.Rendering
 
         public void OnScroll(double offset)
         {
-            Scale[0] *= Math.Sign((float)offset) * 0.1f + 1;
-            Scale[1] *= Math.Sign((float)offset) * 0.1f + 1;
+            Scale[0] = Math.Max(Math.Min(Scale[0] * (Math.Sign((float)offset) * 0.1f + 1), 2.0f), 0.05f);
+            Scale[1] = Math.Max(Math.Min(Scale[1] * (Math.Sign((float)offset) * 0.1f + 1), 2.0f), 0.05f);
         }
 
         public void OnWindowResized(int width, int height)

@@ -24,6 +24,7 @@ namespace GJ2022.Entities.Pawns
 
         private Item heldItem;
 
+        private Vector<float> itemTargetPosition;
         private Item itemTarget;
         private Blueprint workTarget;
         private Line line;
@@ -100,12 +101,13 @@ namespace GJ2022.Entities.Pawns
                         }
                         //Path towards the item
                         itemTarget = locatedItem;
+                        itemTargetPosition = itemTarget.Position;
                         Line[] copy = lines.ToArray();
                         lines.Clear();
                         PathfindingSystem.Singleton.RequestPath(
                             new PathfindingRequest(
                                 Position,
-                                itemTarget.Position,
+                                itemTargetPosition,
                                 (Path path) =>
                                 {
                                     foreach (Line l in copy)
@@ -132,6 +134,12 @@ namespace GJ2022.Entities.Pawns
             }
             if (followingPath == null || workTarget == null)
                 return;
+            if (workTarget.Destroyed)
+            {
+                workTarget = null;
+                followingPath = null;
+                return;
+            }
             Vector<float> nextPosition;
             if (positionOnPath < followingPath.Points.Count)
             {
@@ -139,12 +147,57 @@ namespace GJ2022.Entities.Pawns
             }
             else
             {
-                nextPosition = itemTarget?.Position ?? workTarget.Position;
+                nextPosition = itemTarget == null ? workTarget.Position : itemTargetPosition;
             }
             //Move towards
             Position = Position.MoveTowards(nextPosition, 0.1f, deltaTime);
             //ugly line
             line.Start = Position.SetZ(10);
+
+            //If our target item moved, find a new one
+            if (itemTarget != null && (itemTarget.Position != itemTargetPosition || itemTarget.Location != null))
+            {
+                itemTarget = null;
+                followingPath = null;
+                //Look for required items
+                (Type, int) requiredItems = workTarget.GetRequiredMaterial() ?? (null, 0);
+                //Bug
+                if (requiredItems.Item1 == null)
+                    throw new Exception("This shouldn't happen");
+                //Locate the item
+                Item locatedItem = StockpileManager.LocateItemInStockpile(requiredItems.Item1);
+                if (locatedItem == null)
+                {
+                    //Item isn't in stockpile
+                    workTarget = null;
+                    return;
+                }
+                //Path towards the item
+                itemTarget = locatedItem;
+                itemTargetPosition = itemTarget.Position;
+                Line[] copy = lines.ToArray();
+                lines.Clear();
+                PathfindingSystem.Singleton.RequestPath(
+                    new PathfindingRequest(
+                        Position,
+                        itemTargetPosition,
+                        (Path path) =>
+                        {
+                            foreach (Line l in copy)
+                            {
+                                l.StopDrawing();
+                            }
+                            for (int i = 0; i < path.Points.Count - 1; i++)
+                            {
+                                lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                            }
+                            followingPath = path;
+                            positionOnPath = 0;
+                        },
+                        () => { itemTarget = null; workTarget = null; }
+                    ));
+                return;
+            }
 
             //If distance < build range, build it
             if (Position.IgnoreZ() == itemTarget?.Position.IgnoreZ())
@@ -153,6 +206,7 @@ namespace GJ2022.Entities.Pawns
                 itemTarget.Location = this;
                 //Null the item target
                 heldItem = itemTarget;
+                (Renderable as CircleRenderable).Colour = Colour.Blue;
                 itemTarget = null;
                 followingPath = null;
                 //Path towards the work target
@@ -183,6 +237,7 @@ namespace GJ2022.Entities.Pawns
                             if(itemTarget != null)
                                 itemTarget.Location = null;
                             heldItem = null;
+                            (Renderable as CircleRenderable).Colour = Colour.Yellow;
                         }
                     ));
             }
@@ -190,9 +245,10 @@ namespace GJ2022.Entities.Pawns
             {
                 followingPath = null;
                 //Put materials into the work target
-                if (heldItem != null)
+                if (heldItem != null && !workTarget.HasMaterials())
                     workTarget.PutMaterials(heldItem);
                 heldItem = null;
+                (Renderable as CircleRenderable).Colour = Colour.Yellow;
                 if (workTarget.HasMaterials())
                     workTarget.Complete();
                 else

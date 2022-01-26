@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.RenderSystems.Renderables;
+﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
 
@@ -40,6 +41,8 @@ namespace GJ2022.Entities
         //Default destroy behaviour
         public virtual bool Destroy()
         {
+            if (!(this is IDestroyable))
+                throw new System.Exception("Non destroyable entity was destroyed!");
             Renderable?.StopRendering();
             Renderable = null;
             return true;
@@ -67,6 +70,7 @@ namespace GJ2022.Entities
             get { return _location; }
             set
             {
+                Entity oldLocation = _location;
                 //Remove ourselves from the old contents
                 _location?.RemoveFromContents(this);
                 //If we changed location, pause / resume rendering.
@@ -82,6 +86,8 @@ namespace GJ2022.Entities
                 _location = value;
                 //Add ourselves to the new contents
                 _location?.AddToContents(this);
+                //Run the on move
+                (this as IMoveBehaviour)?.OnMoved(oldLocation);
             }
         }
 
@@ -116,8 +122,10 @@ namespace GJ2022.Entities
             get { return _position; }
             set
             {
+                Vector<float> oldPosition = _position;
                 _position = value;
                 Renderable?.moveHandler?.Invoke(_position);
+                (this as IMoveBehaviour)?.OnMoved(oldPosition);
             }
         }
 
