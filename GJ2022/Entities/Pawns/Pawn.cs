@@ -60,7 +60,7 @@ namespace GJ2022.Entities.Pawns
                         line.End = workTarget.Position;
                     }
                     //Locate materials
-                    if (workTarget.HasMaterials())
+                    if (workTarget.HasMaterials() || heldItem != null)
                     {
                         Line[] copy = lines.ToArray();
                         lines.Clear();
