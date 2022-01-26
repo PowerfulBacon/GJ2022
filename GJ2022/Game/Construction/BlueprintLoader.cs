@@ -58,9 +58,12 @@ namespace GJ2022.Game.Construction
                         //Parse the cost data
                         ConstructionCostData costData = new ConstructionCostData();
                         //Get each cost
-                        foreach (JProperty costToken in blueprintToken["cost"])
+                        if (blueprintToken.Contains("cost"))
                         {
-                            costData.Cost.Add(possibleTypes[costToken.Name], costToken.Value.Value<int>());
+                            foreach (JProperty costToken in blueprintToken["cost"])
+                            {
+                                costData.Cost.Add(possibleTypes[costToken.Name], costToken.Value.Value<int>());
+                            }
                         }
                         //Load the blueprint texture
                         string texture = blueprintToken.Value<string>("texture");
@@ -68,7 +71,10 @@ namespace GJ2022.Game.Construction
                         int layer = blueprintToken.Value<int>("layer");
                         //Load the priority
                         int priority = blueprintToken.Value<int>("priority");
-                        BlueprintDetail blueprintDetail = new BlueprintDetail(blueprintType, costData, layer, texture, createdType, priority);
+                        //Load instant
+                        bool instant = blueprintToken.Value<bool?>("instant") ?? false;
+
+                        BlueprintDetail blueprintDetail = new BlueprintDetail(blueprintType, costData, layer, texture, createdType, priority, instant);
                         loadedBlueprintDictionary.Add(blueprintToken.Value<string>("id"), blueprintDetail);
                     }
                     catch (Exception e)

@@ -27,7 +27,10 @@ namespace GJ2022.Game.Construction.Blueprints
         //Priority of the wall
         public int Priority { get; }
 
-        public BlueprintDetail(Type blueprintType, ConstructionCostData cost, int blueprintLayer, string texture, Type createdType, int priority)
+        //Is the blueprint built instantly
+        public bool Instant { get; }
+
+        public BlueprintDetail(Type blueprintType, ConstructionCostData cost, int blueprintLayer, string texture, Type createdType, int priority, bool instant)
         {
             BlueprintType = blueprintType;
             Cost = cost;
@@ -35,6 +38,7 @@ namespace GJ2022.Game.Construction.Blueprints
             Texture = texture;
             CreatedType = createdType;
             Priority = priority;
+            Instant = instant;
         }
     }
 }

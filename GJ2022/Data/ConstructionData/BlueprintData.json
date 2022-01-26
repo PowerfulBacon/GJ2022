@@ -3,7 +3,8 @@
     {
       "name": "Structure",
       "contents": [
-        "steel_building"
+        "steel_building",
+        "steel_building_instant"
       ]
     }
   ],
@@ -14,6 +15,13 @@
       "isRoom": true,
       "edge": "steel_wall",
       "fill": "plating"
+    },
+    {
+      "id": "steel_building_instant",
+      "name": "Cheat Steel Building",
+      "isRoom": true,
+      "edge": "steel_wall_instant",
+      "fill": "plating_instant"
     }
   ],
   "blueprints": [
@@ -38,6 +46,24 @@
       "cost": {
         "Iron": 2
       }
+    },
+    {
+      "id": "steel_wall_instant",
+      "created_type": "Wall",
+      "priority": 1,
+      "blueprintType": "TurfBlueprint",
+      "texture": "wall",
+      "layer": 1,
+      "instant": true
+    },
+    {
+      "id": "plating_instant",
+      "created_type": "Plating",
+      "priority": 2,
+      "blueprintType": "TurfBlueprint",
+      "texture": "plating",
+      "layer": 1,
+      "instant": true
     }
   ]
 }

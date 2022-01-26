@@ -123,7 +123,10 @@ namespace GJ2022.Subsystems
             //Copy the drag highlight list into the AI controller system
             foreach (Vector<float> position in dragHighlights.Keys)
             {
-                PawnControllerSystem.QueueBlueprint(position, dragHighlights[position], selectedBlueprint.BlueprintDetail.BlueprintLayer);
+                if (dragHighlights[position].BlueprintDetail.Instant)
+                    dragHighlights[position].Complete();
+                else
+                    PawnControllerSystem.QueueBlueprint(position, dragHighlights[position], selectedBlueprint.BlueprintDetail.BlueprintLayer);
             }
             //Reset our list
             dragHighlights.Clear();
