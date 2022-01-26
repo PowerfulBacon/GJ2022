@@ -15,5 +15,10 @@ namespace GJ2022.Entities.Items.Stacks
 
         public int StackSize { get; set; }
 
+        public override int Count()
+        {
+            return StackSize;
+        }
+
     }
 }

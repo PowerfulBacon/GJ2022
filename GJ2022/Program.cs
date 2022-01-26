@@ -90,6 +90,15 @@ namespace GJ2022
                 }
             }
 
+            Random r = new Random();
+            for (int x = 20; x < 100; x += r.Next(1, 10))
+            {
+                for (int y = 20; y < 100; y += r.Next(1, 10))
+                {
+                    new Gold(new Vector<float>(x, y), 50, 50);
+                }
+            }
+
             UserInterfaceCreator.CreateUserInterface();
 
             //Rendering Loop

@@ -3,7 +3,7 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.UserInterface.Components
 {
-    class UserInterfaceImage : UserInterfaceComponent
+    public class UserInterfaceImage : UserInterfaceComponent
     {
 
         public override Renderable Renderable { get; }

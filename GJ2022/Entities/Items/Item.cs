@@ -1,6 +1,7 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
+using GJ2022.Managers.Stockpile;
 using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Items
@@ -8,7 +9,11 @@ namespace GJ2022.Entities.Items
     public abstract class Item : Entity, IDestroyable, IMoveBehaviour
     {
 
+        public abstract string Name { get; }
+
         public bool Destroyed { get; private set; } = false;
+
+        public abstract string UiTexture { get; }
 
         public Item(Vector<float> position) : base(position, Layers.LAYER_ITEM)
         { }
@@ -44,5 +49,16 @@ namespace GJ2022.Entities.Items
             World.RemoveItem((int)Position[0], (int)Position[1], this);
             (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.UnregisterItem(this);
         }
+
+        public void UpdateCount()
+        {
+            StockpileManager.CountItems(GetType());
+        }
+
+        public virtual int Count()
+        {
+            return 1;
+        }
+
     }
 }

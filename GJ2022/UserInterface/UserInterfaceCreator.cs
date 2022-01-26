@@ -1,5 +1,6 @@
 ﻿using GJ2022.Game.Construction;
 using GJ2022.Game.Construction.BlueprintSets;
+using GJ2022.Managers.Stockpile;
 using GJ2022.Rendering.Text;
 using GJ2022.Subsystems;
 using GJ2022.UserInterface.Components;
@@ -16,16 +17,6 @@ namespace GJ2022.UserInterface
 
         public static void CreateUserInterface()
         {
-
-            new UserInterfaceTextIcon(
-                "Iron - 50",
-                "iron",
-                Colour.White,
-                CoordinateHelper.PixelsToScreen(-1920 + 60, 1080 - 70),
-                CoordinateHelper.PixelsToScreen(100, 100),
-                TextObject.PositionModes.SCREEN_POSITION,
-                CoordinateHelper.PixelsToScreen(100),
-                10);
 
             DropdownSettings defaultDropdownSettings = new DropdownSettings();
             DropdownSettings sideDropdownSettings = new DropdownSettings();

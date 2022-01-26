@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.UserInterface.Components.Advanced
 {
-    class UserInterfaceTextIcon : UserInterfaceImage
+    public class UserInterfaceTextIcon : UserInterfaceImage
     {
 
         public TextObject Text { get; }
