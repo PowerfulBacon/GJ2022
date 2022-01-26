@@ -59,6 +59,13 @@ namespace GJ2022.Entities.Pawns
                     {
                         line.End = workTarget.Position;
                     }
+                    //Check if we are holding the wrong thing
+                    if (heldItem != null && workTarget.GetRequiredMaterial()?.Item1 != heldItem?.GetType())
+                    {
+                        heldItem.Location = null;
+                        heldItem.Position = Position;
+                        heldItem = null;
+                    }
                     //Locate materials
                     if (workTarget.HasMaterials() || heldItem != null)
                     {
@@ -234,8 +241,11 @@ namespace GJ2022.Entities.Pawns
                             //Null the work target
                             workTarget = null;
                             //Drop held items
-                            if(itemTarget != null)
-                                itemTarget.Location = null;
+                            if (itemTarget != null)
+                            {
+                                heldItem.Location = null;
+                                heldItem.Position = Position;
+                            }
                             heldItem = null;
                             (Renderable as CircleRenderable).Colour = Colour.Yellow;
                         }
@@ -247,8 +257,11 @@ namespace GJ2022.Entities.Pawns
                 //Put materials into the work target
                 if (heldItem != null && !workTarget.HasMaterials())
                     workTarget.PutMaterials(heldItem);
-                heldItem = null;
-                (Renderable as CircleRenderable).Colour = Colour.Yellow;
+                if (heldItem?.Location != this)
+                {
+                    heldItem = null;
+                    (Renderable as CircleRenderable).Colour = Colour.Yellow;
+                }
                 if (workTarget.HasMaterials())
                     workTarget.Complete();
                 else

@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
+using GJ2022.Entities.Items.Stacks;
 using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.Models;
@@ -7,6 +8,7 @@ using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
+using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -64,8 +66,18 @@ namespace GJ2022.Entities.Blueprints
 
         public void PutMaterials(Item item)
         {
-            item.Location = this;
-            LoadedMaterials.Add(item.GetType(), 99999999);
+            Stack stackItem = item as Stack;
+            if (stackItem == null)
+            {
+                item.Location = this;
+                LazyHelper.LazyIntegerAdd<Type>(LoadedMaterials, item.GetType(), item.Count());
+            }
+            else
+            {
+                Stack toPut = stackItem.Take(Math.Min(stackItem.StackSize, BlueprintDetail.Cost.Cost[item.GetType()]));
+                toPut.Location = this;
+                LazyHelper.LazyIntegerAdd<Type>(LoadedMaterials, item.GetType(), toPut.StackSize);
+            }
         }
 
         /// <summary>

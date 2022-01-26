@@ -1,4 +1,5 @@
 ﻿using GJ2022.Utility.MathConstructs;
+using System;
 
 namespace GJ2022.Entities.Items.Stacks
 {
@@ -18,6 +19,19 @@ namespace GJ2022.Entities.Items.Stacks
         public override int Count()
         {
             return StackSize;
+        }
+
+        public Stack Take(int amount)
+        {
+            if (amount >= StackSize)
+            {
+                return this;
+            }
+            else
+            {
+                StackSize -= amount;
+                return (Stack)Activator.CreateInstance(GetType(), Position, MaxStackSize, amount);
+            }
         }
 
     }
