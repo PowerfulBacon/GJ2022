@@ -7,6 +7,7 @@ using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GJ2022.Subsystems
 {
@@ -134,7 +135,7 @@ namespace GJ2022.Subsystems
 
         private void ClearDragHighlights()
         {
-            foreach (Blueprint bp in dragHighlights.Values)
+            foreach (Blueprint bp in dragHighlights.Values.ToList())
             {
                 bp.Destroy();
             }

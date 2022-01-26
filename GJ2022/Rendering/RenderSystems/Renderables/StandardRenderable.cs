@@ -10,7 +10,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
     {
 
         //The render system we are attached to
-        public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => InstanceRenderSystem.Singleton;
+        public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => isTransparent ? TransparentRenderSystem.Singleton : InstanceRenderSystem.Singleton;
 
         //Are we rendering
         public bool IsRendering { get; private set; } = false;
@@ -24,9 +24,12 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         private string _texture;
 
-        public StandardRenderable(string texture)
+        private bool isTransparent;
+
+        public StandardRenderable(string texture, bool isTransparent = false)
         {
             _texture = texture;
+            this.isTransparent = isTransparent;
             StartRendering();
         }
 

@@ -37,16 +37,19 @@ namespace GJ2022.Rendering
 
         private static void InitRenderSystems()
         {
+            //Order of transparency
+            //Systems only apply transparency to systems above them.
             renderSystems = new RenderSystem[] {
-                new LineRenderer(),
-                new UserInterfaceRenderSystem(),
+                new BackgroundRenderSystem(),
                 new TextRenderSystem(),
                 new ButtonRenderSystem(),
-                new CircleRenderSystem(),
                 new BlueprintRenderSystem(),
                 new InstanceRenderSystem(),
+                new TransparentRenderSystem(),
+                new CircleRenderSystem(),
                 new OutlineQuadRenderSystem(),
-                new BackgroundRenderSystem(),
+                new UserInterfaceRenderSystem(),
+                new LineRenderer(),
             };
         }
 
@@ -62,7 +65,7 @@ namespace GJ2022.Rendering
             glDepthFunc(GL_LEQUAL);
             //Enable blending for transparent objects
             glEnable(GL_BLEND);
-            glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             //Set a background colour
             glClearColor(255 / 255f, 105 / 255f, 180 / 255f, 1.0f);
         }

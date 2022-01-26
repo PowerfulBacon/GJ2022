@@ -79,10 +79,10 @@ namespace GJ2022
 
             for (int i = 0; i < 5; i++)
             {
-                new Pawn(new Vector<float>(2.3f, 7.3f, 5));
+                new Pawn(new Vector<float>(2.3f, 7.3f));
             }
 
-            Iron iron = new Iron(new Vector<float>(20, 20, 20), 50, 50);
+            Iron iron = new Iron(new Vector<float>(20, 20), 50, 50);
             StockpileManager.AddItem(iron);
 
             UserInterfaceCreator.CreateUserInterface();

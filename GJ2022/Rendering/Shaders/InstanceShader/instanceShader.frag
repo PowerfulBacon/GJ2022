@@ -25,4 +25,10 @@ void main()
     transformedUV += vec2(texData[0] / spritesheetWidth, (spritesheetHeight - texData[1] - 1) / spritesheetHeight);
 
     result = texture(textureSampler, transformedUV).rgba;
+
+    if(result.a == 0)
+    {
+        discard;
+    }
+
 } 

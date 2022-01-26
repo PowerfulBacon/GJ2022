@@ -52,7 +52,7 @@ namespace GJ2022.Entities.Pawns
                     workTarget = PawnControllerSystem.QueuedBlueprints[workTargetPosition].Values.ElementAt(0);
                     if (line == null)
                     {
-                        line = Line.StartDrawingLine(Position, workTargetPosition, Colour.Cyan);
+                        line = Line.StartDrawingLine(Position.SetZ(10), workTargetPosition.SetZ(10), Colour.Cyan);
                     }
                     else
                     {
@@ -144,7 +144,7 @@ namespace GJ2022.Entities.Pawns
             //Move towards
             Position = Position.MoveTowards(nextPosition, 0.1f, deltaTime);
             //ugly line
-            line.Start = Position;
+            line.Start = Position.SetZ(10);
 
             //If distance < build range, build it
             if (Position.IgnoreZ() == itemTarget?.Position.IgnoreZ())
