@@ -31,5 +31,14 @@ namespace GJ2022.PawnBehaviours
         //Action was cancelled by a more important action
         public abstract void OnActionCancel(PawnBehaviour parent);
 
+        //Action is unreachable
+        public abstract void OnActionUnreachable(PawnBehaviour parent);
+
+        //Action location has been reached
+        public abstract void OnPawnReachedLocation(PawnBehaviour parent);
+
+        //Called when the action ends, either through completion or cancellation.
+        public abstract void OnActionEnd(PawnBehaviour parent);
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.Pawns;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Utility.MathConstructs;
@@ -14,6 +15,9 @@ namespace GJ2022.Entities.Items
         public bool Destroyed { get; private set; } = false;
 
         public abstract string UiTexture { get; }
+
+        //The pawn that claims this item.
+        public Pawn claim;
 
         public Item(Vector<float> position) : base(position, Layers.LAYER_ITEM)
         { }

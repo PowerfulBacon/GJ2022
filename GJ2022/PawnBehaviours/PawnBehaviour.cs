@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Pawns;
+using GJ2022.Subsystems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.PawnBehaviours
 {
-    public class PawnBehaviour
+    public abstract class PawnBehaviour
     {
 
         //Memories shared among all pawn behaviours. Acts as a pawn hivemind.
@@ -23,10 +24,13 @@ namespace GJ2022.PawnBehaviours
         //will not be performed for some time. (We chose to do this action, but it wasn't possible)
         //(Example: We want to build in space, but cannot move to space due to no space suits, so choose another
         //action for the time being).
-        public Dictionary<PawnAction, float> Actions { get; } = new Dictionary<PawnAction, float>();
+        public abstract Dictionary<PawnAction, double> Actions { get; }
 
         //The currently running action
         private PawnAction currentAction;
+
+        //Are we processing?
+        private volatile bool firing = false;
 
         //The owner of the pawn behaviour
         public Pawn Owner { get; }
@@ -34,6 +38,31 @@ namespace GJ2022.PawnBehaviours
         public PawnBehaviour(Pawn owner)
         {
             Owner = owner;
+            PawnBehaviourSystem.Singleton.ApplyPawnBehaviour(owner, this);
+        }
+
+        public T GetMemory<T>(string key)
+            where T : class
+        {
+            if (Memory.ContainsKey(key))
+                return (T)Memory[key];
+            return null;
+        }
+
+        /// <summary>
+        /// Action reached
+        /// </summary>
+        public void PawnActionReached()
+        {
+            currentAction.OnPawnReachedLocation(this);
+        }
+
+        /// <summary>
+        /// The action is unreachable
+        /// </summary>
+        public void PawnActionUnreachable()
+        {
+            currentAction.OnActionUnreachable(this);
         }
 
         /// <summary>
@@ -51,40 +80,61 @@ namespace GJ2022.PawnBehaviours
             currentAction.PerformProcess(this);
         }
 
+        public void PauseActionFor(PawnAction action, double time)
+        {
+            if (Actions.ContainsKey(action))
+                Actions[action] = Math.Max(Actions[action], GLFW.Glfw.Time + time);
+        }
+
         /// <summary>
         /// Handle automatic pawn behaviours
         /// </summary>
         public void HandlePawnBehaviour()
         {
-            //Track the highest priority action
-            int highestPriorityAction = int.MaxValue;
-            PawnAction performingAction = null;
-            //Get the actions we can perform
-            foreach (PawnAction action in Actions.Keys)
+            if (firing)
+                return;
+            firing = true;
+            try
             {
-                if (((action.Overriding && !performingAction.Overriding) || action.Priority < highestPriorityAction) && action.CanPerform(this))
+                //Track the highest priority action
+                int highestPriorityAction = int.MaxValue;
+                PawnAction performingAction = null;
+                //Get the actions we can perform
+                foreach (PawnAction action in Actions.Keys)
                 {
-                    highestPriorityAction = action.Priority;
-                    performingAction = action;
+                    if (((action.Overriding && !performingAction.Overriding) || action.Priority < highestPriorityAction) && action.CanPerform(this) && Actions[action] < GLFW.Glfw.Time)
+                    {
+                        highestPriorityAction = action.Priority;
+                        performingAction = action;
+                    }
                 }
+                //If our current action is completed, smoothly swap to the next action
+                if ((currentAction == null || currentAction.Completed(this)) && performingAction != null)
+                {
+                    currentAction?.OnActionEnd(this);
+                    currentAction = performingAction;
+                    currentAction.OnActionStart(this);
+                    Log.WriteLine($"Starting new action: {currentAction}");
+                }
+                //Replace current action with overriding actions if available
+                else if (performingAction != null && performingAction.Overriding && performingAction != currentAction)
+                {
+                    currentAction?.OnActionCancel(this);
+                    currentAction = performingAction;
+                    currentAction.OnActionStart(this);
+                    Log.WriteLine($"Overriding new action: {currentAction}");
+                }
+                //Perform current action
+                if (currentAction != null)
+                {
+                    currentAction.PerformProcess(this);
+                }
+                firing = false;
             }
-            //If our current action is completed, smoothly swap to the next action
-            if (currentAction.Completed(this) && performingAction != null)
+            catch(Exception e)
             {
-                currentAction = performingAction;
-                currentAction.OnActionStart(this);
-            }
-            //Replace current action with overriding actions if available
-            else if (performingAction != null && performingAction.Overriding && performingAction != currentAction)
-            {
-                currentAction.OnActionCancel(this);
-                currentAction = performingAction;
-                currentAction.OnActionStart(this);
-            }
-            //Perform current action
-            if (currentAction != null)
-            {
-                currentAction.PerformProcess(this);
+                firing = false;
+                throw e;
             }
         }
 

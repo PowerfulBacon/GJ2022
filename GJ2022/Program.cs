@@ -3,6 +3,7 @@ using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Pawns;
 using GJ2022.Game.Construction;
 using GJ2022.Managers.Stockpile;
+using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
@@ -77,9 +78,10 @@ namespace GJ2022
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
-                new Pawn(new Vector<float>(2.3f, 7.3f));
+                Pawn p = new Pawn(new Vector<float>(2.3f, 7.3f));
+                new CrewmemberBehaviour(p);
             }
 
             for (int x = 0; x < 10; x++)

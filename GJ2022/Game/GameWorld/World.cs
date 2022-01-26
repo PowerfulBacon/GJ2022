@@ -21,6 +21,25 @@ namespace GJ2022.Game.GameWorld
         //When an item moves, it needs to be updated in this list.
         public static Dictionary<Vector<int>, List<Item>> WorldItems = new Dictionary<Vector<int>, List<Item>>();
 
+        /// <summary>
+        /// Get all items within a certain range.
+        /// Slllloooooooowwww.
+        /// </summary>
+        public static List<Item> GetItemsInRange(int x, int y, int range)
+        {
+            List<Item> items = new List<Item>();
+            for (int _x = x - range; _x <= x + range; _x++)
+            {
+                for (int _y = y - range; _y <= y + range; _y++)
+                {
+                    Vector<int> targetPosition = new Vector<int>(_x, _y);
+                    if (WorldItems.ContainsKey(targetPosition))
+                        items.AddRange(WorldItems[targetPosition]);
+                }
+            }
+            return items;
+        }
+
         public static List<Item> GetItems(int x, int y)
         {
             Vector<int> targetPosition = new Vector<int>(x, y);
