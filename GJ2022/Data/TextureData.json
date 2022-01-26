@@ -1,3 +1,9 @@
+/*Directional states:
+  NONE: Default value, has only a single icon that doesn't depend on dir.
+  CARDINAL: The direction states are (No direction, North, East, South, West)
+  CARDINAL_DIAGONAL: The direction states are (No direction, North, Northeast, East, Southeast, South, Southwest, West, Northwest)
+  FULL: Uses full directional states, direction can be any concatenation of NESW (Add them together). 0 = none, 1 = north, 2 = east, 4 = south, 8 = west.
+*/
 {
   "textures": [
     {
@@ -54,7 +60,8 @@
       "width": 32,
       "height": 32,
       "index_x": 6,
-      "index_y": 0
+      "index_y": 0,
+      "directional": "FULL"
     },
     {
       "id": "iron",
@@ -71,6 +78,15 @@
       "height": 512,
       "index_x": 0,
       "index_y": 0
+    },
+    {
+      "id": "area_stockpile",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 25,
+      "index_y": 0,
+      "direction": "FULL"
     }
   ]
 }

@@ -6,6 +6,12 @@
         "steel_building",
         "steel_building_instant"
       ]
+    },
+    {
+      "name": "Create Zones",
+      "contents": [
+        "stockpile_area"
+      ]
     }
   ],
   "blueprintSets": [
@@ -22,6 +28,13 @@
       "isRoom": true,
       "edge": "steel_wall_instant",
       "fill": "plating_instant"
+    },
+    {
+      "id": "stockpile_area",
+      "name": "Stockpile Area",
+      "isRoom": true,
+      "edge": "stockpile_area",
+      "fill": "stockpile_area"
     }
   ],
   "blueprints": [
@@ -63,6 +76,15 @@
       "blueprintType": "TurfBlueprint",
       "texture": "plating",
       "layer": 1,
+      "instant": true
+    },
+    {
+      "id": "stockpile_area",
+      "created_type": "StockpileArea",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "area_stockpile",
+      "layer": 2,
       "instant": true
     }
   ]

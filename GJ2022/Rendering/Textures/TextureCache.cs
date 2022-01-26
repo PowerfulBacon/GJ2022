@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using GJ2022.Game.GameWorld;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -126,8 +127,9 @@ namespace GJ2022.Rendering.Textures
                     int height = value.Value<int>("height");
                     int index_x = value.Value<int>("index_x");
                     int index_y = value.Value<int>("index_y");
+                    string directionalStateMode = value.Value<string>("directional") ?? "NONE";
                     //Create the texture json
-                    TextureJson createdJson = new TextureJson(file, width, height, index_x, index_y);
+                    TextureJson createdJson = new TextureJson(file, width, height, index_x, index_y, (DirectionalModes)Enum.Parse(typeof(DirectionalModes), directionalStateMode));
                     //Cache it
                     TextureJsons.Add(id, createdJson);
                 }

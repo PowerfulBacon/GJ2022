@@ -58,7 +58,7 @@ namespace GJ2022.Game.Construction
                         //Parse the cost data
                         ConstructionCostData costData = new ConstructionCostData();
                         //Get each cost
-                        if (blueprintToken.Contains("cost"))
+                        if (blueprintToken["cost"] != null)
                         {
                             foreach (JProperty costToken in blueprintToken["cost"])
                             {

@@ -53,7 +53,8 @@ namespace GJ2022.Entities.Blueprints
             //TODO: Contain this inside pawn controller system rather than here
             if (PawnControllerSystem.QueuedBlueprints.ContainsKey(Position))
             {
-                if (PawnControllerSystem.QueuedBlueprints[Position][BlueprintDetail.BlueprintLayer] == this)
+                if (PawnControllerSystem.QueuedBlueprints[Position].ContainsKey(BlueprintDetail.BlueprintLayer)
+                        && PawnControllerSystem.QueuedBlueprints[Position][BlueprintDetail.BlueprintLayer] == this)
                     PawnControllerSystem.QueuedBlueprints[Position].Remove(BlueprintDetail.BlueprintLayer);
                 if (PawnControllerSystem.QueuedBlueprints[Position].Count == 0)
                     PawnControllerSystem.QueuedBlueprints.Remove(Position);
