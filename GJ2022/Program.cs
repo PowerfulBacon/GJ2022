@@ -68,7 +68,6 @@ namespace GJ2022
 
             //Trigger on world init
             Subsystem.InitializeSubsystems(window);
-            Subsystem.WorldInitialize();
 
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
@@ -101,6 +100,9 @@ namespace GJ2022
             }
 
             UserInterfaceCreator.CreateUserInterface();
+
+            //This is last
+            Subsystem.WorldInitialize();
 
             //Rendering Loop
             while (!Glfw.WindowShouldClose(window))

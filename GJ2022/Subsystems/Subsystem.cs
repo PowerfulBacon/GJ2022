@@ -33,6 +33,9 @@ namespace GJ2022.Subsystems
         //Subsystem control variable
         //If this valie is set to false, the subsystem will be killed
         private static volatile bool Firing = true;
+
+        //Is the subsystem started?
+        private volatile bool started = false;
         //The time it took between the last frame and the current.
         //Due to only being measured to the millisecond, this can be 0 so watch out with divisions.
         private float deltaTime = 1.0f;
@@ -151,6 +154,7 @@ namespace GJ2022.Subsystems
                 {
                     Log.WriteLine($"Triggering after world init of {SS}", LogType.DEBUG);
                     SS.AfterWorldInit();
+                    SS.started = true;
                 }
             }
         }
@@ -165,6 +169,8 @@ namespace GJ2022.Subsystems
         //When firing is set to false, the subsystem should shut down.
         private void Update(Window window)
         {
+            while (!started && Firing)
+            { }
             while (Firing)
             {
                 //Start a stopwatch to get time taken for execution.

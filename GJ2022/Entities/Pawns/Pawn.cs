@@ -29,6 +29,8 @@ namespace GJ2022.Entities.Pawns
         private Blueprint workTarget;
         private Line line;
 
+        public static bool DrawLines = false;
+
         private List<Line> lines = new List<Line>();
 
         private Path followingPath = null;
@@ -81,9 +83,12 @@ namespace GJ2022.Entities.Pawns
                                     {
                                         l.StopDrawing();
                                     }
-                                    for (int i = 0; i < path.Points.Count - 1; i++)
+                                    if (DrawLines)
                                     {
-                                        lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                        for (int i = 0; i < path.Points.Count - 1; i++)
+                                        {
+                                            lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                        }
                                     }
                                     followingPath = path;
                                     positionOnPath = 0;
@@ -121,9 +126,12 @@ namespace GJ2022.Entities.Pawns
                                     {
                                         l.StopDrawing();
                                     }
-                                    for (int i = 0; i < path.Points.Count - 1; i++)
+                                    if (DrawLines)
                                     {
-                                        lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                        for (int i = 0; i < path.Points.Count - 1; i++)
+                                        {
+                                            lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                        }
                                     }
                                     followingPath = path;
                                     positionOnPath = 0;
@@ -194,9 +202,12 @@ namespace GJ2022.Entities.Pawns
                             {
                                 l.StopDrawing();
                             }
-                            for (int i = 0; i < path.Points.Count - 1; i++)
+                            if (DrawLines)
                             {
-                                lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                for (int i = 0; i < path.Points.Count - 1; i++)
+                                {
+                                    lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                }
                             }
                             followingPath = path;
                             positionOnPath = 0;
@@ -229,9 +240,12 @@ namespace GJ2022.Entities.Pawns
                             {
                                 l.StopDrawing();
                             }
-                            for (int i = 0; i < path.Points.Count - 1; i++)
+                            if (DrawLines)
                             {
-                                lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                for (int i = 0; i < path.Points.Count - 1; i++)
+                                {
+                                    lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
+                                }
                             }
                             followingPath = path;
                             positionOnPath = 0;

@@ -1,4 +1,5 @@
-﻿using GJ2022.Game.Construction;
+﻿using GJ2022.Entities.Pawns;
+using GJ2022.Game.Construction;
 using GJ2022.Game.Construction.BlueprintSets;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Rendering.Text;
@@ -57,8 +58,8 @@ namespace GJ2022.UserInterface
             DropdownFactory.CreateDropdown(
                 CoordinateHelper.PixelsToScreen(new Vector<float>(-1920 + 450, -1080 + 40)),
                 "Debug",
-                new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "1", "2", "3", "4", "5", "6", "7", "8" },
-                new OnButtonPressed[] { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null });
+                new string[] { "Draw path lines" },
+                new OnButtonPressed[] { () => { Pawn.DrawLines = !Pawn.DrawLines; } });
         }
 
     }

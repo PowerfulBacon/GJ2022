@@ -18,7 +18,7 @@ namespace GJ2022.WorldGeneration
             perlinGenerator = new Perlin();
             perlinGenerator.Frequency = 1;
             perlinGenerator.Persistence = 1;
-            perlinGenerator.Lacunarity = 0.4;
+            perlinGenerator.Lacunarity = 0.2;
             perlinGenerator.OctaveCount = 8;
             perlinGenerator.Seed = 3;
             perlinGenerator.NoiseQuality = NoiseQuality.Standard;

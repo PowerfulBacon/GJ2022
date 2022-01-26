@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using static OpenGL.Gl;
 
 namespace GJ2022.Rendering.Textures
@@ -86,7 +87,7 @@ namespace GJ2022.Rendering.Textures
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-            Log.WriteLine($"Texture {fileName} loaded successfully. (Mode: {compressionMethod})", LogType.DEBUG);
+            Log.WriteLine($"Texture {fileName} loaded successfully. (Mode: {compressionMethod}) (Thread: {Thread.CurrentThread.ManagedThreadId})", LogType.DEBUG);
 
         }
 
