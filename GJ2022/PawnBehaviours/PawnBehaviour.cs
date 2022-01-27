@@ -100,8 +100,12 @@ namespace GJ2022.PawnBehaviours
                 int highestPriorityAction = int.MaxValue;
                 PawnAction performingAction = null;
                 //Get the actions we can perform
-                foreach (PawnAction action in Actions.Keys)
+                //Copy the keys
+                foreach (PawnAction action in Actions.Keys.ToList())
                 {
+                    //Dictionary was modified
+                    if (!Actions.ContainsKey(action))
+                        continue;
                     double availableTime = Actions[action];
                     if (((action.Overriding && !performingAction.Overriding) || action.Priority < highestPriorityAction) && action.CanPerform(this) && availableTime < GLFW.Glfw.Time)
                     {
@@ -136,7 +140,7 @@ namespace GJ2022.PawnBehaviours
             {
                 firing = false;
                 Log.WriteLine(e, LogType.ERROR);
-                ly throw e;
+                throw e;
             }
         }
 
