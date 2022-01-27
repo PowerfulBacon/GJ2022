@@ -33,6 +33,9 @@ namespace GJ2022.Entities.Pawns
         //The AI controller
         public PawnBehaviour behaviourController;
 
+        //Equipped items
+        public Dictionary<InventorySlot, Item> EquippedItems = new Dictionary<InventorySlot, Item>();
+
         //Held items
         public Item[] heldItems = new Item[2];
 
