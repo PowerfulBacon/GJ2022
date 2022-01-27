@@ -7,7 +7,8 @@
         public const int LAYER_BLUEPRINT = 1;
         public const int LAYER_ITEM = 2;
         public const int LAYER_AREA = 3;
-        public const int LAYER_PAWN = 4;
+        public const int LAYER_STRUCTURE = 4;
+        public const int LAYER_PAWN = 5;
         public const int LAYER_USER_INTERFACE = 20;
         public const int LAYER_TEXT = 21;
 
