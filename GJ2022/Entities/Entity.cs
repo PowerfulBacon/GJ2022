@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Utility.MathConstructs;
@@ -63,6 +64,8 @@ namespace GJ2022.Entities
         {
             if (!(this is IDestroyable))
                 throw new System.Exception("Non destroyable entity was destroyed!");
+            //Release our claims
+            ThreadSafeClaimManager.ReleaseClaimBlocking(this);
             Renderable?.StopRendering();
             Renderable = null;
             return true;

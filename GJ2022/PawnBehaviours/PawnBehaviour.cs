@@ -36,6 +36,9 @@ namespace GJ2022.PawnBehaviours
         //The owner of the pawn behaviour
         public Pawn Owner { get; }
 
+        //The behavioural faction of this pawn behaviour
+        public string Faction { get; } = "crew";
+
         public PawnBehaviour(Pawn owner)
         {
             Owner = owner;

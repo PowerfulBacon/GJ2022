@@ -16,7 +16,9 @@ namespace GJ2022.PawnBehaviours.Behaviours
 
         public override Dictionary<PawnAction, double> Actions { get; } = new Dictionary<PawnAction, double>()
         {
-            { new HaulItems(), 0 }
+            { new HaulItems(), 0 },
+            { new DeliverMaterialsToBlueprints(), 0 },
+            { new ConstructBlueprints(), 0 }
         };
 
     }

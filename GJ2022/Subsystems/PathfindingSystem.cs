@@ -3,6 +3,7 @@ using GJ2022.Pathfinding;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GJ2022.Subsystems
@@ -77,6 +78,12 @@ namespace GJ2022.Subsystems
         /// </summary>
         private void ProcessPath(PathfindingRequest request)
         {
+            //If the end of the request is blocked, don't both
+            if (World.IsSolid(request.End))
+            {
+                request.failedDelegate?.Invoke();
+                return;
+            }
             //Create the process data
             PathfindingProcessData processData = new PathfindingProcessData();
             processData.End = request.End;
@@ -103,6 +110,7 @@ namespace GJ2022.Subsystems
                 //Otherwise add surrounding nodes
                 AddSurroundingNodes(processing, ref processData);
                 i++;
+                Thread.Yield();
             }
             request.failedDelegate?.Invoke();;
         }

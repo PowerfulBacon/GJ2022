@@ -109,9 +109,29 @@ namespace GJ2022.Entities.Pawns
             }
         }
 
+        public List<Item> GetHeldItems()
+        {
+            List<Item> items = new List<Item>();
+            for (int i = 0; i < heldItems.Length; i++)
+            {
+                if (heldItems[i] == null)
+                    continue;
+                if (heldItems[i].Destroyed || heldItems[i].Location != this)
+                {
+                    heldItems[i] = null;
+                    continue;
+                }
+                items.Add(heldItems[i]);
+            }
+            return items;
+        }
+
         public bool TryPickupItem(Item item)
         {
             return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () => {
+                //Destroyed items cannot be picked up
+                if (item.Destroyed)
+                    return false;
                 //Can't pickup if the item was moved somewhere else
                 if (!InReach(item))
                     return false;
@@ -143,6 +163,11 @@ namespace GJ2022.Entities.Pawns
                 {
                     if (heldItems[i] == null)
                         return true;
+                    if (heldItems[i].Destroyed)
+                    {
+                        heldItems[i] = null;
+                        return true;
+                    }
                 }
                 return false;
             });
@@ -155,7 +180,11 @@ namespace GJ2022.Entities.Pawns
                 for (int i = heldItems.Length - 1; i >= 0; i--)
                 {
                     if (heldItems[i] != null)
-                        return true;
+                    {
+                        if (!heldItems[i].Destroyed)
+                            return true;
+                        heldItems[i] = null;
+                    }
                 }
                 return false;
             });
@@ -169,6 +198,11 @@ namespace GJ2022.Entities.Pawns
                 {
                     if (heldItems[i] == null)
                         continue;
+                    if (heldItems[i].Destroyed)
+                    {
+                        heldItems[i] = null;
+                        continue;
+                    }
                     //Drop the item out of ourselves
                     heldItems[i].Location = null;
                     heldItems[i].Position = dropLocation.Copy();
@@ -187,6 +221,11 @@ namespace GJ2022.Entities.Pawns
                 {
                     if (heldItems[i] == null)
                         continue;
+                    if (heldItems[i].Destroyed)
+                    {
+                        heldItems[i] = null;
+                        continue;
+                    }
                     //Drop the item out of ourselves
                     heldItems[i].Position = dropLocation.Copy();
                     heldItems[i].Location = null;

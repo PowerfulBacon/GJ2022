@@ -50,6 +50,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             }
             if (!hasValidStockpile)
             {
+                unreachablePositions.Clear();
                 //This check is intensive, so we will pause for some time
                 parent.PauseActionFor(this, 30);
                 return false;
@@ -63,6 +64,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     continue;
                 return true;
             }
+            unreachablePositions.Clear();
             //This check is intensive, so we will pause for some time
             parent.PauseActionFor(this, 30);
             //Return true if there are haulable items in the world and stockpiles that can hold them
@@ -198,7 +200,11 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 //If the item is in an invalid location, skip it
                 if (item.Location != null)
                     continue;
-                //Check if the item is in a stockpile, if it is, skip it
+                //Check if the item is unreachable
+                if (unreachablePositions.Contains(item.Position))
+                    continue;
+                //Check if the item
+                //is in a stockpile, if it is, skip it
                 if (World.GetArea((int)item.Position[0], (int)item.Position[1]) as StockpileArea != null)
                     continue;
                 //Looks like the item is valid!
@@ -246,6 +252,9 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     continue;
                 //If the area is not a stockpile, skip it
                 if (!(area is StockpileArea))
+                    continue;
+                //Unreachable stockpiles
+                if (unreachablePositions.Contains(area.Position))
                     continue;
                 //If the area has items in it, skip it
                 if (World.GetItems((int)area.Position[0], (int)area.Position[1]).Count > 0)

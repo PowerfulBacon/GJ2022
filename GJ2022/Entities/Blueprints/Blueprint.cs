@@ -80,6 +80,11 @@ namespace GJ2022.Entities.Blueprints
             }
         }
 
+        public bool RequiresMaterial(Type materialType)
+        {
+            return BlueprintDetail.Cost.Cost.ContainsKey(materialType);
+        }
+
         /// <summary>
         /// Returns a tuple containing the first required material type and the amount needed
         /// </summary>
