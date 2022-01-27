@@ -1,5 +1,6 @@
 ﻿using GJ2022.Game.GameWorld;
 using GJ2022.Pathfinding;
+using GJ2022.PawnBehaviours;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
@@ -64,7 +65,7 @@ namespace GJ2022.Subsystems
         /// </summary>
         public static void ProcessPathImmediate(Vector<int> start, Vector<int> end)
         {
-            Singleton.ProcessPath(new PathfindingRequest(start, end, (Path located) =>
+            Singleton.ProcessPath(new PathfindingRequest(start, end, PawnHazards.ALL, (Path located) =>
             {
                 foreach (Vector<int> node in located.Points)
                 {
@@ -108,17 +109,17 @@ namespace GJ2022.Subsystems
                     return;
                 }
                 //Otherwise add surrounding nodes
-                AddSurroundingNodes(processing, ref processData);
+                AddSurroundingNodes(processing, request.ignoringHazards, ref processData);
                 i++;
                 Thread.Yield();
             }
             request.failedDelegate?.Invoke();;
         }
 
-        private void AddSurroundingNodes(PathNode current, ref PathfindingProcessData processData)
+        private void AddSurroundingNodes(PathNode current, PawnHazards ignoringHazards, ref PathfindingProcessData processData)
         {
             //Get the valid directions you can travel in from this point.
-            ConnectingDirections validDirections = GetValidDirections(processData, current.Position);
+            ConnectingDirections validDirections = GetValidDirections(processData, ignoringHazards, current.Position, current.SourceNode?.Position ?? current.Position);
             //Process north node
             if ((validDirections & ConnectingDirections.NORTH) != 0)
                 CheckAddNode(current, ref processData, new Vector<int>(0, 1));
@@ -177,24 +178,56 @@ namespace GJ2022.Subsystems
         /// 1100 = north east (ConnectingDirections.NORTH | ConnectingDirections.EAST)
         /// etc.
         /// </summary>
-        private ConnectingDirections GetValidDirections(PathfindingProcessData processData, Vector<int> position)
+        private ConnectingDirections GetValidDirections(PathfindingProcessData processData, PawnHazards ignoringHazards, Vector<int> position, Vector<int> source)
         {
             //Default valid connecting directions
             ConnectingDirections connectingDirections = 0;
             //Check north
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(0, 1)) && position[1] < processData.MaximumY && !World.IsSolid(position + new Vector<int>(0, 1)))
+            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(0, 1))
+                    && position[1] < processData.MaximumY
+                    && !World.IsSolid(position + new Vector<int>(0, 1))
+                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.NORTH))
                 connectingDirections |= ConnectingDirections.NORTH;
             //Check east
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(1, 0)) && position[0] < processData.MaximumX && !World.IsSolid(position + new Vector<int>(1, 0)))
+            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(1, 0))
+                    && position[0] < processData.MaximumX
+                    && !World.IsSolid(position + new Vector<int>(1, 0))
+                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.EAST))
                 connectingDirections |= ConnectingDirections.EAST;
             //Check south
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(0, -1)) && position[1] > processData.MinimumY && !World.IsSolid(position + new Vector<int>(0, -1)))
+            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(0, -1))
+                    && position[1] > processData.MinimumY
+                    && !World.IsSolid(position + new Vector<int>(0, -1))
+                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.SOUTH))
                 connectingDirections |= ConnectingDirections.SOUTH;
             //Check west
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(-1, 0)) && position[0] > processData.MinimumX && !World.IsSolid(position + new Vector<int>(-1, 0)))
+            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(-1, 0))
+                    && position[0] > processData.MinimumX
+                    && !World.IsSolid(position + new Vector<int>(-1, 0))
+                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.WEST))
                 connectingDirections |= ConnectingDirections.WEST;
             //Return valid directions
             return connectingDirections;
+        }
+
+        private bool GravityCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
+        {
+            //Ignore gravity
+            if ((ignoringHazards & PawnHazards.HAZARD_GRAVITY) != 0)
+                return true;
+            //Place has gravity
+            if (World.HasGravity(position))
+                return true;
+            //We can move in a straight line without gravity
+            int delta_x = position[0] - source[0];
+            int delta_y = position[1] - source[1];
+            //If the direction is north or south and we want to move vertically, allow it
+            if (delta_x == 0 && (direction & ConnectingDirections.NORTH_SOUTH) != 0)
+                return true;
+            if (delta_y == 0 && (direction & ConnectingDirections.EAST_WEST) != 0)
+                return true;
+            //Cannot move in this direction
+            return false;
         }
 
     }

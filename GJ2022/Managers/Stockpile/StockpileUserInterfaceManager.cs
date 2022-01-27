@@ -18,8 +18,11 @@ namespace GJ2022.Managers.Stockpile
         {
             if (amount == 0)
             {
-                displayedUiComponents[item.GetType()].Hide();
-                displayedUiComponents.Remove(item.GetType());
+                if (displayedUiComponents.ContainsKey(item.GetType()))
+                {
+                    displayedUiComponents[item.GetType()].Hide();
+                    displayedUiComponents.Remove(item.GetType());
+                }
                 return;
             }
             if (displayedUiComponents.ContainsKey(item.GetType()))

@@ -35,6 +35,8 @@ namespace GJ2022.Entities.Pawns
 
         //Equipped items
         public Dictionary<InventorySlot, Item> EquippedItems = new Dictionary<InventorySlot, Item>();
+        //Flags of hazards we are protected from due to our equipped items
+        private PawnHazards cachedHazardProtection = PawnHazards.NONE;
 
         //Held items
         public Item[] heldItems = new Item[2];
@@ -337,6 +339,7 @@ namespace GJ2022.Entities.Pawns
                 new PathfindingRequest(
                     Position,
                     targetDestinationPosition,
+                    cachedHazardProtection,
                     (Path path) =>
                     {
                         followingPath = path;

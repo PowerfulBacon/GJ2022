@@ -13,6 +13,7 @@ namespace GJ2022.Managers
         private static object lockObject = new object();
 
         public const int TASK_PAWN_INVENTORY = 1;
+        public const int TASK_STOCKPILE_MANAGER = 2;
 
         private static volatile bool executing = false;
 
@@ -33,8 +34,7 @@ namespace GJ2022.Managers
             {
                 if (sanity++ > 10000)
                 {
-                    Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success.");
-                    throw new Exception("");
+                    throw new Exception($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success. (Current action: {currentAction[threadSafeId]})");
                 }
                 Thread.Yield();
             }
@@ -47,6 +47,7 @@ namespace GJ2022.Managers
             }
             catch (Exception e)
             {
+                Log.WriteLine(e, LogType.ERROR);
                 Complete(threadSafeId);
                 throw e;
             }
