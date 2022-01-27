@@ -87,8 +87,10 @@ namespace GJ2022.PawnBehaviours.PawnActions
             parent.Owner.DropHeldItems(parent.Owner.Position);
         }
 
-        public override void OnActionUnreachable(PawnBehaviour parent)
+        public override void OnActionUnreachable(PawnBehaviour parent, Vector<float> unreachableLocation)
         {
+            //Get our claim and mark it as unreachable
+            unreachablePositions.Add(unreachableLocation);
             //Unclaim the target
             ThreadSafeClaimManager.ReleaseClaimBlocking(parent.Owner);
             //Choose what to do next

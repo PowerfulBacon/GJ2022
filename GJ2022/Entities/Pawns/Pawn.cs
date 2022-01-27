@@ -232,7 +232,6 @@ namespace GJ2022.Entities.Pawns
                 hasTargetDestination = false;
                 followingPath = null;
                 positionOnPath = 0;
-                behaviourController.PawnActionUnreachable();
                 return;
             }
             //We have reached our destination
@@ -298,7 +297,7 @@ namespace GJ2022.Entities.Pawns
                         waitingForPath = false;
                     },
                     () => {
-                        behaviourController.PawnActionUnreachable();
+                        behaviourController.PawnActionUnreachable(targetDestinationPosition);
                         waitingForPath = false;
                     }
                 ));

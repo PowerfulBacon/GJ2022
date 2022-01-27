@@ -32,7 +32,7 @@ namespace GJ2022.PawnBehaviours
         public abstract void OnActionCancel(PawnBehaviour parent);
 
         //Action is unreachable
-        public abstract void OnActionUnreachable(PawnBehaviour parent);
+        public abstract void OnActionUnreachable(PawnBehaviour parent, Vector<float> unreachableLocation);
 
         //Action location has been reached
         public abstract void OnPawnReachedLocation(PawnBehaviour parent);

@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.Pawns;
 using GJ2022.Subsystems;
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,9 +61,9 @@ namespace GJ2022.PawnBehaviours
         /// <summary>
         /// The action is unreachable
         /// </summary>
-        public void PawnActionUnreachable()
+        public void PawnActionUnreachable(Vector<float> unreachableLocation)
         {
-            currentAction.OnActionUnreachable(this);
+            currentAction.OnActionUnreachable(this, unreachableLocation);
         }
 
         /// <summary>
