@@ -140,7 +140,7 @@ namespace GJ2022.PawnBehaviours
                     //Check for pawn lockup
                     if (!currentAction.Completed(this) && !Owner.HasTarget())
                     {
-                        throw new Exception($"Potential thread lock detected in action {currentAction}");
+                        //throw new Exception($"Potential thread lock detected in action {currentAction}");
                     }
                 }
                 firing = false;

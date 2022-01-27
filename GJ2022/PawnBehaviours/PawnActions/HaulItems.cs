@@ -113,7 +113,6 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override void OnPawnReachedLocation(PawnBehaviour parent)
         {
-            Log.WriteLine("location reached!");
             //We reached the location successfully.
             switch (haulActionState)
             {

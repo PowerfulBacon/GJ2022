@@ -31,7 +31,7 @@ namespace GJ2022.Managers
             int sanity = 0;
             while (!IsReady(queueId, threadSafeId))
             {
-                if (sanity++ > 1000)
+                if (sanity++ > 10000)
                 {
                     Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success.");
                     throw new Exception("");

@@ -33,13 +33,11 @@ namespace GJ2022.Areas
 
         public void RegisterItem(Item item)
         {
-            Log.WriteLine("Item registered!");
             StockpileManager.AddItem(item);
         }
 
         public void UnregisterItem(Item item)
         {
-            Log.WriteLine("Item unregistered");
             StockpileManager.RemoveItem(item);
         }
 
