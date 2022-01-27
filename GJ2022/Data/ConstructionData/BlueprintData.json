@@ -4,6 +4,7 @@
       "name": "Foundations",
       "contents": [
         "steel_building",
+        "plating",
         "steel_building_instant"
       ]
     },
@@ -26,6 +27,13 @@
       "name": "Steel Building",
       "isRoom": true,
       "edge": "steel_wall",
+      "fill": "plating"
+    },
+    {
+      "id": "plating",
+      "name": "Plating",
+      "isRoom": true,
+      "edge": "plating",
       "fill": "plating"
     },
     {
