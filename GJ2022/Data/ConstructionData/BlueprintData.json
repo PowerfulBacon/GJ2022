@@ -5,7 +5,7 @@
       "contents": [
         "steel_building",
         "plating",
-        "steel_building_instant"
+        "catwalk",
       ]
     },
     {
@@ -35,6 +35,13 @@
       "isRoom": true,
       "edge": "plating",
       "fill": "plating"
+    },
+    {
+      "id": "catwalk",
+      "name": "Catwalk",
+      "isRoom": true,
+      "edge": "catwalk",
+      "fill": "catwalk"
     },
     {
       "id": "steel_building_instant",
@@ -117,6 +124,17 @@
       "layer": 1,
       "cost": {
         "Iron": 20
+      }
+    },
+    {
+      "id": "catwalk",
+      "created_type": "Catwalk",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "catwalk",
+      "layer": 1,
+      "cost": {
+        "Iron": 1
       }
     }
   ]
