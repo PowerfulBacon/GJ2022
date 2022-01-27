@@ -1,11 +1,17 @@
 {
   "blueprintCategories": [
     {
-      "name": "Structure",
+      "name": "Foundations",
       "contents": [
         "steel_building",
         "plating",
         "steel_building_instant"
+      ]
+    },
+    {
+      "name": "Structures",
+      "contents": [
+        "door"
       ]
     },
     {
@@ -43,6 +49,13 @@
       "isRoom": true,
       "edge": "stockpile_area",
       "fill": "stockpile_area"
+    },
+    {
+      "id": "door",
+      "name": "Airlock",
+      "isRoom": false,
+      "edge": "door",
+      "fill": "door"
     }
   ],
   "blueprints": [
@@ -94,6 +107,17 @@
       "texture": "area_stockpile",
       "layer": 2,
       "instant": true
+    },
+    {
+      "id": "door",
+      "created_type": "Airlock",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "door_closed",
+      "layer": 1,
+      "cost": {
+        "Iron": 20
+      }
     }
   ]
 }
