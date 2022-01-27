@@ -19,7 +19,7 @@ namespace GJ2022.Managers
         private static volatile bool executing = false;
 
         private static volatile int totalActionsReserved = 0;
-        private static volatile int currentAction = 1;
+        private static volatile int currentAction = 0;
 
         public static bool HasClaim(Entity entity)
         {

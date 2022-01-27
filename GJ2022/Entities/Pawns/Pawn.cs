@@ -2,6 +2,7 @@
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
+using GJ2022.Managers;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Pathfinding;
 using GJ2022.PawnBehaviours;
@@ -110,73 +111,89 @@ namespace GJ2022.Entities.Pawns
 
         public bool TryPickupItem(Item item)
         {
-            //Can't pickup if the item was moved somewhere else
-            if (!InReach(item))
-                return false;
-            //Hands check
-            int freeIndex = -1;
-            for (int i = heldItems.Length - 1; i >= 0; i--)
-            {
-                if (heldItems[i] == null)
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () => {
+                //Can't pickup if the item was moved somewhere else
+                if (!InReach(item))
+                    return false;
+                //Hands check
+                int freeIndex = -1;
+                for (int i = heldItems.Length - 1; i >= 0; i--)
                 {
-                    freeIndex = i;
-                    break;
+                    if (heldItems[i] == null)
+                    {
+                        freeIndex = i;
+                        break;
+                    }
                 }
-            }
-            //If we have no hands return false
-            if (freeIndex == -1)
-                return false;
-            //Pickup the item
-            heldItems[freeIndex] = item;
-            item.Location = this;
-            return true;
+                //If we have no hands return false
+                if (freeIndex == -1)
+                    return false;
+                //Pickup the item
+                heldItems[freeIndex] = item;
+                item.Location = this;
+                return true;
+            });
         }
 
         public bool HasFreeHands()
         {
-            for (int i = heldItems.Length - 1; i >= 0; i--)
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
             {
-                if (heldItems[i] == null)
-                    return true;
-            }
-            return false;
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] == null)
+                        return true;
+                }
+                return false;
+            });
         }
 
         public bool IsHoldingItems()
         {
-            for (int i = heldItems.Length - 1; i >= 0; i--)
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
             {
-                if (heldItems[i] != null)
-                    return true;
-            }
-            return false;
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] != null)
+                        return true;
+                }
+                return false;
+            });
         }
 
-        public void DropFirstItem(Vector<float> dropLocation)
+        public bool DropFirstItem(Vector<float> dropLocation)
         {
-            for (int i = heldItems.Length - 1; i >= 0; i--)
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
             {
-                if (heldItems[i] == null)
-                    continue;
-                //Drop the item out of ourselves
-                heldItems[i].Position = dropLocation.Copy();
-                heldItems[i].Location = null;
-                heldItems[i] = null;
-                return;
-            }
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] == null)
+                        continue;
+                    //Drop the item out of ourselves
+                    heldItems[i].Position = dropLocation.Copy();
+                    heldItems[i].Location = null;
+                    heldItems[i] = null;
+                    return true;
+                }
+                return false;
+            });
         }
 
         public void DropHeldItems(Vector<float> dropLocation)
         {
-            for (int i = heldItems.Length - 1; i >= 0; i--)
+            ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
             {
-                if (heldItems[i] == null)
-                    continue;
-                //Drop the item out of ourselves
-                heldItems[i].Position = dropLocation.Copy();
-                heldItems[i].Location = null;
-                heldItems[i] = null;
-            }
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] == null)
+                        continue;
+                    //Drop the item out of ourselves
+                    heldItems[i].Position = dropLocation.Copy();
+                    heldItems[i].Location = null;
+                    heldItems[i] = null;
+                }
+                return true;
+            });
         }
 
         public void Process(float deltaTime)
