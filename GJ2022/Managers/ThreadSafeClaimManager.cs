@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GJ2022.Managers
@@ -14,12 +15,12 @@ namespace GJ2022.Managers
     public static class ThreadSafeClaimManager
     {
 
+        private static object lockObject = new object();
+
         private static Dictionary<Entity, Entity> claims = new Dictionary<Entity, Entity>();
 
-        private static volatile bool executing = false;
-
-        private static volatile int totalActionsReserved = 0;
-        private static volatile int currentAction = 0;
+        private static int totalActionsReserved = 0;
+        private static int currentAction = 1;
 
         public static bool HasClaim(Entity entity)
         {
@@ -34,7 +35,7 @@ namespace GJ2022.Managers
         public static void ReleaseClaimBlocking(Entity entity)
         {
             int queueId = GetQueueId();
-            while (!IsReady(queueId)) { }
+            while (!IsReady(queueId)) { Thread.Yield(); }
             if (claims.ContainsKey(entity))
             {
                 claims[entity].IsClaimed = false;
@@ -46,7 +47,16 @@ namespace GJ2022.Managers
         public static bool ReserveClaimBlocking(Entity entity, Entity target)
         {
             int queueId = GetQueueId();
-            while (!IsReady(queueId)) { }
+            int sanity = 0;
+            while (!IsReady(queueId))
+            {
+                if (sanity++ > 1000)
+                {
+                    Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success.");
+                    throw new Exception("");
+                }
+                Thread.Yield();
+            }
             //Unclaim existing
             if (claims.ContainsKey(entity))
             {
@@ -56,6 +66,7 @@ namespace GJ2022.Managers
             //Someone claimed the target before us.
             if (target.IsClaimed)
             {
+                Log.WriteLine("Failed to reserve");
                 Complete();
                 return false;
             }
@@ -70,17 +81,24 @@ namespace GJ2022.Managers
 
         private static int GetQueueId()
         {
-            return totalActionsReserved++;
+            lock (lockObject)
+            {
+                return Interlocked.Increment(ref totalActionsReserved);
+            }
         }
 
         private static bool IsReady(int id)
         {
+            if (currentAction > id)
+            {
+                throw new Exception("Thread lock detected in claim manager");
+            }
             return id == currentAction;
         }
 
         private static void Complete()
         {
-            currentAction++;
+            Interlocked.Increment(ref currentAction);
         }
 
     }

@@ -65,7 +65,8 @@ namespace GJ2022.Entities
             if (!(this is IDestroyable))
                 throw new System.Exception("Non destroyable entity was destroyed!");
             //Release our claims
-            ThreadSafeClaimManager.ReleaseClaimBlocking(this);
+            if(ThreadSafeClaimManager.HasClaim(this))
+                ThreadSafeClaimManager.ReleaseClaimBlocking(this);
             Renderable?.StopRendering();
             Renderable = null;
             return true;

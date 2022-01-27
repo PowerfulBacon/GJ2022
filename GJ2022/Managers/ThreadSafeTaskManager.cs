@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GJ2022.Managers
 {
     public class ThreadSafeTaskManager
     {
+
+        private static object lockObject = new object();
 
         public const int TASK_PAWN_INVENTORY = 1;
 
@@ -25,7 +28,16 @@ namespace GJ2022.Managers
         public static bool ExecuteThreadSafeAction(int threadSafeId, Func<bool> action)
         {
             int queueId = GetQueueId(threadSafeId);
-            while (!IsReady(queueId, threadSafeId)) { }
+            int sanity = 0;
+            while (!IsReady(queueId, threadSafeId))
+            {
+                if (sanity++ > 1000)
+                {
+                    Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success.");
+                    throw new Exception("");
+                }
+                Thread.Yield();
+            }
             bool result;
             //Execute task
             try
@@ -44,20 +56,31 @@ namespace GJ2022.Managers
             return result;
         }
 
-        private static int GetQueueId(int thread_id)
+        private unsafe static int GetQueueId(int thread_id)
         {
-            if (totalActionsReserved.ContainsKey(thread_id))
-                return ++totalActionsReserved[thread_id];
-            else
+            lock (lockObject)
             {
-                totalActionsReserved.Add(thread_id, 0);
-                currentAction.Add(thread_id, 0);
-                return 0;
+                if (totalActionsReserved.ContainsKey(thread_id))
+                {
+                    int numToIncrement = totalActionsReserved[thread_id];
+                    totalActionsReserved[thread_id] = Interlocked.Increment(ref numToIncrement);
+                    return totalActionsReserved[thread_id];
+                }
+                else
+                {
+                    totalActionsReserved.Add(thread_id, 0);
+                    currentAction.Add(thread_id, 0);
+                    return 0;
+                }
             }
         }
 
         private static bool IsReady(int id, int thread_id)
         {
+            if (currentAction[thread_id] > id)
+            {
+                throw new Exception("Thread lock detected in task manager");
+            }
             return id == currentAction[thread_id];
         }
 

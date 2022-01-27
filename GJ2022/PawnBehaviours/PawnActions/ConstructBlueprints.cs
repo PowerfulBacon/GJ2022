@@ -48,7 +48,10 @@ namespace GJ2022.PawnBehaviours.PawnActions
             Blueprint target = LocateValidBlueprint(parent);
             //No target was found, or our target couldn't be claimed
             if (target == null || !ThreadSafeClaimManager.ReserveClaimBlocking(parent.Owner, target))
+            {
+                completed = true;
                 return;
+            }
             //Go towards the blueprint
             parent.Owner.MoveTowardsEntity(target);
         }

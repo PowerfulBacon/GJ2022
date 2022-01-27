@@ -80,6 +80,11 @@ namespace GJ2022.Entities.Pawns
             followingPath = null;
         }
 
+        public bool HasTarget()
+        {
+            return hasTargetDestination;
+        }
+
         private void DrawHelpfulLine()
         {
             Vector<float> endPos = targetDestinationPosition;

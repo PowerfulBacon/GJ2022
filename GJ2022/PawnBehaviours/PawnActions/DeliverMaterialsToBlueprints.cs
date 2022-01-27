@@ -68,6 +68,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override void OnActionStart(PawnBehaviour parent)
         {
+            ReleaseBlueprintClaimedItems(parent);
             Blueprint located = LocateValidBlueprint(parent);
             //If we couldn't locate a blueprint, or claim a blueprint
             if (located == null || !ThreadSafeClaimManager.ReserveClaimBlocking(parent.Owner, located))
@@ -191,6 +192,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             //Nope
             parent.PauseActionFor(this, 10);
             unreachableLocations.Clear();
+            completed = true;
             return null;
         }
 
@@ -233,6 +235,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     if (requiredMaterial == null || requiredMaterial?.Item1 != desiredMaterialType)
                         continue;
                     //If we couldn't locate a blueprint, or claim a blueprint
+                    ReleaseBlueprintClaimedItems(parent);
                     if (blueprint == null || !ThreadSafeClaimManager.ReserveClaimBlocking(parent.Owner, blueprint))
                         continue;
                     //Move towards it
@@ -244,6 +247,16 @@ namespace GJ2022.PawnBehaviours.PawnActions
             //Nope
             completed = true;
             parent.Owner.DropHeldItems(parent.Owner.Position);
+        }
+
+        private void ReleaseBlueprintClaimedItems(PawnBehaviour parent)
+        {
+            Entity claimed = ThreadSafeClaimManager.GetClaimedItem(parent.Owner);
+            if (claimed != null)
+            {
+                //Release the blueprints item claims
+                ThreadSafeClaimManager.ReleaseClaimBlocking(claimed);
+            }
         }
 
     }
