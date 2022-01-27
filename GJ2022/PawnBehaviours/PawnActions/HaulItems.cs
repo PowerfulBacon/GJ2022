@@ -37,8 +37,36 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
+            //Scan for stockpiles
+            bool hasValidStockpile = false;
+            foreach (Area targetArea in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50))
+            {
+                if (unreachablePositions.Contains(targetArea.Position))
+                    continue;
+                if (World.GetItems((int)targetArea.Position[0], (int)targetArea.Position[1]).Count > 0)
+                    continue;
+                hasValidStockpile = true;
+                break;
+            }
+            if (!hasValidStockpile)
+            {
+                //This check is intensive, so we will pause for some time
+                parent.PauseActionFor(this, 30);
+                return false;
+            }
+            //Scan for items
+            foreach (Item targetItems in World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50))
+            {
+                if (unreachablePositions.Contains(targetItems.Position))
+                    continue;
+                if (World.GetArea((int)targetItems.Position[0], (int)targetItems.Position[1]) is StockpileArea)
+                    continue;
+                return true;
+            }
+            //This check is intensive, so we will pause for some time
+            parent.PauseActionFor(this, 30);
             //Return true if there are haulable items in the world and stockpiles that can hold them
-            return true;
+            return false;
         }
 
         public override bool Completed(PawnBehaviour parent) => completed;

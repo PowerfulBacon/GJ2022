@@ -102,7 +102,8 @@ namespace GJ2022.PawnBehaviours
                 //Get the actions we can perform
                 foreach (PawnAction action in Actions.Keys)
                 {
-                    if (((action.Overriding && !performingAction.Overriding) || action.Priority < highestPriorityAction) && action.CanPerform(this) && Actions[action] < GLFW.Glfw.Time)
+                    double availableTime = Actions[action];
+                    if (((action.Overriding && !performingAction.Overriding) || action.Priority < highestPriorityAction) && action.CanPerform(this) && availableTime < GLFW.Glfw.Time)
                     {
                         highestPriorityAction = action.Priority;
                         performingAction = action;
@@ -134,7 +135,8 @@ namespace GJ2022.PawnBehaviours
             catch(Exception e)
             {
                 firing = false;
-                throw e;
+                Log.WriteLine(e, LogType.ERROR);
+                ly throw e;
             }
         }
 

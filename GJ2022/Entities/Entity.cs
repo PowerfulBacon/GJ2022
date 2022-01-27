@@ -29,7 +29,15 @@ namespace GJ2022.Entities
         public string Texture { set { Renderable?.textureChangeHandler?.Invoke(value); } }
 
         //Don't set this outside of thread safe claim manager
-        public bool IsClaimed { get; set; } = false;
+        private bool isClaimed = false;
+        public bool IsClaimed {
+            get => isClaimed;
+            set {
+                if (value && isClaimed)
+                    throw new Exception("A claim was applied on an object already claimed!");
+                isClaimed = value;
+            }
+        }
 
         //The text object attached to this
         protected TextObject attachedTextObject;
@@ -138,7 +146,7 @@ namespace GJ2022.Entities
                 _position = value;
                 Renderable?.moveHandler?.Invoke(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
-                if(attachedTextObject != null)
+                if (attachedTextObject != null)
                     attachedTextObject.Position = value;
             }
         }

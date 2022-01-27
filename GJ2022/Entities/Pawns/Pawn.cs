@@ -55,7 +55,7 @@ namespace GJ2022.Entities.Pawns
         public Pawn(Vector<float> position) : base(position, Layers.LAYER_PAWN)
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
-            attachedTextObject = new TextObject("pawn", Colour.White, position, TextObject.PositionModes.WORLD_POSITION, 1.0f);
+            attachedTextObject = new TextObject("pawn", Colour.White, position, TextObject.PositionModes.WORLD_POSITION, 0.8f);
         }
 
         public void MoveTowardsEntity(Entity target)
@@ -170,8 +170,8 @@ namespace GJ2022.Entities.Pawns
                     if (heldItems[i] == null)
                         continue;
                     //Drop the item out of ourselves
-                    heldItems[i].Position = dropLocation.Copy();
                     heldItems[i].Location = null;
+                    heldItems[i].Position = dropLocation.Copy();
                     heldItems[i] = null;
                     return true;
                 }
