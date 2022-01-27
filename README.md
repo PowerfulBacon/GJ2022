@@ -9,6 +9,11 @@ The game should have some kind of anomalous thingy that lets you get powers, but
 
 Will I be able to implement all of this in 10 days without using a game engine? Probably not, but hopefully there is a basic simulation by the end of it where you can watch your people and build a station.
 
+## Licensing
+
+All assets including icons and sound are under a Creative Commons 3.0 BY-SA license unless otherwise indicated. https://creativecommons.org/licenses/by-sa/3.0/
+The majority of game assets are taken from the Space Station 13 codebase 'Beestation', https://github.com/BeeStation/BeeStation-Hornet
+
 ## Update:
 
 The game plan has changed to be a rimworld style game where you build a space station. Similar to before, except now rather than pre-determined room sizes the rooms will be designed by drag and drop.
