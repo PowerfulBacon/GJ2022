@@ -1,6 +1,9 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using GJ2022.Rendering.Text;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Entities
@@ -20,14 +23,32 @@ namespace GJ2022.Entities
         //The location of the entity, if it is inside of something
         private Entity _location = null;
 
-        //Lazylist of the contents of this entity, if we have any
-        private List<Entity> _contents = null;
+        //Contents
+        public List<Entity> Contents { get; private set; } = null;
 
         //Texture change handler
         public string Texture { set { Renderable?.textureChangeHandler?.Invoke(value); } }
 
+        //Don't set this outside of thread safe claim manager
+        private bool isClaimed = false;
+        public bool IsClaimed {
+            get => isClaimed;
+            set {
+                if (value && isClaimed)
+                    throw new Exception("A claim was applied on an object already claimed!");
+                isClaimed = value;
+            }
+        }
+
+        //The text object attached to this
+        protected TextObject attachedTextObject;
+
         public Entity(Vector<float> position, float layer)
         {
+            if (position.Dimensions != 2)
+            {
+                throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
+            }
             Position = position;
             Layer = layer;
         }
@@ -43,6 +64,9 @@ namespace GJ2022.Entities
         {
             if (!(this is IDestroyable))
                 throw new System.Exception("Non destroyable entity was destroyed!");
+            //Release our claims
+            if(ThreadSafeClaimManager.HasClaim(this))
+                ThreadSafeClaimManager.ReleaseClaimBlocking(this);
             Renderable?.StopRendering();
             Renderable = null;
             return true;
@@ -73,6 +97,8 @@ namespace GJ2022.Entities
                 Entity oldLocation = _location;
                 //Remove ourselves from the old contents
                 _location?.RemoveFromContents(this);
+                //Set the location
+                _location = value;
                 //If we changed location, pause / resume rendering.
                 if (value == null)
                 {
@@ -82,8 +108,6 @@ namespace GJ2022.Entities
                 {
                     Renderable?.PauseRendering();
                 }
-                //Set the location
-                _location = value;
                 //Add ourselves to the new contents
                 _location?.AddToContents(this);
                 //Run the on move
@@ -93,16 +117,16 @@ namespace GJ2022.Entities
 
         private void AddToContents(Entity entity)
         {
-            if (_contents == null)
-                _contents = new List<Entity>();
-            _contents.Add(entity);
+            if (Contents == null)
+                Contents = new List<Entity>();
+            Contents.Add(entity);
         }
 
         private void RemoveFromContents(Entity entity)
         {
-            _contents.Remove(entity);
-            if (_contents.Count == 0)
-                _contents = null;
+            Contents.Remove(entity);
+            if (Contents.Count == 0)
+                Contents = null;
         }
 
         //Layer handler
@@ -126,7 +150,14 @@ namespace GJ2022.Entities
                 _position = value;
                 Renderable?.moveHandler?.Invoke(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
+                if (attachedTextObject != null)
+                    attachedTextObject.Position = value;
             }
+        }
+
+        public bool InReach(Entity target, float range = 0.5f)
+        {
+            return (target.Position - Position).Length() < range && Location == target.Location;
         }
 
     }

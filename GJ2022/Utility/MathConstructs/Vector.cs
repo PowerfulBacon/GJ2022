@@ -40,8 +40,18 @@ namespace GJ2022.Utility.MathConstructs
             return new Vector<T>(Values[0], Values[1], zValue);
         }
 
+        public Vector<T> Copy()
+        {
+            T[] valuesCopy = new T[Dimensions];
+            for (int i = 0; i < Dimensions; i++)
+            {
+                valuesCopy[i] = Values[i];
+            }
+            return new Vector<T>(valuesCopy);
+        }
+
         //TODO: REFACTOR THE LAYERING SYSTEM
-        public Vector<T> MoveTowards(Vector<T> target, float speed, float deltaTime, bool ignoreZ = true)
+        public Vector<T> MoveTowards(Vector<T> target, float speed, float deltaTime, out float extraDistance, bool ignoreZ = true)
         {
             Vector<T> trueTarget = target;
             Vector<T> trueThis = this;
@@ -59,6 +69,7 @@ namespace GJ2022.Utility.MathConstructs
                 {
                     Values[i] = trueTarget.Values[i];
                 }
+                extraDistance = totalDistance - distanceMoved;
                 return this;
             }
             for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
@@ -66,6 +77,7 @@ namespace GJ2022.Utility.MathConstructs
                 float dist = (dynamic)trueTarget[i] - trueThis.Values[i];
                 Values[i] += (dynamic)(dist / totalDistance * (speed / deltaTime));
             }
+            extraDistance = 0;
             return this;
         }
 

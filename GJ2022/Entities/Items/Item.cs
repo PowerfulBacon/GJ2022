@@ -1,5 +1,6 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.Pawns;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Utility.MathConstructs;

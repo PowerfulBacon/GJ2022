@@ -39,6 +39,8 @@ namespace GJ2022.WorldGeneration
         {
             if (perlinGenerator.GetValue(x, y, 0) < 0.8f)
                 return;
+            if (System.Math.Abs(x) < 20 && System.Math.Abs(y) < 20)
+                return;
             new Asteroid(x, y);
         }
 

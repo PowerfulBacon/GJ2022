@@ -3,6 +3,7 @@ using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Pawns;
 using GJ2022.Game.Construction;
 using GJ2022.Managers.Stockpile;
+using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
@@ -19,6 +20,7 @@ using GJ2022.Utility.MathConstructs;
 using GJ2022.WorldGeneration;
 using GLFW;
 using System;
+using System.Threading;
 using static GJ2022.UserInterface.Components.UserInterfaceButton;
 using static OpenGL.Gl;
 
@@ -60,26 +62,27 @@ namespace GJ2022
             //Load text
             TextLoader.LoadText();
 
-            //World creation here
-
-
             //Initialize the renderer
             RenderMaster.Initialize();
-
-            //Trigger on world init
-            Subsystem.InitializeSubsystems(window);
 
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
             while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) { }
             Log.WriteLine("Done loading", LogType.DEBUG);
 
+            //Create the error texture (so it has uint of 0)
+            TextureCache.GetTexture("error");
+
+            //Trigger on world init
+            Subsystem.InitializeSubsystems(window);
+
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
-                new Pawn(new Vector<float>(2.3f, 7.3f));
+                Pawn p = new Pawn(new Vector<float>(2.3f, 7.3f));
+                new CrewmemberBehaviour(p);
             }
 
             for (int x = 0; x < 10; x++)

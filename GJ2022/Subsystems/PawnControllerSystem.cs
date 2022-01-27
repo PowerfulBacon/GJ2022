@@ -46,9 +46,7 @@ namespace GJ2022.Subsystems
         }
 
         public override void Fire(Window window)
-        {
-            //Ai
-        }
+        { }
 
         public override void InitSystem()
         { }
