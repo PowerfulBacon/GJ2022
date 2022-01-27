@@ -49,7 +49,7 @@ namespace GJ2022.Entities.Blueprints
             foreach (Item item in contents)
             {
                 item.Location = null;
-                item.Position = Position;
+                item.Position = Position.Copy();
             }
             //Remove from the pawn list
             //TODO: Contain this inside pawn controller system rather than here

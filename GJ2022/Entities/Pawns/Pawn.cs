@@ -7,6 +7,7 @@ using GJ2022.Pathfinding;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using GJ2022.Rendering.Text;
 using GJ2022.Subsystems;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
@@ -53,6 +54,7 @@ namespace GJ2022.Entities.Pawns
         public Pawn(Vector<float> position) : base(position, Layers.LAYER_PAWN)
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
+            attachedTextObject = new TextObject("pawn", Colour.White, position, TextObject.PositionModes.WORLD_POSITION, 1.0f);
         }
 
         public void MoveTowardsEntity(Entity target)
@@ -90,15 +92,26 @@ namespace GJ2022.Entities.Pawns
                 helpfulLine = Line.StartDrawingLine(Position.SetZ(10), endPos.SetZ(10));
             helpfulLine.Start = Position.SetZ(10);
             helpfulLine.End = endPos.SetZ(10);
+            //Debug contents
+            if (Contents != null)
+            {
+                string text = "";
+                foreach (Item item in Contents)
+                {
+                    text += item.Name + ", ";
+                }
+                attachedTextObject.Text = text;
+            }
+            else
+            {
+                attachedTextObject.Text = "n/a";
+            }
         }
 
         public bool TryPickupItem(Item item)
         {
             //Can't pickup if the item was moved somewhere else
-            if (item.Location != null)
-                return false;
-            //Can't pick up from too far away
-            if ((item.Position - Position).Length() > 0.5f)
+            if (!InReach(item))
                 return false;
             //Hands check
             int freeIndex = -1;
@@ -116,7 +129,6 @@ namespace GJ2022.Entities.Pawns
             //Pickup the item
             heldItems[freeIndex] = item;
             item.Location = this;
-            Log.WriteLine($"Picked up {item}, it is now stored within {item.Location}");
             return true;
         }
 
@@ -124,7 +136,6 @@ namespace GJ2022.Entities.Pawns
         {
             for (int i = heldItems.Length - 1; i >= 0; i--)
             {
-                Log.WriteLine($"{i} - {heldItems[i]}");
                 if (heldItems[i] == null)
                     return true;
             }
@@ -141,16 +152,29 @@ namespace GJ2022.Entities.Pawns
             return false;
         }
 
-        public void DropHeldItems()
+        public void DropFirstItem(Vector<float> dropLocation)
         {
             for (int i = heldItems.Length - 1; i >= 0; i--)
             {
                 if (heldItems[i] == null)
                     continue;
                 //Drop the item out of ourselves
+                heldItems[i].Position = dropLocation.Copy();
                 heldItems[i].Location = null;
-                heldItems[i].Position = Position;
-                heldItems[i].claim = null;
+                heldItems[i] = null;
+                return;
+            }
+        }
+
+        public void DropHeldItems(Vector<float> dropLocation)
+        {
+            for (int i = heldItems.Length - 1; i >= 0; i--)
+            {
+                if (heldItems[i] == null)
+                    continue;
+                //Drop the item out of ourselves
+                heldItems[i].Position = dropLocation.Copy();
+                heldItems[i].Location = null;
                 heldItems[i] = null;
             }
         }
@@ -223,7 +247,6 @@ namespace GJ2022.Entities.Pawns
         /// </summary>
         private void ReachDestination()
         {
-            Log.WriteLine("Reached destination");
             hasTargetDestination = false;
             entityTargetDestination = null;
             followingPath = null;

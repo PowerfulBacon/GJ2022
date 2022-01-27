@@ -16,9 +16,6 @@ namespace GJ2022.Entities.Items
 
         public abstract string UiTexture { get; }
 
-        //The pawn that claims this item.
-        public Pawn claim;
-
         public Item(Vector<float> position) : base(position, Layers.LAYER_ITEM)
         { }
 

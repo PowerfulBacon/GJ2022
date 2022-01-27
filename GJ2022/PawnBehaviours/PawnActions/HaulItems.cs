@@ -1,6 +1,7 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
+using GJ2022.Managers;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -28,216 +29,220 @@ namespace GJ2022.PawnBehaviours.PawnActions
         //Once the action is cancelled, we forget about anything we couldn't reach (world could have changed by then)
         private HashSet<Vector<int>> unreachablePositions = new HashSet<Vector<int>>();
 
-        //Current item target
-        private Item haulTarget;
-
         //The current state
-        private HaulItemActionModes haulItemActionState;
+        private HaulItemActionModes haulActionState = HaulItemActionModes.FETCH_ITEM;
 
         //Have we completed?
         private bool completed = false;
 
         public override bool CanPerform(PawnBehaviour parent)
         {
-            if (World.WorldAreas.Count == 0)
-                return false;
-            //Check the world for items not in a stockpile
-            foreach (Vector<int> itemPosition in World.WorldItems.Keys)
-            {
-                //A haulable item is not in a stockpile & is not unreachable
-                //TODO: Check items to see if we actually want to haul them or not
-                if (!(World.GetArea(itemPosition[0], itemPosition[1]) is StockpileArea) && !unreachablePositions.Contains(itemPosition))
-                {
-                    return true;
-                }
-            }
-            //If there are no items available, pause this action for 30 seconds
-            parent.PauseActionFor(this, 30);
-            unreachablePositions.Clear();
-            Log.WriteLine("Failed to locate haulable items in the world, cancelling haul task.");
-            return false;
+            //Return true if there are haulable items in the world and stockpiles that can hold them
+            return true;
         }
 
-        public override bool Completed(PawnBehaviour parent)
-        {
-            return completed;
-        }
-
-        public override void OnActionCancel(PawnBehaviour parent)
-        {
-            //Drop the pawn's held item
-            parent.Owner.DropHeldItems();
-        }
-
-        public override void OnActionEnd(PawnBehaviour parent)
-        {
-            //Clear memory
-            if(haulTarget != null)
-                haulTarget.claim = null;
-            haulTarget = null;
-            completed = false;
-        }
+        public override bool Completed(PawnBehaviour parent) => completed;
 
         public override void OnActionStart(PawnBehaviour parent)
         {
-            //If we are holding an item, just deliver it
-            if (!parent.Owner.HasFreeHands())
-            {
-                PathToFreeStockpile(parent);
-            }
-            //Else, locate an item to haul
-            else
-            {
-                PathToItem(parent);
-            }
+            LocateOrStoreItems(parent);
         }
 
-        public override void OnActionUnreachable(PawnBehaviour parent)
-        {
-            //Drop held items
-            parent.Owner.DropHeldItems();
-            unreachablePositions.Add(haulTarget.Position);
-            completed = true;
-        }
-
-        public override void OnPawnReachedLocation(PawnBehaviour parent)
-        {
-            Log.WriteLine($"Reached location, doing something ({haulItemActionState})...");
-            if (haulTarget != null && (parent.Owner.Position != haulTarget.Position || haulTarget.Location != null))
-            {
-                //Target was moved
-                if (haulTarget.claim == parent.Owner)
-                    haulTarget.claim = null;
-                haulTarget = null;
-                if (parent.Owner.HasFreeHands())
-                    PathToItem(parent);
-                else
-                    //Path to a free stockpile
-                    PathToFreeStockpile(parent);
-                return;
-            }
-            switch (haulItemActionState)
-            {
-                case HaulItemActionModes.FETCH_ITEM:
-                    //Check if the item is still here
-                    if (parent.Owner.Position != haulTarget.Position)
-                    {
-                        //Someone beat us to it
-                        completed = true;
-                        return;
-                    }
-                    //Pickup the item
-                    if (!parent.Owner.TryPickupItem(haulTarget))
-                    {
-                        //Try to free some space
-                        parent.Owner.DropHeldItems();
-                        //Try to pick it up again, now with free hands
-                        if (!parent.Owner.TryPickupItem(haulTarget))
-                        {
-                            //Something went wrong
-                            completed = true;
-                            return;
-                        }
-                    }
-                    //Destination reached, nullify haul target
-                    haulTarget.claim = null;
-                    haulTarget = null;
-                    //If we can carry more, find more items to haul
-                    if (parent.Owner.HasFreeHands())
-                        PathToItem(parent);
-                    else
-                        //Path to a free stockpile
-                        PathToFreeStockpile(parent);
-                    return;
-                case HaulItemActionModes.DELIVER_ITEM:
-                    Log.WriteLine("Items delivered!");
-                    //Drop the item at the current location
-                    parent.Owner.DropHeldItems();
-                    //Mark as completed
-                    completed = true;
-                    return;
-            }
-        }
-
-        /// <summary>
-        /// Path to the nearest item on the ground.
-        /// If we cannot locate any items on the ground, path towards a stockpile zone if we are holding something.
-        /// </summary>
-        private void PathToItem(PawnBehaviour parent)
-        {
-            Item locatedItem = null;
-            //Locate the nearest free item within a radius
-            foreach (Item item in World.GetItemsInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50))
-            {
-                //Skip over items inside something
-                if (item.Location != null)
-                    continue;
-                //Skip over items inside a stockpile
-                if (World.GetArea((int)item.Position[0], (int)item.Position[1]) is StockpileArea)
-                    continue;
-                //Skip claimed items
-                if (item.claim != null)
-                    continue;
-                locatedItem = item;
-                break;
-            }
-            //If nothing was found, fail the action
-            if (locatedItem == null)
-            {
-                //If we are holding something, go to the deliver phase
-                if (parent.Owner.IsHoldingItems())
-                {
-                    PathToFreeStockpile(parent);
-                    return;
-                }
-                //Otherwise the action can be paused for 30 seconds
-                completed = true;
-                parent.PauseActionFor(this, 30);
-                unreachablePositions.Clear();
-                Log.WriteLine("Failed to locate items to haul, cancelling haul task.");
-                return;
-            }
-            Log.WriteLine($"Pathing to item at {locatedItem.Position} inside {locatedItem.Location}...");
-            //Alright, off we go
-            if(haulTarget != null)
-                haulTarget.claim = null;
-            haulTarget = locatedItem;
-            haulTarget.claim = parent.Owner;
-            haulItemActionState = HaulItemActionModes.FETCH_ITEM;
-            parent.Owner.MoveTowardsEntity(locatedItem);
-        }
-
-        private void PathToFreeStockpile(PawnBehaviour parent)
-        {
-            //Find a stockpile
-            foreach (Vector<int> position in World.WorldAreas.Keys)
-            {
-                Area area = World.WorldAreas[position];
-                //Stockpile is not used
-                if (!(area is StockpileArea))
-                    continue;
-                //Stockpile is used
-                if (World.GetItems((int)position[0], (int)position[1]).Count > 0)
-                    continue;
-                //Path to this location
-                haulItemActionState = HaulItemActionModes.DELIVER_ITEM;
-                Log.WriteLine("Pathing to stockpile...");
-                parent.Owner.MoveTowardsPosition(position);
-                return;
-            }
-            //Finding stockpile failed.
-            //This action failed!
-            completed = true;
-            parent.PauseActionFor(this, 30);
-            unreachablePositions.Clear();
-            Log.WriteLine("Failed to locate stockpile in range, cancelling haul task.");
-        }
-
-        //Check if the item we are pathing towards still exists
-        //Check if the stockpile zone we chose to go towards is still empty
         public override void PerformProcess(PawnBehaviour parent)
         {
             return;
         }
+
+        public override void OnActionCancel(PawnBehaviour parent)
+        {
+            //Drop whatever we are holding, panic mode activated
+            parent.Owner.DropHeldItems(parent.Owner.Position);
+        }
+
+        public override void OnActionUnreachable(PawnBehaviour parent)
+        {
+            //Unclaim the target
+            ThreadSafeClaimManager.ReleaseClaimBlocking(parent.Owner);
+            //Choose what to do next
+            switch (haulActionState)
+            {
+                case HaulItemActionModes.DELIVER_ITEM:
+                    //Drop what we are holding and cancel this task
+                    parent.Owner.DropHeldItems(parent.Owner.Position);
+                    parent.PauseActionFor(this, 30);
+                    completed = true;
+                    return;
+                case HaulItemActionModes.FETCH_ITEM:
+                    //Just store whatever we are holding
+                    StoreHeldItems(parent);
+                    return;
+            }
+        }
+
+        public override void OnPawnReachedLocation(PawnBehaviour parent)
+        {
+            Log.WriteLine("location reached!");
+            //We reached the location successfully.
+            switch (haulActionState)
+            {
+                case HaulItemActionModes.DELIVER_ITEM:
+                    //We reached our stockpile zone
+                    GracefullyDeliver(parent);
+                    return;
+                case HaulItemActionModes.FETCH_ITEM:
+                    //Check for our reserved item
+                    Item reservedItem = ThreadSafeClaimManager.GetClaimedItem(parent.Owner) as Item;
+                    //Try to pick up the reserved item.
+                    if(reservedItem != null)
+                        parent.Owner.TryPickupItem(reservedItem);
+                    //Now that we have picked up the item, unclaim it
+                    ThreadSafeClaimManager.ReleaseClaimBlocking(parent.Owner);
+                    //Pick up more items, or move to a storage location
+                    LocateOrStoreItems(parent);
+                    return;
+            }
+        }
+
+        public override void OnActionEnd(PawnBehaviour parent)
+        {
+            //Reset variables
+            completed = false;
+            //Release our item claim
+            ThreadSafeClaimManager.ReleaseClaimBlocking(parent.Owner);
+        }
+
+        /// <summary>
+        /// We reached our stockpile zone target.
+        /// Check if its free and place and item, otherwise move to another.
+        /// </summary>
+        private void GracefullyDeliver(PawnBehaviour parent)
+        {
+            StockpileArea claimedArea = ThreadSafeClaimManager.GetClaimedItem(parent.Owner) as StockpileArea;
+            //We had no reserved area, or the reserved area was deleted
+            if (claimedArea == null)
+            {
+                StoreHeldItems(parent);
+            }
+            //Check if we are actually at the claimed area location
+            else if (!parent.Owner.InReach(claimedArea, 1))
+            {
+                //Try to redeliver items
+                StoreHeldItems(parent);
+            }
+            //Check if the claimed area location is still empty
+            else if (World.GetItems((int)claimedArea.Position[0], (int)claimedArea.Position[1]).Count > 0)
+            {
+                //Redeliver items
+                StoreHeldItems(parent);
+            }
+            //Deliver the item
+            else
+            {
+                //Drop a single item at this location and deliver the next
+                parent.Owner.DropFirstItem(claimedArea.Position);
+                StoreHeldItems(parent);
+            }
+        }
+
+        /// <summary>
+        /// Locate items if we can carry items
+        /// Store items if we cannot
+        /// </summary>
+        private void LocateOrStoreItems(PawnBehaviour parent)
+        {
+            //Can we carry anything more?
+            if (!parent.Owner.HasFreeHands())
+            {
+                StoreHeldItems(parent);
+                return;
+            }
+            //Attempt to locate items
+            List<Item> itemsToSearch = World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50);
+            Item targetItem = null;
+            //Go through all the items
+            foreach (Item item in itemsToSearch)
+            {
+                //If the item is claimed, skip it
+                if (item.IsClaimed)
+                    continue;
+                //If the item is in an invalid location, skip it
+                if (item.Location != null)
+                    continue;
+                //Check if the item is in a stockpile, if it is, skip it
+                if (World.GetArea((int)item.Position[0], (int)item.Position[1]) as StockpileArea != null)
+                    continue;
+                //Looks like the item is valid!
+                targetItem = item;
+                break;
+            }
+            //No item was located
+            if (targetItem == null || targetItem.Location != null)
+            {
+                //Let's go store whatever we are holding
+                StoreHeldItems(parent);
+            }
+            //Attempt to claim the item
+            else if (ThreadSafeClaimManager.ReserveClaimBlocking(parent.Owner, targetItem))
+            {
+                //Horray, we claimed the item we wanted successfully. Let's go pick it up
+                parent.Owner.MoveTowardsEntity(targetItem);
+                haulActionState = HaulItemActionModes.FETCH_ITEM;
+            }
+            else
+            {
+                //Failed to reserve the item we wanted, try to claim another item
+                LocateOrStoreItems(parent);
+            }
+        }
+
+        /// <summary>
+        /// Store held items, even if we are only holding 1/2
+        /// </summary>
+        private void StoreHeldItems(PawnBehaviour parent)
+        {
+            //Check if we are holding items to deliver
+            if (!parent.Owner.IsHoldingItems())
+            {
+                //We aren't holding anything, complete the action.
+                completed = true;
+                return;
+            }
+            //Locate an unclaimed stockpile zone
+            StockpileArea freeStockpileArea = null;
+            foreach (Area area in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50))
+            {
+                //If the area is claimed, skip it
+                if (area.IsClaimed)
+                    continue;
+                //If the area is not a stockpile, skip it
+                if (!(area is StockpileArea))
+                    continue;
+                //If the area has items in it, skip it
+                if (World.GetItems((int)area.Position[0], (int)area.Position[1]).Count > 0)
+                    continue;
+                //A good stockpile area
+                freeStockpileArea = (StockpileArea)area;
+                break;
+            }
+            //If we cannot locate a stockpile zone, cancel this task and drop all items
+            if (freeStockpileArea == null)
+            {
+                OnActionCancel(parent);
+                completed = true;
+            }
+            //If we can locate a stockpile zone, attempt to claim it and path towards it
+            else if (ThreadSafeClaimManager.ReserveClaimBlocking(parent.Owner, freeStockpileArea))
+            {
+                //Our claim was successful, let's go there and have fun
+                parent.Owner.MoveTowardsPosition(freeStockpileArea.Position);
+                haulActionState = HaulItemActionModes.DELIVER_ITEM;
+            }
+            //If our claim fails, store held items again
+            else
+            {
+                StoreHeldItems(parent);
+            }
+        }
+
     }
 }

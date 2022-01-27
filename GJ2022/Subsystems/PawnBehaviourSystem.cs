@@ -26,7 +26,7 @@ namespace GJ2022.Subsystems
             //Fire the pawn behaviour tasks
             foreach (PawnBehaviour behaviour in processingBehaviours)
             {
-                new Task(behaviour.HandlePawnBehaviour).Start();
+                Task.Run(behaviour.HandlePawnBehaviour);
             }
         }
 

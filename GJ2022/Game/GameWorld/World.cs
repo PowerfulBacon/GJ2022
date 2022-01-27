@@ -22,22 +22,47 @@ namespace GJ2022.Game.GameWorld
         public static Dictionary<Vector<int>, List<Item>> WorldItems = new Dictionary<Vector<int>, List<Item>>();
 
         /// <summary>
-        /// Get all items within a certain range.
-        /// Slllloooooooowwww.
+        /// Get spiral items, ordered by distance from the origin
         /// </summary>
-        public static List<Item> GetItemsInRange(int x, int y, int range)
+        public static List<Area> GetSprialAreas(int original_x, int original_y, int range)
         {
-            List<Item> items = new List<Item>();
-            for (int _x = x - range; _x <= x + range; _x++)
+            List<Area> output = new List<Area>();
+            for (int r = 0; r <= range; r++)
             {
-                for (int _y = y - range; _y <= y + range; _y++)
+                //Get all items that are r distance away from (x, y)
+                for (int x = original_x - r; x <= original_x + r; x++)
                 {
-                    Vector<int> targetPosition = new Vector<int>(_x, _y);
-                    if (WorldItems.ContainsKey(targetPosition))
-                        items.AddRange(WorldItems[targetPosition]);
+                    for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
+                    {
+                        Vector<int> targetPosition = new Vector<int>(x, y);
+                        if (WorldAreas.ContainsKey(targetPosition))
+                            output.Add(WorldAreas[targetPosition]);
+                    }
                 }
             }
-            return items;
+            return output;
+        }
+
+        /// <summary>
+        /// Get spiral items, ordered by distance from the origin
+        /// </summary>
+        public static List<Item> GetSprialItems(int original_x, int original_y, int range)
+        {
+            List<Item> output = new List<Item>();
+            for (int r = 0; r <= range; r++)
+            {
+                //Get all items that are r distance away from (x, y)
+                for (int x = original_x - r; x <= original_x + r; x ++)
+                {
+                    for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
+                    {
+                        Vector<int> targetPosition = new Vector<int>(x, y);
+                        if (WorldItems.ContainsKey(targetPosition))
+                            output.AddRange(WorldItems[targetPosition]);
+                    }
+                }
+            }
+            return output;
         }
 
         public static List<Item> GetItems(int x, int y)

@@ -55,7 +55,7 @@ namespace GJ2022.Subsystems
 
         public void RequestPath(PathfindingRequest request)
         {
-            new Task(() => ProcessPath(request)).Start();
+            Task.Run(() => ProcessPath(request));
         }
 
         /// <summary>
