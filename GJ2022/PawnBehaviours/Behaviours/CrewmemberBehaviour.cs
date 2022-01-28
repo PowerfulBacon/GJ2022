@@ -18,7 +18,8 @@ namespace GJ2022.PawnBehaviours.Behaviours
         {
             { new HaulItems(), 0 },
             { new DeliverMaterialsToBlueprints(), 0 },
-            { new ConstructBlueprints(), 0 }
+            { new ConstructBlueprints(), 0 },
+            { new MineAction(), 0 }
         };
 
     }

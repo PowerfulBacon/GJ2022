@@ -47,7 +47,7 @@ namespace GJ2022.Game.GameWorld
                     for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
                     {
                         Vector<int> targetPosition = new Vector<int>(x, y);
-                        if (WorldAreas.ContainsKey(targetPosition))
+                        if (WorldMarkers.ContainsKey(targetPosition))
                             output.Add(WorldMarkers[targetPosition]);
                     }
                 }
@@ -254,6 +254,28 @@ namespace GJ2022.Game.GameWorld
                 WorldTurfs.Remove(targetPosition);
             else
                 WorldTurfs.Add(targetPosition, turf);
+        }
+
+        //======================
+        // Surrounded detected
+        //======================
+
+        public static bool IsLocationFullyEnclosed(int x, int y)
+        {
+            return IsSolid(x, y + 1) && IsSolid(x + 1, y) && IsSolid(x, y - 1) && IsSolid(x - 1, y);
+        }
+
+        public static Vector<float>? GetFreeAdjacentLocation(int x, int y)
+        {
+            if (!IsSolid(x, y + 1))
+                return new Vector<float>(x, y + 1);
+            if (!IsSolid(x + 1, y))
+                return new Vector<float>(x + 1, y);
+            if (!IsSolid(x, y - 1))
+                return new Vector<float>(x, y - 1);
+            if (!IsSolid(x - 1, y))
+                return new Vector<float>(x - 1, y + 1);
+            return null;
         }
 
         //======================

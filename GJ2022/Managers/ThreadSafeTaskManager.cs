@@ -17,6 +17,7 @@ namespace GJ2022.Managers
         public const int TASK_STOCKPILE_MANAGER = 2;
         public const int TASK_RENDERING = 4;
         public const int TASK_MOUSE_SYSTEM = 5;
+        public const int TASK_SIGNALS = 6;
 
         private static volatile bool executing = false;
 
@@ -56,6 +57,7 @@ namespace GJ2022.Managers
             }
             catch (Exception e)
             {
+                Log.WriteLine($"Error while performing {action.Method.Name} on {action.Method.DeclaringType.FullName}", LogType.ERROR);
                 Log.WriteLine(e, LogType.ERROR);
                 Complete(threadSafeId);
                 throw e;

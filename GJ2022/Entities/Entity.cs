@@ -63,10 +63,13 @@ namespace GJ2022.Entities
         public virtual bool Destroy()
         {
             if (!(this is IDestroyable))
-                throw new System.Exception("Non destroyable entity was destroyed!");
+                throw new Exception("Non destroyable entity was destroyed!");
             //Release our claims
-            if(ThreadSafeClaimManager.HasClaim(this))
+            if (ThreadSafeClaimManager.HasClaim(this))
                 ThreadSafeClaimManager.ReleaseClaimBlocking(this);
+            SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED);
+            //Unregister all signals
+            SignalHandler.UnregisterAll(this);
             Renderable?.StopRendering();
             Renderable = null;
             return true;

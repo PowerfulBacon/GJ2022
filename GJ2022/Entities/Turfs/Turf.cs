@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
+using GJ2022.Managers;
 
 namespace GJ2022.Entities.Turfs
 {
@@ -26,6 +27,10 @@ namespace GJ2022.Entities.Turfs
         //Set destroyed
         public virtual bool Destroy()
         {
+            //Unregister signals
+            SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED);
+            //Unregister all signals
+            SignalHandler.UnregisterAll(this);
             //Dereference
             World.SetTurf(X, Y, null);
             //Set destroyed
