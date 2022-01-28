@@ -94,7 +94,7 @@ namespace GJ2022
             {
                 for (int y = 4; y < 6; y++)
                 {
-                    Iron iron = new Iron(new Vector<float>(x, y), 50, 50);
+                    new Iron(new Vector<float>(x, y), 50, 50);
                 }
             }
 
