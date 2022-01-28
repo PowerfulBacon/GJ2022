@@ -1,6 +1,7 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
+using GJ2022.Entities.Markers;
 using GJ2022.Entities.Structures;
 using GJ2022.Entities.Turfs;
 using GJ2022.Utility.MathConstructs;
@@ -18,6 +19,9 @@ namespace GJ2022.Game.GameWorld
         //Dictionary of areas in the world
         public static Dictionary<Vector<int>, Area> WorldAreas = new Dictionary<Vector<int>, Area>();
 
+        //Dictionary of markers in the world
+        public static Dictionary<Vector<int>, Marker> WorldMarkers = new Dictionary<Vector<int>, Marker>();
+
         //Dictionary containing all items in the world at a specified position.
         //When an item moves, it needs to be updated in this list.
         public static Dictionary<Vector<int>, List<Item>> WorldItems = new Dictionary<Vector<int>, List<Item>>();
@@ -28,6 +32,28 @@ namespace GJ2022.Game.GameWorld
         //======================
         // Spiral Distance Getters
         //======================
+
+        /// <summary>
+        /// Get spiral markers, ordered by distance from the origin
+        /// </summary>
+        public static List<Marker> GetSprialMarkers(int original_x, int original_y, int range)
+        {
+            List<Marker> output = new List<Marker>();
+            for (int r = 0; r <= range; r++)
+            {
+                //Get all items that are r distance away from (x, y)
+                for (int x = original_x - r; x <= original_x + r; x++)
+                {
+                    for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
+                    {
+                        Vector<int> targetPosition = new Vector<int>(x, y);
+                        if (WorldAreas.ContainsKey(targetPosition))
+                            output.Add(WorldMarkers[targetPosition]);
+                    }
+                }
+            }
+            return output;
+        }
 
         /// <summary>
         /// Get spiral items, ordered by distance from the origin
@@ -174,6 +200,33 @@ namespace GJ2022.Game.GameWorld
                 WorldAreas.Remove(targetPosition);
             else
                 WorldAreas.Add(targetPosition, area);
+        }
+
+        //======================
+        // Markers
+        //======================
+
+        /// <summary>
+        /// Get the turf at the specified location.
+        /// </summary>
+        public static Marker GetMarker(int x, int y)
+        {
+            Vector<int> targetPosition = new Vector<int>(x, y);
+            if (WorldMarkers.ContainsKey(targetPosition))
+                return WorldMarkers[targetPosition];
+            return null;
+        }
+
+        /// <summary>
+        /// Set the turfs
+        /// </summary>
+        public static void SetMarker(int x, int y, Marker marker)
+        {
+            Vector<int> targetPosition = new Vector<int>(x, y);
+            if (marker == null)
+                WorldMarkers.Remove(targetPosition);
+            else
+                WorldMarkers.Add(targetPosition, marker);
         }
 
         //======================

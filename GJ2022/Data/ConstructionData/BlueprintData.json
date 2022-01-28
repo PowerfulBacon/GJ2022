@@ -19,7 +19,8 @@
     {
       "name": "Actions",
       "contents": [
-        "mining_marker"
+        "mining_marker",
+        "cancel_marker"
       ]
     },
     {
@@ -92,6 +93,13 @@
       "isRoom": true,
       "edge": "mining_marker",
       "fill": "mining_marker"
+    },
+    {
+      "id": "cancel_marker",
+      "name": "Cancel Action",
+      "isRoom": true,
+      "edge": "cancel_marker",
+      "fill": "cancel_marker"
     }
   ],
   "blueprints": [
@@ -101,6 +109,15 @@
       "priority": 1,
       "blueprintType": "Blueprint",
       "texture": "mining_marker",
+      "layer": 3,
+      "instant": true
+    },
+    {
+      "id": "cancel_marker",
+      "created_type": "CancelMarker",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "cancel",
       "layer": 3,
       "instant": true
     },
