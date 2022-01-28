@@ -92,9 +92,10 @@ namespace GJ2022.Entities.Items
                 return;
             if (PawnControllerSystem.Singleton.SelectedPawn == null)
                 return;
-            if (!(this is IEquippable))
-                return;
-            PawnControllerSystem.Singleton.SelectedPawn.behaviourController.PawnActionIntercept(new EquipItem(this));
+            if (this is IEquippable)
+                PawnControllerSystem.Singleton.SelectedPawn.behaviourController.PawnActionIntercept(new EquipItem(this));
+            else
+                PawnControllerSystem.Singleton.SelectedPawn.behaviourController.PawnActionIntercept(new HaulItems(this));
             /*UserInterfaceButton button = new UserInterfaceButton(
                 WorldToScreenHelper.GetScreenCoordinates(window, Position) + CoordinateHelper.PixelsToScreen(0, 80),
                 CoordinateHelper.PixelsToScreen(300, 80),

@@ -22,7 +22,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool Overriding => false;
 
-        public override int Priority => 20;
+        public override int Priority { get; } = 20;
 
         //Unreachable item locations
         //We maintain this memory until we pause the action due to not having items available.
@@ -34,6 +34,17 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         //Have we completed?
         private bool completed = false;
+
+        private Item forcedTarget;
+
+        public HaulItems() : base() { }
+
+        public HaulItems(Item forcedTarget) : base()
+        {
+            this.forcedTarget = forcedTarget;
+            //Increased priority for force hauls
+            Priority = 15;
+        }
 
         public override bool CanPerform(PawnBehaviour parent)
         {
@@ -190,25 +201,33 @@ namespace GJ2022.PawnBehaviours.PawnActions
             //Attempt to locate items
             List<Item> itemsToSearch = World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40);
             Item targetItem = null;
-            //Go through all the items
-            foreach (Item item in itemsToSearch)
+            if (forcedTarget == null)
             {
-                //If the item is claimed, skip it
-                if (item.IsClaimed)
-                    continue;
-                //If the item is in an invalid location, skip it
-                if (item.Location != null)
-                    continue;
-                //Check if the item is unreachable
-                if (unreachablePositions.Contains(item.Position))
-                    continue;
-                //Check if the item
-                //is in a stockpile, if it is, skip it
-                if (World.GetArea((int)item.Position[0], (int)item.Position[1]) as StockpileArea != null)
-                    continue;
-                //Looks like the item is valid!
-                targetItem = item;
-                break;
+                //Go through all the items
+                foreach (Item item in itemsToSearch)
+                {
+                    //If the item is claimed, skip it
+                    if (item.IsClaimed)
+                        continue;
+                    //If the item is in an invalid location, skip it
+                    if (item.Location != null)
+                        continue;
+                    //Check if the item is unreachable
+                    if (unreachablePositions.Contains(item.Position))
+                        continue;
+                    //Check if the item
+                    //is in a stockpile, if it is, skip it
+                    if (World.GetArea((int)item.Position[0], (int)item.Position[1]) as StockpileArea != null)
+                        continue;
+                    //Looks like the item is valid!
+                    targetItem = item;
+                    break;
+                }
+            }
+            else
+            {
+                if (!forcedTarget.IsClaimed && forcedTarget.Location == null && !unreachablePositions.Contains(forcedTarget.Position) && World.GetArea((int)forcedTarget.Position[0], (int)forcedTarget.Position[1]) as StockpileArea == null)
+                    targetItem = forcedTarget;
             }
             //No item was located
             if (targetItem == null || targetItem.Location != null)
@@ -244,7 +263,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
             }
             //Locate an unclaimed stockpile zone
             StockpileArea freeStockpileArea = null;
-            foreach (Area area in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 60))
+            //Extend range for forced haul
+            foreach (Area area in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], forcedTarget == null ? 60 : 120))
             {
                 //If the area is claimed, skip it
                 if (area.IsClaimed)
