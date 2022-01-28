@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Items.Stacks;
+using GJ2022.Entities.Items.Stacks.Ores;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace GJ2022.Entities.Turfs.Standard.Solids.Minerals
 
         public override void Mine()
         {
-            new Iron(new Vector<float>(X, Y), 50, 4);
+            new IronOre(new Vector<float>(X, Y), 50, 4);
             base.Mine();
         }
     }
