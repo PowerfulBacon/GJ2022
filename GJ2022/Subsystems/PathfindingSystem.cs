@@ -20,7 +20,7 @@ namespace GJ2022.Subsystems
         private const int SEARCH_OFFSET_RANGE = 30;
 
         //Enum that represents directions that a point can travel in
-        private enum ConnectingDirections
+        public enum ConnectingDirections
         {
             NORTH = 1 << 0,
             EAST = 1 << 1,
@@ -38,6 +38,7 @@ namespace GJ2022.Subsystems
             SOUTH_WEST_NORTH = NORTH | SOUTH | WEST,
             WEST_NORTH_EAST = NORTH | EAST | WEST,
             ALL = NORTH | EAST | SOUTH | WEST,
+            NONE = 0,
         };
 
         //Little delay
@@ -122,24 +123,24 @@ namespace GJ2022.Subsystems
             ConnectingDirections validDirections = GetValidDirections(processData, ignoringHazards, current.Position, current.SourceNode?.Position ?? current.Position);
             //Process north node
             if ((validDirections & ConnectingDirections.NORTH) != 0)
-                CheckAddNode(current, ref processData, new Vector<int>(0, 1));
+                CheckAddNode(current, ref processData, new Vector<int>(0, 1), ConnectingDirections.NORTH);
             if ((validDirections & ConnectingDirections.EAST) != 0)
-                CheckAddNode(current, ref processData, new Vector<int>(1, 0));
+                CheckAddNode(current, ref processData, new Vector<int>(1, 0), ConnectingDirections.EAST);
             if ((validDirections & ConnectingDirections.SOUTH) != 0)
-                CheckAddNode(current, ref processData, new Vector<int>(0, -1));
+                CheckAddNode(current, ref processData, new Vector<int>(0, -1), ConnectingDirections.SOUTH);
             if ((validDirections & ConnectingDirections.WEST) != 0)
-                CheckAddNode(current, ref processData, new Vector<int>(-1, 0));
+                CheckAddNode(current, ref processData, new Vector<int>(-1, 0), ConnectingDirections.WEST);
             if ((validDirections & ConnectingDirections.NORTH_EAST) == ConnectingDirections.NORTH_EAST && !World.IsSolid(current.Position + new Vector<int>(1, 1)))
-                CheckAddNode(current, ref processData, new Vector<int>(1, 1));
+                CheckAddNode(current, ref processData, new Vector<int>(1, 1), ConnectingDirections.NORTH_EAST);
             if ((validDirections & ConnectingDirections.SOUTH_EAST) == ConnectingDirections.SOUTH_EAST && !World.IsSolid(current.Position + new Vector<int>(1, -1)))
-                CheckAddNode(current, ref processData, new Vector<int>(1, -1));
+                CheckAddNode(current, ref processData, new Vector<int>(1, -1), ConnectingDirections.SOUTH_EAST);
             if ((validDirections & ConnectingDirections.SOUTH_WEST) == ConnectingDirections.SOUTH_WEST && !World.IsSolid(current.Position + new Vector<int>(-1, -1)))
-                CheckAddNode(current, ref processData, new Vector<int>(-1, -1));
+                CheckAddNode(current, ref processData, new Vector<int>(-1, -1), ConnectingDirections.SOUTH_WEST);
             if ((validDirections & ConnectingDirections.NORTH_WEST) == ConnectingDirections.NORTH_WEST && !World.IsSolid(current.Position + new Vector<int>(-1, 1)))
-                CheckAddNode(current, ref processData, new Vector<int>(-1, 1));
+                CheckAddNode(current, ref processData, new Vector<int>(-1, 1), ConnectingDirections.NORTH_WEST);
         }
 
-        private void CheckAddNode(PathNode current, ref PathfindingProcessData processData, Vector<int> offset)
+        private void CheckAddNode(PathNode current, ref PathfindingProcessData processData, Vector<int> offset, ConnectingDirections outputDir)
         {
             //Get the position of the next connecting node
             Vector<int> targetPosition = current.Position + offset;
@@ -150,6 +151,7 @@ namespace GJ2022.Subsystems
                 PathNode pathNode = new PathNode(targetPosition, CalculateDistance(targetPosition, processData.End));
                 pathNode.SourceNode = current;
                 processData.AddNode(pathNode);
+                processData.SetScannedDirection(current.Position, outputDir);
             }
             //if it does exist, check if its more efficient to pass through this node.
             else
@@ -183,31 +185,47 @@ namespace GJ2022.Subsystems
             //Default valid connecting directions
             ConnectingDirections connectingDirections = 0;
             //Check north
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(0, 1))
+            if (!IsPointChecked(processData, position + new Vector<int>(0, 1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
                     && position[1] < processData.MaximumY
                     && !World.IsSolid(position + new Vector<int>(0, 1))
                     && GravityCheck(ignoringHazards, position, source, ConnectingDirections.NORTH))
                 connectingDirections |= ConnectingDirections.NORTH;
             //Check east
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(1, 0))
+            if (!IsPointChecked(processData, position + new Vector<int>(1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
                     && position[0] < processData.MaximumX
                     && !World.IsSolid(position + new Vector<int>(1, 0))
                     && GravityCheck(ignoringHazards, position, source, ConnectingDirections.EAST))
                 connectingDirections |= ConnectingDirections.EAST;
             //Check south
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(0, -1))
+            if (!IsPointChecked(processData, position + new Vector<int>(0, -1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
                     && position[1] > processData.MinimumY
                     && !World.IsSolid(position + new Vector<int>(0, -1))
                     && GravityCheck(ignoringHazards, position, source, ConnectingDirections.SOUTH))
                 connectingDirections |= ConnectingDirections.SOUTH;
             //Check west
-            if (!processData.ProcessedPoints.Contains(position + new Vector<int>(-1, 0))
+            if (!IsPointChecked(processData, position + new Vector<int>(-1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
                     && position[0] > processData.MinimumX
                     && !World.IsSolid(position + new Vector<int>(-1, 0))
                     && GravityCheck(ignoringHazards, position, source, ConnectingDirections.WEST))
                 connectingDirections |= ConnectingDirections.WEST;
             //Return valid directions
             return connectingDirections;
+        }
+
+        private bool IsPointChecked(PathfindingProcessData processData, Vector<int> position, ConnectingDirections sourceDirection, PawnHazards ignoringHazards)
+        {
+            //Ignoring gravity, just check if we processed it already
+            if ((ignoringHazards & PawnHazards.HAZARD_GRAVITY) != 0)
+                return processData.ProcessedPoints.ContainsKey(position);
+            //If we aren't ignoring gravity check what way we came from
+            if (!processData.ProcessedPoints.ContainsKey(position))
+                return false;
+            //If this location has gravity, then we checked it
+            if (World.HasGravity(position))
+                return true;
+            //Check if we have scanned the incomming direction
+            ConnectingDirections scannedDirections = processData.ProcessedPoints[position];
+            return (scannedDirections & sourceDirection) != 0;
         }
 
         private bool GravityCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
