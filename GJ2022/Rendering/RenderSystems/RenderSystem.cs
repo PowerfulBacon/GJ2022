@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.RenderSystems.Interfaces;
+﻿using GJ2022.Managers;
+using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Shaders;
 using System;
 using System.Collections.Generic;
@@ -87,17 +88,21 @@ namespace GJ2022.Rendering.RenderSystems
         /// </summary>
         public virtual void StartRendering(RenderTargetInterface renderable)
         {
-            RenderBatchGroup renderCacheKey = GetBatchGroup(renderable);
-            if (renderCache.ContainsKey(renderCacheKey))
+            ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_RENDERING, () =>
             {
-                renderCache[renderCacheKey].AddToBatch(renderable, renderable.GetRendererTextureData());
-            }
-            else
-            {
-                RenderBatchSet<RenderTargetInterface, TargetRenderSystem> batchSet = new RenderBatchSet<RenderTargetInterface, TargetRenderSystem>(renderable.GetRendererTextureData(), BufferCount, BufferWidths);
-                batchSet.AddToBatch(renderable, renderable.GetRendererTextureData());
-                renderCache.Add(renderCacheKey, batchSet);
-            }
+                RenderBatchGroup renderCacheKey = GetBatchGroup(renderable);
+                if (renderCache.ContainsKey(renderCacheKey))
+                {
+                    renderCache[renderCacheKey].AddToBatch(renderable, renderable.GetRendererTextureData());
+                }
+                else
+                {
+                    RenderBatchSet<RenderTargetInterface, TargetRenderSystem> batchSet = new RenderBatchSet<RenderTargetInterface, TargetRenderSystem>(renderable.GetRendererTextureData(), BufferCount, BufferWidths);
+                    batchSet.AddToBatch(renderable, renderable.GetRendererTextureData());
+                    renderCache.Add(renderCacheKey, batchSet);
+                }
+                return true;
+            });
         }
 
         /// <summary>
@@ -105,18 +110,22 @@ namespace GJ2022.Rendering.RenderSystems
         /// </summary>
         public virtual void StopRendering(RenderTargetInterface renderable)
         {
-            RenderBatchGroup renderCacheKey = GetBatchGroup(renderable);
-            if (!renderCache.ContainsKey(renderCacheKey))
+            ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_RENDERING, () =>
             {
-                Log.WriteLine($"Failed to locate key in render dict", LogType.WARNING);
-                return;
-            }
-            renderCache[renderCacheKey].RemoveFromBatch(renderable);
-            //If the list stored at the key position is now empty, remove it from the render batch cache.
-            if (renderCache[renderCacheKey].renderElements == 0)
-            {
-                renderCache.Remove(renderCacheKey);
-            }
+                RenderBatchGroup renderCacheKey = GetBatchGroup(renderable);
+                if (!renderCache.ContainsKey(renderCacheKey))
+                {
+                    Log.WriteLine($"Failed to locate key in render dict", LogType.WARNING);
+                    return false;
+                }
+                renderCache[renderCacheKey].RemoveFromBatch(renderable);
+                //If the list stored at the key position is now empty, remove it from the render batch cache.
+                if (renderCache[renderCacheKey].renderElements == 0)
+                {
+                    renderCache.Remove(renderCacheKey);
+                }
+                return true;
+            });
         }
 
         /// <summary>

@@ -16,6 +16,8 @@ namespace GJ2022.UserInterface
     public static class UserInterfaceCreator
     {
 
+        public static TextObject SelectorTextObject;
+
         public static void CreateUserInterface()
         {
 
@@ -29,6 +31,8 @@ namespace GJ2022.UserInterface
                 "Building",
                 defaultDropdownSettings
                 );
+
+            SelectorTextObject = new TextObject("Selected Pawn: N/A", Colour.White, CoordinateHelper.PixelsToScreen(0, 1000), TextObject.PositionModes.SCREEN_POSITION, CoordinateHelper.PixelsToScreen(120));
 
             foreach (BlueprintCategory category in BlueprintLoader.BlueprintCategories.Values)
             {

@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
@@ -18,7 +19,7 @@ using System.Linq;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, IProcessable
+    public class Pawn : Entity, IProcessable, IMousePress
     {
 
         //The renderable attached to our pawn
@@ -30,8 +31,23 @@ namespace GJ2022.Entities.Pawns
         //Is this pawn destroyed?
         public bool Destroyed { get; set; } = false;
 
+        public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
+
+        public float WorldX => Position[0] - 0.5f;
+
+        public float WorldY => Position[1] - 0.5f;
+
+        public float Width => 1.0f;
+
+        public float Height => 1.0f;
+
         //The AI controller
         public PawnBehaviour behaviourController;
+
+        //Equipped items
+        public Dictionary<InventorySlot, IEquippable> EquippedItems = new Dictionary<InventorySlot, IEquippable>();
+        //Flags of hazards we are protected from due to our equipped items
+        private PawnHazards cachedHazardProtection = PawnHazards.NONE;
 
         //Held items
         public Item[] heldItems = new Item[2];
@@ -56,6 +72,35 @@ namespace GJ2022.Entities.Pawns
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
             attachedTextObject = new TextObject("pawn", Colour.White, position, TextObject.PositionModes.WORLD_POSITION, 0.8f);
+            MouseCollisionSubsystem.Singleton.StartTracking(this);
+        }
+
+        /// <summary>
+        /// Thread safe item equip
+        /// </summary>
+        public bool TryEquipItem(InventorySlot targetSlot, IEquippable item)
+        {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_EQUIPPABLES, () => {
+                //Check the slot
+                if (EquippedItems.ContainsKey(targetSlot))
+                    return false;
+                EquippedItems.Add(targetSlot, item);
+                item.OnEquip(this, targetSlot);
+                RecalculateHazardProtection();
+                return true;
+            });
+        }
+
+        /// <summary>
+        /// Recalculate what hazards we are protected from
+        /// </summary>
+        private void RecalculateHazardProtection()
+        {
+            cachedHazardProtection = PawnHazards.NONE;
+            foreach (IEquippable item in EquippedItems.Values)
+            {
+                cachedHazardProtection |= item.ProtectedHazards;
+            }
         }
 
         public void MoveTowardsEntity(Entity target)
@@ -88,7 +133,7 @@ namespace GJ2022.Entities.Pawns
         private void DrawHelpfulLine()
         {
             Vector<float> endPos = targetDestinationPosition;
-            if (!hasTargetDestination)
+            if (!hasTargetDestination || !DrawLines)
             {
                 helpfulLine?.StopDrawing();
                 helpfulLine = null;
@@ -334,6 +379,7 @@ namespace GJ2022.Entities.Pawns
                 new PathfindingRequest(
                     Position,
                     targetDestinationPosition,
+                    cachedHazardProtection,
                     (Path path) =>
                     {
                         followingPath = path;
@@ -362,5 +408,9 @@ namespace GJ2022.Entities.Pawns
             return true;
         }
 
+        public void OnPressed()
+        {
+            PawnControllerSystem.Singleton.SelectPawn(this);
+        }
     }
 }

@@ -19,7 +19,8 @@ namespace GJ2022.Subsystems
         {
             NONE = 0,
             MOUSE_OVER = 1 << 0,
-            MOUSE_CLICK = 1 << 1,
+            MOUSE_LEFT_CLICK = 1 << 1,
+            MOUSE_RIGHT_CLICK = 1 << 2,
         };
 
         public static MouseCollisionSubsystem Singleton { get; } = new MouseCollisionSubsystem();
@@ -30,16 +31,18 @@ namespace GJ2022.Subsystems
         public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
 
         //Tracking mouse enter events
+        private HashSet<IMouseEvent> toAdd = new HashSet<IMouseEvent>();
+        private HashSet<IMouseEvent> toRemove = new HashSet<IMouseEvent>();
         private Dictionary<IMouseEvent, MouseCollisionState> trackingEvents = new Dictionary<IMouseEvent, MouseCollisionState>();
 
         public void StartTracking(IMouseEvent tracker)
         {
-            trackingEvents.Add(tracker, MouseCollisionState.NONE);
+            toAdd.Add(tracker);
         }
 
         public void StopTracking(IMouseEvent tracker)
         {
-            trackingEvents.Remove(tracker);
+            toRemove.Add(tracker);
         }
 
         public override void Fire(Window window)
@@ -57,6 +60,7 @@ namespace GJ2022.Subsystems
             Vector<float> screenCoordinates = new Vector<float>((float)cursorX / windowWidth * 2.0f - 1, (float)cursorY / windowHeight * 2.0f - 1);
             //Log.WriteLine(screenCoordinates);
             bool mousePressed = Glfw.GetMouseButton(window, MouseButton.Left) == InputState.Press;
+            bool rightMousePressed = Glfw.GetMouseButton(window, MouseButton.Right) == InputState.Press;
             //Go through all tracking events and handle them
             for (int i = trackingEvents.Count - 1; i >= 0; i--)
             {
@@ -84,17 +88,27 @@ namespace GJ2022.Subsystems
                             (mouseEventHolder as IMouseExit).OnMouseExit();
                         if (colliding)
                         {
-                            if ((collisionState & MouseCollisionState.MOUSE_CLICK) == 0)
+                            //Mouse left press
+                            if ((collisionState & MouseCollisionState.MOUSE_LEFT_CLICK) == 0)
                             {
                                 if (mousePressed)
-                                {
-                                    collisionState |= MouseCollisionState.MOUSE_CLICK;
-                                }
+                                    collisionState |= MouseCollisionState.MOUSE_LEFT_CLICK;
                             }
                             else if (!mousePressed)
                             {
                                 (mouseEventHolder as IMousePress)?.OnPressed();
-                                collisionState &= ~MouseCollisionState.MOUSE_CLICK;
+                                collisionState &= ~MouseCollisionState.MOUSE_LEFT_CLICK;
+                            }
+                            //Mouse right press
+                            if ((collisionState & MouseCollisionState.MOUSE_RIGHT_CLICK) == 0)
+                            {
+                                if (rightMousePressed)
+                                    collisionState |= MouseCollisionState.MOUSE_RIGHT_CLICK;
+                            }
+                            else if (!rightMousePressed)
+                            {
+                                (mouseEventHolder as IMouseRightPress)?.OnRightPressed(window);
+                                collisionState &= ~MouseCollisionState.MOUSE_RIGHT_CLICK;
                             }
                         }
                         break;
@@ -106,6 +120,21 @@ namespace GJ2022.Subsystems
                     collisionState &= ~MouseCollisionState.MOUSE_OVER;
                 trackingEvents[mouseEventHolder] = collisionState;
             }
+            //Modify tracking events
+            //Async modifcation protection
+            foreach (IMouseEvent removingEvent in toRemove)
+            {
+                trackingEvents.Remove(removingEvent);
+            }
+            toRemove.Clear();
+            //Async modifcation protection
+            foreach (IMouseEvent addingEvent in toAdd)
+            {
+                if (trackingEvents.ContainsKey(addingEvent))
+                    continue;
+                trackingEvents.Add(addingEvent, MouseCollisionState.NONE);
+            }
+            toAdd.Clear();
         }
 
         public override void InitSystem()

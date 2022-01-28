@@ -50,7 +50,7 @@ namespace GJ2022.Managers
             int sanity = 0;
             while (!IsReady(queueId))
             {
-                if (sanity++ > 10000)
+                if (sanity++ > 100000)
                 {
                     throw new Exception($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success.");
                 }

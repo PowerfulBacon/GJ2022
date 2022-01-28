@@ -113,6 +113,22 @@
       "index_y": 1
     },
     {
+      "id": "jetpack",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 26,
+      "index_y": 1
+    },
+    {
+      "id": "sparkle",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 27,
+      "index_y": 1
+    },
+    {
       "id": "door_open",
       "file": "ground.bmp",
       "width": 32,

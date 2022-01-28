@@ -13,7 +13,7 @@ const float border = 0.001;
 
 void main()
 {
-    vec2 transformedUV = UV * (1-2*border);
+    vec2 transformedUV = (UV * (1-2*border)) + border;
 
     transformedUV = vec2(1.0 - transformedUV.y, 1.0 - transformedUV.x);
 

@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.RenderSystems.Renderables;
+﻿using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace GJ2022.Entities.Structures
 
         public Structure(Vector<float> position, float layer) : base(position, layer)
         {
-
+            //Add the structure to the world list
+            World.AddStructure((int)position[0], (int)position[1], this);
         }
 
     }

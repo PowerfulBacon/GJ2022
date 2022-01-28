@@ -26,7 +26,7 @@ namespace GJ2022.UserInterface.Components
 
         public TextObject TextObject { get;  }
 
-        public CursorSpace PositionSpace => CursorSpace.SCREEN_SPACE;
+        public CursorSpace PositionSpace { get; } = CursorSpace.SCREEN_SPACE;
 
         public float WorldX => _position[0] * (1080.0f / 1920.0f) - Width / 2;
 
@@ -50,11 +50,13 @@ namespace GJ2022.UserInterface.Components
             }
         }
 
-        public UserInterfaceButton(Vector<float> position, Vector<float> scale, string text, float textScale, Colour colour)
+        public UserInterfaceButton(Vector<float> position, Vector<float> scale, string text, float textScale, Colour colour, CursorSpace cursorSpace = CursorSpace.SCREEN_SPACE)
         {
+            PositionSpace = cursorSpace;
+            PositionMode = cursorSpace == CursorSpace.SCREEN_SPACE ? PositionModes.SCREEN_POSITION : PositionModes.WORLD_POSITION;
             Scale = scale;
             Renderable = new ButtonRenderable(position, PositionMode, colour, scale);
-            TextObject = new TextObject(text, Colour.White, position - CoordinateHelper.PixelsToScreen(new Vector<float>(90, 20)), TextObject.PositionModes.SCREEN_POSITION, textScale);
+            TextObject = new TextObject(text, Colour.White, position - CoordinateHelper.PixelsToScreen(new Vector<float>(90, 20)), cursorSpace == CursorSpace.SCREEN_SPACE ? TextObject.PositionModes.SCREEN_POSITION : TextObject.PositionModes.WORLD_POSITION, textScale);
             _position = position;
             //Track
             MouseCollisionSubsystem.Singleton.StartTracking(this);

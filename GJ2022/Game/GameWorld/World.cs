@@ -1,6 +1,7 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
+using GJ2022.Entities.Structures;
 using GJ2022.Entities.Turfs;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
@@ -20,6 +21,13 @@ namespace GJ2022.Game.GameWorld
         //Dictionary containing all items in the world at a specified position.
         //When an item moves, it needs to be updated in this list.
         public static Dictionary<Vector<int>, List<Item>> WorldItems = new Dictionary<Vector<int>, List<Item>>();
+
+        //Dictionary containing all structures in the world
+        public static Dictionary<Vector<int>, List<Structure>> WorldStructures = new Dictionary<Vector<int>, List<Structure>>();
+
+        //======================
+        // Spiral Distance Getters
+        //======================
 
         /// <summary>
         /// Get spiral items, ordered by distance from the origin
@@ -65,6 +73,48 @@ namespace GJ2022.Game.GameWorld
             return output;
         }
 
+        //======================
+        // Structures
+        //======================
+
+        public static List<Structure> GetStructures(int x, int y)
+        {
+            Vector<int> targetPosition = new Vector<int>(x, y);
+            if (WorldStructures.ContainsKey(targetPosition))
+                return WorldStructures[targetPosition];
+            return new List<Structure>() { };
+        }
+
+        /// <summary>
+        /// Add an structure to the world list
+        /// </summary>
+        public static void AddStructure(int x, int y, Structure structure)
+        {
+            Vector<int> targetPosition = new Vector<int>(x, y);
+            if (WorldStructures.ContainsKey(targetPosition))
+                WorldStructures[targetPosition].Add(structure);
+            else
+                WorldStructures.Add(targetPosition, new List<Structure>() { structure });
+        }
+
+        /// <summary>
+        /// Remove the istructuretem from the world list
+        /// </summary>
+        public static bool RemoveStructure(int x, int y, Structure structure)
+        {
+            Vector<int> targetPosition = new Vector<int>(x, y);
+            if (!WorldStructures.ContainsKey(targetPosition))
+                return false;
+            WorldStructures[targetPosition].Remove(structure);
+            if (WorldStructures[targetPosition].Count == 0)
+                WorldStructures.Remove(targetPosition);
+            return true;
+        }
+
+        //======================
+        // Items
+        //======================
+
         public static List<Item> GetItems(int x, int y)
         {
             Vector<int> targetPosition = new Vector<int>(x, y);
@@ -99,6 +149,10 @@ namespace GJ2022.Game.GameWorld
             return true;
         }
 
+        //======================
+        // Areas
+        //======================
+
         /// <summary>
         /// Get the area at the specified location.
         /// </summary>
@@ -121,6 +175,10 @@ namespace GJ2022.Game.GameWorld
             else
                 WorldAreas.Add(targetPosition, area);
         }
+
+        //======================
+        // Turfs
+        //======================
 
         /// <summary>
         /// Get the turf at the specified location.
@@ -145,6 +203,10 @@ namespace GJ2022.Game.GameWorld
                 WorldTurfs.Add(targetPosition, turf);
         }
 
+        //======================
+        // Solidity
+        //======================
+
         public static bool IsSolid(Vector<int> position)
         {
             return IsSolid(position[0], position[1]);
@@ -158,6 +220,31 @@ namespace GJ2022.Game.GameWorld
             Turf locatedTurf = GetTurf(x, y);
             //TODO: Proper ISolid + directional solidity
             return locatedTurf != null && locatedTurf is ISolid;
+        }
+
+        //======================
+        // Gravity
+        //======================
+
+        public static bool HasGravity(Vector<int> position)
+        {
+            return HasGravity(position[0], position[1]);
+        }
+
+        public static bool HasGravity(int x, int y)
+        {
+            //Structure = gravity
+            if (GetStructures(x, y).Count > 0)
+                return true;
+            //Turf = gravity
+            if (GetTurf(x, y) != null)
+                return true;
+            //Holding onto a turf = gravity
+            if (GetTurf(x + 1, y) != null || GetTurf(x, y + 1) != null || GetTurf(x - 1, y) != null || GetTurf(x, y - 1) != null ||
+                GetTurf(x + 1, y + 1) != null || GetTurf(x - 1, y + 1) != null || GetTurf(x - 1, y - 1) != null || GetTurf(x + 1, y - 1) != null)
+                return true;
+            //No gravity :(
+            return false;
         }
 
     }

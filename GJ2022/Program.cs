@@ -1,6 +1,8 @@
 ﻿using GJ2022.Entities.Debug;
+using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Pawns;
+using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
 using GJ2022.Managers.Stockpile;
 using GJ2022.PawnBehaviours.Behaviours;
@@ -79,19 +81,33 @@ namespace GJ2022
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
+            Pawn jetpackPawn = null;
             for (int i = 0; i < 10; i++)
             {
                 Pawn p = new Pawn(new Vector<float>(2.3f, 7.3f));
+                jetpackPawn = p;
                 new CrewmemberBehaviour(p);
+            }
+
+            for (int x = 4; x < 6; x++)
+            {
+                for (int y = 4; y < 6; y++)
+                {
+                    Iron iron = new Iron(new Vector<float>(x, y), 50, 50);
+                }
             }
 
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    Iron iron = new Iron(new Vector<float>(x, y), 50, 50);
+                    new Plating(x, y);
                 }
             }
+
+            new Jetpack(new Vector<float>(9, 8));
+
+            jetpackPawn.TryEquipItem(InventorySlot.SLOT_BACK, new Jetpack(new Vector<float>(9, 8)));
 
             Random r = new Random();
             for (int x = 20; x < 100; x += r.Next(1, 10))

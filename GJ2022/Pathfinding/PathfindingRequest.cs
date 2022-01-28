@@ -1,4 +1,5 @@
-﻿using GJ2022.Utility.MathConstructs;
+﻿using GJ2022.PawnBehaviours;
+using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Pathfinding
 {
@@ -18,11 +19,16 @@ namespace GJ2022.Pathfinding
         //Delegate to be called when no valid path exists
         public PathFailedDelegate failedDelegate { get; }
 
+        //Hazard ignore flags
+        //Not ignoring gravity will result in gravity being taken into account
+        public PawnHazards ignoringHazards { get; }
+
         //Constructor
-        public PathfindingRequest(Vector<int> start, Vector<int> end, PathFoundDelegate foundDelegate, PathFailedDelegate failedDelegate = null)
+        public PathfindingRequest(Vector<int> start, Vector<int> end, PawnHazards ignoringHazards, PathFoundDelegate foundDelegate, PathFailedDelegate failedDelegate = null)
         {
             Start = start.IgnoreZ();
             End = end.IgnoreZ();
+            this.ignoringHazards = ignoringHazards;
             this.foundDelegate = foundDelegate;
             this.failedDelegate = failedDelegate;
         }

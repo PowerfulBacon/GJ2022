@@ -53,6 +53,7 @@ namespace GJ2022.Utility.MathConstructs
         //TODO: REFACTOR THE LAYERING SYSTEM
         public Vector<T> MoveTowards(Vector<T> target, float speed, float deltaTime, out float extraDistance, bool ignoreZ = true)
         {
+            Vector<T> thisCopy = Copy();
             Vector<T> trueTarget = target;
             Vector<T> trueThis = this;
             if (ignoreZ)
@@ -67,18 +68,18 @@ namespace GJ2022.Utility.MathConstructs
                 //Dimensional safe copy
                 for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
                 {
-                    Values[i] = trueTarget.Values[i];
+                    thisCopy[i] = trueTarget.Values[i];
                 }
                 extraDistance = totalDistance - distanceMoved;
-                return this;
+                return thisCopy;
             }
             for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
             {
                 float dist = (dynamic)trueTarget[i] - trueThis.Values[i];
-                Values[i] += (dynamic)(dist / totalDistance * (speed / deltaTime));
+                thisCopy[i] += (dynamic)(dist / totalDistance * (speed / deltaTime));
             }
             extraDistance = 0;
-            return this;
+            return thisCopy;
         }
 
         public static bool operator ==(Vector<T> a, Vector<T> b)
