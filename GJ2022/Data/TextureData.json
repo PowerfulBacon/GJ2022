@@ -144,6 +144,7 @@
       "index_x": 29,
       "index_y": 1
     },
+    {
       "id": "gold_wall",
       "file": "ground.bmp",
       "width": 32,
