@@ -31,6 +31,8 @@ GlobalDataComponents - This should be managers (//TODO)
 
 # Screenshots
 
+![image](https://user-images.githubusercontent.com/26465327/151601612-20988587-1d69-44ee-a557-d7ab98be9829.png)
+
 ![image](https://user-images.githubusercontent.com/26465327/151583013-fe18a87a-3d6e-481f-82c9-44461e6304a9.png)
 
 ![image](https://user-images.githubusercontent.com/26465327/150699998-b8a64d51-fbb2-422a-8849-2b1fd1a79870.png)
