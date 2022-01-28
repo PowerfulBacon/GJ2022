@@ -144,6 +144,21 @@
       "index_x": 29,
       "index_y": 1
     },
+      "id": "gold_wall",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 30,
+      "index_y": 1
+    },
+    {
+      "id": "gold_floor",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 31,
+      "index_y": 1
+    },
     {
       "id": "door_open",
       "file": "ground.bmp",

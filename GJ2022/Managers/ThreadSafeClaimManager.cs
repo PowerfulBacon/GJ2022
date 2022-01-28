@@ -52,7 +52,8 @@ namespace GJ2022.Managers
             {
                 if (sanity++ > 100000)
                 {
-                    throw new Exception($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success.");
+                    sanity = 0;
+                    Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for >100000 ticks without success.");
                 }
                 Thread.Yield();
             }

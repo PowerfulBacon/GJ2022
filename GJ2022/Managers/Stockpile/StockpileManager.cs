@@ -20,7 +20,7 @@ namespace GJ2022.Managers.Stockpile
 
         public static void CountItems(Type itemType)
         {
-            ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_STOCKPILE_MANAGER, () =>
+            ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_STOCKPILE_MANAGER, () =>
             {
                 if (!StockpileItems.ContainsKey(itemType))
                     return false;
