@@ -15,6 +15,7 @@ namespace GJ2022.Managers
         public const int TASK_PAWN_INVENTORY = 1;
         public const int TASK_PAWN_EQUIPPABLES = 3;
         public const int TASK_STOCKPILE_MANAGER = 2;
+        public const int TASK_RENDERING = 4;
 
         private static volatile bool executing = false;
 
@@ -33,7 +34,7 @@ namespace GJ2022.Managers
             int sanity = 0;
             while (!IsReady(queueId, threadSafeId))
             {
-                if (sanity++ > 10000)
+                if (sanity++ > 100000)
                 {
                     throw new Exception($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success. (Current action: {currentAction[threadSafeId]})");
                 }

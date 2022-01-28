@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
@@ -18,7 +19,7 @@ using System.Linq;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, IProcessable
+    public class Pawn : Entity, IProcessable, IMousePress
     {
 
         //The renderable attached to our pawn
@@ -29,6 +30,16 @@ namespace GJ2022.Entities.Pawns
 
         //Is this pawn destroyed?
         public bool Destroyed { get; set; } = false;
+
+        public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
+
+        public float WorldX => Position[0] - 0.5f;
+
+        public float WorldY => Position[1] - 0.5f;
+
+        public float Width => 1.0f;
+
+        public float Height => 1.0f;
 
         //The AI controller
         public PawnBehaviour behaviourController;
@@ -61,6 +72,7 @@ namespace GJ2022.Entities.Pawns
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
             attachedTextObject = new TextObject("pawn", Colour.White, position, TextObject.PositionModes.WORLD_POSITION, 0.8f);
+            MouseCollisionSubsystem.Singleton.StartTracking(this);
         }
 
         /// <summary>
@@ -396,5 +408,9 @@ namespace GJ2022.Entities.Pawns
             return true;
         }
 
+        public void OnPressed()
+        {
+            PawnControllerSystem.Singleton.SelectPawn(this);
+        }
     }
 }

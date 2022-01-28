@@ -137,11 +137,6 @@ namespace GJ2022.PawnBehaviours
                 if (currentAction != null)
                 {
                     currentAction.PerformProcess(this);
-                    //Check for pawn lockup
-                    if (!currentAction.Completed(this) && !Owner.HasTarget())
-                    {
-                        //throw new Exception($"Potential thread lock detected in action {currentAction}");
-                    }
                 }
                 firing = false;
             }

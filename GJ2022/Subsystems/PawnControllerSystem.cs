@@ -1,5 +1,7 @@
 ﻿using GJ2022.Entities.Blueprints;
+using GJ2022.Entities.Pawns;
 using GJ2022.Game.GameWorld;
+using GJ2022.UserInterface;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System.Collections.Generic;
@@ -16,6 +18,14 @@ namespace GJ2022.Subsystems
         public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_FIRE;
 
         public static Dictionary<Vector<float>, Dictionary<int, Blueprint>> QueuedBlueprints { get; set; } = new Dictionary<Vector<float>, Dictionary<int, Blueprint>>();
+
+        public Pawn SelectedPawn { get; private set; }
+
+        public void SelectPawn(Pawn target)
+        {
+            SelectedPawn = target;
+            UserInterfaceCreator.SelectorTextObject.Text = $"Selected Pawn: {target}";
+        }
 
         public static void QueueBlueprint(Vector<float> position, Blueprint blueprint, int layer)
         {

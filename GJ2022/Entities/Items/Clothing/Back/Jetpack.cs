@@ -34,16 +34,18 @@ namespace GJ2022.Entities.Items.Clothing.Back
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
             RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
+            Location = pawn;
         }
 
         public void OnUnequip(Pawn pawn, InventorySlot slot)
         {
             UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED);
+            Location = null;
+            Position = pawn.Position;
         }
 
         private SignalResponse ParentMoveReact(object source, params object[] parameters)
         {
-            Log.WriteLine("Moved");
             Entity entity = source as Entity;
             new Sparkle((Vector<int>)entity.Position);
             return SignalResponse.NONE;

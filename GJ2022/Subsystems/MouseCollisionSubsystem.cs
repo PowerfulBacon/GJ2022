@@ -31,16 +31,18 @@ namespace GJ2022.Subsystems
         public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
 
         //Tracking mouse enter events
+        private HashSet<IMouseEvent> toAdd = new HashSet<IMouseEvent>();
+        private HashSet<IMouseEvent> toRemove = new HashSet<IMouseEvent>();
         private Dictionary<IMouseEvent, MouseCollisionState> trackingEvents = new Dictionary<IMouseEvent, MouseCollisionState>();
 
         public void StartTracking(IMouseEvent tracker)
         {
-            trackingEvents.Add(tracker, MouseCollisionState.NONE);
+            toAdd.Add(tracker);
         }
 
         public void StopTracking(IMouseEvent tracker)
         {
-            trackingEvents.Remove(tracker);
+            toRemove.Add(tracker);
         }
 
         public override void Fire(Window window)
@@ -118,6 +120,21 @@ namespace GJ2022.Subsystems
                     collisionState &= ~MouseCollisionState.MOUSE_OVER;
                 trackingEvents[mouseEventHolder] = collisionState;
             }
+            //Modify tracking events
+            //Async modifcation protection
+            foreach (IMouseEvent removingEvent in toRemove)
+            {
+                trackingEvents.Remove(removingEvent);
+            }
+            toRemove.Clear();
+            //Async modifcation protection
+            foreach (IMouseEvent addingEvent in toAdd)
+            {
+                if (trackingEvents.ContainsKey(addingEvent))
+                    continue;
+                trackingEvents.Add(addingEvent, MouseCollisionState.NONE);
+            }
+            toAdd.Clear();
         }
 
         public override void InitSystem()

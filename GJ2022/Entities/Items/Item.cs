@@ -4,6 +4,7 @@ using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Pawns;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.Stockpile;
+using GJ2022.PawnBehaviours.PawnActions;
 using GJ2022.Subsystems;
 using GJ2022.UserInterface.Components;
 using GJ2022.UserInterface.Components.Advanced;
@@ -63,8 +64,14 @@ namespace GJ2022.Entities.Items
 
         public void OnMoved(Entity oldLocation)
         {
-            if (oldLocation != null || oldLocation == Location)
+            if (oldLocation == Location)
                 return;
+            if (oldLocation != null)
+            {
+                MouseCollisionSubsystem.Singleton.StartTracking(this);
+                return;
+            }
+            MouseCollisionSubsystem.Singleton.StopTracking(this);
             World.RemoveItem((int)Position[0], (int)Position[1], this);
             (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.UnregisterItem(this);
         }
@@ -81,6 +88,13 @@ namespace GJ2022.Entities.Items
 
         public void OnRightPressed(Window window)
         {
+            if (Location != null)
+                return;
+            if (PawnControllerSystem.Singleton.SelectedPawn == null)
+                return;
+            if (!(this is IEquippable))
+                return;
+            PawnControllerSystem.Singleton.SelectedPawn.behaviourController.PawnActionIntercept(new EquipItem(this));
             /*UserInterfaceButton button = new UserInterfaceButton(
                 WorldToScreenHelper.GetScreenCoordinates(window, Position) + CoordinateHelper.PixelsToScreen(0, 80),
                 CoordinateHelper.PixelsToScreen(300, 80),
