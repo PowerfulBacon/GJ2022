@@ -17,6 +17,12 @@
       ]
     },
     {
+      "name": "Actions",
+      "contents": [
+        "mining_marker"
+      ]
+    },
+    {
       "name": "Create Zones",
       "contents": [
         "stockpile_area"
@@ -79,9 +85,25 @@
       "isRoom": false,
       "edge": "door",
       "fill": "door"
+    },
+    {
+      "id": "mining_marker",
+      "name": "Mine Area",
+      "isRoom": true,
+      "edge": "mining_marker",
+      "fill": "mining_marker"
     }
   ],
   "blueprints": [
+    {
+      "id": "mining_marker",
+      "created_type": "MiningMarker",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "mining_marker",
+      "layer": 3,
+      "instant": true
+    },
     {
       "id": "steel_wall",
       "created_type": "Wall",
