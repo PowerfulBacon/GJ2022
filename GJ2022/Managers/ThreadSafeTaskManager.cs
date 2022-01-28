@@ -13,6 +13,7 @@ namespace GJ2022.Managers
         private static object lockObject = new object();
 
         public const int TASK_PAWN_INVENTORY = 1;
+        public const int TASK_PAWN_EQUIPPABLES = 3;
         public const int TASK_STOCKPILE_MANAGER = 2;
 
         private static volatile bool executing = false;

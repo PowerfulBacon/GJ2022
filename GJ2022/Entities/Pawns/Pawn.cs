@@ -34,7 +34,7 @@ namespace GJ2022.Entities.Pawns
         public PawnBehaviour behaviourController;
 
         //Equipped items
-        public Dictionary<InventorySlot, Item> EquippedItems = new Dictionary<InventorySlot, Item>();
+        public Dictionary<InventorySlot, IEquippable> EquippedItems = new Dictionary<InventorySlot, IEquippable>();
         //Flags of hazards we are protected from due to our equipped items
         private PawnHazards cachedHazardProtection = PawnHazards.NONE;
 
@@ -61,6 +61,33 @@ namespace GJ2022.Entities.Pawns
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
             attachedTextObject = new TextObject("pawn", Colour.White, position, TextObject.PositionModes.WORLD_POSITION, 0.8f);
+        }
+
+        /// <summary>
+        /// Thread safe item equip
+        /// </summary>
+        public bool TryEquipItem(InventorySlot targetSlot, IEquippable item)
+        {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_EQUIPPABLES, () => {
+                //Check the slot
+                if (EquippedItems.ContainsKey(targetSlot))
+                    return false;
+                EquippedItems.Add(targetSlot, item);
+                RecalculateHazardProtection();
+                return true;
+            });
+        }
+
+        /// <summary>
+        /// Recalculate what hazards we are protected from
+        /// </summary>
+        private void RecalculateHazardProtection()
+        {
+            cachedHazardProtection = PawnHazards.NONE;
+            foreach (IEquippable item in EquippedItems.Values)
+            {
+                cachedHazardProtection |= item.ProtectedHazards;
+            }
         }
 
         public void MoveTowardsEntity(Entity target)
