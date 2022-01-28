@@ -16,11 +16,17 @@ namespace GJ2022.Managers
         public const int TASK_PAWN_EQUIPPABLES = 3;
         public const int TASK_STOCKPILE_MANAGER = 2;
         public const int TASK_RENDERING = 4;
+        public const int TASK_MOUSE_SYSTEM = 5;
 
         private static volatile bool executing = false;
 
         private static volatile Dictionary<int, int> totalActionsReserved = new Dictionary<int, int>();
         private static volatile Dictionary<int, int> currentAction = new Dictionary<int, int>();
+
+        public static void ExecuteThreadSafeActionUnblocking(int threadSafeId, Func<bool> action)
+        {
+            Task.Run(() => ExecuteThreadSafeAction(threadSafeId, action));
+        }
 
         /// <summary>
         /// Execute an action in a thread safe manner
@@ -36,7 +42,8 @@ namespace GJ2022.Managers
             {
                 if (sanity++ > 100000)
                 {
-                    throw new Exception($"Reserve claim ID : {queueId} has been waiting for {sanity} ticks without success. (Current action: {currentAction[threadSafeId]})");
+                    sanity = 0;
+                    Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for >100000 ticks without success. (Current action: {currentAction[threadSafeId]})");
                 }
                 Thread.Yield();
             }
