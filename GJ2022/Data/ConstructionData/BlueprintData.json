@@ -6,6 +6,8 @@
         "steel_building",
         "plating",
         "catwalk",
+        "gold_building",
+        "gold_floor"
       ]
     },
     {
@@ -35,6 +37,20 @@
       "isRoom": true,
       "edge": "plating",
       "fill": "plating"
+    },
+    {
+      "id": "gold_building",
+      "name": "Gold Building",
+      "isRoom": true,
+      "edge": "gold_wall",
+      "fill": "gold_floor"
+    },
+    {
+      "id": "gold_floor",
+      "name": "Gold Floor",
+      "isRoom": true,
+      "edge": "gold_floor",
+      "fill": "gold_floor"
     },
     {
       "id": "catwalk",
@@ -86,6 +102,28 @@
       "layer": 1,
       "cost": {
         "Iron": 2
+      }
+    },
+    {
+      "id": "gold_wall",
+      "created_type": "GoldWall",
+      "priority": 1,
+      "blueprintType": "TurfBlueprint",
+      "texture": "gold_wall",
+      "layer": 1,
+      "cost": {
+        "Gold": 10
+      }
+    },
+    {
+      "id": "gold_floor",
+      "created_type": "GoldFloor",
+      "priority": 2,
+      "blueprintType": "TurfBlueprint",
+      "texture": "gold_floor",
+      "layer": 1,
+      "cost": {
+        "Gold": 4
       }
     },
     {
