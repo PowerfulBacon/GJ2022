@@ -12,9 +12,9 @@ namespace GJ2022.Entities.Markers
 {
     public class MiningMarker : Marker
     {
+
         public MiningMarker(Vector<float> position) : base(position, Layers.LAYER_MARKER)
-        {
-        }
+        { }
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("mining_marker");
 

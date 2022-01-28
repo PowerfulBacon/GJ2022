@@ -175,6 +175,110 @@
       "height": 32,
       "index_x": 0,
       "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_1",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_2",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_3",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_4",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_5",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_6",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_7",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_8",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_9",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_10",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_11",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_12",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 2
+    },
+    {
+      "id": "asteroid_sand_13",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 2
     }
   ]
 }
