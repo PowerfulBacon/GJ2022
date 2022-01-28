@@ -39,7 +39,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         {
             //Scan for stockpiles
             bool hasValidStockpile = false;
-            foreach (Area targetArea in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50))
+            foreach (Area targetArea in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40))
             {
                 if (unreachablePositions.Contains(targetArea.Position))
                     continue;
@@ -56,7 +56,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 return false;
             }
             //Scan for items
-            foreach (Item targetItems in World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50))
+            foreach (Item targetItems in World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40))
             {
                 if (unreachablePositions.Contains(targetItems.Position))
                     continue;
@@ -188,7 +188,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 return;
             }
             //Attempt to locate items
-            List<Item> itemsToSearch = World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50);
+            List<Item> itemsToSearch = World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40);
             Item targetItem = null;
             //Go through all the items
             foreach (Item item in itemsToSearch)
@@ -244,7 +244,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             }
             //Locate an unclaimed stockpile zone
             StockpileArea freeStockpileArea = null;
-            foreach (Area area in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 50))
+            foreach (Area area in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 60))
             {
                 //If the area is claimed, skip it
                 if (area.IsClaimed)

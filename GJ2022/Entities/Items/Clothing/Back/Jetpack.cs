@@ -1,4 +1,7 @@
-﻿using GJ2022.Entities.Pawns;
+﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.Effects;
+using GJ2022.Entities.Pawns;
+using GJ2022.Managers;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
@@ -7,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GJ2022.Managers.SignalHandler;
 
 namespace GJ2022.Entities.Items.Clothing.Back
 {
@@ -26,6 +30,24 @@ namespace GJ2022.Entities.Items.Clothing.Back
         public PawnHazards ProtectedHazards => PawnHazards.HAZARD_GRAVITY;
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("jetpack");
+
+        public void OnEquip(Pawn pawn, InventorySlot slot)
+        {
+            RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
+        }
+
+        public void OnUnequip(Pawn pawn, InventorySlot slot)
+        {
+            UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED);
+        }
+
+        private SignalResponse ParentMoveReact(object source, params object[] parameters)
+        {
+            Log.WriteLine("Moved");
+            Entity entity = source as Entity;
+            new Sparkle((Vector<int>)entity.Position);
+            return SignalResponse.NONE;
+        }
 
     }
 }

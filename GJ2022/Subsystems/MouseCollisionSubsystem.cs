@@ -19,7 +19,8 @@ namespace GJ2022.Subsystems
         {
             NONE = 0,
             MOUSE_OVER = 1 << 0,
-            MOUSE_CLICK = 1 << 1,
+            MOUSE_LEFT_CLICK = 1 << 1,
+            MOUSE_RIGHT_CLICK = 1 << 2,
         };
 
         public static MouseCollisionSubsystem Singleton { get; } = new MouseCollisionSubsystem();
@@ -57,6 +58,7 @@ namespace GJ2022.Subsystems
             Vector<float> screenCoordinates = new Vector<float>((float)cursorX / windowWidth * 2.0f - 1, (float)cursorY / windowHeight * 2.0f - 1);
             //Log.WriteLine(screenCoordinates);
             bool mousePressed = Glfw.GetMouseButton(window, MouseButton.Left) == InputState.Press;
+            bool rightMousePressed = Glfw.GetMouseButton(window, MouseButton.Right) == InputState.Press;
             //Go through all tracking events and handle them
             for (int i = trackingEvents.Count - 1; i >= 0; i--)
             {
@@ -84,17 +86,27 @@ namespace GJ2022.Subsystems
                             (mouseEventHolder as IMouseExit).OnMouseExit();
                         if (colliding)
                         {
-                            if ((collisionState & MouseCollisionState.MOUSE_CLICK) == 0)
+                            //Mouse left press
+                            if ((collisionState & MouseCollisionState.MOUSE_LEFT_CLICK) == 0)
                             {
                                 if (mousePressed)
-                                {
-                                    collisionState |= MouseCollisionState.MOUSE_CLICK;
-                                }
+                                    collisionState |= MouseCollisionState.MOUSE_LEFT_CLICK;
                             }
                             else if (!mousePressed)
                             {
                                 (mouseEventHolder as IMousePress)?.OnPressed();
-                                collisionState &= ~MouseCollisionState.MOUSE_CLICK;
+                                collisionState &= ~MouseCollisionState.MOUSE_LEFT_CLICK;
+                            }
+                            //Mouse right press
+                            if ((collisionState & MouseCollisionState.MOUSE_RIGHT_CLICK) == 0)
+                            {
+                                if (rightMousePressed)
+                                    collisionState |= MouseCollisionState.MOUSE_RIGHT_CLICK;
+                            }
+                            else if (!rightMousePressed)
+                            {
+                                (mouseEventHolder as IMouseRightPress)?.OnRightPressed(window);
+                                collisionState &= ~MouseCollisionState.MOUSE_RIGHT_CLICK;
                             }
                         }
                         break;

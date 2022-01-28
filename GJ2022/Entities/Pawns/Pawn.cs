@@ -73,6 +73,7 @@ namespace GJ2022.Entities.Pawns
                 if (EquippedItems.ContainsKey(targetSlot))
                     return false;
                 EquippedItems.Add(targetSlot, item);
+                item.OnEquip(this, targetSlot);
                 RecalculateHazardProtection();
                 return true;
             });
@@ -120,7 +121,7 @@ namespace GJ2022.Entities.Pawns
         private void DrawHelpfulLine()
         {
             Vector<float> endPos = targetDestinationPosition;
-            if (!hasTargetDestination)
+            if (!hasTargetDestination || !DrawLines)
             {
                 helpfulLine?.StopDrawing();
                 helpfulLine = null;

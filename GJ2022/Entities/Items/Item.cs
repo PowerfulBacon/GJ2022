@@ -1,13 +1,19 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Pawns;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.Stockpile;
+using GJ2022.Subsystems;
+using GJ2022.UserInterface.Components;
+using GJ2022.UserInterface.Components.Advanced;
+using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
+using GLFW;
 
 namespace GJ2022.Entities.Items
 {
-    public abstract class Item : Entity, IDestroyable, IMoveBehaviour
+    public abstract class Item : Entity, IDestroyable, IMoveBehaviour, IMouseRightPress
     {
 
         public abstract string Name { get; }
@@ -16,8 +22,20 @@ namespace GJ2022.Entities.Items
 
         public abstract string UiTexture { get; }
 
+        public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
+
+        public float WorldX => Position[0] - 0.5f;
+
+        public float WorldY => Position[1] - 0.5f;
+
+        public float Width => 1.0f;
+
+        public float Height => 1.0f;
+
         public Item(Vector<float> position) : base(position, Layers.LAYER_ITEM)
-        { }
+        {
+            MouseCollisionSubsystem.Singleton.StartTracking(this);
+        }
 
         public override bool Destroy()
         {
@@ -61,5 +79,14 @@ namespace GJ2022.Entities.Items
             return 1;
         }
 
+        public void OnRightPressed(Window window)
+        {
+            /*UserInterfaceButton button = new UserInterfaceButton(
+                WorldToScreenHelper.GetScreenCoordinates(window, Position) + CoordinateHelper.PixelsToScreen(0, 80),
+                CoordinateHelper.PixelsToScreen(300, 80),
+                "Pickup",
+                CoordinateHelper.PixelsToScreen(80),
+                Colour.UserInterfaceColour);*/
+        }
     }
 }

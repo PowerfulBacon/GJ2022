@@ -9,7 +9,8 @@
         public const int LAYER_ITEM = 3;
         public const int LAYER_AREA = 4;
         public const int LAYER_STRUCTURE = 5;
-        public const int LAYER_PAWN = 6;
+        public const int LAYER_EFFECT = 6;
+        public const int LAYER_PAWN = 7;
         public const int LAYER_USER_INTERFACE = 20;
         public const int LAYER_TEXT = 21;
 

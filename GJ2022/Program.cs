@@ -81,9 +81,11 @@ namespace GJ2022
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
+            Pawn jetpackPawn = null;
             for (int i = 0; i < 10; i++)
             {
                 Pawn p = new Pawn(new Vector<float>(2.3f, 7.3f));
+                jetpackPawn = p;
                 new CrewmemberBehaviour(p);
             }
 
@@ -104,6 +106,8 @@ namespace GJ2022
             }
 
             new Jetpack(new Vector<float>(9, 8));
+
+            jetpackPawn.TryEquipItem(InventorySlot.SLOT_BACK, new Jetpack(new Vector<float>(9, 8)));
 
             Random r = new Random();
             for (int x = 20; x < 100; x += r.Next(1, 10))
