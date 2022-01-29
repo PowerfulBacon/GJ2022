@@ -21,6 +21,8 @@ namespace GJ2022.Rendering
 
         private float speed = 0.04f;
 
+        private double lastTime = 0;
+
         private Vector<float> GetForwardVector()
         {
             Matrix rotation = Matrix.GetRotationMatrix(0, 0, 0) * Matrix.GetRotationMatrix(0, 0, 0);
@@ -65,7 +67,9 @@ namespace GJ2022.Rendering
 
         public void DebugMove(Window window)
         {
-            speed = 0.04f / Scale[0];
+            double currentTime = Glfw.Time;
+            speed = (4f / Scale[0]) * (float)(currentTime - lastTime);
+            lastTime = currentTime;
             if (Glfw.GetKey(window, Keys.D) == InputState.Press)
             {
                 Position += GetRightVector() * speed;
