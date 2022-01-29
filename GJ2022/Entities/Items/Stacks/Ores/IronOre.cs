@@ -13,9 +13,7 @@ namespace GJ2022.Entities.Items.Stacks.Ores
     public class IronOre : Stack
     {
         public IronOre(Vector<float> position, int maxStackSize = 50, int stackSize = 1) : base(position, maxStackSize, stackSize)
-        {
-            Renderable.AddOverlay("banana", new StandardRenderable("sparkle"), Layer + 1);
-        }
+        { }
 
         public override string Name => "Iron Ore";
 
