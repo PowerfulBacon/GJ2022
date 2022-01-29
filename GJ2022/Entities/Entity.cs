@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Managers;
+using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Utility.MathConstructs;
@@ -42,6 +43,7 @@ namespace GJ2022.Entities
 
         //The text object attached to this
         protected TextObject attachedTextObject;
+        protected Vector<float> textObjectOffset = new Vector<float>(0, 0);
 
         public Entity(Vector<float> position, float layer)
         {
@@ -69,9 +71,17 @@ namespace GJ2022.Entities
             //Release our claims
             if (ThreadSafeClaimManager.HasClaim(this))
                 ThreadSafeClaimManager.ReleaseClaimBlocking(this);
+            //Send the destroy signal
             SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED);
             //Unregister all signals
             SignalHandler.UnregisterAll(this);
+            //Stop rendering attached text
+            if (attachedTextObject != null)
+            {
+                attachedTextObject.StopRendering();
+                attachedTextObject = null;
+            }
+            //Stop rendering
             Renderable?.StopRendering();
             Renderable = null;
             return true;
@@ -83,6 +93,7 @@ namespace GJ2022.Entities
         public void StartRendering()
         {
             Renderable?.StartRendering();
+            attachedTextObject?.StartRendering();
         }
 
         /// <summary>
@@ -91,6 +102,7 @@ namespace GJ2022.Entities
         public void StopRendering()
         {
             Renderable?.StopRendering();
+            attachedTextObject?.StopRendering();
         }
 
         //Location handler
@@ -108,10 +120,13 @@ namespace GJ2022.Entities
                 if (value == null)
                 {
                     Renderable?.ContinueRendering();
+                    //TODO: this will cause bugs due to start rather than continue
+                    attachedTextObject?.StartRendering();
                 }
                 else
                 {
                     Renderable?.PauseRendering();
+                    attachedTextObject?.StopRendering();
                 }
                 //Add ourselves to the new contents
                 _location?.AddToContents(this);
@@ -158,7 +173,7 @@ namespace GJ2022.Entities
                 if((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
                     SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
                 if (attachedTextObject != null)
-                    attachedTextObject.Position = value;
+                    attachedTextObject.Position = value + textObjectOffset;
             }
         }
 
