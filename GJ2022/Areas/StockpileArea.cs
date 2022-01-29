@@ -41,6 +41,14 @@ namespace GJ2022.Areas
             StockpileManager.RemoveItem(item);
         }
 
+        public override bool Destroy()
+        {
+            foreach (Item item in World.GetItems((int)Position[0], (int)Position[1]))
+            {
+                UnregisterItem(item);
+            }
+            return base.Destroy();
+        }
     }
 
 }
