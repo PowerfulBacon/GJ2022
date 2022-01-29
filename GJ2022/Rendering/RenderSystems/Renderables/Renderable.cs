@@ -1,7 +1,9 @@
-﻿using GJ2022.Rendering.RenderSystems.Interfaces;
+﻿using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GJ2022.Rendering.RenderSystems.Renderables
 {
@@ -29,6 +31,29 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public abstract void ContinueRendering();
         public abstract void PauseRendering();
 
+        public Directions Direction { get; private set; } = Directions.NONE;
+
+        public virtual void UpdateDirection(Directions direction)
+        {
+            Direction = direction;
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.UpdateDirection(direction);
+                }
+            }
+        }
+
+        public void UpdatePosition(Vector<float> position)
+        {
+            moveHandler?.Invoke(position);
+            _overlayPosition = position;
+            UpdateOvelayPosition(position);
+        }
+
         public void SetRenderableBatchIndex(object associatedSet, int index)
         {
             if (renderableBatchIndex.ContainsKey(associatedSet))
@@ -47,6 +72,84 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 return renderableBatchIndex[associatedSet];
             else
                 return -1;
+        }
+
+        //Overlays
+        private Dictionary<string, Renderable> Overlays { get; set; } = null;
+
+        private Vector<float> _overlayPosition = new Vector<float>(0, 0);
+
+        private void UpdateOvelayPosition(Vector<float> position)
+        {
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.UpdatePosition(position);
+                }
+            }
+        }
+
+        public void StopRenderingOverlays()
+        {
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.StopRendering();
+                }
+            }
+        }
+
+        public void StartRenderingOverlays()
+        {
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.StartRendering();
+                }
+            }
+        }
+
+        public void AddOverlay(string id, Renderable overlay, float layer)
+        {
+            if (Overlays == null)
+                Overlays = new Dictionary<string, Renderable>();
+            overlay.UpdatePosition(_overlayPosition);
+            overlay.layerChangeHandler?.Invoke(layer);
+            lock (Overlays)
+            {
+                Overlays.Add(id, overlay);
+            }
+        }
+
+        public void ClearOverlays()
+        {
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.StopRendering();
+                }
+                Overlays.Clear();
+            }
+        }
+
+        public void RemoveOvelay(string id)
+        {
+            lock (Overlays)
+            {
+                Overlays.Remove(id);
+            }
         }
 
     }

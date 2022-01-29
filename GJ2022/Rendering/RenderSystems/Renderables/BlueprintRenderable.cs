@@ -110,6 +110,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             shouldContinueRendering = false;
             IsRendering = false;
             RenderSystem.StopRendering(this);
+            StopRenderingOverlays();
         }
 
         public override void StartRendering()
@@ -119,6 +120,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             shouldContinueRendering = true;
             IsRendering = true;
             RenderSystem.StartRendering(this);
+            StartRenderingOverlays();
         }
 
         public override void ContinueRendering()
@@ -127,6 +129,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 return;
             IsRendering = true;
             RenderSystem.StartRendering(this);
+            StartRenderingOverlays();
         }
 
         public override void PauseRendering()
@@ -135,6 +138,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 return;
             IsRendering = false;
             RenderSystem.StopRendering(this);
+            StopRenderingOverlays();
         }
 
     }

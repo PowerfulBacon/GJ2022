@@ -13,4 +13,22 @@ namespace GJ2022.Entities.Pawns
         SLOT_BODY = 1 << 1,
         SLOT_HEAD = 1 << 2,
     }
+
+    public static class InventoryHelper
+    {
+        public static string GetSlotAppend(InventorySlot slot)
+        {
+            switch (slot)
+            {
+                case InventorySlot.SLOT_BACK:
+                    return "back";
+                case InventorySlot.SLOT_BODY:
+                    return "body";
+                case InventorySlot.SLOT_HEAD:
+                    return "head";
+            }
+            return null;
+        }
+    }
+
 }
