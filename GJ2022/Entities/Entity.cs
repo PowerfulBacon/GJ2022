@@ -64,6 +64,8 @@ namespace GJ2022.Entities
         {
             if (!(this is IDestroyable))
                 throw new Exception("Non destroyable entity was destroyed!");
+            //Remove from inventories
+            Location?.RemoveFromContents(this);
             //Release our claims
             if (ThreadSafeClaimManager.HasClaim(this))
                 ThreadSafeClaimManager.ReleaseClaimBlocking(this);
