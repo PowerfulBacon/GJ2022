@@ -29,6 +29,13 @@
       "contents": [
         "stockpile_area"
       ]
+    },
+    {
+      "name": "Cheats",
+      "contents": [
+        "dog",
+        "human"
+      ]
     }
   ],
   "blueprintSets": [
@@ -108,6 +115,20 @@
       "isRoom": false,
       "edge": "furnace",
       "fill": "furnace"
+    },
+    {
+      "id": "dog",
+      "name": "Spawn Dog",
+      "isRoom": false,
+      "edge": "dog",
+      "fill": "dog"
+    },
+    {
+      "id": "human",
+      "name": "Spawn Human",
+      "isRoom": false,
+      "edge": "human",
+      "fill": "human"
     }
   ],
   "blueprints": [
@@ -198,6 +219,24 @@
       "blueprintType": "Blueprint",
       "texture": "area_stockpile",
       "layer": 2,
+      "instant": true
+    },
+    {
+      "id": "dog",
+      "created_type": "Dog",
+      "priority": 1,
+      "blueprintType": "BlueprintSentience",
+      "texture": "dog",
+      "layer": 5,
+      "instant": true
+    },
+    {
+      "id": "human",
+      "created_type": "Human",
+      "priority": 1,
+      "blueprintType": "BlueprintSentience",
+      "texture": "human_body_male",
+      "layer": 5,
       "instant": true
     },
     {

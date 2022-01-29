@@ -30,7 +30,7 @@ namespace GJ2022.Entities.Blueprints
 
         protected override Renderable Renderable { get; set; } = new BlueprintRenderable("error");
 
-        private List<Item> contents = new List<Item>();
+        protected List<Item> contents = new List<Item>();
 
         public Blueprint(Vector<float> position, BlueprintDetail blueprint) : base(position, Layers.LAYER_BLUEPRINT)
         {
