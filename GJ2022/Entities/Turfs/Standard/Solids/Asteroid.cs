@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Entities.Turfs.Standard.Floors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,16 @@ namespace GJ2022.Entities.Turfs.Standard.Solids
 
         public Asteroid(int x, int y) : base(x, y)
         {
+        }
+
+        public override bool Destroy()
+        {
+            return base.Destroy();
+        }
+
+        public virtual void Mine()
+        {
+            new AsteroidSand(X, Y);
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using GJ2022.Entities.Debug;
 using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Stacks;
+using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
@@ -82,7 +83,7 @@ namespace GJ2022
             new BackgroundRenderable().StartRendering();
 
             Pawn jetpackPawn = null;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Pawn p = new Pawn(new Vector<float>(2.3f, 7.3f));
                 jetpackPawn = p;
@@ -93,7 +94,7 @@ namespace GJ2022
             {
                 for (int y = 4; y < 6; y++)
                 {
-                    Iron iron = new Iron(new Vector<float>(x, y), 50, 50);
+                    new Iron(new Vector<float>(x, y), 50, 50);
                 }
             }
 
@@ -106,6 +107,7 @@ namespace GJ2022
             }
 
             new Jetpack(new Vector<float>(9, 8));
+            new Pickaxe(new Vector<float>(3, 2));
 
             jetpackPawn.TryEquipItem(InventorySlot.SLOT_BACK, new Jetpack(new Vector<float>(9, 8)));
 

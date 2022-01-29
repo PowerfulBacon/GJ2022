@@ -38,6 +38,8 @@ namespace GJ2022.Subsystems
         {
             ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
             {
+                if (trackingEvents.ContainsKey(tracker))
+                    return false;
                 trackingEvents.Add(tracker, MouseCollisionState.NONE);
                 return true;
             });

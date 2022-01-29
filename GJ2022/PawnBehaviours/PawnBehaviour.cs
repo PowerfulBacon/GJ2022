@@ -123,7 +123,7 @@ namespace GJ2022.PawnBehaviours
                     currentAction?.OnActionEnd(this);
                     currentAction = performingAction;
                     currentAction.OnActionStart(this);
-                    Log.WriteLine($"Starting new action: {currentAction}");
+                    Log.WriteLine($"Starting new action: {currentAction}", LogType.DEBUG);
                 }
                 //Replace current action with overriding actions if available
                 else if (performingAction != null && performingAction.Overriding && performingAction != currentAction)
@@ -131,7 +131,7 @@ namespace GJ2022.PawnBehaviours
                     currentAction?.OnActionCancel(this);
                     currentAction = performingAction;
                     currentAction.OnActionStart(this);
-                    Log.WriteLine($"Overriding new action: {currentAction}");
+                    Log.WriteLine($"Overriding new action: {currentAction}", LogType.DEBUG);
                 }
                 //Perform current action
                 if (currentAction != null)

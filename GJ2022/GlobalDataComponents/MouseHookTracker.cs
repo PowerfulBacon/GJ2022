@@ -17,6 +17,8 @@ namespace GJ2022.GlobalDataComponents
 
         public static void AddHook(string key, int priority)
         {
+            if (MouseHooks.ContainsKey(key))
+                return;
             MouseHooks.Add(key, priority);
             CheckHooks();
         }

@@ -13,7 +13,15 @@
     {
       "name": "Structures",
       "contents": [
-        "door"
+        "door",
+        "furnace"
+      ]
+    },
+    {
+      "name": "Actions",
+      "contents": [
+        "mining_marker",
+        "cancel_marker"
       ]
     },
     {
@@ -79,9 +87,48 @@
       "isRoom": false,
       "edge": "door",
       "fill": "door"
+    },
+    {
+      "id": "mining_marker",
+      "name": "Mine Area",
+      "isRoom": true,
+      "edge": "mining_marker",
+      "fill": "mining_marker"
+    },
+    {
+      "id": "cancel_marker",
+      "name": "Cancel Action",
+      "isRoom": true,
+      "edge": "cancel_marker",
+      "fill": "cancel_marker"
+    },
+    {
+      "id": "furnace",
+      "name": "Furnace",
+      "isRoom": false,
+      "edge": "furnace",
+      "fill": "furnace"
     }
   ],
   "blueprints": [
+    {
+      "id": "mining_marker",
+      "created_type": "MiningMarker",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "mining_marker",
+      "layer": 3,
+      "instant": true
+    },
+    {
+      "id": "cancel_marker",
+      "created_type": "CancelMarker",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "cancel",
+      "layer": 3,
+      "instant": true
+    },
     {
       "id": "steel_wall",
       "created_type": "Wall",
@@ -173,6 +220,17 @@
       "layer": 1,
       "cost": {
         "Iron": 1
+      }
+    },
+    {
+      "id": "furnace",
+      "created_type": "Furnace",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "furnace",
+      "layer": 4,
+      "cost": {
+        "Iron": 30
       }
     }
   ]
