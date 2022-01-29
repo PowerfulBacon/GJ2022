@@ -92,7 +92,9 @@ namespace GJ2022
                 new CrewmemberBehaviour(p);
             }
 
-            new SyndicateHardsuit(new Vector<float>(4, 7));
+            Human syndicate = new Human(new Vector<float>(-15, 0));
+            new CrewmemberBehaviour(syndicate);
+            syndicate.TryEquipItem(InventorySlot.SLOT_BODY, new SyndicateHardsuit(new Vector<float>(4, 7)));
 
             for (int x = 4; x < 6; x++)
             {
