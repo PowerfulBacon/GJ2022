@@ -14,6 +14,8 @@ namespace GJ2022.PawnBehaviours
         //Does this action override existing actions? (If not, lower priority actions will be performed)
         public abstract bool Overriding { get; }
 
+        public virtual bool ForceOverride { get; } = false;
+
         //The priority of this action
         public abstract int Priority { get; }
 

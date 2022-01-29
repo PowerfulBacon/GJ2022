@@ -118,7 +118,7 @@ namespace GJ2022.PawnBehaviours
                     }
                 }
                 //If our current action is completed, smoothly swap to the next action
-                if ((currentAction == null || currentAction.Completed(this)) && performingAction != null)
+                if ((currentAction == null || currentAction.Completed(this) || (currentAction.ForceOverride && performingAction != currentAction)) && performingAction != null)
                 {
                     currentAction?.OnActionEnd(this);
                     currentAction = performingAction;
