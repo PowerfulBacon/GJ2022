@@ -438,6 +438,15 @@
       "index_x": 7,
       "index_y": 4,
       "directional": "NONE"
+    },
+    {
+      "id": "dog",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 4,
+      "directional": "CARDINAL"
     }
   ]
 }
