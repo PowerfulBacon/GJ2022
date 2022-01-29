@@ -1,5 +1,7 @@
-﻿using GJ2022.Game.GameWorld;
+﻿using GJ2022.Entities.Blueprints;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,14 @@ namespace GJ2022.Entities.Markers
 
         public CancelMarker(Vector<float> position) : base(position, Layers.LAYER_MARKER)
         {
+            //Destroy blueprints
+            if (PawnControllerSystem.QueuedBlueprints.ContainsKey(position))
+            {
+                foreach (Blueprint blueprint in PawnControllerSystem.QueuedBlueprints[position].Values.ToList())
+                {
+                    blueprint.Destroy();
+                }
+            }
             Destroy();
         }
 
