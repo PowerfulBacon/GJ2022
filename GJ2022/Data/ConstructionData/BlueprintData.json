@@ -13,7 +13,8 @@
     {
       "name": "Structures",
       "contents": [
-        "door"
+        "door",
+        "furnace"
       ]
     },
     {
@@ -100,6 +101,13 @@
       "isRoom": true,
       "edge": "cancel_marker",
       "fill": "cancel_marker"
+    },
+    {
+      "id": "furnace",
+      "name": "Furnace",
+      "isRoom": false,
+      "edge": "furnace",
+      "fill": "furnace"
     }
   ],
   "blueprints": [
@@ -212,6 +220,17 @@
       "layer": 1,
       "cost": {
         "Iron": 1
+      }
+    },
+    {
+      "id": "furnace",
+      "created_type": "Furnace",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "furnace",
+      "layer": 4,
+      "cost": {
+        "Iron": 30
       }
     }
   ]

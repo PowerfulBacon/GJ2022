@@ -99,6 +99,28 @@ namespace GJ2022.Game.GameWorld
             return output;
         }
 
+        /// <summary>
+        /// Get spiral structures, ordered by distance from the origin
+        /// </summary>
+        public static List<Structure> GetSprialStructure(int original_x, int original_y, int range)
+        {
+            List<Structure> output = new List<Structure>();
+            for (int r = 0; r <= range; r++)
+            {
+                //Get all items that are r distance away from (x, y)
+                for (int x = original_x - r; x <= original_x + r; x++)
+                {
+                    for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
+                    {
+                        Vector<int> targetPosition = new Vector<int>(x, y);
+                        if (WorldStructures.ContainsKey(targetPosition))
+                            output.AddRange(WorldStructures[targetPosition]);
+                    }
+                }
+            }
+            return output;
+        }
+
         //======================
         // Structures
         //======================

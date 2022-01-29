@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.RenderSystems.Renderables;
+﻿using GJ2022.Entities.Pawns;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,12 @@ namespace GJ2022.Entities.Items.Stacks.Ores
         public override string UiTexture => "iron_ore";
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("iron_ore");
+
+        public void DoSmelt(Pawn user)
+        {
+            new Iron(user.Position, 50, StackSize);
+            Destroy();
+        }
 
     }
 }
