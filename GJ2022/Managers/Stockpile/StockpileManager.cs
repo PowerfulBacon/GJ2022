@@ -22,14 +22,20 @@ namespace GJ2022.Managers.Stockpile
         {
             ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_STOCKPILE_MANAGER, () =>
             {
-                if (!StockpileItems.ContainsKey(itemType))
-                    return false;
-                int count = 0;
-                foreach (Item item in StockpileItems[itemType])
+                if (StockpileItems.ContainsKey(itemType))
                 {
-                    count += item.Count();
+                    int count = 0;
+                    foreach (Item item in StockpileItems[itemType])
+                    {
+                        count += item.Count();
+                    }
+                    StockpileUserInterfaceManager.UpdateUserInterface(StockpileItems[itemType].First(), itemType, count);
                 }
-                StockpileUserInterfaceManager.UpdateUserInterface(StockpileItems[itemType].First(), count);
+                else
+                {
+
+                    StockpileUserInterfaceManager.UpdateUserInterface(null, itemType, 0);
+                }
                 return true;
             });
         }
