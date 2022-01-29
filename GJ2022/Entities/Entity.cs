@@ -168,7 +168,7 @@ namespace GJ2022.Entities
             {
                 Vector<float> oldPosition = _position.Copy();
                 _position = value;
-                Renderable?.moveHandler?.Invoke(_position);
+                Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
                 if((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
                     SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);

@@ -14,7 +14,7 @@ namespace GJ2022.UserInterface.Components
             get { return _position; }
             set {
                 _position = value;
-                Renderable?.moveHandler?.Invoke(value);
+                Renderable?.UpdatePosition(value);
             }
         }
 

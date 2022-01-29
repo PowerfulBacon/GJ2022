@@ -30,7 +30,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             get { return _position; }
             set
             {
-                moveHandler?.Invoke(value);
+                UpdatePosition(value);
             }
         }
 
@@ -88,6 +88,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 return;
             isRendering = true;
             RenderSystem.StartRendering(this);
+            StartRenderingOverlays();
         }
 
         public override void StopRendering()
@@ -96,6 +97,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 return;
             isRendering = false;
             RenderSystem.StopRendering(this);
+            StopRenderingOverlays();
         }
 
         public override void PauseRendering()

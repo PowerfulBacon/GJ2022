@@ -45,7 +45,7 @@ namespace GJ2022.UserInterface.Components
             set
             {
                 _position = value;
-                Renderable?.moveHandler?.Invoke(value);
+                Renderable?.UpdatePosition(value);
                 TextObject.Position = value - CoordinateHelper.PixelsToScreen(new Vector<float>(90, 20));
             }
         }

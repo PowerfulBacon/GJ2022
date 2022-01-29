@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Pawns;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
 using System;
@@ -13,6 +14,7 @@ namespace GJ2022.Entities.Items.Stacks.Ores
     {
         public IronOre(Vector<float> position, int maxStackSize = 50, int stackSize = 1) : base(position, maxStackSize, stackSize)
         {
+            Renderable.AddOverlay("banana", new StandardRenderable("sparkle"), Layer + 1);
         }
 
         public override string Name => "Iron Ore";
