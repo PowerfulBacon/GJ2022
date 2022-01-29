@@ -115,11 +115,8 @@ namespace GJ2022
             new Jetpack(new Vector<float>(9, 8));
             new Pickaxe(new Vector<float>(3, 2));
 
-            for (int i = 0; i < 100; i++)
-            {
-                Dog dog = new Dog(new Vector<float>(2, 2));
-                new DogBehaviour(dog);
-            }
+            Dog dog = new Dog(new Vector<float>(2, 2));
+            new DogBehaviour(dog);
 
             jetpackPawn.TryEquipItem(InventorySlot.SLOT_BACK, new Jetpack(new Vector<float>(9, 8)));
 
