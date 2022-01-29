@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.RenderSystems.Interfaces;
+﻿using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
@@ -29,6 +30,22 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public abstract void StartRendering();
         public abstract void ContinueRendering();
         public abstract void PauseRendering();
+
+        public Directions Direction { get; private set; } = Directions.NONE;
+
+        public virtual void UpdateDirection(Directions direction)
+        {
+            Direction = direction;
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.UpdateDirection(direction);
+                }
+            }
+        }
 
         public void UpdatePosition(Vector<float> position)
         {

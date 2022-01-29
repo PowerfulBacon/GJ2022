@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.Debug;
 using GJ2022.Entities.Items.Clothing.Back;
+using GJ2022.Entities.Items.Clothing.Body;
 using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
@@ -85,10 +86,13 @@ namespace GJ2022
             Pawn jetpackPawn = null;
             for (int i = 0; i < 4; i++)
             {
-                Pawn p = new Pawn(new Vector<float>(2.3f, 7.3f));
+                Human p = new Human(new Vector<float>(2.3f, 7.3f));
+                p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
                 jetpackPawn = p;
                 new CrewmemberBehaviour(p);
             }
+
+            new SyndicateHardsuit(new Vector<float>(4, 7));
 
             for (int x = 4; x < 6; x++)
             {

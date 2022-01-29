@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -29,6 +30,18 @@ namespace GJ2022.Entities
 
         //Texture change handler
         public string Texture { set { Renderable?.textureChangeHandler?.Invoke(value); } }
+
+        //Direction
+        private Directions _direction;
+        public Directions Direction
+        {
+            get => _direction;
+            set
+            {
+                _direction = value;
+                Renderable.UpdateDirection(value);
+            }
+        }
 
         //Don't set this outside of thread safe claim manager
         private bool isClaimed = false;
@@ -167,6 +180,7 @@ namespace GJ2022.Entities
             set
             {
                 Vector<float> oldPosition = _position.Copy();
+                Vector<float> delta = value - oldPosition;
                 _position = value;
                 Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
@@ -174,6 +188,16 @@ namespace GJ2022.Entities
                     SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
                 if (attachedTextObject != null)
                     attachedTextObject.Position = value + textObjectOffset;
+                //Change direction
+                if (delta[0] > -delta[1])
+                    if (delta[0] < delta[1])
+                        Direction = Directions.NORTH;
+                    else
+                        Direction = Directions.EAST;
+                else if (delta[0] < delta[1])
+                    Direction = Directions.WEST;
+                else
+                    Direction = Directions.SOUTH;
             }
         }
 

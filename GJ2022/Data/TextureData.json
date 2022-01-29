@@ -303,6 +303,141 @@
       "height": 32,
       "index_x": 16,
       "index_y": 2
+    },
+    {
+      "id": "human_head_male",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 17,
+      "index_y": 2,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_head_female",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 21,
+      "index_y": 2,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_body_male",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 25,
+      "index_y": 2,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_body_female",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 29,
+      "index_y": 2,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_rightarm",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_leftarm",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_righthand",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_lefthand",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 14,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_rightleg",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 18,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "human_leftleg",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 22,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "jetpack_back",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 26,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "spacesuit_body",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 30,
+      "index_y": 3,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "syndicate_hardsuit_body",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 4,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "spacesuit",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 4,
+      "directional": "NONE"
+    },
+    {
+      "id": "syndicate_hardsuit",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 4,
+      "directional": "NONE"
     }
   ]
 }

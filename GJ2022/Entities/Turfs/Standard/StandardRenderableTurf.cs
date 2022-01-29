@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.Models;
+﻿using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
@@ -14,6 +15,8 @@ namespace GJ2022.Entities.Turfs.Standard
         protected abstract string Texture { get; }
 
         public RenderSystem<IStandardRenderable, InstanceRenderSystem> RenderSystem => InstanceRenderSystem.Singleton;
+
+        public Directions Direction => Directions.NONE;
 
         public StandardRenderableTurf(int x, int y) : base(x, y)
         {

@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.RenderSystems.Interfaces;
+﻿using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
 using System;
@@ -50,9 +51,18 @@ namespace GJ2022.Rendering.RenderSystems
                     };
                 case 1:
                     RendererTextureData texData = targetItem.GetRendererTextureData();
+                    //Apply directional offset
+                    int indexX = texData.IndexX;
+                    int indexY = texData.IndexY;
+                    //Directional shift
+                    int directionalShift = Direction.GetDirectionalShift(targetItem.GetRendererTextureData().DirectionalMode, targetItem.Direction);
+                    indexX = (indexX + directionalShift) % (texData.FileWidth / texData.Width);
+                    Log.WriteLine($"{texData.FileWidth}, {texData.Width} : {(texData.FileWidth / texData.Width)}... {indexX}, {indexY}");
+                    //TODO: Don't assume that dirs can't go across 2 lines lol!
+                    indexY = indexY + ((texData.IndexX + directionalShift) >= (texData.FileWidth / texData.Width) ? 1 : 0);
                     return new float[] {
-                        texData.IndexX,
-                        texData.IndexY,
+                        indexX,
+                        indexY,
                         texData.Width,
                         texData.Height,
                     };

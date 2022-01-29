@@ -71,7 +71,6 @@ namespace GJ2022.Entities.Pawns
         public Pawn(Vector<float> position) : base(position, Layers.LAYER_PAWN)
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
-            attachedTextObject = new TextObject("pawn", Colour.White, position, TextObject.PositionModes.WORLD_POSITION, 0.8f);
             MouseCollisionSubsystem.Singleton.StartTracking(this);
         }
 
@@ -87,9 +86,12 @@ namespace GJ2022.Entities.Pawns
                 EquippedItems.Add(targetSlot, item);
                 item.OnEquip(this, targetSlot);
                 RecalculateHazardProtection();
+                AddEquipOverlay(targetSlot, item);
                 return true;
             });
         }
+
+        protected virtual void AddEquipOverlay(InventorySlot targetSlot, IEquippable item) { }
 
         /// <summary>
         /// Recalculate what hazards we are protected from
@@ -143,20 +145,6 @@ namespace GJ2022.Entities.Pawns
                 helpfulLine = Line.StartDrawingLine(Position.SetZ(10), endPos.SetZ(10));
             helpfulLine.Start = Position.SetZ(10);
             helpfulLine.End = endPos.SetZ(10);
-            //Debug contents
-            if (Contents != null)
-            {
-                string text = "";
-                foreach (Item item in Contents)
-                {
-                    text += item.Name + ", ";
-                }
-                attachedTextObject.Text = text;
-            }
-            else
-            {
-                attachedTextObject.Text = "n/a";
-            }
         }
 
         public List<Item> GetHeldItems()
