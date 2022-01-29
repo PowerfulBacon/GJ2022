@@ -20,7 +20,8 @@ namespace GJ2022.PawnBehaviours.Behaviours
             { new DeliverMaterialsToBlueprints(), 0 },
             { new ConstructBlueprints(), 0 },
             { new MineAction(), 0 },
-            { new SmeltOre(), 0 }
+            { new SmeltOre(), 0 },
+            { new ReturnToSpawn(), 0 }
         };
 
     }
