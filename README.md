@@ -1,4 +1,19 @@
 # GJ2022
+
+This project is a highly efficient 2D game engine, running in C# using openGL for graphics. The rendering engine is a heavilly modified variant of a 3D block based rendering engine I made for another project that never got finished, with optimisations for 2D graphics, large amounts of code cleanup and some pretty big refactorings making it almost completely seperate from the original renderer.
+The game is inspired by games such as Rimworld and Prison Architect where you command pawns to construct and perform actions for you, while you exist in a god-like observer state, as well as taking inspiration from Space Station 13, a simulation/sandbox/social deduction game where you play as a crewmember aboard a technologically advanced but cursed space station.
+The game and gameplay itself isn't that impressive, however the framework for the engine and possible expansions that can be made in the future is where this project makes up for that, with expandable frameworks for:
+ - New rendering systems and shaders
+ - New easilly addible entities
+ - New AI behaviours and pawn actions
+ - New subsystems that can perform processing
+
+While it would still need a lot of work to become a fun and playable game, this project is successful as a prototype / proof of concept.
+
+The global game jam lasted from 20/01/2022 to 30/01/2022 and in this time approximately ~12000 lines of code have been added to the repo and ~3000 removed, probably going to take a break for a while to get less burnt out.
+
+## Initial Game Plan
+
 A game made around the theme of Duality.
 
 The game idea is that you view down on a space station, can place rooms and build it however you like. You can play the game however you want and help who you want.
