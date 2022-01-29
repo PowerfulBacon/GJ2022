@@ -12,6 +12,8 @@ While it would still need a lot of work to become a fun and playable game, this 
 
 The global game jam lasted from 20/01/2022 to 30/01/2022 and in this time approximately ~12000 lines of code have been added to the repo and ~3000 removed, probably going to take a break for a while to get less burnt out.
 
+Unfortunately I spent a lot of time making the engine robust, so didn't get to implement as many game related features as I hoped, however in the future it would be nice to add pawn health systems, atmospherics, environmental dangers, hostile NPCs, improved textures for pawns etc.
+
 ## Initial Game Plan
 
 A game made around the theme of Duality.
