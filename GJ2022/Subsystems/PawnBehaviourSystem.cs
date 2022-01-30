@@ -23,11 +23,12 @@ namespace GJ2022.Subsystems
 
         public override void Fire(Window window)
         {
-            //Fire the pawn behaviour tasks
-            foreach (PawnBehaviour behaviour in processingBehaviours)
-            {
-                Task.Run(behaviour.HandlePawnBehaviour);
-            }
+            Log.WriteLine("Calculating AI actions");
+            Parallel.ForEach(processingBehaviours, new ParallelOptions { MaxDegreeOfParallelism = 10 },
+                behaviour => {
+                    behaviour.HandlePawnBehaviour();
+                });
+            Log.WriteLine("Completed!");
         }
 
         public void ApplyPawnBehaviour(Pawn target, PawnBehaviour behaviour)

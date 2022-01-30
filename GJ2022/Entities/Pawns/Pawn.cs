@@ -145,6 +145,7 @@ namespace GJ2022.Entities.Pawns
                 helpfulLine = Line.StartDrawingLine(Position.SetZ(10), endPos.SetZ(10));
             helpfulLine.Start = Position.SetZ(10);
             helpfulLine.End = endPos.SetZ(10);
+            helpfulLine.Colour = followingPath != null ? Colour.Green : Colour.Red;
         }
 
         public List<Item> GetHeldItems()

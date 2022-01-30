@@ -42,22 +42,25 @@ namespace GJ2022.Subsystems
         };
 
         //Little delay
-        public override int sleepDelay => 20;
+        public override int sleepDelay => 1000;
 
         //No processing, but fires
-        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_UPDATE;
+        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
 
         public override void Fire(Window window)
         {
-            throw new NotImplementedException("Pathfinding system does not fire.");
+            Log.WriteLine($"Currently processing {runningAmt} paths.");
         }
 
         public override void InitSystem() { }
 
         protected override void AfterWorldInit() { }
 
+        public static volatile int runningAmt = 0;
+
         public void RequestPath(PathfindingRequest request)
         {
+            runningAmt++;
             Task.Run(() => ProcessPath(request));
         }
 
@@ -107,6 +110,7 @@ namespace GJ2022.Subsystems
                 {
                     Path path = new Path(processing);
                     request.foundDelegate?.Invoke(path);
+                    runningAmt--;
                     return;
                 }
                 //Otherwise add surrounding nodes
@@ -114,7 +118,8 @@ namespace GJ2022.Subsystems
                 i++;
                 Thread.Yield();
             }
-            request.failedDelegate?.Invoke();;
+            runningAmt--;
+            request.failedDelegate?.Invoke();
         }
 
         private void AddSurroundingNodes(PathNode current, PawnHazards ignoringHazards, ref PathfindingProcessData processData)

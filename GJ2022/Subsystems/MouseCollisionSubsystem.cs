@@ -36,22 +36,31 @@ namespace GJ2022.Subsystems
 
         public void StartTracking(IMouseEvent tracker)
         {
-            ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
+            //These require 'hard' tracking, for clickable world objects, we can just check clickable objects on that tile on press.
+            if (tracker.PositionSpace == CursorSpace.SCREEN_SPACE || tracker is IMouseEnter || tracker is IMouseExit)
             {
-                if (trackingEvents.ContainsKey(tracker))
-                    return false;
-                trackingEvents.Add(tracker, MouseCollisionState.NONE);
-                return true;
-            });
+                Log.WriteLine("here we go");
+                ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
+                {
+                    Log.WriteLine("going");
+                    if (trackingEvents.ContainsKey(tracker))
+                        return false;
+                    trackingEvents.Add(tracker, MouseCollisionState.NONE);
+                    return true;
+                });
+            }
         }
 
         public void StopTracking(IMouseEvent tracker)
         {
-            ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
+            if (tracker.PositionSpace == CursorSpace.SCREEN_SPACE || tracker is IMouseEnter || tracker is IMouseExit)
             {
-                trackingEvents.Remove(tracker);
-                return true;
-            });
+                ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
+                {
+                    trackingEvents.Remove(tracker);
+                    return true;
+                });
+            }
         }
 
         public override void Fire(Window window)
@@ -70,12 +79,14 @@ namespace GJ2022.Subsystems
             //Log.WriteLine(screenCoordinates);
             bool mousePressed = Glfw.GetMouseButton(window, MouseButton.Left) == InputState.Press;
             bool rightMousePressed = Glfw.GetMouseButton(window, MouseButton.Right) == InputState.Press;
+            //Work our press events in the world
+            //Go through and work out pixel tracked mouse events (enter/exit events)
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
             {
+                //Log.WriteLine($"Tracking {trackingEvents.Count}/ mouse events");
                 //Go through all tracking events and handle them
-                for (int i = trackingEvents.Count - 1; i >= 0; i--)
+                foreach (IMouseEvent mouseEventHolder in trackingEvents.Keys.ToList())
                 {
-                    IMouseEvent mouseEventHolder = trackingEvents.Keys.ElementAt(i);
                     MouseCollisionState collisionState = trackingEvents[mouseEventHolder];
                     //Calculate the world coordinates
                     double minimumX = mouseEventHolder.WorldX;

@@ -19,8 +19,6 @@ namespace GJ2022.Managers
         public const int TASK_MOUSE_SYSTEM = 5;
         public const int TASK_SIGNALS = 6;
 
-        private static volatile bool executing = false;
-
         private static volatile Dictionary<int, int> totalActionsReserved = new Dictionary<int, int>();
         private static volatile Dictionary<int, int> currentAction = new Dictionary<int, int>();
 
@@ -46,6 +44,7 @@ namespace GJ2022.Managers
                     sanity = 0;
                     Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for >100000 ticks without success. (Current action: {currentAction[threadSafeId]})");
                 }
+                //Only yield after 1000 tries
                 Thread.Yield();
             }
             bool result;
