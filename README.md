@@ -47,6 +47,8 @@ Utility - Stores no data, provides helper methods.
 GlobalDataComponents - This should be managers (//TODO)
 
 # Screenshots
+![image](https://user-images.githubusercontent.com/26465327/151701715-516d425d-f59d-49a2-b50a-c8c2a40ef45d.png)
+
 ![image](https://user-images.githubusercontent.com/26465327/151701696-71b36c87-d0fb-4bd1-ba8b-9de9a3de0168.png)
 
 ![image](https://user-images.githubusercontent.com/26465327/151696771-f4655219-0f6a-4b92-8677-767716b5b850.png)
