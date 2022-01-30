@@ -12,7 +12,6 @@ namespace GJ2022.Tests
     [TestClass]
     [DeploymentItem(@".\Silk.NET.Core.dll")]
     [DeploymentItem(@".\Silk.NET.OpenAL.dll")]
-    [DeploymentItem(@".\openal32.dll")]
     [DeploymentItem(@".\Data\Audio\")]
     public class AudioTests
     {
