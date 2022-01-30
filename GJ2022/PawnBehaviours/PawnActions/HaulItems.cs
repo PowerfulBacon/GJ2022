@@ -1,7 +1,7 @@
 ﻿using GJ2022.Areas;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -48,31 +48,26 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
-            //Scan for stockpiles
-            bool hasValidStockpile = false;
-            foreach (Area targetArea in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40))
+            if (World.HasAreaInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40, (Area area) =>{
+                if (unreachablePositions.Contains(area.Position))
+                    return false;
+                if (World.GetArea((int)area.Position[0], (int)area.Position[1]) is StockpileArea)
+                    return false;
+                return true;
+            })
+                && World.HasItemsInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40, (List<Item> toCheck) =>
+                {
+                    foreach (Item item in toCheck)
+                    {
+                        if (unreachablePositions.Contains(item.Position))
+                            continue;
+                        if (World.GetArea((int)item.Position[0], (int)item.Position[1]) is StockpileArea)
+                            continue;
+                        return true;
+                    }
+                    return false;
+                }))
             {
-                if (unreachablePositions.Contains(targetArea.Position))
-                    continue;
-                if (World.GetItems((int)targetArea.Position[0], (int)targetArea.Position[1]).Count > 0)
-                    continue;
-                hasValidStockpile = true;
-                break;
-            }
-            if (!hasValidStockpile)
-            {
-                unreachablePositions.Clear();
-                //This check is intensive, so we will pause for some time
-                parent.PauseActionFor(this, 30);
-                return false;
-            }
-            //Scan for items
-            foreach (Item targetItems in World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40))
-            {
-                if (unreachablePositions.Contains(targetItems.Position))
-                    continue;
-                if (World.GetArea((int)targetItems.Position[0], (int)targetItems.Position[1]) is StockpileArea)
-                    continue;
                 return true;
             }
             unreachablePositions.Clear();

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GJ2022.Managers
+namespace GJ2022.Managers.TaskManager
 {
     /// <summary>
     /// Handles claiming of entities in a thread safe manner

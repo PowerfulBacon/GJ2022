@@ -82,6 +82,7 @@
     <Compile Include="UtilityTests\MatrixTests\MultiplicationMatrixTests.cs" />
     <Compile Include="UtilityTests\MatrixTests\TranslationMatrixTests.cs" />
     <Compile Include="UtilityTests\MatrixTests\DimensionErrorTests.cs" />
+    <Compile Include="UtilityTests\PositionBasedBinaryListUnitTests.cs" />
     <Compile Include="UtilityTests\VectorTests\VectorTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -45,22 +45,21 @@ namespace GJ2022.Subsystems
         public override int sleepDelay => 1000;
 
         //No processing, but fires
-        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
+        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_UPDATE;
 
         public override void Fire(Window window)
         {
-            Log.WriteLine($"Currently processing {runningAmt} paths.");
+            return;
         }
 
         public override void InitSystem() { }
 
         protected override void AfterWorldInit() { }
 
-        public static volatile int runningAmt = 0;
+        public static volatile int totalAmt = 0;
 
         public void RequestPath(PathfindingRequest request)
         {
-            runningAmt++;
             Task.Run(() => ProcessPath(request));
         }
 
@@ -110,7 +109,6 @@ namespace GJ2022.Subsystems
                 {
                     Path path = new Path(processing);
                     request.foundDelegate?.Invoke(path);
-                    runningAmt--;
                     return;
                 }
                 //Otherwise add surrounding nodes
@@ -118,7 +116,6 @@ namespace GJ2022.Subsystems
                 i++;
                 Thread.Yield();
             }
-            runningAmt--;
             request.failedDelegate?.Invoke();
         }
 

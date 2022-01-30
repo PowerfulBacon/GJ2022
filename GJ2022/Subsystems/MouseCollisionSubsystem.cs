@@ -1,6 +1,9 @@
-﻿using GJ2022.Entities.ComponentInterfaces.MouseEvents;
+﻿using GJ2022.Entities;
+using GJ2022.Entities.ComponentInterfaces.MouseEvents;
+using GJ2022.Entities.Items;
+using GJ2022.Game.GameWorld;
 using GJ2022.GlobalDataComponents;
-using GJ2022.Managers;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
@@ -80,6 +83,20 @@ namespace GJ2022.Subsystems
             bool mousePressed = Glfw.GetMouseButton(window, MouseButton.Left) == InputState.Press;
             bool rightMousePressed = Glfw.GetMouseButton(window, MouseButton.Right) == InputState.Press;
             //Work our press events in the world
+            if (mousePressed || rightMousePressed)
+            {
+                Vector<int> worldTile = ScreenToWorldHelper.GetWorldTile(window);
+                int x = worldTile[0];
+                int y = worldTile[1];
+                //Get clickable things at these world coordinates
+                foreach (Entity entity in World.GetEntities(x, y))
+                {
+                    if(mousePressed)
+                        (entity as IMousePress)?.OnPressed();
+                    if (rightMousePressed)
+                        (entity as IMouseRightPress)?.OnRightPressed(window);
+                }
+            }
             //Go through and work out pixel tracked mouse events (enter/exit events)
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
             {

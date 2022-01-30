@@ -1,6 +1,6 @@
 ﻿using GJ2022.Entities.Markers;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -33,7 +33,9 @@ namespace GJ2022.PawnBehaviours.PawnActions
         public override bool CanPerform(PawnBehaviour parent)
         {
             //Quick check
-            return World.GetSprialMarkers((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 60).Count > 0;
+            return World.HasMarkerInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 60, (Marker toCheck) => {
+                return !unreachableLocations.Contains(toCheck.Position);
+            });
         }
 
         public override bool Completed(PawnBehaviour parent)
