@@ -5,11 +5,7 @@ using GJ2022.Entities.Structures;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.MathConstructs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.PawnBehaviours.PawnActions
 {
@@ -35,7 +31,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
-            if (World.HasStructuresInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20, (List<Structure> area) => {
+            if (World.HasStructuresInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20, (List<Structure> area) =>
+            {
                 foreach (Structure structure in area)
                 {
                     if (structure is Furnace && !unreachableLocations.Contains(structure.Position))

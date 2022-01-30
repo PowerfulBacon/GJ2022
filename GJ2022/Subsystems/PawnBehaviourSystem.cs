@@ -1,10 +1,7 @@
 ﻿using GJ2022.Entities.Pawns;
 using GJ2022.PawnBehaviours;
 using GLFW;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GJ2022.Subsystems
@@ -25,7 +22,8 @@ namespace GJ2022.Subsystems
         {
             Log.WriteLine("Calculating AI actions");
             Parallel.ForEach(processingBehaviours, new ParallelOptions { MaxDegreeOfParallelism = 10 },
-                behaviour => {
+                behaviour =>
+                {
                     behaviour.HandlePawnBehaviour();
                 });
             Log.WriteLine("Completed!");

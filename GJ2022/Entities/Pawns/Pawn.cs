@@ -1,21 +1,15 @@
-﻿using GJ2022.Entities.Blueprints;
-using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers.Stockpile;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Pathfinding;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
-using GJ2022.Rendering.Text;
 using GJ2022.Subsystems;
-using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GJ2022.Entities.Pawns
 {
@@ -79,7 +73,8 @@ namespace GJ2022.Entities.Pawns
         /// </summary>
         public bool TryEquipItem(InventorySlot targetSlot, IEquippable item)
         {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_EQUIPPABLES, () => {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_EQUIPPABLES, () =>
+            {
                 //Check the slot
                 if (EquippedItems.ContainsKey(targetSlot))
                     return false;
@@ -167,7 +162,8 @@ namespace GJ2022.Entities.Pawns
 
         public bool TryPickupItem(Item item)
         {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () => {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
+            {
                 //Destroyed items cannot be picked up
                 if (item.Destroyed)
                     return false;
@@ -331,7 +327,7 @@ namespace GJ2022.Entities.Pawns
                 //Increment the path position
                 positionOnPath++;
                 //If we still have more distance to move, move it
-                if(extraDistance > 0)
+                if (extraDistance > 0)
                     TraversePath(deltaTime, extraDistance * deltaTime);
             }
         }
@@ -375,7 +371,8 @@ namespace GJ2022.Entities.Pawns
                         positionOnPath = 0;
                         waitingForPath = false;
                     },
-                    () => {
+                    () =>
+                    {
                         behaviourController.PawnActionUnreachable(targetDestinationPosition);
                         waitingForPath = false;
                     }

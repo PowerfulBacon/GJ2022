@@ -72,7 +72,7 @@ namespace GJ2022.Pathfinding
             //Remove the processing from the first element
             firstElements.RemoveAt(0);
             //Add the current to the processed list
-            if(!ProcessedPoints.ContainsKey(processing.Position))
+            if (!ProcessedPoints.ContainsKey(processing.Position))
                 ProcessedPoints.Add(processing.Position, ConnectingDirections.NONE);
             //Remove the first elements list if its empty
             if (firstElements.Count == 0)

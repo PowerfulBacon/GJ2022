@@ -1,8 +1,4 @@
 ﻿using Silk.NET.OpenAL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GJ2022.Audio
@@ -21,7 +17,7 @@ namespace GJ2022.Audio
             //Create the audio source
             source = al.GenSource();
             //Play the source
-            if(gain != 1.0f)
+            if (gain != 1.0f)
                 al.SetSourceProperty(source, SourceFloat.Gain, gain);
             if (repeating)
                 al.SetSourceProperty(source, SourceBoolean.Looping, repeating);

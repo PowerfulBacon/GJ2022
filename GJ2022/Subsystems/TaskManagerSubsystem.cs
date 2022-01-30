@@ -3,7 +3,6 @@ using GLFW;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GJ2022.Subsystems
@@ -38,7 +37,8 @@ namespace GJ2022.Subsystems
 
         public override void Fire(Window window)
         {
-            Parallel.For(0, ThreadSafeTaskManager.MAX_TASK_ID, (int i) => {
+            Parallel.For(0, ThreadSafeTaskManager.MAX_TASK_ID, (int i) =>
+            {
                 lock (queuedTasks[i])
                 {
                     //Get the queue we are working on

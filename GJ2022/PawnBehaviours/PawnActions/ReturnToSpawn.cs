@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GJ2022.Utility.MathConstructs;
+﻿using GJ2022.Utility.MathConstructs;
+using System;
 
 namespace GJ2022.PawnBehaviours.PawnActions
 {
@@ -40,7 +36,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override void OnActionEnd(PawnBehaviour parent)
         {
-            if(waitStarted)
+            if (waitStarted)
                 waitStarted = false;
             completed = false;
             return;

@@ -1,7 +1,6 @@
 ﻿using GJ2022.Managers.TaskManager;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Shaders;
-using System;
 using System.Collections.Generic;
 using static OpenGL.Gl;
 

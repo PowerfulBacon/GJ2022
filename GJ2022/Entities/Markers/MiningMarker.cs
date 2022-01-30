@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GJ2022.Entities.Pawns;
+﻿using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Turfs.Standard.Solids;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
@@ -24,8 +19,9 @@ namespace GJ2022.Entities.Markers
                 return;
             //Register signal
             Asteroid mineral = World.GetTurf((int)Position[0], (int)Position[1]) as Asteroid;
-            if(mineral != null)
-                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, (object source, object[] parameters) => {
+            if (mineral != null)
+                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, (object source, object[] parameters) =>
+                {
                     if (Destroyed)
                         return SignalHandler.SignalResponse.NONE;
                     Destroy();

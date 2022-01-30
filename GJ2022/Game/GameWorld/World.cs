@@ -7,7 +7,6 @@ using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Structures;
 using GJ2022.Entities.Turfs;
 using GJ2022.Utility.MathConstructs;
-using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Game.GameWorld
@@ -126,7 +125,7 @@ namespace GJ2022.Game.GameWorld
             for (int r = 0; r <= range; r++)
             {
                 //Get all items that are r distance away from (x, y)
-                for (int x = original_x - r; x <= original_x + r; x ++)
+                for (int x = original_x - r; x <= original_x + r; x++)
                 {
                     for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
                     {
@@ -242,7 +241,7 @@ namespace GJ2022.Game.GameWorld
             output.AddRange(GetStructures(x, y));
             output.AddRange(GetPawns(x, y));
             Marker marker = GetMarker(x, y);
-            if(marker != null)
+            if (marker != null)
                 output.Add(marker);
             Area area = GetArea(x, y);
             if (area != null)

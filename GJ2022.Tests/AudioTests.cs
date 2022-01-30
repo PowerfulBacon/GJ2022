@@ -1,11 +1,6 @@
 ﻿using GJ2022.Audio;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Tests
 {
@@ -34,7 +29,7 @@ namespace GJ2022.Tests
                 //Cleanup the audio master
                 AudioMaster.Cleanup();
             }
-            catch(FileNotFoundException fileNotFound)
+            catch (FileNotFoundException fileNotFound)
             {
                 if (fileNotFound.FileName == "openal32.dll")
                     Assert.Inconclusive("Unable to locate openal32.dll, cannot run tests.");

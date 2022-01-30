@@ -2,7 +2,6 @@
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Managers.TaskManager;
-using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Utility.MathConstructs;
@@ -46,9 +45,11 @@ namespace GJ2022.Entities
 
         //Don't set this outside of thread safe claim manager
         private bool isClaimed = false;
-        public bool IsClaimed {
+        public bool IsClaimed
+        {
             get => isClaimed;
-            set {
+            set
+            {
                 if (value && isClaimed)
                     throw new Exception("A claim was applied on an object already claimed!");
                 isClaimed = value;
@@ -185,7 +186,7 @@ namespace GJ2022.Entities
                 _position = value;
                 Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
-                if((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
+                if ((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
                     SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
                 if (attachedTextObject != null)
                     attachedTextObject.Position = value + textObjectOffset;

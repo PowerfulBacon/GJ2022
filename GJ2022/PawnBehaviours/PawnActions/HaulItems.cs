@@ -3,11 +3,7 @@ using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.MathConstructs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.PawnBehaviours.PawnActions
 {
@@ -48,7 +44,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
-            if (World.HasAreaInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40, (Area area) =>{
+            if (World.HasAreaInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40, (Area area) =>
+            {
                 if (unreachablePositions.Contains(area.Position))
                     return false;
                 if (World.GetArea((int)area.Position[0], (int)area.Position[1]) is StockpileArea)
@@ -130,7 +127,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     //Check for our reserved item
                     Item reservedItem = ThreadSafeClaimManager.GetClaimedItem(parent.Owner) as Item;
                     //Try to pick up the reserved item.
-                    if(reservedItem != null)
+                    if (reservedItem != null)
                         parent.Owner.TryPickupItem(reservedItem);
                     //Now that we have picked up the item, unclaim it
                     ThreadSafeClaimManager.ReleaseClaimBlocking(parent.Owner);

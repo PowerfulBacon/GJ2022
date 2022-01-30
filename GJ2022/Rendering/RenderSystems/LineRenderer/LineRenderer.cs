@@ -1,7 +1,6 @@
 ﻿using GJ2022.Rendering.RenderSystems.Interfaces;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using static OpenGL.Gl;
 
@@ -174,7 +173,7 @@ namespace GJ2022.Rendering.RenderSystems.LineRenderer
             //of debugging.
             //We should probably disable the line renderer
             //all together if in release build.
-            for(int i = rendering.Count - 1; i >= 0; i = Math.Min(i - 1, rendering.Count - 1))
+            for (int i = rendering.Count - 1; i >= 0; i = Math.Min(i - 1, rendering.Count - 1))
             {
                 //Thread safe fetching
                 Line line = rendering.Keys.ElementAt(i);

@@ -6,9 +6,6 @@ using GJ2022.Game.GameWorld;
 using GJ2022.Managers.Stockpile;
 using GJ2022.PawnBehaviours.PawnActions;
 using GJ2022.Subsystems;
-using GJ2022.UserInterface.Components;
-using GJ2022.UserInterface.Components.Advanced;
-using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 

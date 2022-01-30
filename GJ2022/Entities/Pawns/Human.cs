@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;

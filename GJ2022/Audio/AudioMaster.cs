@@ -1,9 +1,6 @@
 ﻿using Silk.NET.OpenAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Audio
 {
@@ -39,7 +36,7 @@ namespace GJ2022.Audio
             }
 
             //Delete existing audio context
-            if(audioContext != null)
+            if (audioContext != null)
             {
                 audioLibraryContext.DestroyContext(audioContext);
                 audioContext = null;
