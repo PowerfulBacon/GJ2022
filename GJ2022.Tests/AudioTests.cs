@@ -19,18 +19,26 @@ namespace GJ2022.Tests
         [TestMethod]
         public void TestAudioFiles()
         {
-            //Initialize the audio master
-            AudioMaster.Initialize();
-            //Check each file
-            foreach (string fileName in Directory.GetFiles(@".\", "*.wav", SearchOption.AllDirectories))
+            try
             {
-                //Check this
-                new AudioFile(fileName);
-                //Sound check successful
-                Log.WriteLine($"Compiled {fileName} successfully.");
+                //Initialize the audio master
+                AudioMaster.Initialize();
+                //Check each file
+                foreach (string fileName in Directory.GetFiles(@".\", "*.wav", SearchOption.AllDirectories))
+                {
+                    //Check this
+                    new AudioFile(fileName);
+                    //Sound check successful
+                    Log.WriteLine($"Compiled {fileName} successfully.");
+                }
+                //Cleanup the audio master
+                AudioMaster.Cleanup();
             }
-            //Cleanup the audio master
-            AudioMaster.Cleanup();
+            catch(FileNotFoundException fileNotFound)
+            {
+                if (fileNotFound.FileName == "openal32.dll")
+                    Assert.Inconclusive("Unable to locate openal32.dll, cannot run tests.");
+            }
         }
 
     }
