@@ -3,7 +3,7 @@ using GJ2022.Entities.Items;
 using GJ2022.Entities.Items.Stacks.Ores;
 using GJ2022.Entities.Structures;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -35,24 +35,30 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
-            bool hasFurnace = false;
-            foreach (Structure structure in World.GetSprialStructure((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20))
-            {
-                if (structure is Furnace)
+            if (World.HasStructuresInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20, (List<Structure> area) => {
+                foreach (Structure structure in area)
                 {
-                    hasFurnace = true;
-                    break;
-                }
-            }
-            if (hasFurnace)
-            {
-                foreach (Item item in World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40))
-                {
-                    //Todo make this ore
-                    if (item is IronOre)
+                    if (structure is Furnace && !unreachableLocations.Contains(structure.Position))
                         return true;
                 }
+                return false;
+            })
+                && World.HasItemsInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40, (List<Item> toCheck) =>
+                {
+                    foreach (Item item in toCheck)
+                    {
+                        if (!(item is IronOre))
+                            continue;
+                        if (unreachableLocations.Contains(item.Position))
+                            continue;
+                        return true;
+                    }
+                    return false;
+                }))
+            {
+                return true;
             }
+            unreachableLocations.Clear();
             parent.PauseActionFor(this, 10);
             return false;
         }

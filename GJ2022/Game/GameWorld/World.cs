@@ -1,10 +1,13 @@
 ﻿using GJ2022.Areas;
+using GJ2022.Entities;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Markers;
+using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Structures;
 using GJ2022.Entities.Turfs;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Game.GameWorld
@@ -14,20 +17,57 @@ namespace GJ2022.Game.GameWorld
     {
 
         //Dictionary of turfs in the world
-        public static Dictionary<Vector<int>, Turf> WorldTurfs = new Dictionary<Vector<int>, Turf>();
+        public static PositionBasedBinaryList<Turf> WorldTurfs = new PositionBasedBinaryList<Turf>();
 
         //Dictionary of areas in the world
-        public static Dictionary<Vector<int>, Area> WorldAreas = new Dictionary<Vector<int>, Area>();
+        public static PositionBasedBinaryList<Area> WorldAreas = new PositionBasedBinaryList<Area>();
 
         //Dictionary of markers in the world
-        public static Dictionary<Vector<int>, Marker> WorldMarkers = new Dictionary<Vector<int>, Marker>();
+        public static PositionBasedBinaryList<Marker> WorldMarkers = new PositionBasedBinaryList<Marker>();
 
         //Dictionary containing all items in the world at a specified position.
         //When an item moves, it needs to be updated in this list.
-        public static Dictionary<Vector<int>, List<Item>> WorldItems = new Dictionary<Vector<int>, List<Item>>();
+        public static PositionBasedBinaryList<List<Item>> WorldItems = new PositionBasedBinaryList<List<Item>>();
 
         //Dictionary containing all structures in the world
-        public static Dictionary<Vector<int>, List<Structure>> WorldStructures = new Dictionary<Vector<int>, List<Structure>>();
+        public static PositionBasedBinaryList<List<Structure>> WorldStructures = new PositionBasedBinaryList<List<Structure>>();
+
+        //Dictionary containing all mobs in the world
+        public static PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
+
+        //======================
+        // In range detectors
+        //======================
+
+        public static bool HasMarkerInRange(int x, int y, int range, BinaryList<Marker>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        {
+            return WorldMarkers.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
+        }
+
+        public static bool HasTurfInRange(int x, int y, int range, BinaryList<Turf>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        {
+            return WorldTurfs.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
+        }
+
+        public static bool HasAreaInRange(int x, int y, int range, BinaryList<Area>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        {
+            return WorldAreas.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
+        }
+
+        public static bool HasItemsInRange(int x, int y, int range, BinaryList<List<Item>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        {
+            return WorldItems.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
+        }
+
+        public static bool HasStructuresInRange(int x, int y, int range, BinaryList<List<Structure>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        {
+            return WorldStructures.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
+        }
+
+        public static bool HasPawnsInRange(int x, int y, int range, BinaryList<List<Pawn>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        {
+            return WorldPawns.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
+        }
 
         //======================
         // Spiral Distance Getters
@@ -46,9 +86,9 @@ namespace GJ2022.Game.GameWorld
                 {
                     for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
                     {
-                        Vector<int> targetPosition = new Vector<int>(x, y);
-                        if (WorldMarkers.ContainsKey(targetPosition))
-                            output.Add(WorldMarkers[targetPosition]);
+                        Marker located = WorldMarkers.Get(x, y);
+                        if (located != null)
+                            output.Add(located);
                     }
                 }
             }
@@ -68,9 +108,9 @@ namespace GJ2022.Game.GameWorld
                 {
                     for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
                     {
-                        Vector<int> targetPosition = new Vector<int>(x, y);
-                        if (WorldAreas.ContainsKey(targetPosition))
-                            output.Add(WorldAreas[targetPosition]);
+                        Area located = WorldAreas.Get(x, y);
+                        if (located != null)
+                            output.Add(located);
                     }
                 }
             }
@@ -90,9 +130,9 @@ namespace GJ2022.Game.GameWorld
                 {
                     for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
                     {
-                        Vector<int> targetPosition = new Vector<int>(x, y);
-                        if (WorldItems.ContainsKey(targetPosition))
-                            output.AddRange(WorldItems[targetPosition]);
+                        List<Item> located = WorldItems.Get(x, y);
+                        if (located != null)
+                            output.AddRange(located);
                     }
                 }
             }
@@ -112,13 +152,48 @@ namespace GJ2022.Game.GameWorld
                 {
                     for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
                     {
-                        Vector<int> targetPosition = new Vector<int>(x, y);
-                        if (WorldStructures.ContainsKey(targetPosition))
-                            output.AddRange(WorldStructures[targetPosition]);
+                        List<Structure> located = WorldStructures.Get(x, y);
+                        if (located != null)
+                            output.AddRange(located);
                     }
                 }
             }
             return output;
+        }
+
+        //======================
+        // Pawns
+        //======================
+
+        public static List<Pawn> GetPawns(int x, int y)
+        {
+            return WorldPawns.Get(x, y) ?? new List<Pawn>() { };
+        }
+
+        /// <summary>
+        /// Add an pawn to the world list
+        /// </summary>
+        public static void AddPawn(int x, int y, Pawn pawn)
+        {
+            List<Pawn> located = WorldPawns.Get(x, y);
+            if (located != null)
+                located.Add(pawn);
+            else
+                WorldPawns.Add(x, y, new List<Pawn>() { pawn });
+        }
+
+        /// <summary>
+        /// Remove the pawn from the world list
+        /// </summary>
+        public static bool RemovePawn(int x, int y, Pawn pawn)
+        {
+            List<Pawn> located = WorldPawns.Get(x, y);
+            if (located == null)
+                return false;
+            located.Remove(pawn);
+            if (located.Count == 0)
+                WorldPawns.Remove(x, y);
+            return true;
         }
 
         //======================
@@ -127,10 +202,7 @@ namespace GJ2022.Game.GameWorld
 
         public static List<Structure> GetStructures(int x, int y)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (WorldStructures.ContainsKey(targetPosition))
-                return WorldStructures[targetPosition];
-            return new List<Structure>() { };
+            return WorldStructures.Get(x, y) ?? new List<Structure>() { };
         }
 
         /// <summary>
@@ -138,11 +210,11 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static void AddStructure(int x, int y, Structure structure)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (WorldStructures.ContainsKey(targetPosition))
-                WorldStructures[targetPosition].Add(structure);
+            List<Structure> located = WorldStructures.Get(x, y);
+            if (located != null)
+                located.Add(structure);
             else
-                WorldStructures.Add(targetPosition, new List<Structure>() { structure });
+                WorldStructures.Add(x, y, new List<Structure>() { structure });
         }
 
         /// <summary>
@@ -150,13 +222,32 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static bool RemoveStructure(int x, int y, Structure structure)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (!WorldStructures.ContainsKey(targetPosition))
+            List<Structure> located = WorldStructures.Get(x, y);
+            if (located == null)
                 return false;
-            WorldStructures[targetPosition].Remove(structure);
-            if (WorldStructures[targetPosition].Count == 0)
-                WorldStructures.Remove(targetPosition);
+            located.Remove(structure);
+            if (located.Count == 0)
+                WorldStructures.Remove(x, y);
             return true;
+        }
+
+        //======================
+        // All Entities
+        //======================
+
+        public static List<Entity> GetEntities(int x, int y)
+        {
+            List<Entity> output = new List<Entity>();
+            output.AddRange(GetItems(x, y));
+            output.AddRange(GetStructures(x, y));
+            output.AddRange(GetPawns(x, y));
+            Marker marker = GetMarker(x, y);
+            if(marker != null)
+                output.Add(marker);
+            Area area = GetArea(x, y);
+            if (area != null)
+                output.Add(area);
+            return output;
         }
 
         //======================
@@ -165,10 +256,7 @@ namespace GJ2022.Game.GameWorld
 
         public static List<Item> GetItems(int x, int y)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (WorldItems.ContainsKey(targetPosition))
-                return WorldItems[targetPosition];
-            return new List<Item>() { };
+            return WorldItems.Get(x, y) ?? new List<Item>() { };
         }
 
         /// <summary>
@@ -176,11 +264,11 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static void AddItem(int x, int y, Item item)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (WorldItems.ContainsKey(targetPosition))
-                WorldItems[targetPosition].Add(item);
+            List<Item> located = WorldItems.Get(x, y);
+            if (located != null)
+                located.Add(item);
             else
-                WorldItems.Add(targetPosition, new List<Item>() { item });
+                WorldItems.Add(x, y, new List<Item>() { item });
         }
 
         /// <summary>
@@ -188,12 +276,12 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static bool RemoveItem(int x, int y, Item item)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (!WorldItems.ContainsKey(targetPosition))
+            List<Item> located = WorldItems.Get(x, y);
+            if (located == null)
                 return false;
-            WorldItems[targetPosition].Remove(item);
-            if (WorldItems[targetPosition].Count == 0)
-                WorldItems.Remove(targetPosition);
+            located.Remove(item);
+            if (located.Count == 0)
+                WorldItems.Remove(x, y);
             return true;
         }
 
@@ -206,10 +294,7 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static Area GetArea(int x, int y)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (WorldAreas.ContainsKey(targetPosition))
-                return WorldAreas[targetPosition];
-            return null;
+            return WorldAreas.Get(x, y);
         }
 
         /// <summary>
@@ -217,11 +302,10 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static void SetArea(int x, int y, Area area)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
             if (area == null)
-                WorldAreas.Remove(targetPosition);
+                WorldAreas.Remove(x, y);
             else
-                WorldAreas.Add(targetPosition, area);
+                WorldAreas.Add(x, y, area);
         }
 
         //======================
@@ -233,10 +317,7 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static Marker GetMarker(int x, int y)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (WorldMarkers.ContainsKey(targetPosition))
-                return WorldMarkers[targetPosition];
-            return null;
+            return WorldMarkers.Get(x, y);
         }
 
         /// <summary>
@@ -244,11 +325,10 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static void SetMarker(int x, int y, Marker marker)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
             if (marker == null)
-                WorldMarkers.Remove(targetPosition);
+                WorldMarkers.Remove(x, y);
             else
-                WorldMarkers.Add(targetPosition, marker);
+                WorldMarkers.Add(x, y, marker);
         }
 
         //======================
@@ -260,10 +340,7 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static Turf GetTurf(int x, int y)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
-            if (WorldTurfs.ContainsKey(targetPosition))
-                return WorldTurfs[targetPosition];
-            return null;
+            return WorldTurfs.Get(x, y);
         }
 
         /// <summary>
@@ -271,11 +348,10 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static void SetTurf(int x, int y, Turf turf)
         {
-            Vector<int> targetPosition = new Vector<int>(x, y);
             if (turf == null)
-                WorldTurfs.Remove(targetPosition);
+                WorldTurfs.Remove(x, y);
             else
-                WorldTurfs.Add(targetPosition, turf);
+                WorldTurfs.Add(x, y, turf);
         }
 
         //======================

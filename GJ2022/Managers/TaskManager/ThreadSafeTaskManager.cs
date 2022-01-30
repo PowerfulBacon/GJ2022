@@ -1,11 +1,12 @@
-﻿using System;
+﻿using GJ2022.Subsystems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GJ2022.Managers
+namespace GJ2022.Managers.TaskManager
 {
     public class ThreadSafeTaskManager
     {
@@ -19,14 +20,14 @@ namespace GJ2022.Managers
         public const int TASK_MOUSE_SYSTEM = 5;
         public const int TASK_SIGNALS = 6;
 
-        private static volatile bool executing = false;
+        public const int MAX_TASK_ID = 6;
 
         private static volatile Dictionary<int, int> totalActionsReserved = new Dictionary<int, int>();
         private static volatile Dictionary<int, int> currentAction = new Dictionary<int, int>();
 
         public static void ExecuteThreadSafeActionUnblocking(int threadSafeId, Func<bool> action)
         {
-            Task.Run(() => ExecuteThreadSafeAction(threadSafeId, action));
+            TaskManagerSubsystem.Singleton.QueueThreadSafeTask(threadSafeId, action);
         }
 
         /// <summary>
@@ -35,9 +36,9 @@ namespace GJ2022.Managers
         /// <param name="threadSafeId">The ID of the thread safe action. Any actions with the same ID will block each other.</param>
         /// <param name="action">The action to perform.</param>
         /// <returns>Returns the result of the action (usually true if the action was successful)</returns>
-        public static bool ExecuteThreadSafeAction(int threadSafeId, Func<bool> action)
+        public static bool ExecuteThreadSafeAction(int threadSafeId, Func<bool> action, int? overrideQueueId = null)
         {
-            int queueId = GetQueueId(threadSafeId);
+            int queueId = overrideQueueId ?? GetQueueId(threadSafeId);
             int sanity = 0;
             while (!IsReady(queueId, threadSafeId))
             {
@@ -46,6 +47,7 @@ namespace GJ2022.Managers
                     sanity = 0;
                     Log.WriteLine($"Reserve claim ID : {queueId} has been waiting for >100000 ticks without success. (Current action: {currentAction[threadSafeId]})");
                 }
+                //Only yield after 1000 tries
                 Thread.Yield();
             }
             bool result;
@@ -68,7 +70,7 @@ namespace GJ2022.Managers
             return result;
         }
 
-        private unsafe static int GetQueueId(int thread_id)
+        public unsafe static int GetQueueId(int thread_id)
         {
             lock (lockObject)
             {
@@ -87,7 +89,7 @@ namespace GJ2022.Managers
             }
         }
 
-        private static bool IsReady(int id, int thread_id)
+        public static bool IsReady(int id, int thread_id)
         {
             if (currentAction[thread_id] > id)
             {

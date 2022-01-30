@@ -92,6 +92,7 @@ namespace GJ2022.Subsystems
             if ((SubsystemFlags & SubsystemFlags.NO_UPDATE) != SubsystemFlags.NO_UPDATE)
             {
                 Thread thread = new Thread(() => Update(window));
+                thread.Name = $"{GetType()} Subsystem Update";
                 thread.Start();
             }
         }

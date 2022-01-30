@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GJ2022", "GJ2022.csproj", "{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GJ2022", "GJ2022.csproj", "{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GJ2022.Tests", "..\GJ2022.Tests\GJ2022.Tests.csproj", "{F716B796-AFDC-45D0-B69E-1FAA5DADB940}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,17 +13,51 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Game Build|Any CPU = Game Build|Any CPU
+		Game Build|x64 = Game Build|x64
+		Game Build|x86 = Game Build|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Debug|x64.ActiveCfg = Debug|x64
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Debug|x64.Build.0 = Debug|x64
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Debug|x86.ActiveCfg = Debug|x86
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Debug|x86.Build.0 = Debug|x86
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Game Build|Any CPU.ActiveCfg = Game Build|Any CPU
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Game Build|Any CPU.Build.0 = Game Build|Any CPU
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Game Build|x64.ActiveCfg = Game Build|x64
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Game Build|x64.Build.0 = Game Build|x64
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Game Build|x86.ActiveCfg = Game Build|x86
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Game Build|x86.Build.0 = Game Build|x86
 		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Release|x64.ActiveCfg = Release|x64
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Release|x64.Build.0 = Release|x64
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Release|x86.ActiveCfg = Release|x86
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}.Release|x86.Build.0 = Release|x86
 		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Debug|x64.ActiveCfg = Debug|x64
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Debug|x64.Build.0 = Debug|x64
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Debug|x86.ActiveCfg = Debug|x86
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Debug|x86.Build.0 = Debug|x86
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Game Build|Any CPU.ActiveCfg = Game Build|Any CPU
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Game Build|x64.ActiveCfg = Game Build|x64
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Game Build|x64.Build.0 = Game Build|x64
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Game Build|x86.ActiveCfg = Game Build|x86
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Game Build|x86.Build.0 = Game Build|x86
 		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|x64.ActiveCfg = Release|x64
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|x64.Build.0 = Release|x64
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|x86.ActiveCfg = Release|x86
+		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

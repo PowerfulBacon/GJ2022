@@ -3,8 +3,8 @@ using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers;
 using GJ2022.Managers.Stockpile;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Pathfinding;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
@@ -19,7 +19,7 @@ using System.Linq;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, IProcessable, IMousePress
+    public class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
     {
 
         //The renderable attached to our pawn
@@ -145,6 +145,7 @@ namespace GJ2022.Entities.Pawns
                 helpfulLine = Line.StartDrawingLine(Position.SetZ(10), endPos.SetZ(10));
             helpfulLine.Start = Position.SetZ(10);
             helpfulLine.End = endPos.SetZ(10);
+            helpfulLine.Colour = followingPath != null ? Colour.Green : Colour.Red;
         }
 
         public List<Item> GetHeldItems()
@@ -400,5 +401,25 @@ namespace GJ2022.Entities.Pawns
         {
             PawnControllerSystem.Singleton.SelectPawn(this);
         }
+
+        /// <summary>
+        /// On move behaviour.
+        /// Update ourself in the world list
+        /// </summary>
+        public void OnMoved(Vector<float> oldPosition)
+        {
+            if ((int)oldPosition[0] == (int)Position[0] && (int)oldPosition[1] == (int)Position[1])
+                return;
+            World.RemovePawn((int)oldPosition[0], (int)oldPosition[1], this);
+            World.AddPawn((int)Position[0], (int)Position[1], this);
+        }
+
+        public void OnMoved(Entity oldLocation)
+        {
+            if (oldLocation == Location)
+                return;
+            World.RemovePawn((int)Position[0], (int)Position[1], this);
+        }
+
     }
 }
