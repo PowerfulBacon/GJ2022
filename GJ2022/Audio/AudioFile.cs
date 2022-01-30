@@ -18,6 +18,7 @@ namespace GJ2022.Audio
         public short BlockAlign { get; } = -1;
         public short BitsPerSample { get; } = -1;
         public BufferFormat BufferFormat { get; } = 0;
+        public float PlayTime { get; } = 0;
 
         public uint Buffer { get; }
 
@@ -88,7 +89,13 @@ namespace GJ2022.Audio
                         break;
                 }
             }
-            Log.WriteLine($"Loaded sound {filePath} successfully! ({ChannelCount} channels, {SampleRate} sampling rate, {ByteRate} byte rate, {BlockAlign} block align, {BitsPerSample} bits per sample)");
+            //Calculate playtime
+            int bufferSize;
+            int frequency;
+            alApi.GetBufferProperty(Buffer, GetBufferInteger.Size, out bufferSize);
+            alApi.GetBufferProperty(Buffer, GetBufferInteger.Frequency, out frequency);
+            PlayTime = (float)bufferSize / (frequency * ChannelCount * BitsPerSample / 8);
+            Log.WriteLine($"Loaded sound {filePath} successfully! ({ChannelCount} channels, {SampleRate} sampling rate, {ByteRate} byte rate, {BlockAlign} block align, {BitsPerSample} bits per sample, length: {PlayTime}s)");
         }
 
         private BufferFormat GetBufferFormat()

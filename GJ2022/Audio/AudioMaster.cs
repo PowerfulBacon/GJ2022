@@ -15,6 +15,13 @@ namespace GJ2022.Audio
 
         private static List<uint> buffers = new List<uint>();
 
+        private static AL audioLib = AL.GetApi();
+
+        public static void UpdateListener(float x, float y, float z)
+        {
+            audioLib.SetListenerProperty(ListenerVector3.Position, x, y, z);
+        }
+
         /// <summary>
         /// Initialize the audio master.
         /// Will cleanup the old devices and contexts if called multiple times.
@@ -53,7 +60,6 @@ namespace GJ2022.Audio
             audioLibraryContext.MakeContextCurrent(audioContext);
 
             //Get errors
-            AL audioLib = AL.GetApi();
             AudioError error = audioLib.GetError();
             if (error != AudioError.NoError)
                 throw new Exception($"Audio error: {error}");
