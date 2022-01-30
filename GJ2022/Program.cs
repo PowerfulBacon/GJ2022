@@ -1,4 +1,4 @@
-﻿using GJ2022.Entities.Debug;
+﻿using GJ2022.Audio;
 using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Clothing.Body;
 using GJ2022.Entities.Items.Stacks;
@@ -6,27 +6,16 @@ using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
-using GJ2022.Managers.Stockpile;
 using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
-using GJ2022.Rendering.RenderSystems;
-using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.UserInterface;
-using GJ2022.UserInterface.Components;
-using GJ2022.UserInterface.Components.Advanced;
-using GJ2022.UserInterface.Factory;
-using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
-using GJ2022.WorldGeneration;
 using GLFW;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
-using static GJ2022.UserInterface.Components.UserInterfaceButton;
 using static OpenGL.Gl;
 
 namespace GJ2022
@@ -57,6 +46,10 @@ namespace GJ2022
             //Create the window
             Window window = SetupWindow();
             UsingOpenGL = true;
+
+            //Setup open AL
+            AudioMaster.Initialize();
+            new AudioSource().PlaySound("bleep.wav", 0, 0);
 
             //Create callbacks
             SetCallbacks(window);
@@ -148,6 +141,9 @@ namespace GJ2022
                     Log.WriteLine(e, LogType.ERROR);
                 }
             }
+
+            //Cleanup openAL
+            AudioMaster.Cleanup();
 
             //Kill subsystems
             Subsystem.KillSubsystems();
