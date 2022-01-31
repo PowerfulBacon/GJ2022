@@ -1,4 +1,6 @@
-﻿using GJ2022.Game.GameWorld;
+﻿using GJ2022.Atmospherics.Block;
+using GJ2022.Entities.Items.Clothing.Back;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems;
 using GJ2022.Rendering.RenderSystems.Interfaces;
@@ -69,6 +71,17 @@ namespace GJ2022.Entities.Turfs.Standard
                 return renderableBatchIndex[associatedSet];
             else
                 return -1;
+        }
+
+        private Jetpack debugJetpack;
+
+        public override void OnAtmosphereChanged(AtmosphericBlock block)
+        {
+            //DEBUG
+            if (block != null && debugJetpack == null)
+                debugJetpack = new Jetpack(new Vector<float>(X, Y));
+            else if (block == null && debugJetpack != null)
+                debugJetpack.Destroy();
         }
     }
 }

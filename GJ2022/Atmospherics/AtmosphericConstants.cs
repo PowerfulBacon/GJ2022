@@ -45,7 +45,7 @@ namespace GJ2022.Atmospherics
         public static float CalculateTemperature(float pressure, float volume, float moles)
         {
             //t = pv/nR
-            return (pressure * volume) / (IDEAL_GAS_CONSTANT / moles);
+            return (pressure * volume) / (IDEAL_GAS_CONSTANT * moles);
         }
 
         public static float CalculateVolume(float pressure, float temperature, float moles)

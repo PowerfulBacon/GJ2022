@@ -2,6 +2,8 @@
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
+using GJ2022.Subsystems;
+using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Turfs
 {
@@ -26,6 +28,8 @@ namespace GJ2022.Entities.Turfs
             World.GetTurf(x, y)?.Destroy();
             //Set the new turf
             World.SetTurf(x, y, this);
+            //TEMP:
+            AtmosphericsSystem.Singleton.OnTurfCreated(this);
         }
 
         //Set destroyed
@@ -40,6 +44,18 @@ namespace GJ2022.Entities.Turfs
             //Set destroyed
             Destroyed = true;
             return true;
+        }
+
+        public abstract bool AllowAtmosphericFlow { get; }
+
+        public void AtmosphericPressureChangeReact(Vector<float> flowPoint, float force)
+        {
+
+        }
+
+        public virtual void OnAtmosphereChanged(AtmosphericBlock block)
+        {
+
         }
 
     }
