@@ -1,5 +1,6 @@
 ﻿using GJ2022.Audio;
 using GJ2022.Entities.Turfs.Standard.Floors;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using System;
 
 namespace GJ2022.Entities.Turfs.Standard.Solids
@@ -9,7 +10,7 @@ namespace GJ2022.Entities.Turfs.Standard.Solids
 
         private static Random random = new Random();
 
-        protected override string Texture { get; } = "stone";
+        protected override Renderable Renderable { get; set; } = new StandardRenderable($"stone");
 
         public Asteroid(int x, int y) : base(x, y)
         {

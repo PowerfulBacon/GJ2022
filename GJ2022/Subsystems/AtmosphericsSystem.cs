@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GJ2022.Atmospherics.Block;
 using GJ2022.Entities.Turfs;
@@ -26,7 +27,7 @@ namespace GJ2022.Subsystems
         public override int sleepDelay => 50;
 
         //Set the flags
-        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
+        public override SubsystemFlags SubsystemFlags => SubsystemFlags.NONE;
 
         //Store a list of any turf atmospheric flow changes, use this to recalculate atmospheric blocks
         private PositionBasedBinaryList<Turf> processingDeltas = new PositionBasedBinaryList<Turf>();
@@ -72,16 +73,88 @@ namespace GJ2022.Subsystems
             }
             //Merge atmospheres with null
             foreach(AtmosphericBlock block in blocksToClear)
-                block.MergeAtmosphericBlocks(null, new Vector<int>(destroyedTurf.X, destroyedTurf.Y));
+                block.MergeAtmosphericBlockInto(null, new Vector<int>(destroyedTurf.X, destroyedTurf.Y));
         }
 
         //Turf => Turf
         public void OnTurfChanged(Turf oldTurf, Turf newTurf)
         {
             //Atmosflow allowed => allowed - inherit the old turfs atmosphere
+            if (oldTurf.AllowAtmosphericFlow && newTurf.AllowAtmosphericFlow)
+            {
+                //Swap the old turf for the new turf in the atmosphere list
+                oldTurf.Atmosphere?.ChangeTurf(oldTurf, newTurf);
+            }
             //Atmosflow allowed => disallowed - Check to see if we need to split the atmosphere area in half (Add surrounding tiles to processing queue)
+            else if (oldTurf.AllowAtmosphericFlow && !newTurf.AllowAtmosphericFlow)
+            {
+                //TODO: this one
+                //Set the atmosphere to be outdated
+                if(oldTurf.Atmosphere != null)
+                    oldTurf.Atmosphere.Outdated = true;
+                //The new atmosphere created by processing delta needs to get the air from the old atmosphere
+                oldTurf.Atmosphere?.RemoveTurf(oldTurf);
+                Turf turf;
+                if ((turf = World.GetTurf(newTurf.X + 1, newTurf.Y)) != null && turf.AllowAtmosphericFlow)
+                    processingDeltas.Add(newTurf.X + 1, newTurf.Y, turf);
+                if ((turf = World.GetTurf(newTurf.X, newTurf.Y + 1)) != null && turf.AllowAtmosphericFlow)
+                    processingDeltas.Add(newTurf.X, newTurf.Y + 1, turf);
+                if ((turf = World.GetTurf(newTurf.X - 1, newTurf.Y)) != null && turf.AllowAtmosphericFlow)
+                    processingDeltas.Add(newTurf.X - 1, newTurf.Y, turf);
+                if ((turf = World.GetTurf(newTurf.X, newTurf.Y - 1)) != null && turf.AllowAtmosphericFlow)
+                    processingDeltas.Add(newTurf.X, newTurf.Y - 1, turf);
+            }
             //Atmosflow disallowed => allowed - Merge surrounding atmospheres
-            //Atmosflow disallowed => disallowed - Do nothing
+            else if (!oldTurf.AllowAtmosphericFlow && newTurf.AllowAtmosphericFlow)
+            {
+                //Collect all surrounding atmospheres
+                List<AtmosphericBlock> blocksToMerge = new List<AtmosphericBlock>();
+                AtmosphericBlock atmos;
+                Turf turf;
+                bool spaceAdjacent = false;
+                if ((atmos = (turf = World.GetTurf(newTurf.X, newTurf.Y + 1))?.Atmosphere) != null && !blocksToMerge.Contains(atmos))
+                    blocksToMerge.Add(atmos);
+                spaceAdjacent = spaceAdjacent || turf == null || (turf.AllowAtmosphericFlow && atmos == null);
+                if ((atmos = (turf = World.GetTurf(newTurf.X + 1, newTurf.Y))?.Atmosphere) != null && !blocksToMerge.Contains(atmos))
+                    blocksToMerge.Add(atmos);
+                spaceAdjacent = spaceAdjacent || turf == null || (turf.AllowAtmosphericFlow && atmos == null);
+                if ((atmos = (turf = World.GetTurf(newTurf.X, newTurf.Y - 1))?.Atmosphere) != null && !blocksToMerge.Contains(atmos))
+                    blocksToMerge.Add(atmos);
+                spaceAdjacent = spaceAdjacent || turf == null || (turf.AllowAtmosphericFlow && atmos == null);
+                if ((atmos = (turf = World.GetTurf(newTurf.X - 1, newTurf.Y))?.Atmosphere) != null && !blocksToMerge.Contains(atmos))
+                    blocksToMerge.Add(atmos);
+                spaceAdjacent = spaceAdjacent || turf == null || (turf.AllowAtmosphericFlow && atmos == null);
+                //Merge all surrounding atmospheres into 1
+                if (blocksToMerge.Count > 0)
+                {
+                    if (!spaceAdjacent)
+                    {
+                        //Merge everything into this atmos
+                        AtmosphericBlock mergeMaster = blocksToMerge.ElementAt(0);
+                        //Perform merging on any additional atmospheric blocks
+                        for (int i = 1; i < blocksToMerge.Count; i++)
+                        {
+                            mergeMaster.MergeAtmosphericBlockInto(blocksToMerge[i], new Vector<int>(newTurf.X, newTurf.Y));
+                        }
+                        //Add our turf to that block
+                        mergeMaster.AddTurf(newTurf);
+                    }
+                    else
+                    {
+                        //Vent all atmospheric blocks
+                        for (int i = 0; i < blocksToMerge.Count; i++)
+                        {
+                            blocksToMerge[i].MergeAtmosphericBlockInto(null, new Vector<int>(newTurf.X, newTurf.Y));
+                        }
+                    }
+                }
+                else if(!spaceAdjacent)
+                {
+                    //Create a new atmosphere for this tile (There were no surrounding atmospheric blocks we could join)
+                    new AtmosphericBlock(newTurf);
+                }
+            }
+            //Atmosflow disallowed => disallowed - Do nothing (Both atmospheres are null)
         }
 
         //null => Turf
@@ -103,8 +176,53 @@ namespace GJ2022.Subsystems
             //If the new turf allows atmospheric flow then add it to the processing queue
             else
             {
-                processingDeltas.Add(createdTurf.X, createdTurf.Y, createdTurf);
+                //Check if we can bypass creating a new atmospheric block (See if surrounding turfs all have the same atmosphere)
+                AtmosphericBlock newBlock = FindMergeBlock(createdTurf);
+
+                //Perform appropriate action
+                if (newBlock == null)
+                    processingDeltas.Add(createdTurf.X, createdTurf.Y, createdTurf);
+                else
+                    newBlock.AddTurf(createdTurf);
             }
+        }
+
+        /// <summary>
+        /// Returns the common atmosphere of a block.
+        /// Returns null if there is no common atmosphere around a block, or no atmospheres at all
+        /// </summary>
+        private AtmosphericBlock FindMergeBlock(Turf createdTurf)
+        {
+            //Get surrounding turfs
+            Turf above = World.GetTurf(createdTurf.X, createdTurf.Y + 1);
+            Turf right = World.GetTurf(createdTurf.X + 1, createdTurf.Y);
+            Turf below = World.GetTurf(createdTurf.X, createdTurf.Y - 1);
+            Turf left  = World.GetTurf(createdTurf.X - 1, createdTurf.Y);
+            //Check invalid
+            //If any turf is null, then atmos will be null
+            if (above == null || right == null || below == null || left == null)
+                return null;
+            //If there is a null atmosphere around us, then we return null
+            AtmosphericBlock locatedCommonAtmosphere = above.AllowAtmosphericFlow ? above.Atmosphere
+                : right.AllowAtmosphericFlow ? right.Atmosphere
+                : below.AllowAtmosphericFlow ? below.Atmosphere
+                : left.AllowAtmosphericFlow ? left.Atmosphere
+                : null;
+            //No atmospheres located around us
+            if (locatedCommonAtmosphere == null)
+                return null;
+            //Check for validity (If there are multiple atmos groups, return null)
+            if (above.AllowAtmosphericFlow && above.Atmosphere != locatedCommonAtmosphere)
+                return null;
+            if (right.AllowAtmosphericFlow && right.Atmosphere != locatedCommonAtmosphere)
+                return null;
+            if (below.AllowAtmosphericFlow && below.Atmosphere != locatedCommonAtmosphere)
+                return null;
+            if (left.AllowAtmosphericFlow && left.Atmosphere != locatedCommonAtmosphere)
+                return null;
+            //Return common atmosphere
+            Log.WriteLine("Common atmosphere located");
+            return locatedCommonAtmosphere;
         }
 
         /// <summary>
@@ -113,8 +231,10 @@ namespace GJ2022.Subsystems
         /// </summary>
         private void ProcessDelta(int x, int y, Turf processing)
         {
+            if (!processing.AllowAtmosphericFlow)
+                throw new System.Exception($"A turf that doesn't allow atmospheric flow was somehow added to the process delta at {x}, {y}");
             //If the turf already has an atmosphere, use it, otherwise 
-            AtmosphericBlock processingBlockAtmosphere = processing.Atmosphere ?? new AtmosphericBlock(processing);
+            AtmosphericBlock processingBlockAtmosphere = new AtmosphericBlock(processing);
             //A list of all the tiles we have searched already
             PositionBasedBinaryList<bool> searchedTiles = new PositionBasedBinaryList<bool>();
             //A list of all the positions which are at the edge of our search radius
@@ -132,21 +252,20 @@ namespace GJ2022.Subsystems
                 //If space, then we lose all of our gas and atmosphere :(
                 if (locatedTurf == null)
                 {
-                    processingBlockAtmosphere.MergeAtmosphericBlocks(null, searchTile);
+                    processingBlockAtmosphere.MergeAtmosphericBlockInto(null, searchTile);
                     return;
                 }
                 //If this turf was in the processing delta, consider it processed
                 processingDeltas.Remove(searchTile[0], searchTile[1]);
                 //If the located turf has no atmosphere, add it to our atmosphere
-                if (locatedTurf.Atmosphere == null)
+                if (locatedTurf.Atmosphere == null || locatedTurf.Atmosphere.Outdated)
                 {
                     processingBlockAtmosphere.AddTurf(locatedTurf);
                 }
                 //If we find a turf with a different atmospheric block, then merge our atmosphere with their atmosphere.
                 else if (locatedTurf.Atmosphere != processingBlockAtmosphere)
                 {
-                    processingBlockAtmosphere.MergeAtmosphericBlocks(locatedTurf.Atmosphere, searchTile);
-                    return;
+                    processingBlockAtmosphere.MergeAtmosphericBlockInto(locatedTurf.Atmosphere, searchTile);
                 }
                 //Add surrounding tiles that allow gas flow
                 //Check north
@@ -174,7 +293,6 @@ namespace GJ2022.Subsystems
                     searchRadiusEdgeTiles.Enqueue(new Vector<int>(searchTile[0] - 1, searchTile[1]));
                 }
             }
-            //Delta processing completed
         }
 
         public override void InitSystem()

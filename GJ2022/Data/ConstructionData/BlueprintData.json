@@ -35,7 +35,8 @@
       "contents": [
         "dog",
         "human",
-        "steel_building_instant"
+        "steel_building_instant",
+        "plating_instant"
       ]
     }
   ],
@@ -80,6 +81,13 @@
       "name": "Cheat Steel Building",
       "isRoom": true,
       "edge": "steel_wall_instant",
+      "fill": "plating_instant"
+    },
+    {
+      "id": "plating_instant",
+      "name": "Cheat Plating",
+      "isRoom": true,
+      "edge": "plating_instant",
       "fill": "plating_instant"
     },
     {

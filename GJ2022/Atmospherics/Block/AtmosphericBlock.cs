@@ -12,11 +12,18 @@ namespace GJ2022.Atmospherics.Block
     public class AtmosphericBlock
     {
 
+        private static int AtmosphericBlocks = 0;
+
         //The atmosphere we contain
         public Atmosphere ContainedAtmosphere { get; }
 
         //List of turfs that are in our atmospheric block
         private List<Turf> containedTurfs = new List<Turf>();
+
+        public int BlockId { get; } = AtmosphericBlocks++;
+
+        //If outdated, the atmos system won't merge into this
+        public bool Outdated { get; set; } = false;
 
         public AtmosphericBlock(Turf parent)
         {
@@ -31,7 +38,7 @@ namespace GJ2022.Atmospherics.Block
         /// will merge and equalize their atmosphere
         /// Merge point indicates the point at which they are merging, gas will flow towards this point
         /// </summary>
-        public void MergeAtmosphericBlocks(AtmosphericBlock otherBlock, Vector<int> mergePoint)
+        public void MergeAtmosphericBlockInto(AtmosphericBlock otherBlock, Vector<int> mergePoint)
         {
             //Merged with space, fully remove all turfs from this block and null their atmosphere
             if (otherBlock == null)
@@ -80,11 +87,23 @@ namespace GJ2022.Atmospherics.Block
             }
         }
 
+        public void ChangeTurf(Turf oldTurf, Turf newTurf)
+        {
+            if (newTurf.Destroyed)
+                throw new Exception("Turf destroyed exception!");
+            containedTurfs.Remove(oldTurf);
+            containedTurfs.Add(newTurf);
+            newTurf.Atmosphere = this;
+            newTurf.OnAtmosphereChanged(this);
+        }
+
         /// <summary>
         /// Add a turf to our atmospheric block and adjust the volume to accomodate it.
         /// </summary>
         public void AddTurf(Turf turf)
         {
+            if (turf.Destroyed)
+                throw new Exception("Turf destroyed exception!");
             containedTurfs.Add(turf);
             ContainedAtmosphere.AdjustVolume(ContainedAtmosphere.LitreVolume + AtmosphericConstants.TILE_GAS_VOLUME);
             turf.Atmosphere = this;
@@ -100,7 +119,8 @@ namespace GJ2022.Atmospherics.Block
             containedTurfs.Remove(turf);
             ContainedAtmosphere.AdjustVolume(ContainedAtmosphere.LitreVolume - AtmosphericConstants.TILE_GAS_VOLUME);
             turf.Atmosphere = null;
-            turf.OnAtmosphereChanged(null);
+            if(!turf.Destroyed)
+                turf.OnAtmosphereChanged(null);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Rendering.RenderSystems.Renderables;
+using System;
 
 namespace GJ2022.Entities.Turfs.Standard.Floors
 {
@@ -7,7 +8,7 @@ namespace GJ2022.Entities.Turfs.Standard.Floors
 
         private static Random random = new Random();
 
-        protected override string Texture { get; } = $"asteroid_sand_{random.Next(1, 13)}";
+        protected override Renderable Renderable { get; set; } = new StandardRenderable($"asteroid_sand_{random.Next(1, 13)}");
 
         public AsteroidSand(int x, int y) : base(x, y)
         { }
