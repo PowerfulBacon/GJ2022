@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Atmospherics.Block;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 
@@ -13,6 +14,9 @@ namespace GJ2022.Entities.Turfs
         public int Y { get; }
 
         public bool Destroyed { get; set; } = false;
+
+        //Atmospheric block of this turf. Null represents space.
+        public AtmosphericBlock Atmosphere { get; set; } = null;
 
         public Turf(int x, int y)
         {
