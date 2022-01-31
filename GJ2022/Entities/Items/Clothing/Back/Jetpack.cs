@@ -1,15 +1,9 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Effects;
 using GJ2022.Entities.Pawns;
-using GJ2022.Managers;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static GJ2022.Managers.SignalHandler;
 
 namespace GJ2022.Entities.Items.Clothing.Back

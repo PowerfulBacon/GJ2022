@@ -1,4 +1,5 @@
-﻿using GJ2022.Utility.MathConstructs;
+﻿using GJ2022.Audio;
+using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
 using static OpenGL.Gl;
@@ -99,6 +100,10 @@ namespace GJ2022.Rendering
             //ViewMatrix = Matrix.GetTranslationMatrix(3 * (float)Math.Sin(Glfw.Time), 3 * (float)Math.Cos(Glfw.Time), -5);
             //ViewMatrix = Matrix.GetTranslationMatrix((float)Math.Sin(Glfw.Time) * 5.0f, (float)Math.Cos(Glfw.Time) * 5.0f, 0);
             ViewMatrix = Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]) * Matrix.GetTranslationMatrix(Position[0], Position[1], Position[2]);
+
+            //Update audio
+            AudioMaster.UpdateListener(Position[0], Position[1], 0);
+
         }
 
         public void OnScroll(double offset)

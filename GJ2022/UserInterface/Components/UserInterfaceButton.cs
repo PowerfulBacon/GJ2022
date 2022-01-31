@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GJ2022.Entities.ComponentInterfaces.MouseEvents;
+﻿using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.GlobalDataComponents;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
@@ -24,7 +19,7 @@ namespace GJ2022.UserInterface.Components
 
         public override Renderable Renderable { get; }
 
-        public TextObject TextObject { get;  }
+        public TextObject TextObject { get; }
 
         public CursorSpace PositionSpace { get; } = CursorSpace.SCREEN_SPACE;
 

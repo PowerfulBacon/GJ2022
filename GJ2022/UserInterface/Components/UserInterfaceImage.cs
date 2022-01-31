@@ -12,7 +12,8 @@ namespace GJ2022.UserInterface.Components
         public override Vector<float> Position
         {
             get { return _position; }
-            set {
+            set
+            {
                 _position = value;
                 Renderable?.UpdatePosition(value);
             }

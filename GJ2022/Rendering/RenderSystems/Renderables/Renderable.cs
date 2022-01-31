@@ -3,7 +3,6 @@ using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GJ2022.Rendering.RenderSystems.Renderables
 {

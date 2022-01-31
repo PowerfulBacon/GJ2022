@@ -71,6 +71,8 @@
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="OpenAL.Soft" Version="1.19.1" />
+    <PackageReference Include="Silk.NET.OpenAL" Version="2.12.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -78,6 +80,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\Audio\bleep.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\effects\picaxe1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\effects\picaxe2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\effects\picaxe3.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Audio\effects\space_wind.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\ConstructionData\BlueprintData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

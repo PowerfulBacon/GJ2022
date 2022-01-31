@@ -1,8 +1,6 @@
 ﻿using GJ2022.Entities;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
-using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
-using GJ2022.GlobalDataComponents;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
@@ -91,7 +89,7 @@ namespace GJ2022.Subsystems
                 //Get clickable things at these world coordinates
                 foreach (Entity entity in World.GetEntities(x, y))
                 {
-                    if(mousePressed)
+                    if (mousePressed)
                         (entity as IMousePress)?.OnPressed();
                     if (rightMousePressed)
                         (entity as IMouseRightPress)?.OnRightPressed(window);

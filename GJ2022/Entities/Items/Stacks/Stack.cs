@@ -1,5 +1,4 @@
 ﻿using GJ2022.Rendering.Text;
-using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
 using System;
 

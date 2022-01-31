@@ -1,6 +1,4 @@
-﻿using GJ2022.Game.GameWorld;
-
-namespace GJ2022.Entities.Turfs.Standard.Floors
+﻿namespace GJ2022.Entities.Turfs.Standard.Floors
 {
     public abstract class Floor : StandardRenderableTurf
     {

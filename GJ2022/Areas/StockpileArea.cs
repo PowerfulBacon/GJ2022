@@ -1,5 +1,4 @@
-﻿using GJ2022.Entities;
-using GJ2022.Entities.Items;
+﻿using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Rendering.RenderSystems.Renderables;
