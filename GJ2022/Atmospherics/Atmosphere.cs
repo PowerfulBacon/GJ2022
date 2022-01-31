@@ -48,12 +48,15 @@ namespace GJ2022.Atmospherics
             }
         }
 
-        //Set the volume of the atmosphere, calculate pressure and temperature.
+        //Set the volume of the atmosphere, recalculate pressure.
+        //Assume that the temperature doesn't change when we change the room size
+        //(Building a wall between 2 rooms shouldn't cause the room to go to like 500000 kelvin).
         public void AdjustVolume(float litres)
         {
             LitreVolume = litres;
-            KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume);
-            KelvinTemperature = AtmosphericConstants.CalculateTemperature(KiloPascalPressure, LitreVolume, Moles);
+            KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
+            //KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume);
+            //KelvinTemperature = AtmosphericConstants.CalculateTemperature(KiloPascalPressure, LitreVolume, Moles);
         }
 
         //Merge another atmosphere into our own

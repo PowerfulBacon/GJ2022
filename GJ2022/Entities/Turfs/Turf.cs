@@ -83,7 +83,7 @@ namespace GJ2022.Entities.Turfs
         public void Process(float deltaTime)
         {
             if(Atmosphere != null)
-                attachedTextObject.Text = $"{Atmosphere.ContainedAtmosphere.KiloPascalPressure} kPa";
+                attachedTextObject.Text = $"{Atmosphere.ContainedAtmosphere.KiloPascalPressure}@{Atmosphere.ContainedAtmosphere.KelvinTemperature}k";
             else
                 attachedTextObject.Text = $"0 kPa";
         }
