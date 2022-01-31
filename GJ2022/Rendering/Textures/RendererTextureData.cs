@@ -1,4 +1,6 @@
-﻿namespace GJ2022.Rendering.Textures
+﻿using GJ2022.Game.GameWorld;
+
+namespace GJ2022.Rendering.Textures
 {
     /// <summary>
     /// Texture data used by the renderer
@@ -15,6 +17,7 @@
             IndexY = json.IndexY;
             FileWidth = texture.Width;
             FileHeight = texture.Height;
+            DirectionalMode = json.DirectionalModes;
         }
 
         public uint TextureUint { get; }
@@ -30,6 +33,8 @@
         public int IndexX { get; }
 
         public int IndexY { get; }
+
+        public DirectionalModes DirectionalMode { get; }
 
     }
 }

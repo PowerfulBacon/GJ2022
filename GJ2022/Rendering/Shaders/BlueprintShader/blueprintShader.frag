@@ -27,5 +27,5 @@ void main()
     vec3 colour = texture(textureSampler, transformedUV).rgb;
     float greyScaleColour = 0.299 * colour.r + 0.587 * colour.g + 0.114 * colour.b;
 
-    result = vec4(greyScaleColour * 0.4 + 0.3, greyScaleColour * 0.4 + 0.3, 1.0, 1.0);
+    result = vec4(greyScaleColour * 0.4 + 0.3, greyScaleColour * 0.4 + 0.3, 1.0, 0.4);
 } 

@@ -1,4 +1,5 @@
-﻿using GJ2022.Rendering.Models;
+﻿using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
@@ -31,6 +32,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             _texture = texture;
             this.isTransparent = isTransparent;
             StartRendering();
+        }
+
+        public override void UpdateDirection(Directions direction)
+        {
+            base.UpdateDirection(direction);
+            if (renderableBatchIndex.Count > 0)
+                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
         }
 
         //===================
@@ -113,6 +121,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             shouldContinueRendering = false;
             IsRendering = false;
             RenderSystem.StopRendering(this);
+            StopRenderingOverlays();
         }
 
         public override void StartRendering()
@@ -122,6 +131,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             shouldContinueRendering = true;
             IsRendering = true;
             RenderSystem.StartRendering(this);
+            StartRenderingOverlays();
         }
 
         public override void ContinueRendering()
@@ -130,6 +140,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 return;
             IsRendering = true;
             RenderSystem.StartRendering(this);
+            StartRenderingOverlays();
         }
 
         public override void PauseRendering()
@@ -138,6 +149,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 return;
             IsRendering = false;
             RenderSystem.StopRendering(this);
+            StopRenderingOverlays();
         }
     }
 }

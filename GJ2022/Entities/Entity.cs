@@ -1,6 +1,11 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Game.GameWorld;
+using GJ2022.Managers;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using GJ2022.Rendering.Text;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Entities
@@ -20,14 +25,47 @@ namespace GJ2022.Entities
         //The location of the entity, if it is inside of something
         private Entity _location = null;
 
-        //Lazylist of the contents of this entity, if we have any
-        private List<Entity> _contents = null;
+        //Contents
+        public List<Entity> Contents { get; private set; } = null;
 
         //Texture change handler
         public string Texture { set { Renderable?.textureChangeHandler?.Invoke(value); } }
 
+        //Direction
+        private Directions _direction;
+        public Directions Direction
+        {
+            get => _direction;
+            set
+            {
+                _direction = value;
+                Renderable.UpdateDirection(value);
+            }
+        }
+
+        //Don't set this outside of thread safe claim manager
+        private bool isClaimed = false;
+        public bool IsClaimed
+        {
+            get => isClaimed;
+            set
+            {
+                if (value && isClaimed)
+                    throw new Exception("A claim was applied on an object already claimed!");
+                isClaimed = value;
+            }
+        }
+
+        //The text object attached to this
+        protected TextObject attachedTextObject;
+        protected Vector<float> textObjectOffset = new Vector<float>(0, 0);
+
         public Entity(Vector<float> position, float layer)
         {
+            if (position.Dimensions != 2)
+            {
+                throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
+            }
             Position = position;
             Layer = layer;
         }
@@ -42,7 +80,23 @@ namespace GJ2022.Entities
         public virtual bool Destroy()
         {
             if (!(this is IDestroyable))
-                throw new System.Exception("Non destroyable entity was destroyed!");
+                throw new Exception("Non destroyable entity was destroyed!");
+            //Remove from inventories
+            Location?.RemoveFromContents(this);
+            //Release our claims
+            if (ThreadSafeClaimManager.HasClaim(this))
+                ThreadSafeClaimManager.ReleaseClaimBlocking(this);
+            //Send the destroy signal
+            SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED);
+            //Unregister all signals
+            SignalHandler.UnregisterAll(this);
+            //Stop rendering attached text
+            if (attachedTextObject != null)
+            {
+                attachedTextObject.StopRendering();
+                attachedTextObject = null;
+            }
+            //Stop rendering
             Renderable?.StopRendering();
             Renderable = null;
             return true;
@@ -54,6 +108,7 @@ namespace GJ2022.Entities
         public void StartRendering()
         {
             Renderable?.StartRendering();
+            attachedTextObject?.StartRendering();
         }
 
         /// <summary>
@@ -62,6 +117,7 @@ namespace GJ2022.Entities
         public void StopRendering()
         {
             Renderable?.StopRendering();
+            attachedTextObject?.StopRendering();
         }
 
         //Location handler
@@ -73,17 +129,20 @@ namespace GJ2022.Entities
                 Entity oldLocation = _location;
                 //Remove ourselves from the old contents
                 _location?.RemoveFromContents(this);
+                //Set the location
+                _location = value;
                 //If we changed location, pause / resume rendering.
                 if (value == null)
                 {
                     Renderable?.ContinueRendering();
+                    //TODO: this will cause bugs due to start rather than continue
+                    attachedTextObject?.StartRendering();
                 }
                 else
                 {
                     Renderable?.PauseRendering();
+                    attachedTextObject?.StopRendering();
                 }
-                //Set the location
-                _location = value;
                 //Add ourselves to the new contents
                 _location?.AddToContents(this);
                 //Run the on move
@@ -93,16 +152,16 @@ namespace GJ2022.Entities
 
         private void AddToContents(Entity entity)
         {
-            if (_contents == null)
-                _contents = new List<Entity>();
-            _contents.Add(entity);
+            if (Contents == null)
+                Contents = new List<Entity>();
+            Contents.Add(entity);
         }
 
         private void RemoveFromContents(Entity entity)
         {
-            _contents.Remove(entity);
-            if (_contents.Count == 0)
-                _contents = null;
+            Contents.Remove(entity);
+            if (Contents.Count == 0)
+                Contents = null;
         }
 
         //Layer handler
@@ -122,11 +181,31 @@ namespace GJ2022.Entities
             get { return _position; }
             set
             {
-                Vector<float> oldPosition = _position;
+                Vector<float> oldPosition = _position.Copy();
+                Vector<float> delta = value - oldPosition;
                 _position = value;
-                Renderable?.moveHandler?.Invoke(_position);
+                Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
+                if ((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
+                    SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
+                if (attachedTextObject != null)
+                    attachedTextObject.Position = value + textObjectOffset;
+                //Change direction
+                if (delta[0] > -delta[1])
+                    if (delta[0] < delta[1])
+                        Direction = Directions.NORTH;
+                    else
+                        Direction = Directions.EAST;
+                else if (delta[0] < delta[1])
+                    Direction = Directions.WEST;
+                else
+                    Direction = Directions.SOUTH;
             }
+        }
+
+        public bool InReach(Entity target, float range = 0.5f)
+        {
+            return (target.Position - Position).Length() < range && Location == target.Location;
         }
 
     }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GJ2022.Utility.Helpers;
+﻿using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
+using System.Collections.Generic;
 
 namespace GJ2022.UserInterface.Components.Advanced
 {
@@ -158,7 +154,7 @@ namespace GJ2022.UserInterface.Components.Advanced
         {
             foreach (UserInterfaceDropdown dropdown in TopLevelDropdowns)
             {
-                if(dropdown != exclusion)
+                if (dropdown != exclusion)
                     dropdown.Close();
             }
         }

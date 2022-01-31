@@ -1,5 +1,4 @@
-﻿using GJ2022.Entities;
-using GJ2022.Entities.Items;
+﻿using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -33,16 +32,22 @@ namespace GJ2022.Areas
 
         public void RegisterItem(Item item)
         {
-            Log.WriteLine("Item registered!");
             StockpileManager.AddItem(item);
         }
 
         public void UnregisterItem(Item item)
         {
-            Log.WriteLine("Item unregistered");
             StockpileManager.RemoveItem(item);
         }
 
+        public override bool Destroy()
+        {
+            foreach (Item item in World.GetItems((int)Position[0], (int)Position[1]))
+            {
+                UnregisterItem(item);
+            }
+            return base.Destroy();
+        }
     }
 
 }

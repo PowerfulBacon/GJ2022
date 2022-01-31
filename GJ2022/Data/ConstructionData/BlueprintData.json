@@ -1,16 +1,40 @@
 {
   "blueprintCategories": [
     {
-      "name": "Structure",
+      "name": "Foundations",
       "contents": [
         "steel_building",
-        "steel_building_instant"
+        "plating",
+        "catwalk",
+        "gold_building",
+        "gold_floor"
+      ]
+    },
+    {
+      "name": "Structures",
+      "contents": [
+        "door",
+        "furnace"
+      ]
+    },
+    {
+      "name": "Actions",
+      "contents": [
+        "mining_marker",
+        "cancel_marker"
       ]
     },
     {
       "name": "Create Zones",
       "contents": [
         "stockpile_area"
+      ]
+    },
+    {
+      "name": "Cheats",
+      "contents": [
+        "dog",
+        "human"
       ]
     }
   ],
@@ -21,6 +45,34 @@
       "isRoom": true,
       "edge": "steel_wall",
       "fill": "plating"
+    },
+    {
+      "id": "plating",
+      "name": "Plating",
+      "isRoom": true,
+      "edge": "plating",
+      "fill": "plating"
+    },
+    {
+      "id": "gold_building",
+      "name": "Gold Building",
+      "isRoom": true,
+      "edge": "gold_wall",
+      "fill": "gold_floor"
+    },
+    {
+      "id": "gold_floor",
+      "name": "Gold Floor",
+      "isRoom": true,
+      "edge": "gold_floor",
+      "fill": "gold_floor"
+    },
+    {
+      "id": "catwalk",
+      "name": "Catwalk",
+      "isRoom": true,
+      "edge": "catwalk",
+      "fill": "catwalk"
     },
     {
       "id": "steel_building_instant",
@@ -35,9 +87,69 @@
       "isRoom": true,
       "edge": "stockpile_area",
       "fill": "stockpile_area"
+    },
+    {
+      "id": "door",
+      "name": "Airlock",
+      "isRoom": false,
+      "edge": "door",
+      "fill": "door"
+    },
+    {
+      "id": "mining_marker",
+      "name": "Mine Area",
+      "isRoom": true,
+      "edge": "mining_marker",
+      "fill": "mining_marker"
+    },
+    {
+      "id": "cancel_marker",
+      "name": "Cancel Action",
+      "isRoom": true,
+      "edge": "cancel_marker",
+      "fill": "cancel_marker"
+    },
+    {
+      "id": "furnace",
+      "name": "Furnace",
+      "isRoom": false,
+      "edge": "furnace",
+      "fill": "furnace"
+    },
+    {
+      "id": "dog",
+      "name": "Spawn Dog",
+      "isRoom": false,
+      "edge": "dog",
+      "fill": "dog"
+    },
+    {
+      "id": "human",
+      "name": "Spawn Human",
+      "isRoom": false,
+      "edge": "human",
+      "fill": "human"
     }
   ],
   "blueprints": [
+    {
+      "id": "mining_marker",
+      "created_type": "MiningMarker",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "mining_marker",
+      "layer": 3,
+      "instant": true
+    },
+    {
+      "id": "cancel_marker",
+      "created_type": "CancelMarker",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "cancel",
+      "layer": 3,
+      "instant": true
+    },
     {
       "id": "steel_wall",
       "created_type": "Wall",
@@ -58,6 +170,28 @@
       "layer": 1,
       "cost": {
         "Iron": 2
+      }
+    },
+    {
+      "id": "gold_wall",
+      "created_type": "GoldWall",
+      "priority": 1,
+      "blueprintType": "TurfBlueprint",
+      "texture": "gold_wall",
+      "layer": 1,
+      "cost": {
+        "Gold": 10
+      }
+    },
+    {
+      "id": "gold_floor",
+      "created_type": "GoldFloor",
+      "priority": 2,
+      "blueprintType": "TurfBlueprint",
+      "texture": "gold_floor",
+      "layer": 1,
+      "cost": {
+        "Gold": 4
       }
     },
     {
@@ -86,6 +220,57 @@
       "texture": "area_stockpile",
       "layer": 2,
       "instant": true
+    },
+    {
+      "id": "dog",
+      "created_type": "Dog",
+      "priority": 1,
+      "blueprintType": "BlueprintSentience",
+      "texture": "dog",
+      "layer": 5,
+      "instant": true
+    },
+    {
+      "id": "human",
+      "created_type": "Human",
+      "priority": 1,
+      "blueprintType": "BlueprintSentience",
+      "texture": "human_body_male",
+      "layer": 5,
+      "instant": true
+    },
+    {
+      "id": "door",
+      "created_type": "Airlock",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "door_closed",
+      "layer": 1,
+      "cost": {
+        "Iron": 20
+      }
+    },
+    {
+      "id": "catwalk",
+      "created_type": "Catwalk",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "catwalk",
+      "layer": 1,
+      "cost": {
+        "Iron": 1
+      }
+    },
+    {
+      "id": "furnace",
+      "created_type": "Furnace",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "furnace",
+      "layer": 4,
+      "cost": {
+        "Iron": 30
+      }
     }
   ]
 }

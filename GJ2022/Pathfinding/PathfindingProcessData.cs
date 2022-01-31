@@ -1,6 +1,7 @@
 ﻿using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
 using System.Linq;
+using static GJ2022.Subsystems.PathfindingSystem;
 
 namespace GJ2022.Pathfinding
 {
@@ -9,7 +10,9 @@ namespace GJ2022.Pathfinding
 
         public Vector<int> End { get; set; }
         //List of points already processed
-        public HashSet<Vector<int>> ProcessedPoints { get; } = new HashSet<Vector<int>>();
+        //Key = The position
+        //Value = the directions that have been processed
+        public Dictionary<Vector<int>, ConnectingDirections> ProcessedPoints { get; } = new Dictionary<Vector<int>, ConnectingDirections>();
         //Hashset of pathnodes
         private Dictionary<Vector<int>, PathNode> PathNodePositionRefs { get; } = new Dictionary<Vector<int>, PathNode>();
         //Dictionary of the cost of things in the process queue
@@ -69,13 +72,19 @@ namespace GJ2022.Pathfinding
             //Remove the processing from the first element
             firstElements.RemoveAt(0);
             //Add the current to the processed list
-            ProcessedPoints.Add(processing.Position);
+            if (!ProcessedPoints.ContainsKey(processing.Position))
+                ProcessedPoints.Add(processing.Position, ConnectingDirections.NONE);
             //Remove the first elements list if its empty
             if (firstElements.Count == 0)
                 ProcessQueue.Remove(processing.NodeScore);
             //Remove from the reference list
             PathNodePositionRefs.Remove(processing.Position);
             return processing;
+        }
+
+        public void SetScannedDirection(Vector<int> position, ConnectingDirections scannedDirection)
+        {
+            ProcessedPoints[position] |= scannedDirection;
         }
 
         //Range of the pathfinding search (It would be unreasonable to search an infinite grid)

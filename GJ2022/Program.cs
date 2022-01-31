@@ -1,25 +1,21 @@
-﻿using GJ2022.Entities.Debug;
+﻿using GJ2022.Audio;
+using GJ2022.Entities.Items.Clothing.Back;
+using GJ2022.Entities.Items.Clothing.Body;
 using GJ2022.Entities.Items.Stacks;
+using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
+using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
-using GJ2022.Managers.Stockpile;
+using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
-using GJ2022.Rendering.RenderSystems;
-using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Rendering.Textures;
 using GJ2022.Subsystems;
 using GJ2022.UserInterface;
-using GJ2022.UserInterface.Components;
-using GJ2022.UserInterface.Components.Advanced;
-using GJ2022.UserInterface.Factory;
-using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
-using GJ2022.WorldGeneration;
 using GLFW;
 using System;
-using static GJ2022.UserInterface.Components.UserInterfaceButton;
 using static OpenGL.Gl;
 
 namespace GJ2022
@@ -51,6 +47,11 @@ namespace GJ2022
             Window window = SetupWindow();
             UsingOpenGL = true;
 
+            //Setup open AL
+            AudioMaster.Initialize();
+            new AudioSource().PlaySound("effects/picaxe1.wav", 0, 0, repeating: true);
+            //new AudioSource().PlaySound("effects/picaxe1.wav", 0, -60, repeating: true);
+
             //Create callbacks
             SetCallbacks(window);
 
@@ -60,35 +61,59 @@ namespace GJ2022
             //Load text
             TextLoader.LoadText();
 
-            //World creation here
-
-
             //Initialize the renderer
             RenderMaster.Initialize();
-
-            //Trigger on world init
-            Subsystem.InitializeSubsystems(window);
 
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
             while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) { }
             Log.WriteLine("Done loading", LogType.DEBUG);
 
+            //Create the error texture (so it has uint of 0)
+            TextureCache.GetTexture("error");
+
+            //Trigger on world init
+            Subsystem.InitializeSubsystems(window);
+
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
-            for (int i = 0; i < 5; i++)
+            Pawn jetpackPawn = null;
+            for (int i = 0; i < 4; i++)
             {
-                new Pawn(new Vector<float>(2.3f, 7.3f));
+                Human p = new Human(new Vector<float>(2.3f, 7.3f));
+                p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
+                jetpackPawn = p;
+                new CrewmemberBehaviour(p);
+            }
+
+            Human syndicate = new Human(new Vector<float>(-15, 0));
+            new CrewmemberBehaviour(syndicate);
+            syndicate.TryEquipItem(InventorySlot.SLOT_BODY, new SyndicateHardsuit(new Vector<float>(4, 7)));
+
+            for (int x = 4; x < 6; x++)
+            {
+                for (int y = 4; y < 6; y++)
+                {
+                    new Iron(new Vector<float>(x, y), 50, 50);
+                }
             }
 
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    Iron iron = new Iron(new Vector<float>(x, y), 50, 50);
+                    new Plating(x, y);
                 }
             }
+
+            new Jetpack(new Vector<float>(9, 8));
+            new Pickaxe(new Vector<float>(3, 2));
+
+            Dog dog = new Dog(new Vector<float>(2, 2));
+            new DogBehaviour(dog);
+
+            jetpackPawn.TryEquipItem(InventorySlot.SLOT_BACK, new Jetpack(new Vector<float>(9, 8)));
 
             Random r = new Random();
             for (int x = 20; x < 100; x += r.Next(1, 10))
@@ -117,6 +142,9 @@ namespace GJ2022
                     Log.WriteLine(e, LogType.ERROR);
                 }
             }
+
+            //Cleanup openAL
+            AudioMaster.Cleanup();
 
             //Kill subsystems
             Subsystem.KillSubsystems();

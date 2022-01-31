@@ -2,11 +2,6 @@
 using GJ2022.UserInterface.Components.Advanced;
 using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static GJ2022.UserInterface.Components.UserInterfaceButton;
 
 namespace GJ2022.UserInterface.Factory

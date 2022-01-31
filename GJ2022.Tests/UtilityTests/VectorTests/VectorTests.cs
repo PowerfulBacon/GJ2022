@@ -24,6 +24,25 @@ namespace GJ2022.Tests.UtilityTests.VectorTests
         }
 
         [TestMethod]
+        public void TestVectorIndependance()
+        {
+            Vector<float> a = new Vector<float>(1, 2, 3);
+            Vector<float> b = a.Copy();
+            a[1] = 4;
+            Assert.AreEqual(2, b[1]);
+        }
+
+        [TestMethod]
+        public void TestVectorIndependanceAgain()
+        {
+            Vector<float> a = new Vector<float>(1, 2, 3);
+            Vector<float> b = a.Copy();
+            a = new Vector<float>(10, 10, 10);
+            Assert.AreEqual(new Vector<float>(1, 2, 3), b);
+            Assert.AreEqual(new Vector<float>(10, 10, 10), a);
+        }
+
+        [TestMethod]
         public void TestDictionaryKey()
         {
             Vector<float> a = new Vector<float>(1, 1, 1);

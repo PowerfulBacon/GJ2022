@@ -5,9 +5,13 @@
 
         public const int LAYER_TURF = 0;
         public const int LAYER_BLUEPRINT = 1;
-        public const int LAYER_ITEM = 2;
-        public const int LAYER_AREA = 3;
-        public const int LAYER_PAWN = 4;
+        public const int LAYER_CATWALK = 2;
+        public const int LAYER_ITEM = 3;
+        public const int LAYER_AREA = 4;
+        public const int LAYER_STRUCTURE = 5;
+        public const int LAYER_EFFECT = 6;
+        public const int LAYER_PAWN = 7;
+        public const int LAYER_MARKER = 8;
         public const int LAYER_USER_INTERFACE = 20;
         public const int LAYER_TEXT = 21;
 

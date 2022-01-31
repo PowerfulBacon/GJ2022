@@ -14,12 +14,21 @@ namespace GJ2022.Managers.Stockpile
         //List of UI text objects currently being displayed
         public static Dictionary<Type, UserInterfaceTextIcon> displayedUiComponents = new Dictionary<Type, UserInterfaceTextIcon>();
 
-        public static void UpdateUserInterface(Item item, int amount)
+        public static void UpdateUserInterface(Item item, Type type, int amount)
         {
             if (amount == 0)
             {
-                displayedUiComponents[item.GetType()].Hide();
-                displayedUiComponents.Remove(item.GetType());
+                if (displayedUiComponents.ContainsKey(type))
+                {
+                    displayedUiComponents[type].Hide();
+                    displayedUiComponents.Remove(type);
+                    int i = 0;
+                    foreach (Type uiType in displayedUiComponents.Keys)
+                    {
+                        displayedUiComponents[uiType].Position = CoordinateHelper.PixelsToScreen(-1920 + 60, 1080 - 70 - 100 * i);
+                        i++;
+                    }
+                }
                 return;
             }
             if (displayedUiComponents.ContainsKey(item.GetType()))

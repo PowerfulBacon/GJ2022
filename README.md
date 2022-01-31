@@ -1,4 +1,21 @@
+Requires .net framework 4.7.2
+
 # GJ2022
+
+This project is a highly efficient 2D game engine, running in C# using openGL for graphics. The rendering engine is a heavilly modified variant of a 3D block based rendering engine I made for another project that never got finished, with optimisations for 2D graphics, large amounts of code cleanup and some pretty big refactorings making it almost completely seperate from the original renderer. The game is inspired by games such as Rimworld and Prison Architect where you command pawns to construct and perform actions for you, while you exist in a god-like observer state, as well as taking inspiration from Space Station 13, a simulation/sandbox/social deduction game where you play as a crewmember aboard a technologically advanced but cursed space station. The game and gameplay itself isn't that impressive, however the framework for the engine and possible expansions that can be made in the future is where this project makes up for that, with expandable frameworks for:
+
+    New rendering systems and shaders
+    New easilly addible entities
+    New AI behaviours and pawn actions
+    New subsystems that can perform processing
+
+While it would still need a lot of work to become a fun and playable game, this project is successful as a prototype / proof of concept.
+A lot of time was spent making the engine robust, so there wasn't as many gameplay related features added as first hoped, however in the future it would be nice to add pawn health systems, atmospherics, environmental dangers, hostile NPCs, improved textures for pawns etc.
+
+The main issue with this project is that due to running out of time, there is almost nothing in the game related to the theme of Duality and the theme was pretty much abandoned during development to focus on creating the internal systems.
+
+## Initial Game Plan
+
 A game made around the theme of Duality.
 
 The game idea is that you view down on a space station, can place rooms and build it however you like. You can play the game however you want and help who you want.
@@ -8,6 +25,12 @@ While the core idea is around the duality between a zen like sandbox game and a 
 The game should have some kind of anomalous thingy that lets you get powers, but at the cost of something equally bad and good happening.
 
 Will I be able to implement all of this in 10 days without using a game engine? Probably not, but hopefully there is a basic simulation by the end of it where you can watch your people and build a station.
+
+## License
+
+All assets including icons and sound are under a Creative Commons 3.0 BY-SA license unless otherwise indicated. https://creativecommons.org/licenses/by-sa/3.0/
+The majority of game assets are taken from the Space Station 13 codebase 'Beestation', https://github.com/BeeStation/BeeStation-Hornet
+This does not cover the code for the project.
 
 ## Update:
 
@@ -24,6 +47,25 @@ Utility - Stores no data, provides helper methods.
 GlobalDataComponents - This should be managers (//TODO)
 
 # Screenshots
+![image](https://user-images.githubusercontent.com/26465327/151701715-516d425d-f59d-49a2-b50a-c8c2a40ef45d.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151701696-71b36c87-d0fb-4bd1-ba8b-9de9a3de0168.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151696771-f4655219-0f6a-4b92-8677-767716b5b850.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151695011-6920e1b4-ea3a-47a0-95a8-898adf6c96e8.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151676063-88193305-e95f-4929-be42-14213ef7437d.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151675978-3c7d3439-bb42-4433-b7ea-cff446f360a7.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151675950-59bea494-db30-4dfe-9ab6-21c084e22e89.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151660809-42c4ef5e-74f9-451c-80ab-d45a63042c6b.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151601612-20988587-1d69-44ee-a557-d7ab98be9829.png)
+
+![image](https://user-images.githubusercontent.com/26465327/151583013-fe18a87a-3d6e-481f-82c9-44461e6304a9.png)
 
 ![image](https://user-images.githubusercontent.com/26465327/150699998-b8a64d51-fbb2-422a-8849-2b1fd1a79870.png)
 

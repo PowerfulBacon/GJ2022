@@ -29,7 +29,7 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
                 //Create the program
                 programUint = glCreateProgram();
             }
-            catch (GLFW.Exception)
+            catch
             {
                 setupFailed = true;
             }

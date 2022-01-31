@@ -88,7 +88,7 @@ namespace GJ2022.Subsystems
                     //Check for border
                     bool isBorder = x == (int)dragStartPoint[0] || x == (int)dragEndPoint[0] || y == (int)dragStartPoint[1] || y == (int)dragEndPoint[1];
                     //Blueprint
-                    Vector<float> position = new Vector<float>(x, y, 2);
+                    Vector<float> position = new Vector<float>(x, y);
                     BlueprintDetail blueprintDetail = isBorder ? selectedBlueprint.BlueprintDetail : selectedBlueprint.FillerBlueprint;
                     Blueprint blueprint = Activator.CreateInstance(
                         blueprintDetail.BlueprintType,

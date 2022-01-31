@@ -30,7 +30,7 @@ namespace GJ2022.Entities.Blueprints
 
         protected override Renderable Renderable { get; set; } = new BlueprintRenderable("error");
 
-        private List<Item> contents = new List<Item>();
+        protected List<Item> contents = new List<Item>();
 
         public Blueprint(Vector<float> position, BlueprintDetail blueprint) : base(position, Layers.LAYER_BLUEPRINT)
         {
@@ -49,7 +49,7 @@ namespace GJ2022.Entities.Blueprints
             foreach (Item item in contents)
             {
                 item.Location = null;
-                item.Position = Position;
+                item.Position = Position.Copy();
             }
             //Remove from the pawn list
             //TODO: Contain this inside pawn controller system rather than here
@@ -78,6 +78,11 @@ namespace GJ2022.Entities.Blueprints
                 toPut.Location = this;
                 LazyHelper.LazyIntegerAdd<Type>(LoadedMaterials, item.GetType(), toPut.StackSize);
             }
+        }
+
+        public bool RequiresMaterial(Type materialType)
+        {
+            return BlueprintDetail.Cost.Cost.ContainsKey(materialType);
         }
 
         /// <summary>

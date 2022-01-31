@@ -1,7 +1,6 @@
 ﻿using GJ2022.Entities.Pawns;
 using GJ2022.Game.Construction;
 using GJ2022.Game.Construction.BlueprintSets;
-using GJ2022.Managers.Stockpile;
 using GJ2022.Rendering.Text;
 using GJ2022.Subsystems;
 using GJ2022.UserInterface.Components;
@@ -16,6 +15,8 @@ namespace GJ2022.UserInterface
     public static class UserInterfaceCreator
     {
 
+        public static TextObject SelectorTextObject;
+
         public static void CreateUserInterface()
         {
 
@@ -29,6 +30,8 @@ namespace GJ2022.UserInterface
                 "Building",
                 defaultDropdownSettings
                 );
+
+            SelectorTextObject = new TextObject("Selected Pawn: N/A", Colour.White, CoordinateHelper.PixelsToScreen(0, 1000), TextObject.PositionModes.SCREEN_POSITION, CoordinateHelper.PixelsToScreen(120));
 
             foreach (BlueprintCategory category in BlueprintLoader.BlueprintCategories.Values)
             {

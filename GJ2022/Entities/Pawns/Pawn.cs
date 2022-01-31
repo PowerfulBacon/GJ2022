@@ -1,297 +1,421 @@
-﻿using GJ2022.Entities.Blueprints;
-using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers.Stockpile;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Pathfinding;
+using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
-using GJ2022.Utility.Helpers;
 using GJ2022.Utility.MathConstructs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, IProcessable
+    public class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
     {
 
-        protected override Renderable Renderable { get; set; } = new CircleRenderable(Colour.Yellow);
+        //The renderable attached to our pawn
+        protected override Renderable Renderable { get; set; } = new CircleRenderable(Colour.Random);
 
-        public bool Destroyed { get; set; } = false;
-
-        private Item heldItem;
-
-        private Vector<float> itemTargetPosition;
-        private Item itemTarget;
-        private Blueprint workTarget;
-        private Line line;
-
+        //TODO: Draw debug pathfinding lines
         public static bool DrawLines = false;
 
-        private List<Line> lines = new List<Line>();
+        //Is this pawn destroyed?
+        public bool Destroyed { get; set; } = false;
 
+        public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
+
+        public float WorldX => Position[0] - 0.5f;
+
+        public float WorldY => Position[1] - 0.5f;
+
+        public float Width => 1.0f;
+
+        public float Height => 1.0f;
+
+        //The AI controller
+        public PawnBehaviour behaviourController;
+
+        //Equipped items
+        public Dictionary<InventorySlot, IEquippable> EquippedItems = new Dictionary<InventorySlot, IEquippable>();
+        //Flags of hazards we are protected from due to our equipped items
+        private PawnHazards cachedHazardProtection = PawnHazards.NONE;
+
+        //Held items
+        public Item[] heldItems = new Item[2];
+
+        //The intended destination
+        private Entity entityTargetDestination;
+        //Positional destination
+        //Entity target destination takes precidence over this
+        private Vector<float> targetDestinationPosition;
+        //Do we have a target destination
+        private bool hasTargetDestination = false;
+        //Are we waiting for a path?
+        private bool waitingForPath = false;
+        //The path we are currently following
         private Path followingPath = null;
+        //The position we currently are along this path
         private int positionOnPath;
+
+        private Line helpfulLine;
 
         public Pawn(Vector<float> position) : base(position, Layers.LAYER_PAWN)
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
+            MouseCollisionSubsystem.Singleton.StartTracking(this);
+        }
+
+        /// <summary>
+        /// Thread safe item equip
+        /// </summary>
+        public bool TryEquipItem(InventorySlot targetSlot, IEquippable item)
+        {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_EQUIPPABLES, () =>
+            {
+                //Check the slot
+                if (EquippedItems.ContainsKey(targetSlot))
+                    return false;
+                EquippedItems.Add(targetSlot, item);
+                item.OnEquip(this, targetSlot);
+                RecalculateHazardProtection();
+                AddEquipOverlay(targetSlot, item);
+                return true;
+            });
+        }
+
+        protected virtual void AddEquipOverlay(InventorySlot targetSlot, IEquippable item) { }
+
+        /// <summary>
+        /// Recalculate what hazards we are protected from
+        /// </summary>
+        private void RecalculateHazardProtection()
+        {
+            cachedHazardProtection = PawnHazards.NONE;
+            foreach (IEquippable item in EquippedItems.Values)
+            {
+                cachedHazardProtection |= item.ProtectedHazards;
+            }
+        }
+
+        public void MoveTowardsEntity(Entity target)
+        {
+            //Set our new target destination
+            entityTargetDestination = target;
+            //Set the position to go to
+            targetDestinationPosition = target.Position.Copy();
+            hasTargetDestination = true;
+            //Nullify the path we were following (calculate a new one)
+            followingPath = null;
+        }
+
+        public void MoveTowardsPosition(Vector<float> position)
+        {
+            //Set our new target destination
+            targetDestinationPosition = position.Copy();
+            hasTargetDestination = true;
+            //Nullify the entity target destination
+            entityTargetDestination = null;
+            //Nullify the path we were following (calculate a new one)
+            followingPath = null;
+        }
+
+        public bool HasTarget()
+        {
+            return hasTargetDestination;
+        }
+
+        private void DrawHelpfulLine()
+        {
+            Vector<float> endPos = targetDestinationPosition;
+            if (!hasTargetDestination || !DrawLines)
+            {
+                helpfulLine?.StopDrawing();
+                helpfulLine = null;
+                return;
+            }
+            if (helpfulLine == null)
+                helpfulLine = Line.StartDrawingLine(Position.SetZ(10), endPos.SetZ(10));
+            helpfulLine.Start = Position.SetZ(10);
+            helpfulLine.End = endPos.SetZ(10);
+            helpfulLine.Colour = followingPath != null ? Colour.Green : Colour.Red;
+        }
+
+        public List<Item> GetHeldItems()
+        {
+            List<Item> items = new List<Item>();
+            for (int i = 0; i < heldItems.Length; i++)
+            {
+                if (heldItems[i] == null)
+                    continue;
+                if (heldItems[i].Destroyed || heldItems[i].Location != this)
+                {
+                    heldItems[i] = null;
+                    continue;
+                }
+                items.Add(heldItems[i]);
+            }
+            return items;
+        }
+
+        public bool TryPickupItem(Item item)
+        {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
+            {
+                //Destroyed items cannot be picked up
+                if (item.Destroyed)
+                    return false;
+                //Can't pickup if the item was moved somewhere else
+                if (!InReach(item))
+                    return false;
+                //Hands check
+                int freeIndex = -1;
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] == null)
+                    {
+                        freeIndex = i;
+                        break;
+                    }
+                }
+                //If we have no hands return false
+                if (freeIndex == -1)
+                    return false;
+                //Pickup the item
+                heldItems[freeIndex] = item;
+                item.Location = this;
+                return true;
+            });
+        }
+
+        public bool HasFreeHands()
+        {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
+            {
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] == null)
+                        return true;
+                    if (heldItems[i].Destroyed)
+                    {
+                        heldItems[i] = null;
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
+
+        public bool IsHoldingItems()
+        {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
+            {
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] != null)
+                    {
+                        if (!heldItems[i].Destroyed)
+                            return true;
+                        heldItems[i] = null;
+                    }
+                }
+                return false;
+            });
+        }
+
+        public bool DropFirstItem(Vector<float> dropLocation)
+        {
+            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
+            {
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] == null)
+                        continue;
+                    if (heldItems[i].Destroyed)
+                    {
+                        heldItems[i] = null;
+                        continue;
+                    }
+                    //Drop the item out of ourselves
+                    heldItems[i].Location = null;
+                    heldItems[i].Position = dropLocation.Copy();
+                    heldItems[i] = null;
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        public void DropHeldItems(Vector<float> dropLocation)
+        {
+            ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
+            {
+                for (int i = heldItems.Length - 1; i >= 0; i--)
+                {
+                    if (heldItems[i] == null)
+                        continue;
+                    if (heldItems[i].Destroyed)
+                    {
+                        heldItems[i] = null;
+                        continue;
+                    }
+                    //Drop the item out of ourselves
+                    heldItems[i].Position = dropLocation.Copy();
+                    heldItems[i].Location = null;
+                    heldItems[i] = null;
+                }
+                return true;
+            });
         }
 
         public void Process(float deltaTime)
         {
-            //Target no longer exists
-            if (workTarget != null && workTarget.Destroyed)
-                workTarget = null;
-            //Move towards the nearest blueprint and build it
-            if (workTarget == null)
-            {
-                if (PawnControllerSystem.QueuedBlueprints.Count > 0)
-                {
-                    Vector<float> workTargetPosition = ListPicker.Pick(PawnControllerSystem.QueuedBlueprints.Keys);
-                    workTarget = PawnControllerSystem.QueuedBlueprints[workTargetPosition].Values.ElementAt(0);
-                    if (line == null)
-                    {
-                        line = Line.StartDrawingLine(Position.SetZ(10), workTargetPosition.SetZ(10), Colour.Cyan);
-                    }
-                    else
-                    {
-                        line.End = workTarget.Position;
-                    }
-                    //Check if we are holding the wrong thing
-                    if (heldItem != null && workTarget.GetRequiredMaterial()?.Item1 != heldItem?.GetType())
-                    {
-                        heldItem.Location = null;
-                        heldItem.Position = Position;
-                        heldItem = null;
-                    }
-                    //Locate materials
-                    if (workTarget.HasMaterials() || heldItem != null)
-                    {
-                        Line[] copy = lines.ToArray();
-                        lines.Clear();
-                        PathfindingSystem.Singleton.RequestPath(
-                            new PathfindingRequest(
-                                Position,
-                                workTargetPosition,
-                                (Path path) =>
-                                {
-                                    foreach (Line l in copy)
-                                    {
-                                        l.StopDrawing();
-                                    }
-                                    if (DrawLines)
-                                    {
-                                        for (int i = 0; i < path.Points.Count - 1; i++)
-                                        {
-                                            lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
-                                        }
-                                    }
-                                    followingPath = path;
-                                    positionOnPath = 0;
-                                },
-                                () => { workTarget = null; }
-                            ));
-                    }
-                    else
-                    {
-                        //Look for required items
-                        (Type, int) requiredItems = workTarget.GetRequiredMaterial() ?? (null, 0);
-                        //Bug
-                        if (requiredItems.Item1 == null)
-                            throw new Exception("This shouldn't happen");
-                        //Locate the item
-                        Item locatedItem = StockpileManager.LocateItemInStockpile(requiredItems.Item1);
-                        if (locatedItem == null)
-                        {
-                            //Item isn't in stockpile
-                            workTarget = null;
-                            return;
-                        }
-                        //Path towards the item
-                        itemTarget = locatedItem;
-                        itemTargetPosition = itemTarget.Position;
-                        Line[] copy = lines.ToArray();
-                        lines.Clear();
-                        PathfindingSystem.Singleton.RequestPath(
-                            new PathfindingRequest(
-                                Position,
-                                itemTargetPosition,
-                                (Path path) =>
-                                {
-                                    foreach (Line l in copy)
-                                    {
-                                        l.StopDrawing();
-                                    }
-                                    if (DrawLines)
-                                    {
-                                        for (int i = 0; i < path.Points.Count - 1; i++)
-                                        {
-                                            lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
-                                        }
-                                    }
-                                    followingPath = path;
-                                    positionOnPath = 0;
-                                },
-                                () => { itemTarget = null; workTarget = null; }
-                            ));
-                    }
-                }
-                else
-                {
-                    line?.StopDrawing();
-                    line = null;
-                    return;
-                }
-            }
-            if (followingPath == null || workTarget == null)
+            DrawHelpfulLine();
+            //Hazard reaction, prepare to panic
+            HazardReact();
+            //Idle behaviour
+            if (IsIdle())
                 return;
-            if (workTarget.Destroyed)
-            {
-                workTarget = null;
-                followingPath = null;
+            //Wait for pathfinding
+            if (IsWaitingForPath())
                 return;
-            }
-            Vector<float> nextPosition;
-            if (positionOnPath < followingPath.Points.Count)
-            {
-                nextPosition = followingPath.Points[positionOnPath];
-            }
-            else
-            {
-                nextPosition = itemTarget == null ? workTarget.Position : itemTargetPosition;
-            }
-            //Move towards
-            Position = Position.MoveTowards(nextPosition, 0.1f, deltaTime);
-            //ugly line
-            line.Start = Position.SetZ(10);
+            //Traverse along the path
+            TraversePath(deltaTime);
+        }
 
-            //If our target item moved, find a new one
-            if (itemTarget != null && (itemTarget.Position != itemTargetPosition || itemTarget.Location != null))
+        public bool IsIdle()
+        {
+            if (hasTargetDestination)
+                return false;
+            //Do idle behaviours
+            return true;
+        }
+
+        /// <summary>
+        /// Travel along the specified path
+        /// </summary>
+        private void TraversePath(float deltaTime, float distance = 0.1f)
+        {
+            //Check if our target moved
+            if (entityTargetDestination != null && (entityTargetDestination.Position != targetDestinationPosition || entityTargetDestination.Location != null))
             {
-                itemTarget = null;
+                //Our target was moved :(
+                entityTargetDestination = null;
+                hasTargetDestination = false;
                 followingPath = null;
-                //Look for required items
-                (Type, int) requiredItems = workTarget.GetRequiredMaterial() ?? (null, 0);
-                //Bug
-                if (requiredItems.Item1 == null)
-                    throw new Exception("This shouldn't happen");
-                //Locate the item
-                Item locatedItem = StockpileManager.LocateItemInStockpile(requiredItems.Item1);
-                if (locatedItem == null)
-                {
-                    //Item isn't in stockpile
-                    workTarget = null;
-                    return;
-                }
-                //Path towards the item
-                itemTarget = locatedItem;
-                itemTargetPosition = itemTarget.Position;
-                Line[] copy = lines.ToArray();
-                lines.Clear();
-                PathfindingSystem.Singleton.RequestPath(
-                    new PathfindingRequest(
-                        Position,
-                        itemTargetPosition,
-                        (Path path) =>
-                        {
-                            foreach (Line l in copy)
-                            {
-                                l.StopDrawing();
-                            }
-                            if (DrawLines)
-                            {
-                                for (int i = 0; i < path.Points.Count - 1; i++)
-                                {
-                                    lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
-                                }
-                            }
-                            followingPath = path;
-                            positionOnPath = 0;
-                        },
-                        () => { itemTarget = null; workTarget = null; }
-                    ));
+                positionOnPath = 0;
                 return;
             }
-
-            //If distance < build range, build it
-            if (Position.IgnoreZ() == itemTarget?.Position.IgnoreZ())
+            //We have reached our destination
+            if (Position == targetDestinationPosition)
             {
-                //Pickup the item
-                itemTarget.Location = this;
-                //Null the item target
-                heldItem = itemTarget;
-                (Renderable as CircleRenderable).Colour = Colour.Blue;
-                itemTarget = null;
-                followingPath = null;
-                //Path towards the work target
-                Line[] copy = lines.ToArray();
-                lines.Clear();
-                PathfindingSystem.Singleton.RequestPath(
-                    new PathfindingRequest(
-                        Position,
-                        workTarget.Position.IgnoreZ(),
-                        (Path path) =>
-                        {
-                            foreach (Line l in copy)
-                            {
-                                l.StopDrawing();
-                            }
-                            if (DrawLines)
-                            {
-                                for (int i = 0; i < path.Points.Count - 1; i++)
-                                {
-                                    lines.Add(Line.StartDrawingLine(path.Points[i].SetZ(10), path.Points[i + 1].SetZ(10)));
-                                }
-                            }
-                            followingPath = path;
-                            positionOnPath = 0;
-                        },
-                        () =>
-                        {
-                            //Null the work target
-                            workTarget = null;
-                            //Drop held items
-                            if (itemTarget != null)
-                            {
-                                heldItem.Location = null;
-                                heldItem.Position = Position;
-                            }
-                            heldItem = null;
-                            (Renderable as CircleRenderable).Colour = Colour.Yellow;
-                        }
-                    ));
+                ReachDestination();
+                return;
             }
-            else if (Position.IgnoreZ() == workTarget.Position.IgnoreZ())
+            //Move towards the next node on our path
+            Vector<float> nextPathPosition = positionOnPath < followingPath.Points.Count
+                ? (Vector<float>)followingPath.Points[positionOnPath]
+                : targetDestinationPosition;
+            //Move towards the point
+            float extraDistance;
+            Position = Position.MoveTowards(nextPathPosition, distance, deltaTime, out extraDistance);
+            //If we reached the point, move towards the next point
+            if (Position == nextPathPosition)
             {
-                followingPath = null;
-                //Put materials into the work target
-                if (heldItem != null && !workTarget.HasMaterials())
-                    workTarget.PutMaterials(heldItem);
-                if (heldItem?.Location != this)
-                {
-                    heldItem = null;
-                    (Renderable as CircleRenderable).Colour = Colour.Yellow;
-                }
-                if (workTarget.HasMaterials())
-                    workTarget.Complete();
-                else
-                    workTarget = null;
-            }
-            else if (Position.IgnoreZ() == nextPosition.IgnoreZ())
-            {
+                //Increment the path position
                 positionOnPath++;
+                //If we still have more distance to move, move it
+                if (extraDistance > 0)
+                    TraversePath(deltaTime, extraDistance * deltaTime);
             }
         }
+
+        /// <summary>
+        /// Trigger the AI reach destination intercept
+        /// </summary>
+        private void ReachDestination()
+        {
+            hasTargetDestination = false;
+            entityTargetDestination = null;
+            followingPath = null;
+            positionOnPath = 0;
+            behaviourController.PawnActionReached();
+        }
+
+        /// <summary>
+        /// Returns true if we are waiting for a path.
+        /// Returns false if we have a path.
+        /// Automatically queues pathfinding if we don't have a path and need one
+        /// </summary>
+        /// <returns></returns>
+        private bool IsWaitingForPath()
+        {
+            //We are already waiting for a path
+            if (waitingForPath)
+                return true;
+            //We have a path
+            if (followingPath != null)
+                return false;
+            //We need to start calculating a path
+            waitingForPath = true;
+            PathfindingSystem.Singleton.RequestPath(
+                new PathfindingRequest(
+                    Position,
+                    targetDestinationPosition,
+                    cachedHazardProtection,
+                    (Path path) =>
+                    {
+                        followingPath = path;
+                        positionOnPath = 0;
+                        waitingForPath = false;
+                    },
+                    () =>
+                    {
+                        behaviourController.PawnActionUnreachable(targetDestinationPosition);
+                        waitingForPath = false;
+                    }
+                ));
+            return true;
+        }
+
+        private void HazardReact()
+        {
+            //Detect unhandled hazards
+            //behaviourController.PawnActionIntercept();
+        }
+
         public override bool Destroy()
         {
             base.Destroy();
             PawnControllerSystem.Singleton.StopProcessing(this);
             Destroyed = true;
             return true;
+        }
+
+        public void OnPressed()
+        {
+            PawnControllerSystem.Singleton.SelectPawn(this);
+        }
+
+        /// <summary>
+        /// On move behaviour.
+        /// Update ourself in the world list
+        /// </summary>
+        public void OnMoved(Vector<float> oldPosition)
+        {
+            if ((int)oldPosition[0] == (int)Position[0] && (int)oldPosition[1] == (int)Position[1])
+                return;
+            World.RemovePawn((int)oldPosition[0], (int)oldPosition[1], this);
+            World.AddPawn((int)Position[0], (int)Position[1], this);
+        }
+
+        public void OnMoved(Entity oldLocation)
+        {
+            if (oldLocation == Location)
+                return;
+            World.RemovePawn((int)Position[0], (int)Position[1], this);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using GJ2022.Utility.MathConstructs;
+﻿using GJ2022.Audio;
+using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
 using static OpenGL.Gl;
@@ -20,6 +21,8 @@ namespace GJ2022.Rendering
         public Matrix ProjectionMatrix { get; private set; } = Matrix.GetScaleMatrix(1080 / 1920f, 1, 0.01f);
 
         private float speed = 0.04f;
+
+        private double lastTime = 0;
 
         private Vector<float> GetForwardVector()
         {
@@ -65,7 +68,9 @@ namespace GJ2022.Rendering
 
         public void DebugMove(Window window)
         {
-            speed = 0.04f / Scale[0];
+            double currentTime = Glfw.Time;
+            speed = (4f / Scale[0]) * (float)(currentTime - lastTime);
+            lastTime = currentTime;
             if (Glfw.GetKey(window, Keys.D) == InputState.Press)
             {
                 Position += GetRightVector() * speed;
@@ -95,6 +100,10 @@ namespace GJ2022.Rendering
             //ViewMatrix = Matrix.GetTranslationMatrix(3 * (float)Math.Sin(Glfw.Time), 3 * (float)Math.Cos(Glfw.Time), -5);
             //ViewMatrix = Matrix.GetTranslationMatrix((float)Math.Sin(Glfw.Time) * 5.0f, (float)Math.Cos(Glfw.Time) * 5.0f, 0);
             ViewMatrix = Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]) * Matrix.GetTranslationMatrix(Position[0], Position[1], Position[2]);
+
+            //Update audio
+            AudioMaster.UpdateListener(Position[0], Position[1], 0);
+
         }
 
         public void OnScroll(double offset)
