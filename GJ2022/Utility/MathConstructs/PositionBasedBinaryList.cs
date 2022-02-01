@@ -24,6 +24,18 @@ namespace GJ2022.Utility.MathConstructs
 
         internal List<BinaryListElement<T>> binaryListElements = new List<BinaryListElement<T>>();
 
+        public T TakeFirst()
+        {
+            T taken = binaryListElements.First().value;
+            binaryListElements.RemoveAt(0);
+            return taken;
+        }
+
+        public T First()
+        {
+            return binaryListElements.First().value;
+        }
+
         public int Length()
         {
             return binaryListElements.Count;
@@ -141,6 +153,21 @@ namespace GJ2022.Utility.MathConstructs
     {
 
         private BinaryList<BinaryList<T>> list = new BinaryList<BinaryList<T>>();
+
+        public bool HasElements => list.Length() > 0;
+
+        public T TakeFirst()
+        {
+            T taken = list.First().TakeFirst();
+            if (list.First().Length() == 0)
+                list.TakeFirst();
+            return taken;
+        }
+
+        public T First()
+        {
+            return list.First().First();
+        }
 
         public void Add(int x, int y, T element)
         {

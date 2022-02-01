@@ -8,6 +8,41 @@ namespace GJ2022.Tests.UtilityTests
     {
 
         [TestMethod]
+        public void TestTakeFirst()
+        {
+            PositionBasedBinaryList<int> randomList = new PositionBasedBinaryList<int>();
+            randomList.Add(0, 0, 1);
+            randomList.Add(3, 3, 2);
+            randomList.Add(2, 2, 3);
+            randomList.Add(2, 5, 4);
+            randomList.Add(2, 8, 5);
+            randomList.Add(10, 10, 6);
+            randomList.Add(5, -10, 7);
+            randomList.Add(-8, 4, 8);
+            Assert.AreEqual(true, randomList.HasElements);
+            Log.WriteLine(randomList.TakeFirst());
+            Log.WriteLine(randomList.TakeFirst());
+            Log.WriteLine(randomList.TakeFirst());
+            Log.WriteLine(randomList.TakeFirst());
+            Assert.AreEqual(true, randomList.HasElements);
+            Log.WriteLine(randomList.TakeFirst());
+            Log.WriteLine(randomList.TakeFirst());
+            Log.WriteLine(randomList.TakeFirst());
+            Log.WriteLine(randomList.TakeFirst());
+            Assert.AreEqual(default, randomList.Get(0, 0));
+            Assert.AreEqual(false, randomList.HasElements);
+            try
+            {
+                randomList.TakeFirst();
+            }
+            catch
+            {
+                return;
+            }
+            Assert.Fail("Should fail on the final take.");
+        }
+
+        [TestMethod]
         public void TestElementsInRange()
         {
             PositionBasedBinaryList<int> randomList = new PositionBasedBinaryList<int>();

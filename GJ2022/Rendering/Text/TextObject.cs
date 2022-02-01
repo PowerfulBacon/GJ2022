@@ -1,6 +1,7 @@
 ﻿using GJ2022.Rendering.RenderSystems;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GJ2022.Rendering.Text
 {
@@ -85,7 +86,10 @@ namespace GJ2022.Rendering.Text
                 float currentYOffset = 0;
                 foreach (char character in _text)
                 {
-                    TextCharacter textChar = TextLoader.textCharacters[character];
+                    TextCharacter textChar;
+                    if (!TextLoader.textCharacters.ContainsKey(character))
+                        continue;
+                    textChar = TextLoader.textCharacters[character];
                     //Create the character
                     RenderableCharacter createdCharacter = new RenderableCharacter(
                         character,

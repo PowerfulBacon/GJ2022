@@ -376,6 +376,16 @@ namespace GJ2022.Game.GameWorld
         }
 
         //======================
+        // Atmospheric Flow
+        //======================
+
+        public static bool AllowsAtmosphericFlow(int x, int y)
+        {
+            Turf locatedTurf = GetTurf(x, y);
+            return locatedTurf == null || locatedTurf.AllowAtmosphericFlow;
+        }
+
+        //======================
         // Solidity
         //======================
 

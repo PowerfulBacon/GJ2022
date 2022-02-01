@@ -1,10 +1,14 @@
-﻿namespace GJ2022.Entities.Turfs.Standard.Floors
+﻿using GJ2022.Rendering.RenderSystems.Renderables;
+
+namespace GJ2022.Entities.Turfs.Standard.Floors
 {
-    public abstract class Floor : StandardRenderableTurf
+    public abstract class Floor : Turf
     {
 
         protected Floor(int x, int y) : base(x, y)
         { }
+
+        public override bool AllowAtmosphericFlow => true;
 
     }
 }

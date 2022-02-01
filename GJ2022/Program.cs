@@ -49,7 +49,7 @@ namespace GJ2022
 
             //Setup open AL
             AudioMaster.Initialize();
-            new AudioSource().PlaySound("effects/picaxe1.wav", 0, 0, repeating: true);
+            //new AudioSource().PlaySound("effects/picaxe1.wav", 0, 0, repeating: true);
             //new AudioSource().PlaySound("effects/picaxe1.wav", 0, -60, repeating: true);
 
             //Create callbacks
