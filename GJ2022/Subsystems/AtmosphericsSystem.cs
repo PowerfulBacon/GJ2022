@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Block;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
@@ -105,6 +106,7 @@ namespace GJ2022.Subsystems
                     processingDeltas.Add(newTurf.X, newTurf.Y - 1, turf);
             }
             //Atmosflow disallowed => allowed - Merge surrounding atmospheres
+            //TODO: Investigate pressure sometimes dropping to 0
             else if (!oldTurf.AllowAtmosphericFlow && newTurf.AllowAtmosphericFlow)
             {
                 //Collect all surrounding atmospheres
@@ -233,6 +235,8 @@ namespace GJ2022.Subsystems
         {
             if (!processing.AllowAtmosphericFlow)
                 throw new System.Exception($"A turf that doesn't allow atmospheric flow was somehow added to the process delta at {x}, {y}");
+            //Atmosphere we are inheriting from
+            AtmosphericBlock inherittedAtmosphere = processing.Atmosphere;
             //If the turf already has an atmosphere, use it, otherwise 
             AtmosphericBlock processingBlockAtmosphere = new AtmosphericBlock(processing);
             //A list of all the tiles we have searched already
@@ -292,6 +296,15 @@ namespace GJ2022.Subsystems
                     searchedTiles.Add(searchTile[0] - 1, searchTile[1], true);
                     searchRadiusEdgeTiles.Enqueue(new Vector<int>(searchTile[0] - 1, searchTile[1]));
                 }
+            }
+            //Setup the atmosphere's gas
+            if (inherittedAtmosphere != null)
+            {
+                //Calculate the proportion of gas to remove
+                float proportion = Math.Min(processingBlockAtmosphere.ContainedAtmosphere.LitreVolume / inherittedAtmosphere.ContainedAtmosphere.LitreVolume, 1.0f);
+                //Take some gas from the old atmosphere
+                processingBlockAtmosphere.ContainedAtmosphere.InheritGasProportion(inherittedAtmosphere.ContainedAtmosphere, proportion);
+                Log.WriteLine($"Inherited {proportion * 100}% of the atmosphere from block {inherittedAtmosphere.BlockId} (Outdated: {inherittedAtmosphere.Outdated})");
             }
         }
 

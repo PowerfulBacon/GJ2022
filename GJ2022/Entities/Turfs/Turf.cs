@@ -1,4 +1,5 @@
 ﻿using GJ2022.Atmospherics.Block;
+using GJ2022.Audio;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
@@ -70,7 +71,10 @@ namespace GJ2022.Entities.Turfs
 
         public void AtmosphericPressureChangeReact(Vector<float> flowPoint, float force)
         {
-
+            if (force > 1)
+            {
+                new AudioSource().PlaySound("effects/space_wind.wav", 0, 0);
+            }
         }
 
         public virtual void OnAtmosphereChanged(AtmosphericBlock block)
