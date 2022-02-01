@@ -8,6 +8,8 @@ using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
 
+//#define ATMOS_DEBUG
+
 namespace GJ2022.Entities.Turfs
 {
 
@@ -44,7 +46,9 @@ namespace GJ2022.Entities.Turfs
                 AtmosphericsSystem.Singleton.OnTurfChanged(oldTurf, this);
             //Set the direction
             Direction = Directions.NONE;
+#if ATMOS_DEBG
             AtmosphericsSystem.Singleton.StartProcessing(this);
+#endif
         }
 
         //Set destroyed
@@ -80,9 +84,11 @@ namespace GJ2022.Entities.Turfs
 
         public virtual void OnAtmosphereChanged(AtmosphericBlock block)
         {
+#if ATMOS_DEBG
             Renderable.ClearOverlays();
             if(block != null)
                 Renderable.AddOverlay("atmosphere", new StandardRenderable("area_stockpile", true), Layers.LAYER_USER_INTERFACE);
+#endif
         }
 
         public void Process(float deltaTime)
