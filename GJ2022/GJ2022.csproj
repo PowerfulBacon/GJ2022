@@ -104,6 +104,9 @@
     <None Update="Data\IconFiles\debug.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\IconFiles\fireOverlay.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\IconFiles\ground.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -38,7 +38,8 @@
         "steel_building_instant",
         "plating_instant",
         "canister_debug",
-        "canister_debug_h2"
+        "canister_debug_h2",
+        "fire"
       ]
     }
   ],
@@ -154,6 +155,13 @@
       "isRoom": false,
       "edge": "canister_debug_h2",
       "fill": "canister_debug_h2"
+    },
+    {
+      "id": "fire",
+      "name": "Spawn Fire",
+      "isRoom": false,
+      "edge": "fire",
+      "fill": "fire"
     }
   ],
   "blueprints": [
@@ -312,6 +320,15 @@
       "priority": 3,
       "blueprintType": "Blueprint",
       "texture": "canister",
+      "layer": 4,
+      "instant": true
+    },
+    {
+      "id": "fire",
+      "created_type": "Fire",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "fire",
       "layer": 4,
       "instant": true
     }

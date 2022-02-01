@@ -13,6 +13,8 @@
         public const int LAYER_PAWN = 7;
         public const int LAYER_MARKER = 8;
         public const int LAYER_GAS = 15;
+        public const int LAYER_FIRE = 16;
+        public const int LAYER_FIRE_OVELAY = 17;
         public const int LAYER_USER_INTERFACE = 20;
         public const int LAYER_TEXT = 21;
 
