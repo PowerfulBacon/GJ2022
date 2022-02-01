@@ -323,7 +323,7 @@ namespace GJ2022.Entities.Pawns
                 ? (Vector<float>)followingPath.Points[positionOnPath]
                 : targetDestinationPosition;
             //Move towards the point
-            Position = Position.MoveTowards(nextPathPosition, distance, deltaTime, out extraDistance);
+            Position = Position.MoveTowards(nextPathPosition, distance, deltaTime, out float extraDistance);
             //If we reached the point, move towards the next point
             if (Position == nextPathPosition)
             {
