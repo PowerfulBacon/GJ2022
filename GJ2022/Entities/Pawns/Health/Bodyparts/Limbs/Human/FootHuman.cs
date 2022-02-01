@@ -11,8 +11,6 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
     {
         public override BodySlots[] AllowedSlots => new BodySlots[] { BodySlots.SLOT_FOOT_LEFT, BodySlots.SLOT_FOOT_RIGHT };
 
-        public override Organ[] ContainedOrgans => new Organ[];
-
         public override LimbFlags DefaultLimbFlags => LimbFlags.NONE;
     }
 }

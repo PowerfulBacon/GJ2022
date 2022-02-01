@@ -34,10 +34,13 @@
         //Parent of this organ (The pawn we belong to)
         protected Pawn parent;
 
+        //The body we are inside of
+        protected Body body;
+
         //Current flags of the organ, including if it is failing (Fixable) or destroyed (irreperable damage).
         public OrganFlags organFlags;
 
-        public Organ(Pawn parent)
+        public Organ(Pawn parent, Body body)
         {
             //Set the parent
             this.parent = parent;

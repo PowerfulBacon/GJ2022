@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.Head
+namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
 {
-    public class Nose : Organ
+    public class Stomach : Organ
     {
-        public Nose(Pawn parent) : base(parent)
+
+        public Stomach(Pawn parent) : base(parent)
         { }
 
         public override OrganFlags DefaultOrganFlags => OrganFlags.NONE;
+
     }
 }

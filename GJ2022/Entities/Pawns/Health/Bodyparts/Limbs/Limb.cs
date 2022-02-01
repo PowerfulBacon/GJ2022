@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
+﻿using GJ2022.Entities.Pawns.Health.Bodies;
+using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
@@ -19,7 +20,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         public virtual Colour? HumanOverlayColour { get; } = null;
 
         //Organs that are inside of us
-        public abstract Organ[] ContainedOrgans { get; }
+        public Organ[] containedOrgans;
 
         //Flags of this limb
         public abstract LimbFlags DefaultLimbFlags { get; }
@@ -31,6 +32,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         {
             limbFlags = DefaultLimbFlags;
         }
+
+        public abstract void SetupOrgans(Pawn pawn, Body body);
 
     }
 
