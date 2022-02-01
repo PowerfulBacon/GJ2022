@@ -57,5 +57,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
             organFlags |= OrganFlags.ORGAN_FAILING;
         }
 
+        public virtual void OnPawnLife()
+        {
+            throw new System.NotImplementedException();
+        }
+
     }
 }

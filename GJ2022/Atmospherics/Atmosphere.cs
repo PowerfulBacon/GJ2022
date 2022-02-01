@@ -100,7 +100,7 @@ namespace GJ2022.Atmospherics
             //Calculate pressure and temp
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
             //Send and atmospheric recalculate to the turfs
-            attachedBlock.UpdateGasTurfs();
+            attachedBlock?.UpdateGasTurfs();
         }
 
         //Set the volume of the atmosphere, recalculate pressure.
@@ -140,7 +140,53 @@ namespace GJ2022.Atmospherics
             //Adjust volume: Recalculates pressure and temperature
             SetVolume(LitreVolume + other.LitreVolume);
             //Send and atmospheric recalculate to the turfs
-            attachedBlock.UpdateGasTurfs();
+            attachedBlock?.UpdateGasTurfs();
+        }
+
+        /// <summary>
+        /// Equalize gasses with another atmosphere
+        /// </summary>
+        public void Equalize(Atmosphere other)
+        {
+            //Equalize temperature
+            float totalMoles = other.Moles + Moles;
+            float totalTemperature = (other.Moles * other.KelvinTemperature) + (KelvinTemperature * Moles);
+            other.KelvinTemperature = totalTemperature / totalMoles;
+            KelvinTemperature = totalTemperature / totalMoles;
+            //Equalize gasses (Do it via moles since temperatures are the same)
+            Dictionary<Gas, float> sharedMoles = new Dictionary<Gas, float>();
+            //Get the gasses
+            foreach (PressurisedGas gas in AtmosphericContents.Values)
+            {
+                sharedMoles.Add(gas.gas, gas.moles);
+            }
+            foreach (PressurisedGas gas in other.AtmosphericContents.Values)
+            {
+                if (sharedMoles.ContainsKey(gas.gas))
+                    sharedMoles[gas.gas] += gas.moles;
+                else
+                    sharedMoles.Add(gas.gas, gas.moles);
+            }
+            //Move the gasses
+            //Clear existing gasses
+            AtmosphericContents.Clear();
+            other.AtmosphericContents.Clear();
+            //Calculate proportions
+            float proportionThis = LitreVolume / (LitreVolume + other.LitreVolume);
+            float proportionOther = other.LitreVolume / (LitreVolume + other.LitreVolume);
+            //Add new gasses
+            foreach (Gas gas in sharedMoles.Keys)
+            {
+                float moles = sharedMoles[gas];
+                AtmosphericContents.Add(gas, new PressurisedGas(gas, moles * proportionThis));
+                other.AtmosphericContents.Add(gas, new PressurisedGas(gas, moles * proportionOther));
+            }
+            //Calculate pressure
+            //Calculate pressure and temp
+            KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
+            //Send and atmospheric recalculate to the turfs
+            attachedBlock?.UpdateGasTurfs();
+            other.attachedBlock?.UpdateGasTurfs();
         }
 
         public void InheritGasProportion(Atmosphere other, float proportion)
@@ -160,7 +206,7 @@ namespace GJ2022.Atmospherics
             //Calculate temp
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
             //Send and atmospheric recalculate to the turfs
-            attachedBlock.UpdateGasTurfs();
+            attachedBlock?.UpdateGasTurfs();
         }
 
     }

@@ -17,6 +17,12 @@
         //How many liters of gas in a single tile (1 cubic meter)
         public const float TILE_GAS_VOLUME = 2500;
 
+        //Temperature constants
+        public const float TEMPERATURE_C0 = 273.15f;
+        public const float TEMPERATURE_C20 = TEMPERATURE_C0 + 20.0f;
+        //Temperature that is damaging to breathe (50 degrees)
+        public const float TEMPERATURE_DANGEROUS = TEMPERATURE_C0 + 50;
+
         private const float IDEAL_GAS_CONSTANT = (IDEAL_PRESSURE * TILE_GAS_VOLUME) / (41.27f * IDEAL_TEMPERATURE);
 
         public static float CalculateMoles(float pressure, float volume, float temperature)
