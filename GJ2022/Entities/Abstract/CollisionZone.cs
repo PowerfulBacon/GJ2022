@@ -21,12 +21,14 @@ namespace GJ2022.Entities.Abstract
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 
-        public CollisionZone(Vector<float> position, Vector<float> scale)
+        public CollisionZone(Vector<float> position, Vector<float> scale, OnMouseDelegate mouseEnterEvent = null, OnMouseDelegate mouseExitEvent = null)
         {
             WorldX = position[0];
             WorldY = position[1];
             Width = scale[0];
             Height = scale[1];
+            onMouseEnter = mouseEnterEvent;
+            onMouseExit = mouseExitEvent;
         }
 
         public void OnMouseEnter()
