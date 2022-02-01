@@ -1,4 +1,4 @@
-﻿#define ATMOS_DEBUG
+﻿//#define ATMOS_DEBUG
 
 using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Block;
