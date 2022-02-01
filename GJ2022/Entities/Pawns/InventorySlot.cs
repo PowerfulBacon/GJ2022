@@ -20,8 +20,11 @@
                     return "body";
                 case InventorySlot.SLOT_HEAD:
                     return "head";
+                case InventorySlot.NONE:
+                    return null;
+                default:
+                    return null;
             }
-            return null;
         }
     }
 

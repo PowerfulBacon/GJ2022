@@ -42,8 +42,7 @@ namespace GJ2022.Entities.Items
             World.RemoveItem((int)Position[0], (int)Position[1], this);
             (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.UnregisterItem(this);
             //Handle inventory removal
-            Pawn holder = Location as Pawn;
-            if (holder != null)
+            if (Location is Pawn holder)
             {
                 //This causes the pawn to update its inventory
                 holder.GetHeldItems();

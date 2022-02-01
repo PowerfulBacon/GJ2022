@@ -13,7 +13,7 @@ namespace GJ2022.Entities.ComponentInterfaces
         PawnHazards ProtectedHazards { get; }
 
         //The texture when equpped, appended with _slot
-        string equipTexture { get; }
+        string EquipTexture { get; }
 
         //When the item is equipped
         void OnEquip(Pawn pawn, InventorySlot slot);

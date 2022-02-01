@@ -1,6 +1,6 @@
 ﻿namespace GJ2022.Entities.ComponentInterfaces.MouseEvents
 {
-    interface IMouseRightPress : IMouseEvent
+    public interface IMouseRightPress : IMouseEvent
     {
 
         void OnRightPressed(GLFW.Window window);

@@ -6,7 +6,7 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Items.Clothing.Body
 {
-    class SyndicateHardsuit : Item, IEquippable
+    public class SyndicateHardsuit : Item, IEquippable
     {
 
         public SyndicateHardsuit(Vector<float> position) : base(position)
@@ -21,7 +21,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
 
         public PawnHazards ProtectedHazards => PawnHazards.HAZARD_LOW_PRESSURE;
 
-        public string equipTexture => "syndicate_hardsuit";
+        public string EquipTexture => "syndicate_hardsuit";
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("syndicate_hardsuit");
 

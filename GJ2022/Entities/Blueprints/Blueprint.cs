@@ -66,17 +66,16 @@ namespace GJ2022.Entities.Blueprints
 
         public void PutMaterials(Item item)
         {
-            Stack stackItem = item as Stack;
-            if (stackItem == null)
+            if (!(item is Stack stackItem))
             {
                 item.Location = this;
-                LazyHelper.LazyIntegerAdd<Type>(LoadedMaterials, item.GetType(), item.Count());
+                LazyHelper.LazyIntegerAdd(LoadedMaterials, item.GetType(), item.Count());
             }
             else
             {
                 Stack toPut = stackItem.Take(Math.Min(stackItem.StackSize, BlueprintDetail.Cost.Cost[item.GetType()]));
                 toPut.Location = this;
-                LazyHelper.LazyIntegerAdd<Type>(LoadedMaterials, item.GetType(), toPut.StackSize);
+                LazyHelper.LazyIntegerAdd(LoadedMaterials, item.GetType(), toPut.StackSize);
             }
         }
 

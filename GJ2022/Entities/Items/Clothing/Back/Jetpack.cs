@@ -23,7 +23,7 @@ namespace GJ2022.Entities.Items.Clothing.Back
 
         public PawnHazards ProtectedHazards => PawnHazards.HAZARD_GRAVITY;
 
-        public string equipTexture => "jetpack";
+        public string EquipTexture => "jetpack";
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("jetpack");
 

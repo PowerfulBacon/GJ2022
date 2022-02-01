@@ -6,7 +6,7 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Items.Clothing.Body
 {
-    class SpaceSuit : Item, IEquippable
+    public class SpaceSuit : Item, IEquippable
     {
 
         public SpaceSuit(Vector<float> position) : base(position)
@@ -21,7 +21,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
 
         public PawnHazards ProtectedHazards => PawnHazards.HAZARD_LOW_PRESSURE;
 
-        public string equipTexture => "spacesuit";
+        public string EquipTexture => "spacesuit";
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("spacesuit");
 

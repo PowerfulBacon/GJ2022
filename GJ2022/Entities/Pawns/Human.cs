@@ -24,7 +24,7 @@ namespace GJ2022.Entities.Pawns
 
         protected override void AddEquipOverlay(InventorySlot targetSlot, IEquippable item)
         {
-            Renderable.AddOverlay($"wear_{InventoryHelper.GetSlotAppend(targetSlot)}", new StandardRenderable($"{item.equipTexture}_{InventoryHelper.GetSlotAppend(targetSlot)}"), Layers.LAYER_PAWN + 0.08f);
+            Renderable.AddOverlay($"wear_{InventoryHelper.GetSlotAppend(targetSlot)}", new StandardRenderable($"{item.EquipTexture}_{InventoryHelper.GetSlotAppend(targetSlot)}"), Layers.LAYER_PAWN + 0.08f);
         }
     }
 }
