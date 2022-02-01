@@ -471,6 +471,22 @@
       "height": 32,
       "index_x": 14,
       "index_y": 4
+    },
+    {
+      "id": "fire",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 15,
+      "index_y": 4
+    },
+    {
+      "id": "fire_overlay",
+      "file": "fireOverlay.bmp",
+      "width": 128,
+      "height": 128,
+      "index_x": 0,
+      "index_y": 0
     }
   ]
 }

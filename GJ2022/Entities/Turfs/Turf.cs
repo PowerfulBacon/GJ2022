@@ -1,4 +1,4 @@
-﻿#define ATMOS_DEBUG
+﻿//#define ATMOS_DEBUG
 
 using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Block;
@@ -96,7 +96,6 @@ namespace GJ2022.Entities.Turfs
         {
             OnAtmopshereContentsChanged(block);
 #if ATMOS_DEBUG
-            Renderable.ClearOverlays();
             if(block != null)
                 Renderable.AddOverlay("atmosphere", new StandardRenderable("area_stockpile", true), Layers.LAYER_USER_INTERFACE);
 #endif

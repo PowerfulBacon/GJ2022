@@ -12,5 +12,10 @@ namespace GJ2022.Entities.Structures
             World.AddStructure((int)position[0], (int)position[1], this);
         }
 
+        public override bool Destroy()
+        {
+            World.RemoveStructure((int)Position[0], (int)Position[1], this);
+            return base.Destroy();
+        }
     }
 }

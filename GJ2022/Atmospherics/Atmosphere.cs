@@ -77,18 +77,29 @@ namespace GJ2022.Atmospherics
 
         /// <summary>
         /// Adds gas, the new gas adopts the temperature of the existing gas.
+        /// If recalculate is set to true, all gas turfs will be updated.
         /// </summary>
-        public void SetMoles(Gas gas, float newMoles)
+        public void SetMoles(Gas gas, float newMoles, bool recalculate = true)
         {
-            //Calculate constant
-            //(pressure * volume = c)
-            if (atmosphericContents.ContainsKey(gas))
+            if (newMoles > 0)
             {
-                PressurisedGas foundGas = atmosphericContents[gas];
-                foundGas.moles = newMoles;
+                //Calculate constant
+                //(pressure * volume = c)
+                if (atmosphericContents.ContainsKey(gas))
+                {
+                    PressurisedGas foundGas = atmosphericContents[gas];
+                    foundGas.moles = newMoles;
+                }
+                else
+                    atmosphericContents.Add(gas, new PressurisedGas(gas, newMoles));
             }
             else
-                atmosphericContents.Add(gas, new PressurisedGas(gas, newMoles));
+            {
+                if (atmosphericContents.ContainsKey(gas))
+                    atmosphericContents.Remove(gas);
+            }
+            if (!recalculate)
+                return;
             //Calculate pressure and temp
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
             //Send and atmospheric recalculate to the turfs
