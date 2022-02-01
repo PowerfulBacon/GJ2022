@@ -1,4 +1,5 @@
-﻿using GJ2022.Atmospherics.Gasses;
+﻿using GJ2022.Atmospherics.Block;
+using GJ2022.Atmospherics.Gasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,11 @@ namespace GJ2022.Atmospherics
         public static Atmosphere SpaceAtmosphere { get { return new Atmosphere(1); } }
         public static Atmosphere IdealAtmosphere => new Atmosphere(AtmosphericConstants.IDEAL_TEMPERATURE, new PressurisedGas(Nitrogen.Singleton, 82), new PressurisedGas(Oxygen.Singleton, 22));
 
+        //Attached atmospheric block
+        public AtmosphericBlock attachedBlock;
+
         //The atmospheric contents of this atmosphere
-        private Dictionary<Gas, PressurisedGas> atmosphericContents = new Dictionary<Gas, PressurisedGas>();
+        public Dictionary<Gas, PressurisedGas> atmosphericContents { get; private set; } = new Dictionary<Gas, PressurisedGas>();
 
         //Temperature of this atmosphere
         public float KelvinTemperature { get; private set; }
@@ -49,6 +53,15 @@ namespace GJ2022.Atmospherics
             }
         }
 
+        /// <summary>
+        /// Attach this to an atmospheric block
+        /// </summary>
+        public void AttachBlock(AtmosphericBlock block)
+        {
+            attachedBlock = block;
+            attachedBlock.UpdateGasTurfs();
+        }
+
         public float GetMoles(Gas gas)
         {
             if (atmosphericContents.ContainsKey(gas))
@@ -78,6 +91,8 @@ namespace GJ2022.Atmospherics
                 atmosphericContents.Add(gas, new PressurisedGas(gas, newMoles));
             //Calculate pressure and temp
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
+            //Send and atmospheric recalculate to the turfs
+            attachedBlock.UpdateGasTurfs();
         }
 
         //Set the volume of the atmosphere, recalculate pressure.
@@ -116,6 +131,8 @@ namespace GJ2022.Atmospherics
             }
             //Adjust volume: Recalculates pressure and temperature
             SetVolume(LitreVolume + other.LitreVolume);
+            //Send and atmospheric recalculate to the turfs
+            attachedBlock.UpdateGasTurfs();
         }
 
         public void InheritGasProportion(Atmosphere other, float proportion)
@@ -134,6 +151,8 @@ namespace GJ2022.Atmospherics
             }
             //Calculate temp
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
+            //Send and atmospheric recalculate to the turfs
+            attachedBlock.UpdateGasTurfs();
         }
 
     }

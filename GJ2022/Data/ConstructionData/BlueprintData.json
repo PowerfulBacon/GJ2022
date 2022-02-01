@@ -37,7 +37,8 @@
         "human",
         "steel_building_instant",
         "plating_instant",
-        "canister_debug"
+        "canister_debug",
+        "canister_debug_h2"
       ]
     }
   ],
@@ -142,10 +143,17 @@
     },
     {
       "id": "canister_debug",
-      "name": "Spawn Oxygen (10 moles)",
+      "name": "Spawn Oxygen (100 moles)",
       "isRoom": false,
       "edge": "canister_debug",
       "fill": "canister_debug"
+    },
+    {
+      "id": "canister_debug_h2",
+      "name": "Spawn Hydrogen (100 moles)",
+      "isRoom": false,
+      "edge": "canister_debug_h2",
+      "fill": "canister_debug_h2"
     }
   ],
   "blueprints": [
@@ -292,6 +300,15 @@
     {
       "id": "canister_debug",
       "created_type": "DebugCanister",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "canister",
+      "layer": 4,
+      "instant": true
+    },
+    {
+      "id": "canister_debug_h2",
+      "created_type": "DebugCanisterHydrogen",
       "priority": 3,
       "blueprintType": "Blueprint",
       "texture": "canister",

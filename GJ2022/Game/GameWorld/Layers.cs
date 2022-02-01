@@ -12,6 +12,7 @@
         public const int LAYER_EFFECT = 6;
         public const int LAYER_PAWN = 7;
         public const int LAYER_MARKER = 8;
+        public const int LAYER_GAS = 15;
         public const int LAYER_USER_INTERFACE = 20;
         public const int LAYER_TEXT = 21;
 
