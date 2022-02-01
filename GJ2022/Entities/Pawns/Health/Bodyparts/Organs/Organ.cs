@@ -1,4 +1,6 @@
-﻿namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
+﻿using GJ2022.Entities.Pawns.Health.Bodies;
+
+namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
 {
     public abstract class Organ : Bodypart
     {

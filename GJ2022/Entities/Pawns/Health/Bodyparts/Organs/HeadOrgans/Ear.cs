@@ -9,7 +9,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
     public class Ear : Organ
     {
 
-        public Ear(Pawn parent) : base(parent)
+        public Ear(Pawn parent, Body body) : base(parent, body)
         { }
 
         public override OrganFlags DefaultOrganFlags => OrganFlags.NONE;

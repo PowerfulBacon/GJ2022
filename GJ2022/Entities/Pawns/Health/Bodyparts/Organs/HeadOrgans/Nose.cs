@@ -8,7 +8,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
 {
     public class Nose : Organ
     {
-        public Nose(Pawn parent) : base(parent)
+        public Nose(Pawn parent, Body body) : base(parent, body)
         { }
 
         public override OrganFlags DefaultOrganFlags => OrganFlags.NONE;
