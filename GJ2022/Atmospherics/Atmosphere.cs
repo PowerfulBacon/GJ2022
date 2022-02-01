@@ -2,23 +2,20 @@
 using GJ2022.Atmospherics.Gasses;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Atmospherics
 {
     public class Atmosphere
     {
 
-        public static Atmosphere SpaceAtmosphere { get { return new Atmosphere(1); } }
+        public static Atmosphere SpaceAtmosphere => new Atmosphere(1);
         public static Atmosphere IdealAtmosphere => new Atmosphere(AtmosphericConstants.IDEAL_TEMPERATURE, new PressurisedGas(Nitrogen.Singleton, 82), new PressurisedGas(Oxygen.Singleton, 22));
 
         //Attached atmospheric block
         public AtmosphericBlock attachedBlock;
 
         //The atmospheric contents of this atmosphere
-        public Dictionary<Gas, PressurisedGas> atmosphericContents { get; private set; } = new Dictionary<Gas, PressurisedGas>();
+        public Dictionary<Gas, PressurisedGas> AtmosphericContents { get; private set; } = new Dictionary<Gas, PressurisedGas>();
 
         //Temperature of this atmosphere
         public float KelvinTemperature { get; private set; }
@@ -35,8 +32,10 @@ namespace GJ2022.Atmospherics
             get
             {
                 float _moles = 0;
-                foreach (PressurisedGas gas in atmosphericContents.Values)
+                foreach (PressurisedGas gas in AtmosphericContents.Values)
+                {
                     _moles += gas.moles;
+                }
                 //Must not be 0 or a division by 0 error occurs.
                 return Math.Max(_moles, 0.0001f);
             }
@@ -49,7 +48,7 @@ namespace GJ2022.Atmospherics
             //Add the gases
             foreach (PressurisedGas gas in gasses)
             {
-                atmosphericContents.Add(gas.gas, gas);
+                AtmosphericContents.Add(gas.gas, gas);
             }
         }
 
@@ -64,9 +63,7 @@ namespace GJ2022.Atmospherics
 
         public float GetMoles(Gas gas)
         {
-            if (atmosphericContents.ContainsKey(gas))
-                return atmosphericContents[gas].moles;
-            return 0;
+            return AtmosphericContents.ContainsKey(gas) ? AtmosphericContents[gas].moles : 0;
         }
 
         public void SetTemperature(float newTemperature)
@@ -85,18 +82,18 @@ namespace GJ2022.Atmospherics
             {
                 //Calculate constant
                 //(pressure * volume = c)
-                if (atmosphericContents.ContainsKey(gas))
+                if (AtmosphericContents.ContainsKey(gas))
                 {
-                    PressurisedGas foundGas = atmosphericContents[gas];
+                    PressurisedGas foundGas = AtmosphericContents[gas];
                     foundGas.moles = newMoles;
                 }
                 else
-                    atmosphericContents.Add(gas, new PressurisedGas(gas, newMoles));
+                    AtmosphericContents.Add(gas, new PressurisedGas(gas, newMoles));
             }
             else
             {
-                if (atmosphericContents.ContainsKey(gas))
-                    atmosphericContents.Remove(gas);
+                if (AtmosphericContents.ContainsKey(gas))
+                    AtmosphericContents.Remove(gas);
             }
             if (!recalculate)
                 return;
@@ -126,18 +123,18 @@ namespace GJ2022.Atmospherics
             float totalTemperature = (other.Moles * other.KelvinTemperature) + (KelvinTemperature * Moles);
             KelvinTemperature = totalTemperature / totalMoles;
             //Calculate new gasses
-            foreach (PressurisedGas newGas in other.atmosphericContents.Values)
+            foreach (PressurisedGas newGas in other.AtmosphericContents.Values)
             {
-                if (atmosphericContents.ContainsKey(newGas.gas))
+                if (AtmosphericContents.ContainsKey(newGas.gas))
                 {
                     //Increase the amount of moles that we have
-                    PressurisedGas existingGas = atmosphericContents[newGas.gas];
+                    PressurisedGas existingGas = AtmosphericContents[newGas.gas];
                     existingGas.moles += newGas.moles;
                 }
                 else
                 {
                     //Add the gas
-                    atmosphericContents.Add(newGas.gas, newGas);
+                    AtmosphericContents.Add(newGas.gas, newGas);
                 }
             }
             //Adjust volume: Recalculates pressure and temperature
@@ -153,12 +150,12 @@ namespace GJ2022.Atmospherics
             float totalTemperature = (other.Moles * other.KelvinTemperature) + (KelvinTemperature * Moles);
             KelvinTemperature = totalTemperature / totalMoles;
             //Yoink the gasses
-            foreach (PressurisedGas gas in other.atmosphericContents.Values)
+            foreach (PressurisedGas gas in other.AtmosphericContents.Values)
             {
-                if (atmosphericContents.ContainsKey(gas.gas))
-                    atmosphericContents[gas.gas].moles += gas.moles * proportion;
+                if (AtmosphericContents.ContainsKey(gas.gas))
+                    AtmosphericContents[gas.gas].moles += gas.moles * proportion;
                 else
-                    atmosphericContents.Add(gas.gas, new PressurisedGas(gas.gas, gas.moles * proportion));
+                    AtmosphericContents.Add(gas.gas, new PressurisedGas(gas.gas, gas.moles * proportion));
             }
             //Calculate temp
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);

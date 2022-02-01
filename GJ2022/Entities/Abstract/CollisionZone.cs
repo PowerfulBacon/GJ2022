@@ -3,12 +3,13 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Abstract
 {
-    class CollisionZone : IMouseEnter, IMouseExit
+    public class CollisionZone : IMouseEnter, IMouseExit
     {
 
         public delegate void OnMouseDelegate();
-        public OnMouseDelegate onMouseEnter;
-        public OnMouseDelegate onMouseExit;
+
+        public OnMouseDelegate onMouseEnter = null;
+        public OnMouseDelegate onMouseExit = null;
 
         public float WorldX { get; private set; }
 

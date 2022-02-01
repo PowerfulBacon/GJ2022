@@ -2,9 +2,6 @@
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Atmospherics.Block
 {
@@ -83,7 +80,7 @@ namespace GJ2022.Atmospherics.Block
                 otherBlock.containedTurfs[i].OnAtmosphericBlockChanged(this);
                 containedTurfs.Add(otherBlock.containedTurfs[i]);
                 //If the pressure delta is less than 0, blow their turfs into us
-                if(!flowingOutwards)
+                if (!flowingOutwards)
                     otherBlock.containedTurfs[i].AtmosphericPressureChangeReact(mergePoint, pressureDelta);
             }
         }
@@ -120,7 +117,7 @@ namespace GJ2022.Atmospherics.Block
             containedTurfs.Remove(turf);
             ContainedAtmosphere.SetVolume(ContainedAtmosphere.LitreVolume - AtmosphericConstants.TILE_GAS_VOLUME);
             turf.Atmosphere = null;
-            if(!turf.Destroyed)
+            if (!turf.Destroyed)
                 turf.OnAtmosphericBlockChanged(null);
         }
 

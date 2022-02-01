@@ -1,9 +1,5 @@
 ﻿using GJ2022.Atmospherics.Gasses;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Atmospherics.Reactions
 {
@@ -34,13 +30,13 @@ namespace GJ2022.Atmospherics.Reactions
             //Check reactants
             foreach (Gas gas in RequiredReactants.Keys)
             {
-                if (!atmosphere.atmosphericContents.ContainsKey(gas) || atmosphere.atmosphericContents[gas].moles < RequiredReactants[gas])
+                if (!atmosphere.AtmosphericContents.ContainsKey(gas) || atmosphere.AtmosphericContents[gas].moles < RequiredReactants[gas])
                     return false;
             }
             //Check catalysts
             foreach (Gas gas in RequiredCatalysts.Keys)
             {
-                if (!atmosphere.atmosphericContents.ContainsKey(gas) || atmosphere.atmosphericContents[gas].moles < RequiredCatalysts[gas])
+                if (!atmosphere.AtmosphericContents.ContainsKey(gas) || atmosphere.AtmosphericContents[gas].moles < RequiredCatalysts[gas])
                     return false;
             }
             return true;
@@ -48,7 +44,7 @@ namespace GJ2022.Atmospherics.Reactions
 
         public virtual void DoReaction(Atmosphere atmosphere)
         {
-            
+
         }
 
     }

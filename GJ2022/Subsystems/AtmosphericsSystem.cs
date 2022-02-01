@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using GJ2022.Atmospherics;
-using GJ2022.Atmospherics.Block;
+﻿using GJ2022.Atmospherics.Block;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GJ2022.Subsystems
 {
@@ -73,7 +69,7 @@ namespace GJ2022.Subsystems
                 blocksToClear.Add(destroyedTurf.Atmosphere);
             }
             //Merge atmospheres with null
-            foreach(AtmosphericBlock block in blocksToClear)
+            foreach (AtmosphericBlock block in blocksToClear)
                 block.MergeAtmosphericBlockInto(null, new Vector<int>(destroyedTurf.X, destroyedTurf.Y));
         }
 
@@ -91,7 +87,7 @@ namespace GJ2022.Subsystems
             {
                 //TODO: this one
                 //Set the atmosphere to be outdated
-                if(oldTurf.Atmosphere != null)
+                if (oldTurf.Atmosphere != null)
                     oldTurf.Atmosphere.Outdated = true;
                 //The new atmosphere created by processing delta needs to get the air from the old atmosphere
                 oldTurf.Atmosphere?.RemoveTurf(oldTurf);
@@ -150,7 +146,7 @@ namespace GJ2022.Subsystems
                         }
                     }
                 }
-                else if(!spaceAdjacent)
+                else if (!spaceAdjacent)
                 {
                     //Create a new atmosphere for this tile (There were no surrounding atmospheric blocks we could join)
                     new AtmosphericBlock(newTurf);
@@ -166,7 +162,7 @@ namespace GJ2022.Subsystems
             if (!createdTurf.AllowAtmosphericFlow)
             {
                 Turf turf;
-                if((turf = World.GetTurf(createdTurf.X + 1, createdTurf.Y)) != null && turf.AllowAtmosphericFlow)
+                if ((turf = World.GetTurf(createdTurf.X + 1, createdTurf.Y)) != null && turf.AllowAtmosphericFlow)
                     processingDeltas.Add(createdTurf.X + 1, createdTurf.Y, turf);
                 if ((turf = World.GetTurf(createdTurf.X, createdTurf.Y + 1)) != null && turf.AllowAtmosphericFlow)
                     processingDeltas.Add(createdTurf.X, createdTurf.Y + 1, turf);
@@ -199,7 +195,7 @@ namespace GJ2022.Subsystems
             Turf above = World.GetTurf(createdTurf.X, createdTurf.Y + 1);
             Turf right = World.GetTurf(createdTurf.X + 1, createdTurf.Y);
             Turf below = World.GetTurf(createdTurf.X, createdTurf.Y - 1);
-            Turf left  = World.GetTurf(createdTurf.X - 1, createdTurf.Y);
+            Turf left = World.GetTurf(createdTurf.X - 1, createdTurf.Y);
             //Check invalid
             //If any turf is null, then atmos will be null
             if (above == null || right == null || below == null || left == null)

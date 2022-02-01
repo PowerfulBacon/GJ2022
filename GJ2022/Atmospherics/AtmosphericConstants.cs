@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GJ2022.Atmospherics
+﻿namespace GJ2022.Atmospherics
 {
     //https://github.com/BeeStation/BeeStation-Hornet/blob/master/code/__DEFINES/atmospherics.dm
     public static class AtmosphericConstants

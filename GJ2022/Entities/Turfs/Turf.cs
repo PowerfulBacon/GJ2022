@@ -5,7 +5,6 @@ using GJ2022.Atmospherics.Block;
 using GJ2022.Audio;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
@@ -25,8 +24,6 @@ namespace GJ2022.Entities.Turfs
 
         //Atmospheric block of this turf. Null represents space.
         public AtmosphericBlock Atmosphere { get; set; } = null;
-
-        bool creationStatus = false;
 
         public Turf(int x, int y) : base(new Vector<float>(x, y), Layers.LAYER_TURF)
         {
@@ -85,9 +82,9 @@ namespace GJ2022.Entities.Turfs
             Renderable.ClearOverlays();
             if (block != null)
             {
-                foreach (PressurisedGas gas in block.ContainedAtmosphere.atmosphericContents.Values)
+                foreach (PressurisedGas gas in block.ContainedAtmosphere.AtmosphericContents.Values)
                 {
-                    Renderable.AddOverlay($"atmosphere_{gas.gas.ToString()}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
+                    Renderable.AddOverlay($"atmosphere_{gas.gas}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
                 }
             }
         }
@@ -103,10 +100,9 @@ namespace GJ2022.Entities.Turfs
 
         public void Process(float deltaTime)
         {
-            if(Atmosphere != null)
-                attachedTextObject.Text = $"{Math.Round(Atmosphere.ContainedAtmosphere.KiloPascalPressure, 2)}@{Math.Round(Atmosphere.ContainedAtmosphere.KelvinTemperature, 0)}k";
-            else
-                attachedTextObject.Text = $"N/A";
+            attachedTextObject.Text = Atmosphere != null
+                ? $"{Math.Round(Atmosphere.ContainedAtmosphere.KiloPascalPressure, 2)}@{Math.Round(Atmosphere.ContainedAtmosphere.KelvinTemperature, 0)}k"
+                : $"N/A";
         }
     }
 

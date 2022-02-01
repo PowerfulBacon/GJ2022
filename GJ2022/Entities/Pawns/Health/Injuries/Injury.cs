@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GJ2022.Entities.Pawns.Health.Injuries
+﻿namespace GJ2022.Entities.Pawns.Health.Injuries
 {
-    abstract class Injury
+    public abstract class Injury
     {
     }
 }

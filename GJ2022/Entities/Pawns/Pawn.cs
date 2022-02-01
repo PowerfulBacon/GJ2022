@@ -1,6 +1,7 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Items;
+using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Pathfinding;
@@ -34,6 +35,9 @@ namespace GJ2022.Entities.Pawns
         public float Width => 1.0f;
 
         public float Height => 1.0f;
+
+        //The body attached to this pawn
+        public Body PawnBody { get; }
 
         //The AI controller
         public PawnBehaviour behaviourController;
@@ -319,7 +323,6 @@ namespace GJ2022.Entities.Pawns
                 ? (Vector<float>)followingPath.Points[positionOnPath]
                 : targetDestinationPosition;
             //Move towards the point
-            float extraDistance;
             Position = Position.MoveTowards(nextPathPosition, distance, deltaTime, out extraDistance);
             //If we reached the point, move towards the next point
             if (Position == nextPathPosition)

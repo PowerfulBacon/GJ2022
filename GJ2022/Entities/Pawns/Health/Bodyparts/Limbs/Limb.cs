@@ -1,18 +1,14 @@
-﻿using GJ2022.Utility.MathConstructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
+using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
 {
-    abstract class Limb : Bodypart
+    public abstract class Limb : Bodypart
     {
 
         //An array containing all the allowed slots this limb can go in.
         //(Legs can go into leg slots etc.)
-        public abstract string[] allowedSlots { get; }
+        public abstract BodySlots[] AllowedSlots { get; }
 
         //The name of the texture that gets applied to humans if this limb is applied to them.
         //Ignore if this can't be applied to humans
@@ -21,6 +17,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         //The colour of the limb when applied to a human.
         //(A corgi leg applied to a human looks like a human leg but with corgi fur colour)
         public virtual Colour? HumanOverlayColour { get; } = null;
+
+        public abstract Organ[] ContainedOrgnas { get; }
 
     }
 

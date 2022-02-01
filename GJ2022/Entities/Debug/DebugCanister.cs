@@ -4,15 +4,10 @@ using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Debug
 {
-    class DebugCanister : Structure
+    public class DebugCanister : Structure
     {
 
         protected virtual Gas SpawnedGas { get; } = Oxygen.Singleton;
@@ -33,7 +28,7 @@ namespace GJ2022.Entities.Debug
 
     }
 
-    class DebugCanisterHydrogen : DebugCanister
+    public class DebugCanisterHydrogen : DebugCanister
     {
         protected override Gas SpawnedGas => Hydrogen.Singleton;
 

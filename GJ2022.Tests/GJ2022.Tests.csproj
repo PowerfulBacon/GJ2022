@@ -180,6 +180,9 @@
     <Compile Include="UtilityTests\VectorTests\VectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\GJ2022\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\RunSettings.runsettings">
