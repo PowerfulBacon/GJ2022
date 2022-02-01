@@ -1,4 +1,5 @@
-﻿using GJ2022.Atmospherics.Block;
+﻿using GJ2022.Atmospherics;
+using GJ2022.Atmospherics.Block;
 using GJ2022.Audio;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
@@ -84,6 +85,13 @@ namespace GJ2022.Entities.Turfs
 
         public virtual void OnAtmosphereChanged(AtmosphericBlock block)
         {
+            Renderable.ClearOverlays();
+            if (block != null)
+                foreach (PressurisedGas gas in block.ContainedAtmosphere.atmosphericContents.Values)
+                {
+                    //TODO
+                    Renderable.AddOverlay($"atmosphere_{gas.gas.ToString()}", new StandardRenderable(gas.gas.OverlayTexture), Layers.LAYER_USER_INTERFACE);
+                }
 #if ATMOS_DEBG
             Renderable.ClearOverlays();
             if(block != null)

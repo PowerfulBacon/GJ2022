@@ -11,5 +11,7 @@ namespace GJ2022.Atmospherics.Gasses
 
         public static Oxygen Singleton { get; } = new Oxygen();
 
+        public override string OverlayTexture => "oxygen";
+
     }
 }

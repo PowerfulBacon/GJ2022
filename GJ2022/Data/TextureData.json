@@ -455,6 +455,14 @@
       "height": 32,
       "index_x": 12,
       "index_y": 4
+    },
+    {
+      "id": "oxygen",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 4
     }
   ]
 }

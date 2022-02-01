@@ -14,7 +14,7 @@ namespace GJ2022.Atmospherics
         public static Atmosphere IdealAtmosphere => new Atmosphere(AtmosphericConstants.IDEAL_TEMPERATURE, new PressurisedGas(Nitrogen.Singleton, 82), new PressurisedGas(Oxygen.Singleton, 22));
 
         //The atmospheric contents of this atmosphere
-        private Dictionary<Gas, PressurisedGas> atmosphericContents = new Dictionary<Gas, PressurisedGas>();
+        public Dictionary<Gas, PressurisedGas> atmosphericContents { get; private set; } = new Dictionary<Gas, PressurisedGas>();
 
         //Temperature of this atmosphere
         public float KelvinTemperature { get; private set; }
