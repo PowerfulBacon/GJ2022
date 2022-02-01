@@ -1,4 +1,6 @@
-﻿using GJ2022.Atmospherics;
+﻿#define ATMOS_DEBUG
+
+using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Block;
 using GJ2022.Audio;
 using GJ2022.Entities.ComponentInterfaces;
@@ -8,8 +10,6 @@ using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
-
-//#define ATMOS_DEBUG
 
 namespace GJ2022.Entities.Turfs
 {
@@ -45,7 +45,7 @@ namespace GJ2022.Entities.Turfs
                 AtmosphericsSystem.Singleton.OnTurfChanged(oldTurf, this);
             //Set the direction
             Direction = Directions.NONE;
-#if ATMOS_DEBG
+#if ATMOS_DEBUG
             //Create the atmos indicator
             attachedTextObject = new Rendering.Text.TextObject(creationStatus ? "C0" : "M0", creationStatus ? Colour.White : Colour.Green, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
             AtmosphericsSystem.Singleton.StartProcessing(this);
@@ -72,9 +72,6 @@ namespace GJ2022.Entities.Turfs
 
         public abstract bool AllowAtmosphericFlow { get; }
 
-        //Temp
-
-
         public void AtmosphericPressureChangeReact(Vector<float> flowPoint, float force)
         {
             if (force > 1)
@@ -83,16 +80,22 @@ namespace GJ2022.Entities.Turfs
             }
         }
 
-        public virtual void OnAtmosphereChanged(AtmosphericBlock block)
+        public virtual void OnAtmopshereContentsChanged(AtmosphericBlock block)
         {
             Renderable.ClearOverlays();
             if (block != null)
+            {
                 foreach (PressurisedGas gas in block.ContainedAtmosphere.atmosphericContents.Values)
                 {
-                    //TODO
-                    Renderable.AddOverlay($"atmosphere_{gas.gas.ToString()}", new StandardRenderable(gas.gas.OverlayTexture), Layers.LAYER_USER_INTERFACE);
+                    Renderable.AddOverlay($"atmosphere_{gas.gas.ToString()}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
                 }
-#if ATMOS_DEBG
+            }
+        }
+
+        public virtual void OnAtmosphericBlockChanged(AtmosphericBlock block)
+        {
+            OnAtmopshereContentsChanged(block);
+#if ATMOS_DEBUG
             Renderable.ClearOverlays();
             if(block != null)
                 Renderable.AddOverlay("atmosphere", new StandardRenderable("area_stockpile", true), Layers.LAYER_USER_INTERFACE);

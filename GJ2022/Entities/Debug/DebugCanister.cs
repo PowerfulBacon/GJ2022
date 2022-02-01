@@ -14,6 +14,9 @@ namespace GJ2022.Entities.Debug
 {
     class DebugCanister : Structure
     {
+
+        protected virtual Gas SpawnedGas { get; } = Oxygen.Singleton;
+
         public DebugCanister(Vector<float> position) : base(position, Layers.LAYER_STRUCTURE)
         {
             Turf turf = World.GetTurf((int)position[0], (int)position[1]);
@@ -21,12 +24,21 @@ namespace GJ2022.Entities.Debug
                 return;
             if (turf.Atmosphere == null)
                 return;
-            turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, turf.Atmosphere.ContainedAtmosphere.GetMoles(Oxygen.Singleton) + 100);
+            turf.Atmosphere.ContainedAtmosphere.SetMoles(SpawnedGas, turf.Atmosphere.ContainedAtmosphere.GetMoles(SpawnedGas) + 100);
             turf.Atmosphere.ContainedAtmosphere.SetTemperature(Atmospherics.AtmosphericConstants.IDEAL_TEMPERATURE);
-            Log.WriteLine($"Atmos ({turf.Atmosphere.BlockId}): Oxygen moles {turf.Atmosphere.ContainedAtmosphere.GetMoles(Oxygen.Singleton)}/{turf.Atmosphere.ContainedAtmosphere.Moles}, Temperature {turf.Atmosphere.ContainedAtmosphere.KelvinTemperature}, Pressure: {turf.Atmosphere.ContainedAtmosphere.KiloPascalPressure}, Volume {turf.Atmosphere.ContainedAtmosphere.LitreVolume}");
+            Log.WriteLine($"Atmos ({turf.Atmosphere.BlockId}): Oxygen moles {turf.Atmosphere.ContainedAtmosphere.GetMoles(SpawnedGas)}/{turf.Atmosphere.ContainedAtmosphere.Moles}, Temperature {turf.Atmosphere.ContainedAtmosphere.KelvinTemperature}, Pressure: {turf.Atmosphere.ContainedAtmosphere.KiloPascalPressure}, Volume {turf.Atmosphere.ContainedAtmosphere.LitreVolume}");
         }
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("canister");
 
     }
+
+    class DebugCanisterHydrogen : DebugCanister
+    {
+        protected override Gas SpawnedGas => Hydrogen.Singleton;
+
+        public DebugCanisterHydrogen(Vector<float> position) : base(position) { }
+
+    }
+
 }
