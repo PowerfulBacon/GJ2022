@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GJ2022.Entities.Pawns.Health.Limbs
+namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
 {
-    class Limb
+    abstract class Limb : Bodypart
     {
+
+
+
     }
+
 }

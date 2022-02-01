@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GJ2022.Entities.Pawns.Health.Organs
+namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
 {
-    class Organ
+    abstract class Organ : Bodypart
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Pawns.Health.Injuries
 {
-    class Injury
+    abstract class Injury
     {
     }
 }

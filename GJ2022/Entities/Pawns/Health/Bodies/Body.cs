@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Pawns.Health.Bodies
 {
-    class Body
+    abstract class Body
     {
     }
 }
