@@ -20,6 +20,8 @@
         SLOT_TAIL,          //oh god oh god why are these part of humanoids :fearful:
 
         //Generic Animals
+        SLOT_LEG_FRONT_LEFT,
+        SLOT_LEG_FRONT_RIGHT,
         SLOT_LEG_BACK_LEFT,
         SLOT_LEG_BACK_RIGHT,
         SLOT_PAW_LEFT,

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
+    public partial class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
     {
 
         //The renderable attached to our pawn

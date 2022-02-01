@@ -18,7 +18,19 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         //(A corgi leg applied to a human looks like a human leg but with corgi fur colour)
         public virtual Colour? HumanOverlayColour { get; } = null;
 
-        public abstract Organ[] ContainedOrgnas { get; }
+        //Organs that are inside of us
+        public abstract Organ[] ContainedOrgans { get; }
+
+        //Flags of this limb
+        public abstract LimbFlags DefaultLimbFlags { get; }
+
+        //The default limb flags of this limb
+        public LimbFlags limbFlags;
+
+        public Limb()
+        {
+            limbFlags = DefaultLimbFlags;
+        }
 
     }
 
