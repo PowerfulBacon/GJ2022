@@ -1,6 +1,7 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Utility.MathConstructs;
+using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
 {
@@ -20,7 +21,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         public virtual Colour? HumanOverlayColour { get; } = null;
 
         //Organs that are inside of us
-        public Organ[] containedOrgans;
+        public List<Organ> containedOrgans = new List<Organ>();
 
         //Flags of this limb
         public abstract LimbFlags DefaultLimbFlags { get; }

@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
+﻿using GJ2022.Entities.Pawns.Health.Bodies;
+using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
         public override BodySlots[] AllowedSlots => new BodySlots[] { BodySlots.SLOT_ARM_LEFT, BodySlots.SLOT_ARM_RIGHT };
 
         public override LimbFlags DefaultLimbFlags => LimbFlags.NONE;
+
+        public override void SetupOrgans(Pawn pawn, Body body)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
