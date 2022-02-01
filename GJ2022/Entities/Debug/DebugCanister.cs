@@ -21,7 +21,7 @@ namespace GJ2022.Entities.Debug
                 return;
             if (turf.Atmosphere == null)
                 return;
-            turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, turf.Atmosphere.ContainedAtmosphere.GetMoles(Oxygen.Singleton) + 10);
+            turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, turf.Atmosphere.ContainedAtmosphere.GetMoles(Oxygen.Singleton) + 100);
             turf.Atmosphere.ContainedAtmosphere.SetTemperature(Atmospherics.AtmosphericConstants.IDEAL_TEMPERATURE);
             Log.WriteLine($"Atmos ({turf.Atmosphere.BlockId}): Oxygen moles {turf.Atmosphere.ContainedAtmosphere.GetMoles(Oxygen.Singleton)}/{turf.Atmosphere.ContainedAtmosphere.Moles}, Temperature {turf.Atmosphere.ContainedAtmosphere.KelvinTemperature}, Pressure: {turf.Atmosphere.ContainedAtmosphere.KiloPascalPressure}, Volume {turf.Atmosphere.ContainedAtmosphere.LitreVolume}");
         }
