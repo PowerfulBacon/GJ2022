@@ -31,7 +31,6 @@ namespace GJ2022.Entities.Turfs
             Y = y;
             //Destroy the old turf
             Turf oldTurf = World.GetTurf(x, y);
-            creationStatus = oldTurf == null;
             //Set the new turf
             oldTurf?.Destroy(true);
             World.SetTurf(x, y, this);
