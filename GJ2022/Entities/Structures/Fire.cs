@@ -50,13 +50,16 @@ namespace GJ2022.Entities.Structures
             //Check if we can keep burning
             //Less moles = more chance to randomly stop burning
             float molesOfOxygenLeft = turf.Atmosphere.ContainedAtmosphere.GetMoles(Oxygen.Singleton);
-            if (molesOfOxygenLeft < 20 && 0.05f * molesOfOxygenLeft < Random.NextDouble())
+            float molesOfFlammableGasLeft = turf.Atmosphere.ContainedAtmosphere.GetMoles(Hydrogen.Singleton);
+            if ((molesOfOxygenLeft < 20 && 0.05f * molesOfOxygenLeft < Random.NextDouble())
+                || (molesOfFlammableGasLeft < 20 && 0.05f * molesOfFlammableGasLeft < Random.NextDouble()))
             {
                 Destroy();
                 return;
             }
             //Consume oxygen
             turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, Math.Max(molesOfOxygenLeft - OXYGEN_BURN_RATE * deltaTime, 0.0f));
+            turf.Atmosphere.ContainedAtmosphere.SetMoles(Hydrogen.Singleton, Math.Max(molesOfFlammableGasLeft - OXYGEN_BURN_RATE * deltaTime, 0.0f));
             //Increase temperature
             turf.Atmosphere.ContainedAtmosphere.SetTemperature(turf.Atmosphere.ContainedAtmosphere.KelvinTemperature + (25000 * deltaTime / turf.Atmosphere.ContainedAtmosphere.LitreVolume));
             //Spread to surrounding tiles
