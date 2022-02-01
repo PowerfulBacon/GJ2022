@@ -6,6 +6,7 @@ using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
+using System;
 
 namespace GJ2022.Entities.Turfs
 {
@@ -87,9 +88,9 @@ namespace GJ2022.Entities.Turfs
         public void Process(float deltaTime)
         {
             if(Atmosphere != null)
-                attachedTextObject.Text = $"{Atmosphere.ContainedAtmosphere.KiloPascalPressure}@{Atmosphere.ContainedAtmosphere.KelvinTemperature}k";
+                attachedTextObject.Text = $"{Math.Round(Atmosphere.ContainedAtmosphere.KiloPascalPressure, 2)}@{Math.Round(Atmosphere.ContainedAtmosphere.KelvinTemperature, 0)}k";
             else
-                attachedTextObject.Text = $"0 kPa";
+                attachedTextObject.Text = $"N/A";
         }
     }
 

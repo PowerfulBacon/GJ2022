@@ -304,7 +304,9 @@ namespace GJ2022.Subsystems
                 float proportion = Math.Min(processingBlockAtmosphere.ContainedAtmosphere.LitreVolume / inherittedAtmosphere.ContainedAtmosphere.LitreVolume, 1.0f);
                 //Take some gas from the old atmosphere
                 processingBlockAtmosphere.ContainedAtmosphere.InheritGasProportion(inherittedAtmosphere.ContainedAtmosphere, proportion);
+                //Log data
                 Log.WriteLine($"Inherited {proportion * 100}% of the atmosphere from block {inherittedAtmosphere.BlockId} (Outdated: {inherittedAtmosphere.Outdated})");
+                Log.WriteLine($"Moles: {processingBlockAtmosphere.ContainedAtmosphere.Moles}, Pressure: {processingBlockAtmosphere.ContainedAtmosphere.KiloPascalPressure}, Temp: {processingBlockAtmosphere.ContainedAtmosphere.KelvinTemperature}");
             }
         }
 

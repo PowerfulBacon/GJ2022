@@ -95,6 +95,10 @@ namespace GJ2022.Atmospherics
         //This reuses elements from the other atmosphere, assuming it will be deleted.
         public void Merge(Atmosphere other)
         {
+            //Inherit temperature (Take an average of the areas temp per tile)
+            float totalMoles = other.Moles + Moles;
+            float totalTemperature = (other.Moles * other.KelvinTemperature) + (KelvinTemperature * Moles);
+            KelvinTemperature = totalTemperature / totalMoles;
             //Calculate new gasses
             foreach (PressurisedGas newGas in other.atmosphericContents.Values)
             {
@@ -116,6 +120,10 @@ namespace GJ2022.Atmospherics
 
         public void InheritGasProportion(Atmosphere other, float proportion)
         {
+            //Inherit temperature (Take an average of the areas temp per tile)
+            float totalMoles = other.Moles + Moles;
+            float totalTemperature = (other.Moles * other.KelvinTemperature) + (KelvinTemperature * Moles);
+            KelvinTemperature = totalTemperature / totalMoles;
             //Yoink the gasses
             foreach (PressurisedGas gas in other.atmosphericContents.Values)
             {
@@ -124,10 +132,6 @@ namespace GJ2022.Atmospherics
                 else
                     atmosphericContents.Add(gas.gas, new PressurisedGas(gas.gas, gas.moles * proportion));
             }
-            //Inherit temperature (Take an average of the areas temp per tile)
-            float totalVolume = other.LitreVolume + LitreVolume;
-            float totalTemperature = other.KelvinTemperature + KelvinTemperature;
-            KelvinTemperature = totalTemperature / totalVolume;
             //Calculate temp
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
         }
