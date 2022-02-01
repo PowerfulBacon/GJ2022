@@ -105,7 +105,7 @@ namespace GJ2022.Atmospherics.Block
             if (turf.Destroyed)
                 throw new Exception("Turf destroyed exception!");
             containedTurfs.Add(turf);
-            ContainedAtmosphere.AdjustVolume(ContainedAtmosphere.LitreVolume + AtmosphericConstants.TILE_GAS_VOLUME);
+            ContainedAtmosphere.SetVolume(ContainedAtmosphere.LitreVolume + AtmosphericConstants.TILE_GAS_VOLUME);
             turf.Atmosphere = this;
             turf.OnAtmosphereChanged(this);
         }
@@ -117,7 +117,7 @@ namespace GJ2022.Atmospherics.Block
         public void RemoveTurf(Turf turf)
         {
             containedTurfs.Remove(turf);
-            ContainedAtmosphere.AdjustVolume(ContainedAtmosphere.LitreVolume - AtmosphericConstants.TILE_GAS_VOLUME);
+            ContainedAtmosphere.SetVolume(ContainedAtmosphere.LitreVolume - AtmosphericConstants.TILE_GAS_VOLUME);
             turf.Atmosphere = null;
             if(!turf.Destroyed)
                 turf.OnAtmosphereChanged(null);

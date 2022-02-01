@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Atmospherics
 {
-    public struct PressurisedGas
+    public class PressurisedGas
     {
 
         //The actual gas being stored

@@ -36,7 +36,8 @@
         "dog",
         "human",
         "steel_building_instant",
-        "plating_instant"
+        "plating_instant",
+        "canister_debug"
       ]
     }
   ],
@@ -138,6 +139,13 @@
       "isRoom": false,
       "edge": "human",
       "fill": "human"
+    },
+    {
+      "id": "canister_debug",
+      "name": "Spawn Oxygen (10 moles)",
+      "isRoom": false,
+      "edge": "canister_debug",
+      "fill": "canister_debug"
     }
   ],
   "blueprints": [
@@ -280,6 +288,15 @@
       "cost": {
         "Iron": 30
       }
+    },
+    {
+      "id": "canister_debug",
+      "created_type": "DebugCanister",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "canister",
+      "layer": 4,
+      "instant": true
     }
   ]
 }

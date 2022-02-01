@@ -10,7 +10,7 @@ namespace GJ2022.Atmospherics
     public class Atmosphere
     {
 
-        public static Atmosphere SpaceAtmosphere => new Atmosphere(1);
+        public static Atmosphere SpaceAtmosphere { get { return new Atmosphere(1); } }
         public static Atmosphere IdealAtmosphere => new Atmosphere(AtmosphericConstants.IDEAL_TEMPERATURE, new PressurisedGas(Nitrogen.Singleton, 82), new PressurisedGas(Oxygen.Singleton, 22));
 
         //The atmospheric contents of this atmosphere
@@ -34,12 +34,13 @@ namespace GJ2022.Atmospherics
                 foreach (PressurisedGas gas in atmosphericContents.Values)
                     _moles += gas.moles;
                 //Must not be 0 or a division by 0 error occurs.
-                return Math.Min(_moles, 0.0001f);
+                return Math.Max(_moles, 0.0001f);
             }
         }
 
         public Atmosphere(float temperature, params PressurisedGas[] gasses)
         {
+            //Set the temperature
             KelvinTemperature = temperature;
             //Add the gases
             foreach (PressurisedGas gas in gasses)
@@ -48,10 +49,43 @@ namespace GJ2022.Atmospherics
             }
         }
 
+        public float GetMoles(Gas gas)
+        {
+            if (atmosphericContents.ContainsKey(gas))
+                return atmosphericContents[gas].moles;
+            return 0;
+        }
+
+        public void SetTemperature(float newTemperature)
+        {
+            KelvinTemperature = newTemperature;
+            KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
+        }
+
+        /// <summary>
+        /// Adds gas, the new gas adopts the temperature of the existing gas.
+        /// </summary>
+        public void SetMoles(Gas gas, float newMoles)
+        {
+            //Calculate constant
+            //(pressure * volume = c)
+            if (atmosphericContents.ContainsKey(gas))
+            {
+                PressurisedGas foundGas = atmosphericContents[gas];
+                Log.WriteLine($"OLD MOLES : {foundGas.moles} : {newMoles}");
+                foundGas.moles = newMoles;
+                Log.WriteLine($"NEW MOLES : {foundGas.moles} / {Moles}");
+            }
+            else
+                atmosphericContents.Add(gas, new PressurisedGas(gas, newMoles));
+            //Calculate pressure and temp
+            KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
+        }
+
         //Set the volume of the atmosphere, recalculate pressure.
         //Assume that the temperature doesn't change when we change the room size
         //(Building a wall between 2 rooms shouldn't cause the room to go to like 500000 kelvin).
-        public void AdjustVolume(float litres)
+        public void SetVolume(float litres)
         {
             LitreVolume = litres;
             KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
@@ -79,7 +113,7 @@ namespace GJ2022.Atmospherics
                 }
             }
             //Adjust volume: Recalculates pressure and temperature
-            AdjustVolume(LitreVolume + other.LitreVolume);
+            SetVolume(LitreVolume + other.LitreVolume);
         }
 
     }
