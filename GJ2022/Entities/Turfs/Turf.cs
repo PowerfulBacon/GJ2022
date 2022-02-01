@@ -37,8 +37,6 @@ namespace GJ2022.Entities.Turfs
             //Set the new turf
             oldTurf?.Destroy(true);
             World.SetTurf(x, y, this);
-            //Create the atmos indicator
-            attachedTextObject = new Rendering.Text.TextObject(creationStatus ? "C0" : "M0", creationStatus ? Colour.White : Colour.Green, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
             //TEMP:
             if (oldTurf == null)
                 AtmosphericsSystem.Singleton.OnTurfCreated(this);
@@ -47,6 +45,8 @@ namespace GJ2022.Entities.Turfs
             //Set the direction
             Direction = Directions.NONE;
 #if ATMOS_DEBG
+            //Create the atmos indicator
+            attachedTextObject = new Rendering.Text.TextObject(creationStatus ? "C0" : "M0", creationStatus ? Colour.White : Colour.Green, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
             AtmosphericsSystem.Singleton.StartProcessing(this);
 #endif
         }
