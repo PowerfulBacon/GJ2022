@@ -48,6 +48,11 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
             this.parent = parent;
             //Set the default organ flags
             organFlags = DefaultOrganFlags;
+            //Set processing
+            if ((organFlags & OrganFlags.ORGAN_PROCESSING) != 0)
+            {
+                body.processingOrgans.Add(this);
+            }
         }
 
         public virtual void OnDestruction()
@@ -57,7 +62,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
             organFlags |= OrganFlags.ORGAN_FAILING;
         }
 
-        public virtual void OnPawnLife()
+        public virtual void OnPawnLife(float deltaTime)
         {
             throw new System.NotImplementedException();
         }

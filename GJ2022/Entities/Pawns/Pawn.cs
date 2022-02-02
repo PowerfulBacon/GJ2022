@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns
 {
-    public partial class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
+    public abstract partial class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
     {
 
         //The renderable attached to our pawn
@@ -37,7 +37,7 @@ namespace GJ2022.Entities.Pawns
         public float Height => 1.0f;
 
         //The body attached to this pawn
-        public Body PawnBody { get; }
+        public abstract Body PawnBody { get; }
 
         //The AI controller
         public PawnBehaviour behaviourController;
@@ -70,6 +70,7 @@ namespace GJ2022.Entities.Pawns
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
             MouseCollisionSubsystem.Singleton.StartTracking(this);
+            PawnBody.SetupBody(this);
         }
 
         /// <summary>
@@ -276,6 +277,8 @@ namespace GJ2022.Entities.Pawns
 
         public void Process(float deltaTime)
         {
+            //Process body
+            PawnBody.ProcessBody(deltaTime);
             DrawHelpfulLine();
             //Hazard reaction, prepare to panic
             HazardReact();

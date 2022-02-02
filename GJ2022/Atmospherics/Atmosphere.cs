@@ -143,6 +143,16 @@ namespace GJ2022.Atmospherics
             attachedBlock?.UpdateGasTurfs();
         }
 
+        public void ClearGasses()
+        {
+            //Clear all the gasses
+            AtmosphericContents.Clear();
+            //Recalculate pressure
+            KiloPascalPressure = AtmosphericConstants.CalculatePressure(LitreVolume, KelvinTemperature, Moles);
+            //Update any turfs, if any
+            attachedBlock?.UpdateGasTurfs();
+        }
+
         /// <summary>
         /// Equalize gasses with another atmosphere
         /// </summary>
