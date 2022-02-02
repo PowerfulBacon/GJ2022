@@ -19,7 +19,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
         {
             //1 mole of oxygen is about 122 kPa at room temp.
             //this is just an arbitary number to stop pawns getting infinite oxygen and the lungs are always fine
-            float maximumBodyOxygen = 0.001f;
+            float maximumBodyOxygen = 0.05f;
             //Take oxygen from the internal atmosphere and put it into the body.
             float transferedMoles = Math.Max(Math.Min(body.internalAtmosphere.GetMoles(Oxygen.Singleton), maximumBodyOxygen) - body.bloodstreamOxygenMoles, 0);
             body.bloodstreamOxygenMoles += transferedMoles;

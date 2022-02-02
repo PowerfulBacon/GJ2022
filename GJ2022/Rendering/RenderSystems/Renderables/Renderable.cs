@@ -55,10 +55,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         public void SetRenderableBatchIndex(object associatedSet, int index)
         {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                renderableBatchIndex[associatedSet] = index;
-            else
-                renderableBatchIndex.Add(associatedSet, index);
+            lock (renderableBatchIndex)
+            {
+                if (renderableBatchIndex.ContainsKey(associatedSet))
+                    renderableBatchIndex[associatedSet] = index;
+                else
+                    renderableBatchIndex.Add(associatedSet, index);
+            }
         }
 
         /// <summary>
@@ -67,10 +70,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         /// </summary>
         public int GetRenderableBatchIndex(object associatedSet)
         {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                return renderableBatchIndex[associatedSet];
-            else
-                return -1;
+            lock (renderableBatchIndex)
+            {
+                if (renderableBatchIndex.ContainsKey(associatedSet))
+                    return renderableBatchIndex[associatedSet];
+                else
+                    return -1;
+            }
         }
 
         //Overlays

@@ -10,7 +10,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
     public class Brain : Organ
     {
 
-        protected virtual float OxygenConsumptionRate { get; } = 0.0002f;
+        protected virtual float OxygenConsumptionRate { get; } = 0.02f;
         //The percentage point at which we start taking damage
         protected virtual float OxygenDamageProportion { get; } = 0.6f;
         //Take 0.1 take every tick if 0% oxygen, linearly scales to 0
