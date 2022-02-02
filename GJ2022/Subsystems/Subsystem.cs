@@ -32,7 +32,7 @@ namespace GJ2022.Subsystems
 
         //Subsystem control variable
         //If this valie is set to false, the subsystem will be killed
-        private static volatile bool Firing = true;
+        protected static volatile bool Firing = true;
 
         //Is the subsystem started?
         private volatile bool started = false;
