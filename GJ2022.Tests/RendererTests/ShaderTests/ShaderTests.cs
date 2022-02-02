@@ -12,44 +12,30 @@ namespace GJ2022.Tests.RendererTests.ShaderTests
     public class ShaderTests
     {
 
-        bool setupFailed = false;
-
         uint programUint;
 
         public ShaderTests()
         {
-            try
-            {
-                Glfw.WindowHint(Hint.ContextVersionMajor, 3);
-                Glfw.WindowHint(Hint.ContextVersionMinor, 3);
-                Glfw.WindowHint(Hint.OpenglProfile, Profile.Core);
-                Window window = Glfw.CreateWindow(1, 1, "UNIT TEST WINDOW", GLFW.Monitor.None, Window.None);
-                Glfw.MakeContextCurrent(window);
-                Import(Glfw.GetProcAddress);
-                //Create the program
-                programUint = glCreateProgram();
-            }
-            catch (Exception e)
-            {
-                setupFailed = true;
-                Log.WriteLine(e, LogType.ERROR);
-            }
+            Glfw.WindowHint(Hint.ContextVersionMajor, 3);
+            Glfw.WindowHint(Hint.ContextVersionMinor, 3);
+            Glfw.WindowHint(Hint.OpenglProfile, Profile.Core);
+            Window window = Glfw.CreateWindow(1, 1, "UNIT TEST WINDOW", GLFW.Monitor.None, Window.None);
+            Glfw.MakeContextCurrent(window);
+            Import(Glfw.GetProcAddress);
+            //Create the program
+            programUint = glCreateProgram();
         }
 
         ~ShaderTests()
         {
-            if (!setupFailed)
-            {
-                glDeleteProgram(programUint);
-                //Terminate GLFW
-                Glfw.Terminate();
-            }
+            glDeleteProgram(programUint);
+            //Terminate GLFW
+            Glfw.Terminate();
         }
 
         [TestMethod]
         public void TestShaderCompilation()
         {
-            if (setupFailed) Assert.Inconclusive();
             foreach (string fileName in Directory.GetFiles(@".\", "*.vert", SearchOption.AllDirectories))
             {
                 string sanitizedName = fileName.Replace(".vert", "");
