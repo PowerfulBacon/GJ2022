@@ -13,7 +13,7 @@ namespace GJ2022.Entities.Pawns
         {
         }
 
-        public override Body PawnBody => new BodyDog();
+        public override Body PawnBody { get; } = new BodyDog();
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("dog");
 

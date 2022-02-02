@@ -22,7 +22,7 @@ namespace GJ2022.Entities.Pawns
             Renderable.UpdateDirection(Directions.EAST);
         }
 
-        public override Body PawnBody => new BodyHuman();
+        public override Body PawnBody { get; } = new BodyHuman();
 
         protected override Renderable Renderable { get; set; } = new StandardRenderable("human_body_male");
 

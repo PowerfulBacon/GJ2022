@@ -10,6 +10,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 {
     public class HandHuman : Limb
     {
+        public HandHuman(Body body, BodySlots slot) : base(body, slot)
+        {
+        }
+
         public override BodySlots[] AllowedSlots => new BodySlots[] { BodySlots.SLOT_HAND_LEFT, BodySlots.SLOT_HAND_RIGHT };
 
         public override LimbFlags DefaultLimbFlags => LimbFlags.NONE;

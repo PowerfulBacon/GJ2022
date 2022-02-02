@@ -26,11 +26,16 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         //Flags of this limb
         public abstract LimbFlags DefaultLimbFlags { get; }
 
+        //The parent body
+        public Body ParentBody { get; }
+
         //The default limb flags of this limb
         public LimbFlags limbFlags;
 
-        public Limb()
+        public Limb(Body body, BodySlots slot)
         {
+            ParentBody = body;
+            body.InsertedBodyparts[slot] = this;
             limbFlags = DefaultLimbFlags;
         }
 

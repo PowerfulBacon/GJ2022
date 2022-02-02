@@ -11,6 +11,6 @@ namespace GJ2022.Atmospherics.Gasses
 
         public static CarbonDioxide Singleton { get; } = new CarbonDioxide();
 
-        public override string OverlayTexture => throw new NotImplementedException();
+        public override string OverlayTexture => "hydrogen";
     }
 }

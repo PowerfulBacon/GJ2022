@@ -9,6 +9,7 @@ using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
+using System.Linq;
 
 namespace GJ2022.Entities.Turfs
 {
@@ -43,7 +44,7 @@ namespace GJ2022.Entities.Turfs
             Direction = Directions.NONE;
 #if ATMOS_DEBUG
             //Create the atmos indicator
-            attachedTextObject = new Rendering.Text.TextObject(creationStatus ? "C0" : "M0", creationStatus ? Colour.White : Colour.Green, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
+            attachedTextObject = new Rendering.Text.TextObject("0", Colour.White, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
             AtmosphericsSystem.Singleton.StartProcessing(this);
 #endif
         }
@@ -81,9 +82,10 @@ namespace GJ2022.Entities.Turfs
             Renderable.ClearOverlays();
             if (block != null)
             {
-                foreach (PressurisedGas gas in block.ContainedAtmosphere.AtmosphericContents.Values)
+                int i = 0;
+                foreach (PressurisedGas gas in block.ContainedAtmosphere.AtmosphericContents.Values.ToList())
                 {
-                    Renderable.AddOverlay($"atmosphere_{gas.gas}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
+                    Renderable.AddOverlay($"atmosphere_{i++}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
                 }
             }
         }

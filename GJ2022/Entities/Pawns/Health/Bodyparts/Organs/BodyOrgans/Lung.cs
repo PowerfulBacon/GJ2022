@@ -22,7 +22,6 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
         /// </summary>
         public override void OnPawnLife(float deltaTime)
         {
-            Log.WriteLine("lungs procesing");
             //Get air from the atmosphere
             Turf currentTurf = World.GetTurf((int)parent.Position[0], (int)parent.Position[1]);
             //No atmosphere = vent lungs

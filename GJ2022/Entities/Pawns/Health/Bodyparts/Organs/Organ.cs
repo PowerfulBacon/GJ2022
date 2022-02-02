@@ -46,6 +46,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
         {
             //Set the parent
             this.parent = parent;
+            this.body = body;
             //Set the default organ flags
             organFlags = DefaultOrganFlags;
             //Set processing
