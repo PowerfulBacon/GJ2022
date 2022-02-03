@@ -80,15 +80,16 @@ namespace GJ2022.Entities.Turfs
 
         public virtual void OnAtmopshereContentsChanged(AtmosphericBlock block)
         {
+            //check if overlays changed
             lock (Renderable)
             {
-                Renderable.ClearOverlays();
+                //Renderable.ClearOverlays();
                 if (block != null)
                 {
-                    int i = 0;
                     foreach (PressurisedGas gas in block.ContainedAtmosphere.AtmosphericContents.Values.ToList())
                     {
-                        Renderable.AddOverlay($"atmosphere_{i++}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
+                        if(!Renderable.HasOverlay($"atmosphere_{gas.gas}"))
+                            Renderable.AddOverlay($"atmosphere_{gas.gas}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
                     }
                 }
             }

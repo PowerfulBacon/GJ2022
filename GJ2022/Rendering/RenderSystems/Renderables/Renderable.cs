@@ -123,6 +123,11 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             }
         }
 
+        public bool HasOverlay(string id)
+        {
+            return Overlays?.ContainsKey(id) ?? false;
+        }
+
         public void AddOverlay(string id, Renderable overlay, float layer)
         {
             if (Overlays == null)
