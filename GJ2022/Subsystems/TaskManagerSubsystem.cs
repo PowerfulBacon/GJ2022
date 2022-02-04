@@ -78,7 +78,8 @@ namespace GJ2022.Subsystems
                             //thread are unblocking, so this shouldn't freeze too much and will save significant
                             //amounts of CPU. (Thread.yield ends up using about 65% CPU time)
                             //Some quick tests showed CPU time going from ~100% usage to ~10-15% which is
-                            //definitely worth 
+                            //definitely worth the 1ms wait for when we queue a task for the first time.
+                            //(We don't really want to use all the CPU when idling even if we can.)
                             Thread.Sleep(1);
                             continue;
                         }
