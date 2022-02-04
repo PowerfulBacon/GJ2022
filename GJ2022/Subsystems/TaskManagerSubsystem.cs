@@ -59,29 +59,46 @@ namespace GJ2022.Subsystems
         {
             waiting = false;
             Log.WriteLine($"starting processing thread {i}");
-            
+
+            //Get the queue we are working on
+            //Do less dictionary look ups by caching the target queue
+            Queue<KeyValuePair<int, Func<bool>>> targetQueue = queuedTasks[i];
+
             while (Firing)
             {
                 try
                 {
-                    lock (queuedTasks[i])
+                    lock (targetQueue)
                     {
-                        //Get the queue we are working on
-                        Queue<KeyValuePair<int, Func<bool>>> targetQueue = queuedTasks[i];
+                        
                         //Check length
                         if (targetQueue.Count == 0)
+                        {
+                            //Sleep for the shortest time possible, actions being called in this time on this
+                            //thread are unblocking, so this shouldn't freeze too much and will save significant
+                            //amounts of CPU. (Thread.yield ends up using about 65% CPU time)
+                            //Some quick tests showed CPU time going from ~100% usage to ~10-15% which is
+                            //definitely worth 
+                            Thread.Sleep(1);
                             continue;
+                        }
                         //Pop the first pair
                         KeyValuePair<int, Func<bool>> first = targetQueue.Peek();
                         //Check position in queue
                         if (!ThreadSafeTaskManager.IsReady(first.Key, i))
+                        {
+                            //Yield the thread
+                            Thread.Yield();
                             continue;
+                        }
                         if (i == 8)
                             Log.WriteLine($"hello :) {first.Key} / {targetQueue.Last().Key} (Tasks Left: {targetQueue.Count})");
                         targetQueue.Dequeue();
                         //Act upon it
                         ThreadSafeTaskManager.ExecuteThreadSafeAction(i, first.Value, first.Key);
                     }
+                    //Yield the thread
+                    Thread.Yield();
                 }
                 catch (System.Exception e)
                 {
