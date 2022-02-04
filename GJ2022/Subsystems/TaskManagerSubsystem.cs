@@ -92,8 +92,6 @@ namespace GJ2022.Subsystems
                             Thread.Yield();
                             continue;
                         }
-                        if (i == 8)
-                            Log.WriteLine($"hello :) {first.Key} / {targetQueue.Last().Key} (Tasks Left: {targetQueue.Count})");
                         targetQueue.Dequeue();
                         //Act upon it
                         ThreadSafeTaskManager.ExecuteThreadSafeAction(i, first.Value, first.Key);
