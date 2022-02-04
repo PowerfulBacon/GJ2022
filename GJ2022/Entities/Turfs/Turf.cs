@@ -88,7 +88,7 @@ namespace GJ2022.Entities.Turfs
                 {
                     foreach (PressurisedGas gas in block.ContainedAtmosphere.AtmosphericContents.Values.ToList())
                     {
-                        if(!Renderable.HasOverlay($"atmosphere_{gas.gas}"))
+                        if(gas != null && !Renderable.HasOverlay($"atmosphere_{gas.gas}"))
                             Renderable.AddOverlay($"atmosphere_{gas.gas}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
                     }
                 }
