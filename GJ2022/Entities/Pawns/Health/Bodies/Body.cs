@@ -82,7 +82,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             for (int i = InsertedLimbs.Count - 1; i >= 0; i--)
             {
                 Limb limb = InsertedLimbs.Values.ElementAt(i);
-                if (limb == null)
+                if (limb == null || (limb.limbFlags & LimbFlags.LIMB_DESTROYED) != 0)
                     continue;
                 if (limb.LowPressureDamage > pressure)
                 {

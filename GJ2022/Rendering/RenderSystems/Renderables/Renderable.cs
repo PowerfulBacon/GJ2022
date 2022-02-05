@@ -134,6 +134,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 Overlays = new Dictionary<string, Renderable>();
             overlay.UpdatePosition(_overlayPosition);
             overlay.layerChangeHandler?.Invoke(layer);
+            overlay.UpdateDirection(Direction);
             lock (Overlays)
             {
                 Overlays.Add(id, overlay);
