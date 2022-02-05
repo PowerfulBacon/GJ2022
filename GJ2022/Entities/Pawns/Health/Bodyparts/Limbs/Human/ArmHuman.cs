@@ -1,5 +1,7 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
+using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +30,18 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
             return;
         }
 
-        public override void OnDestruction()
+        public override void AddOverlay(Renderable renderable)
         {
-            //Destroy the associated hand
+            string direction = InsertedSlot == BodySlots.SLOT_ARM_LEFT ? "left" : "right";
+            renderable.AddOverlay($"{direction}arm", new StandardRenderable($"human_{direction}arm"), Layers.LAYER_PAWN + 0.01f);
+            renderable.AddOverlay($"{direction}hand", new StandardRenderable($"human_{direction}hand"), Layers.LAYER_PAWN + 0.02f);
+        }
+
+        public override void RemoveOverlay(Renderable renderable)
+        {
+            string direction = InsertedSlot == BodySlots.SLOT_ARM_LEFT ? "left" : "right";
+            renderable.RemoveOvelay($"{direction}arm");
+            renderable.RemoveOvelay($"{direction}hand");
         }
     }
 }

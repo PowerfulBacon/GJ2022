@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Injuries;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts
@@ -71,12 +72,26 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         public virtual bool Remove()
         {
             //Remove the bodies overall stats
+            //TODO: Account for damage
             Body.Conciousness -= ConciousnessFactor;
+            Body.Manipulation -= ManipulationFactor;
+            Body.Movement -= MovementFactor;
+            Body.Hearing -= HearingFactor;
+            Body.Vision -= VisionFactor;
+            //Remove overlays
+            if(Body.Parent.Renderable != null)
+                RemoveOverlay(Body.Parent.Renderable);
             return true;
         }
 
         //Called when the organ is destroyed
         public virtual void OnDestruction()
+        { }
+
+        public virtual void AddOverlay(Renderable renderable)
+        { }
+
+        public virtual void RemoveOverlay(Renderable renderable)
         { }
 
     }

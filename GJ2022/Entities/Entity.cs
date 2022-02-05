@@ -14,7 +14,7 @@ namespace GJ2022.Entities
     {
 
         //The renderable attached to this entity
-        protected abstract Renderable Renderable { get; set; }
+        public abstract Renderable Renderable { get; set; }
 
         //The layer of the object
         private float _layer = 0;

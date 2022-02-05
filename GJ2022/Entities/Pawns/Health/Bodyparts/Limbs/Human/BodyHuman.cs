@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 {
+    /// <summary>
+    /// The body cannot be removed, so doesn't provide an overlay.
+    /// Humans all have a base body for their main renderable.
+    /// </summary>
     public class BodyHuman : Limb
     {
         public BodyHuman(Body body, BodySlots slot) : base(body, slot)

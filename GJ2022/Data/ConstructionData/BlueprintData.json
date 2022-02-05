@@ -35,6 +35,7 @@
       "contents": [
         "dog",
         "human",
+        "human_bionic",
         "steel_building_instant",
         "plating_instant",
         "canister_debug",
@@ -141,6 +142,13 @@
       "isRoom": false,
       "edge": "human",
       "fill": "human"
+    },
+    {
+      "id": "human_bionic",
+      "name": "Spawn Human (Bionic Limbs)",
+      "isRoom": false,
+      "edge": "human_bionic",
+      "fill": "human_bionic"
     },
     {
       "id": "canister_debug",
@@ -266,6 +274,15 @@
     {
       "id": "human",
       "created_type": "Human",
+      "priority": 1,
+      "blueprintType": "BlueprintSentience",
+      "texture": "human_body_male",
+      "layer": 5,
+      "instant": true
+    },
+    {
+      "id": "human_bionic",
+      "created_type": "BionicHuman",
       "priority": 1,
       "blueprintType": "BlueprintSentience",
       "texture": "human_body_male",

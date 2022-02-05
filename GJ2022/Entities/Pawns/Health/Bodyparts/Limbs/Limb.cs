@@ -12,12 +12,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         //(Legs can go into leg slots etc.)
         public abstract BodySlots[] AllowedSlots { get; }
 
-        //The name of the texture that gets applied to humans if this limb is applied to them.
-        //Ignore if this can't be applied to humans
-        public virtual string HumanOverlayTextureId { get; } = null;
-
         //The colour of the limb when applied to a human.
         //(A corgi leg applied to a human looks like a human leg but with corgi fur colour)
+        //TODO
         public virtual Colour? HumanOverlayColour { get; } = null;
 
         //Organs that are inside of us
@@ -44,33 +41,40 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         public bool Insert(Body body, BodySlots slot)
         {
             //Remove the old organ
-            if (body.InsertedBodyparts[slot] != null)
+            if (body.InsertedLimbs[slot] != null)
             {
                 //We cannot remove the old bodypart
-                if (!body.InsertedBodyparts[slot].Remove())
+                if (!body.InsertedLimbs[slot].Remove())
                 {
                     return false;
                 }
             }
             //Insert the limb
-            body.InsertedBodyparts[slot] = this;
+            body.InsertedLimbs[slot] = this;
             //Update body
             body.Conciousness += ConciousnessFactor;
             body.Manipulation += ManipulationFactor;
             body.Movement += MovementFactor;
             body.Hearing += HearingFactor;
             body.Vision += VisionFactor;
+            //Set tje omserted ;pcatopm
+            InsertedSlot = slot;
+            //Overlay handling
+            if (body.Parent.UsesLimbOverlays)
+                AddOverlay(body.Parent.Renderable);
             return true;
         }
 
         public override bool Remove()
         {
+            if (!base.Remove())
+                return false;
             //Remove from the body
-            Body.InsertedBodyparts[InsertedSlot] = null;
+            Body.InsertedLimbs[InsertedSlot] = null;
             //We can be garbage collected at this point
             //TODO: Drop an organ item
             Body = null;
-            return base.Remove();
+            return true;
         }
 
         public abstract void SetupOrgans(Pawn pawn, Body body);

@@ -9,6 +9,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 {
     public class BodyHuman : Body
     {
+
+
+
         public override BodySlots[] BodySlots => new BodySlots[] {
             Health.BodySlots.SLOT_ARM_LEFT,
             Health.BodySlots.SLOT_ARM_RIGHT,

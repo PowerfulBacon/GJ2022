@@ -27,7 +27,7 @@ namespace GJ2022.Entities.Structures
 
         public bool Destroyed { get; private set; } = false;
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("fire", true);
+        public override Renderable Renderable { get; set; } = new StandardRenderable("fire", true);
 
         public override bool Destroy()
         {

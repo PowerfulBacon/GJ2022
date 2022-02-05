@@ -24,7 +24,7 @@ namespace GJ2022.Entities.Debug
 
         public bool Destroyed => false;
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("error");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("error");
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 

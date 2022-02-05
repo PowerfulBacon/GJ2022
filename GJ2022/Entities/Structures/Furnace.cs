@@ -13,7 +13,7 @@ namespace GJ2022.Entities.Structures
         {
         }
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("furnace");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("furnace");
 
         public void Smelt(Pawn user, IronOre ore)
         {

@@ -18,7 +18,7 @@ namespace GJ2022.Entities.Pawns
     {
 
         //The renderable attached to our pawn
-        protected override Renderable Renderable { get; set; } = new CircleRenderable(Colour.Random);
+        public override Renderable Renderable { get; set; } = new CircleRenderable(Colour.Random);
 
         //TODO: Draw debug pathfinding lines
         public static bool DrawLines = false;
@@ -35,6 +35,8 @@ namespace GJ2022.Entities.Pawns
         public float Width => 1.0f;
 
         public float Height => 1.0f;
+
+        public virtual bool UsesLimbOverlays { get; } = false;
 
         //The body attached to this pawn
         public abstract Body PawnBody { get; }
@@ -308,7 +310,7 @@ namespace GJ2022.Entities.Pawns
             float speed = _speed;
             if (speed == -1)
             {
-                speed = 0.001f * PawnBody.Movement;
+                speed = CalculateSpeed();
             }
             //Check if our target moved
             if (entityTargetDestination != null && (entityTargetDestination.Position != targetDestinationPosition || entityTargetDestination.Location != null))
@@ -341,10 +343,18 @@ namespace GJ2022.Entities.Pawns
             //If we still have more distance to move, move it
             if (extraDistance > 0)
             {
-                Log.WriteLine($"Recursive call to move {extraDistance} extra distance");
                 //We need to actually pass the distance travelled, while extraDistance is a speed
                 TraversePath(deltaTime, extraDistance * deltaTime);
             }
+        }
+
+        private float CalculateSpeed()
+        {
+            //If we have gravity return movement factor
+            if(World.HasGravity(Position))
+                return 0.001f * PawnBody.Movement;
+            //Return regular speed
+            return 0.1f;
         }
 
         /// <summary>

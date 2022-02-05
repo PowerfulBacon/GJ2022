@@ -13,7 +13,7 @@ namespace GJ2022.Entities.Items.Stacks.Ores
 
         public override string UiTexture => "iron_ore";
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("iron_ore");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("iron_ore");
 
         public void DoSmelt(Pawn user)
         {

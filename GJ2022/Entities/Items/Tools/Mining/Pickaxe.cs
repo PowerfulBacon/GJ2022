@@ -16,6 +16,6 @@ namespace GJ2022.Entities.Items.Tools.Mining
 
         public override string UiTexture => "pickaxe";
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("pickaxe");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("pickaxe");
     }
 }

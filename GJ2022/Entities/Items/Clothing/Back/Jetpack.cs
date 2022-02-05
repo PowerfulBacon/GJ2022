@@ -25,7 +25,7 @@ namespace GJ2022.Entities.Items.Clothing.Back
 
         public string EquipTexture => "jetpack";
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("jetpack");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("jetpack");
 
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {

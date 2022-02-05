@@ -23,7 +23,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
 
         public string EquipTexture => "spacesuit";
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("spacesuit");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("spacesuit");
 
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {

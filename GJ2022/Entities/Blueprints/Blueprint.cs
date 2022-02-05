@@ -28,7 +28,7 @@ namespace GJ2022.Entities.Blueprints
 
         public bool Destroyed { get; set; } = false;
 
-        protected override Renderable Renderable { get; set; } = new BlueprintRenderable("error");
+        public override Renderable Renderable { get; set; } = new BlueprintRenderable("error");
 
         protected List<Item> contents = new List<Item>();
 

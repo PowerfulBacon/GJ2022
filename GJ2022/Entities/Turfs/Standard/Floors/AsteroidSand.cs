@@ -8,7 +8,7 @@ namespace GJ2022.Entities.Turfs.Standard.Floors
 
         private static Random random = new Random();
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable($"asteroid_sand_{random.Next(1, 13)}");
+        public override Renderable Renderable { get; set; } = new StandardRenderable($"asteroid_sand_{random.Next(1, 13)}");
 
         public AsteroidSand(int x, int y) : base(x, y)
         { }

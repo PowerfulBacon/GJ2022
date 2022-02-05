@@ -4,6 +4,8 @@ using GJ2022.Entities.Items.Clothing.Body;
 using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
+using GJ2022.Entities.Pawns.Mobs;
+using GJ2022.Entities.Pawns.Mobs.Humans;
 using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
 using GJ2022.PawnBehaviours.Behaviours;

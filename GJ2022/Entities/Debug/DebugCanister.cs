@@ -24,7 +24,7 @@ namespace GJ2022.Entities.Debug
             Log.WriteLine($"Atmos ({turf.Atmosphere.BlockId}): Oxygen moles {turf.Atmosphere.ContainedAtmosphere.GetMoles(SpawnedGas)}/{turf.Atmosphere.ContainedAtmosphere.Moles}, Temperature {turf.Atmosphere.ContainedAtmosphere.KelvinTemperature}, Pressure: {turf.Atmosphere.ContainedAtmosphere.KiloPascalPressure}, Volume {turf.Atmosphere.ContainedAtmosphere.LitreVolume}");
         }
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("canister");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("canister");
 
     }
 

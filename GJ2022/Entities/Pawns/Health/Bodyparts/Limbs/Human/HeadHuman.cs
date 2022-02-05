@@ -1,6 +1,8 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans;
+using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,17 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
         {
             //TODO
             containedOrgans.Add(new Brain(pawn, body));
+        }
+
+        public override void AddOverlay(Renderable renderable)
+        {
+            //TODO: Genders
+            renderable.AddOverlay($"head", new StandardRenderable($"human_head_male"), Layers.LAYER_PAWN + 0.01f);
+        }
+
+        public override void RemoveOverlay(Renderable renderable)
+        {
+            renderable.RemoveOvelay($"head");
         }
     }
 }

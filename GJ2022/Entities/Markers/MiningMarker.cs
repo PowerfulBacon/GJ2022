@@ -10,7 +10,7 @@ namespace GJ2022.Entities.Markers
     public class MiningMarker : Marker
     {
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("mining_marker", true);
+        public override Renderable Renderable { get; set; } = new StandardRenderable("mining_marker", true);
 
         public MiningMarker(Vector<float> position) : base(position, Layers.LAYER_MARKER)
         {

@@ -2,6 +2,7 @@
 using GJ2022.Entities.Pawns.Health.Bodyparts;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns.Health.Bodies
@@ -13,7 +14,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         public abstract BodySlots[] BodySlots { get; }
 
         //Dictionary of bodyparts inside this body
-        public Dictionary<BodySlots, Bodypart> InsertedBodyparts { get; } = new Dictionary<BodySlots, Bodypart>();
+        public Dictionary<BodySlots, Limb> InsertedLimbs { get; } = new Dictionary<BodySlots, Limb>();
 
         //Internal atmosphere of the lungs
         //Lungs handle moving gasses from the atmosphere into here
@@ -51,7 +52,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             //Set the inserted bodypart dictionary
             foreach (BodySlots slot in BodySlots)
             {
-                InsertedBodyparts.Add(slot, null);
+                InsertedLimbs.Add(slot, null);
             }
         }
 
@@ -71,6 +72,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public void ProcessBody(float deltaTime)
         {
+            //Process pressure damage
+            
             //Process all processing organs
             for (int i = processingOrgans.Count - 1; i >= 0; i--)
             {

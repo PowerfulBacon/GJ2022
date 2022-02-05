@@ -6,7 +6,7 @@ namespace GJ2022.Entities.Items.Stacks
     public class Gold : Stack
     {
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("gold");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("gold");
 
         public override string UiTexture => "gold";
 
