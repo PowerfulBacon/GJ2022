@@ -29,18 +29,18 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
         public override void OnDestruction()
         {
             //Instant death
-            parent.Death("Irreparable damage to the brain");
+            Body.Parent.Death("Irreparable damage to the brain");
             //Trigger base stuff
             base.OnDestruction();
         }
 
         public override void OnPawnLife(float deltaTime)
         {
-            float availableOxygen = Math.Min(OxygenConsumptionRate * deltaTime, body.bloodstreamOxygenMoles);
+            float availableOxygen = Math.Min(OxygenConsumptionRate * deltaTime, Body.bloodstreamOxygenMoles);
             //Consume oxygen
-            body.bloodstreamOxygenMoles -= availableOxygen;
+            Body.bloodstreamOxygenMoles -= availableOxygen;
             //Produce carbon dioxide
-            body.bloodstreamCarbonDioxideMoles += availableOxygen;
+            Body.bloodstreamCarbonDioxideMoles += availableOxygen;
             //Take damage if oxygen is insufficient
             if (availableOxygen < OxygenConsumptionRate * deltaTime * OxygenDamageProportion)
             {

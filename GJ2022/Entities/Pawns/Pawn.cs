@@ -303,8 +303,13 @@ namespace GJ2022.Entities.Pawns
         /// <summary>
         /// Travel along the specified path
         /// </summary>
-        private void TraversePath(float deltaTime, float distance = 0.1f)
+        private void TraversePath(float deltaTime, float _speed = -1)
         {
+            float speed = _speed;
+            if (speed == -1)
+            {
+                speed = 0.1f * PawnBody.Movement;
+            }
             //Check if our target moved
             if (entityTargetDestination != null && (entityTargetDestination.Position != targetDestinationPosition || entityTargetDestination.Location != null))
             {
@@ -326,7 +331,7 @@ namespace GJ2022.Entities.Pawns
                 ? (Vector<float>)followingPath.Points[positionOnPath]
                 : targetDestinationPosition;
             //Move towards the point
-            Position = Position.MoveTowards(nextPathPosition, distance, deltaTime, out float extraDistance);
+            Position = Position.MoveTowards(nextPathPosition, speed, deltaTime, out float extraDistance);
             //If we reached the point, move towards the next point
             if (Position == nextPathPosition)
             {

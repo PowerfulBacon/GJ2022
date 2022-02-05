@@ -26,16 +26,16 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
         public override void OnPawnLife(float deltaTime)
         {
             //Get air from the atmosphere
-            Turf currentTurf = World.GetTurf((int)parent.Position[0], (int)parent.Position[1]);
+            Turf currentTurf = World.GetTurf((int)Body.Parent.Position[0], (int)Body.Parent.Position[1]);
             //No atmosphere = vent lungs
             if (currentTurf == null || currentTurf.Atmosphere == null)
             {
-                body.internalAtmosphere.ClearGasses();
+                Body.internalAtmosphere.ClearGasses();
                 ProcessLungDamage();
                 return;
             }
             //Equalize gasses in lungs with the gasses in the atmosphere.
-            body.internalAtmosphere.Equalize(currentTurf.Atmosphere.ContainedAtmosphere);
+            Body.internalAtmosphere.Equalize(currentTurf.Atmosphere.ContainedAtmosphere);
             ProcessLungDamage();
         }
 
