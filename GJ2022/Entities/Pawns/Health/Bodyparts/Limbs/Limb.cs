@@ -84,6 +84,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         public override void OnDestruction()
         {
             limbFlags |= LimbFlags.LIMB_DESTROYED;
+            if ((limbFlags & LimbFlags.CRITICAL_LIMB) != 0)
+                Body.Parent.Death("Critical limb destroyed.");
             base.OnDestruction();
         }
 
