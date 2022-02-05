@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodies;
+using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
 {
@@ -8,20 +9,13 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
         //Default organ flags
         public abstract OrganFlags DefaultOrganFlags { get; }
 
-        //Parent of this organ (The pawn we belong to)
-        protected Pawn parent;
-
-        //The body we are inside of
-        protected Body body;
-
         //Current flags of the organ, including if it is failing (Fixable) or destroyed (irreperable damage).
         public OrganFlags organFlags;
 
-        public Organ(Pawn parent, Body body)
+        public Limb ContainingLimb { get; private set; }
+
+        public Organ(Pawn parent, Body body) : base(body)
         {
-            //Set the parent
-            this.parent = parent;
-            this.body = body;
             //Set the default organ flags
             organFlags = DefaultOrganFlags;
             //Set processing

@@ -1,10 +1,14 @@
-﻿using GJ2022.Entities.Pawns.Health.Injuries;
+﻿using GJ2022.Entities.Pawns.Health.Bodies;
+using GJ2022.Entities.Pawns.Health.Injuries;
 using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts
 {
     public abstract class Bodypart
     {
+
+        //The body we are inside of
+        protected Body Body { get; set; }
 
         //========================
         // Bodypart Factors
@@ -36,7 +40,12 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
 
         //List of inflicting injuries
         private List<Injury> injuries = new List<Injury>();
-        
+
+        public Bodypart(Body body)
+        {
+            this.Body = body;
+        }
+
         //TODO: Make this apply damage and the special effects of injuries
         public void AddInjury(Injury injury)
         {
@@ -62,7 +71,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         public virtual bool Remove()
         {
             //Remove the bodies overall stats
-            Body -= ConciousnessFactor;
+            Body.Conciousness -= ConciousnessFactor;
             return true;
         }
 

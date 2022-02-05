@@ -20,6 +20,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override float MaxHealth => 25;
 
+        public override float ManipulationFactor => 40;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             throw new NotImplementedException();
