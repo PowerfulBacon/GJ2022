@@ -139,6 +139,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         /// </summary>
         private float GetLowPressureDamageMultiplier(float multiplierMax, float pressureLimit, float pressure)
         {
+            //TODO: sqrt is too laggy.
             float ab = pressureLimit * multiplierMax;
             float d = (pressureLimit + pressureLimit * multiplierMax - (float)Math.Sqrt((-pressureLimit - ab) * (-pressureLimit - ab) - 4 * (pressureLimit * pressureLimit))) / (2 * pressureLimit);
             float c = d * multiplierMax / (1 - d);
