@@ -6,6 +6,7 @@ using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -87,12 +88,14 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 if (limb.LowPressureDamage > pressure)
                 {
                     //Apply low pressure damage proportionally
-                    limb.AddInjury(new Crush(0.1f * deltaTime));
+                    //4 damage per second at 0 pressure
+                    //1 damage per second at 20 pressure
+                    limb.AddInjury(new Crush(deltaTime * GetLowPressureDamageMultiplier(4, limb.LowPressureDamage, pressure)));
                 }
                 else if (limb.HighPressureDamage < pressure)
                 {
                     //Apply high pressure damage
-                    limb.AddInjury(new Crush(0.1f * deltaTime));
+                    limb.AddInjury(new Crush(deltaTime * (float)Math.Sqrt(pressure - limb.HighPressureDamage)));
                 }
             }
             //Process all processing organs
@@ -114,6 +117,32 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 //Do process
                 organ.OnPawnLife(deltaTime);
             }
+        }
+
+        /// <summary>
+        /// Starts at 0 and rises as you approach pressure = 0
+        /// MultiplierMax = the multiplier for being at 0 pressure
+        /// PressureLimit = The point at which the pressure multiplier is 1
+        /// Pressure = Current pressure
+        /// 
+        /// x = pressure
+        /// y = multiplier
+        /// 
+        /// 1/x curve that passes through (pressureLimit, 1) and (0, multiplierMax)
+        /// 
+        /// a = pressureLimit
+        /// b = multiplierMax
+        /// 
+        /// y=\frac{a}{x+c}+d
+        /// d=\frac{a+ab-\sqrt{\left(-a-ab\right)\left(-a-ab\right)-4a^{2}}}{2a}
+        /// c=\frac{da}{1-d}
+        /// </summary>
+        private float GetLowPressureDamageMultiplier(float multiplierMax, float pressureLimit, float pressure)
+        {
+            float ab = pressureLimit * multiplierMax;
+            float d = (pressureLimit + pressureLimit * multiplierMax - (float)Math.Sqrt((-pressureLimit - ab) * (-pressureLimit - ab) - 4 * (pressureLimit * pressureLimit))) / (2 * pressureLimit);
+            float c = d * multiplierMax / (1 - d);
+            return multiplierMax / (pressure + c) + d;
         }
 
     }

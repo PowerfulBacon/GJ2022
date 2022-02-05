@@ -47,7 +47,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
                 float damageProportion = 1 - (availableOxygen / OxygenConsumptionRate * deltaTime * OxygenDamageProportion);
                 AddInjury(new Hypoxia(damageProportion * OxygenDamageMultiplied * deltaTime));
                 //TODO: Apply damage
-                Log.WriteLine($"A brain just took {damageProportion * OxygenDamageMultiplied * deltaTime} damage!");
+                Log.WriteLine($"A brain just took {damageProportion * OxygenDamageMultiplied * deltaTime} damage! New health: {Health}");
             }
         }
 

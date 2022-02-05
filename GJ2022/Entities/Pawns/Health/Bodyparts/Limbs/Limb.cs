@@ -81,6 +81,12 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
             return true;
         }
 
+        public override void OnDestruction()
+        {
+            limbFlags |= LimbFlags.LIMB_DESTROYED;
+            base.OnDestruction();
+        }
+
         public abstract void SetupOrgans(Pawn pawn, Body body);
 
     }
