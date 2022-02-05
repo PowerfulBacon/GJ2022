@@ -16,6 +16,7 @@ using GJ2022.UserInterface;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using System.Threading;
 using static OpenGL.Gl;
 
 namespace GJ2022
@@ -170,7 +171,7 @@ namespace GJ2022
         /// </summary>
         private static Window SetupWindow()
         {
-            Window window = Glfw.CreateWindow(1920, 1080, "GJ2022", Monitor.None, Window.None);
+            Window window = Glfw.CreateWindow(1920, 1080, "GJ2022", GLFW.Monitor.None, Window.None);
             Glfw.MakeContextCurrent(window);
             Import(Glfw.GetProcAddress);
             return window;
