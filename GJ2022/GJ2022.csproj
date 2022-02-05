@@ -196,8 +196,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\Pawns\Health\Injuries\Instances\Generic\" />
-  </ItemGroup>
-
 </Project>

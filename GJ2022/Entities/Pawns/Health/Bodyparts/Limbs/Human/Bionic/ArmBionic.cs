@@ -21,6 +21,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human.Bionic
         //15 more manipulation.
         public override float ManipulationFactor => 65;
 
+        public override float HighPressureDamage => 300;
+
+        public override float LowPressureDamage => 0;
+
         public override void AddOverlay(Renderable renderable)
         {
             string direction = InsertedSlot == BodySlots.SLOT_ARM_LEFT ? "left" : "right";

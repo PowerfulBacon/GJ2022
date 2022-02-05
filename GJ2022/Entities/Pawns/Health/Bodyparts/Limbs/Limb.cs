@@ -29,6 +29,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         //The default limb flags of this limb
         public LimbFlags limbFlags;
 
+        //Maximum allowed pressure
+        public abstract float HighPressureDamage { get; }
+        public abstract float LowPressureDamage { get; }
+
         public Limb(Body body, BodySlots slot) : base(body)
         {
             limbFlags = DefaultLimbFlags;

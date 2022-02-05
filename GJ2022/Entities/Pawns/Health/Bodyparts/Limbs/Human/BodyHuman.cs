@@ -1,6 +1,8 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans;
+using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +28,24 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override float MaxHealth => 60;
 
+        public override float HighPressureDamage => 200;
+
+        public override float LowPressureDamage => 20;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             containedOrgans.Add(new Heart(pawn, body));
             containedOrgans.Add(new Liver(pawn, body));
             containedOrgans.Add(new Lung(pawn, body));
             containedOrgans.Add(new Stomach(pawn, body));
+        }
+
+        public override void UpdateDamageOverlays(Renderable renderable)
+        {
+            if (renderable.HasOverlay($"dambody"))
+                renderable.RemoveOvelay($"dambody");
+            if (Health < MaxHealth)
+                renderable.AddOverlay("dambody", new StandardRenderable($"brute_body_0"), Layers.LAYER_PAWN + 0.03f);
         }
 
     }

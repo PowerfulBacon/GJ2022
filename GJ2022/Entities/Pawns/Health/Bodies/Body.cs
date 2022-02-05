@@ -2,8 +2,12 @@
 using GJ2022.Entities.Pawns.Health.Bodyparts;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
+using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
+using GJ2022.Entities.Turfs;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GJ2022.Entities.Pawns.Health.Bodies
 {
@@ -73,7 +77,24 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         public void ProcessBody(float deltaTime)
         {
             //Process pressure damage
-            
+            Turf location = World.GetTurf((int)Parent.Position[0], (int)Parent.Position[1]);
+            float pressure = location?.Atmosphere?.ContainedAtmosphere.KiloPascalPressure ?? 0;
+            for (int i = InsertedLimbs.Count - 1; i >= 0; i--)
+            {
+                Limb limb = InsertedLimbs.Values.ElementAt(i);
+                if (limb == null)
+                    continue;
+                if (limb.LowPressureDamage > pressure)
+                {
+                    //Apply low pressure damage proportionally
+                    limb.AddInjury(new Crush(0.1f * deltaTime));
+                }
+                else if (limb.HighPressureDamage < pressure)
+                {
+                    //Apply high pressure damage
+                    limb.AddInjury(new Crush(0.1f * deltaTime));
+                }
+            }
             //Process all processing organs
             for (int i = processingOrgans.Count - 1; i >= 0; i--)
             {

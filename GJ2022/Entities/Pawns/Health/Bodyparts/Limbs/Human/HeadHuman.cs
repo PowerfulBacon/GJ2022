@@ -23,6 +23,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override float MaxHealth => 45;
 
+        public override float HighPressureDamage => 200;
+
+        public override float LowPressureDamage => 20;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             //TODO
@@ -38,6 +42,14 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
         public override void RemoveOverlay(Renderable renderable)
         {
             renderable.RemoveOvelay($"head");
+        }
+
+        public override void UpdateDamageOverlays(Renderable renderable)
+        {
+            if (renderable.HasOverlay($"damhead"))
+                renderable.RemoveOvelay($"damhead");
+            if (Health < MaxHealth)
+                renderable.AddOverlay("damhead", new StandardRenderable($"brute_head_0"), Layers.LAYER_PAWN + 0.03f);
         }
     }
 }

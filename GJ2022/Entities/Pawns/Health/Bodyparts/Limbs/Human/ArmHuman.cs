@@ -24,6 +24,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override float ManipulationFactor => 50;
 
+        public override float HighPressureDamage => 200;
+
+        public override float LowPressureDamage => 20;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             //TODO
@@ -42,6 +46,15 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
             string direction = InsertedSlot == BodySlots.SLOT_ARM_LEFT ? "left" : "right";
             renderable.RemoveOvelay($"{direction}arm");
             renderable.RemoveOvelay($"{direction}hand");
+        }
+
+        public override void UpdateDamageOverlays(Renderable renderable)
+        {
+            string direction = InsertedSlot == BodySlots.SLOT_ARM_LEFT ? "left" : "right";
+            if (renderable.HasOverlay($"{direction}damarm"))
+                renderable.RemoveOvelay($"{direction}damarm");
+            if (Health < MaxHealth)
+                renderable.AddOverlay($"{direction}damarm", new StandardRenderable($"brute_{direction}arm_0"), Layers.LAYER_PAWN + 0.03f);
         }
     }
 }

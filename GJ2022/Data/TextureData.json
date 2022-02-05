@@ -559,6 +559,63 @@
       "index_x": 0,
       "index_y": 5,
       "directional": "CARDINAL"
+    },
+    //0 = low damage
+    //1 = medium damage (todo)
+    //2 = lots of damage (todo)
+    {
+      "id": "brute_body_0",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 6,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_head_0",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 6,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_rightarm_0",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 6,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_leftarm_0",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 6,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_rightleg_0",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 16,
+      "index_y": 6,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_leftleg_0",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 20,
+      "index_y": 6,
+      "directional": "CARDINAL"
     }
   ]
 }

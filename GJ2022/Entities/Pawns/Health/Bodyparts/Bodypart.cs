@@ -39,17 +39,28 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         //Max health of the bodypart
         public abstract float MaxHealth { get; }
 
+        //Current bodypart health
+        public float Health { get; private set; } = 0;
+
         //List of inflicting injuries
         private List<Injury> injuries = new List<Injury>();
 
         public Bodypart(Body body)
         {
             Body = body;
+            Health = MaxHealth;
         }
 
         //TODO: Make this apply damage and the special effects of injuries
         public void AddInjury(Injury injury)
         {
+            //Calculate new damage
+            Health -= injury.Damage;
+            //Check for destruction
+            if (Health <= 0)
+            {
+                OnDestruction();
+            }
             //Check uniqueness
             if (injury.Unique)
             {
@@ -66,6 +77,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
                 }
             }
             injuries.Add(injury);
+            UpdateDamageOverlays(Body.Parent.Renderable);
         }
 
         //Remove from body
@@ -86,12 +98,17 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
 
         //Called when the organ is destroyed
         public virtual void OnDestruction()
-        { }
+        {
+            Log.WriteLine($"{this} was destroyed!");
+        }
 
         public virtual void AddOverlay(Renderable renderable)
         { }
 
         public virtual void RemoveOverlay(Renderable renderable)
+        { }
+
+        public virtual void UpdateDamageOverlays(Renderable renderable)
         { }
 
     }

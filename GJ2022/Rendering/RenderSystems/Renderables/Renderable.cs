@@ -158,7 +158,11 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         {
             lock (Overlays)
             {
-                Overlays.Remove(id);
+                if (Overlays.ContainsKey(id))
+                {
+                    Overlays[id].StopRendering();
+                    Overlays.Remove(id);
+                }
             }
         }
 

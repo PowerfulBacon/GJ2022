@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Subsystems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,9 @@ namespace GJ2022.Entities.Pawns
 
         public void Death(string cause)
         {
-            throw new System.NotImplementedException();
+            Log.WriteLine("i died lol");
+            PawnControllerSystem.Singleton.StopProcessing(this);
+            //throw new System.NotImplementedException();
         }
 
     }
