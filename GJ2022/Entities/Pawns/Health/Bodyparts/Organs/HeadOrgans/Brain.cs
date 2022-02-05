@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodies;
+using GJ2022.Entities.Pawns.Health.Injuries.Instances.Brain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
 
         public override float ConciousnessFactor => 100;
 
+        public override float MaxHealth => 15;
+
         public override void OnDestruction()
         {
             //Instant death
@@ -42,6 +45,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
             if (availableOxygen < OxygenConsumptionRate * deltaTime * OxygenDamageProportion)
             {
                 float damageProportion = 1 - (availableOxygen / OxygenConsumptionRate * deltaTime * OxygenDamageProportion);
+                AddInjury(new Hypoxia(damageProportion));
                 //TODO: Apply damage
                 Log.WriteLine($"A brain just took {damageProportion * OxygenDamageMultiplied * deltaTime} damage!");
             }

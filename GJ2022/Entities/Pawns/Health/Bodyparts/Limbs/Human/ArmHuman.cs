@@ -18,9 +18,16 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override LimbFlags DefaultLimbFlags => LimbFlags.NONE;
 
+        public override float MaxHealth => 35;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             throw new NotImplementedException();
+        }
+
+        public override void OnDestruction()
+        {
+            //Destroy the associated hand
         }
     }
 }

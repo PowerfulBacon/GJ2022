@@ -13,5 +13,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
         { }
 
         public override OrganFlags DefaultOrganFlags => OrganFlags.NONE;
+
+        public override float MaxHealth => 15;
+
     }
 }

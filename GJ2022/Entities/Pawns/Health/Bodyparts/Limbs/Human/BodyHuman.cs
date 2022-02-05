@@ -19,6 +19,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override LimbFlags DefaultLimbFlags => LimbFlags.CRITICAL_LIMB | LimbFlags.NO_REMOVAL;
 
+        public override float MaxHealth => 60;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             containedOrgans.Add(new Heart(pawn, body));

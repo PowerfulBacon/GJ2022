@@ -11,10 +11,13 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
 {
     public class Lung : Organ
     {
+
         public Lung(Pawn parent, Body body) : base(parent, body)
         { }
 
         public override OrganFlags DefaultOrganFlags => OrganFlags.ORGAN_PROCESSING;
+
+        public override float MaxHealth => 20;
 
         /// <summary>
         /// Increase volume of the lungs to get air in the atmosphere.

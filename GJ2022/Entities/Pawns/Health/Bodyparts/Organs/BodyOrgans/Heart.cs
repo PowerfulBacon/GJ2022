@@ -15,6 +15,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
 
         public override OrganFlags DefaultOrganFlags => OrganFlags.ORGAN_PROCESSING;
 
+        public override float MaxHealth => 25;
+
         public override void OnPawnLife(float deltaTime)
         {
             //1 mole of oxygen is about 122 kPa at room temp.
