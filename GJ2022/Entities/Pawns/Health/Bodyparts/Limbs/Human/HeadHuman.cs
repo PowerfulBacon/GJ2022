@@ -29,8 +29,13 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override void SetupOrgans(Pawn pawn, Body body)
         {
-            //TODO
             containedOrgans.Add(new Brain(pawn, body));
+            containedOrgans.Add(new Eye(pawn, body));
+            containedOrgans.Add(new Eye(pawn, body));
+            containedOrgans.Add(new Nose(pawn, body));
+            containedOrgans.Add(new Tongue(pawn, body));
+            containedOrgans.Add(new Ear(pawn, body));
+            containedOrgans.Add(new Ear(pawn, body));
         }
 
         public override void AddOverlay(Renderable renderable)

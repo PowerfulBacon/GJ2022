@@ -77,7 +77,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public void ProcessBody(float deltaTime)
         {
-            //Process pressure damage
+            //Process pressure damage (TODO: If not protected via pressure resistant clothing)
             Turf location = World.GetTurf((int)Parent.Position[0], (int)Parent.Position[1]);
             float pressure = location?.Atmosphere?.ContainedAtmosphere.KiloPascalPressure ?? 0;
             for (int i = InsertedLimbs.Count - 1; i >= 0; i--)

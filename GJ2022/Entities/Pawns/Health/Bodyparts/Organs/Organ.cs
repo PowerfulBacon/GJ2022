@@ -12,6 +12,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs
         //Current flags of the organ, including if it is failing (Fixable) or destroyed (irreperable damage).
         public OrganFlags organFlags;
 
+        //The limb we are contained within TODO
         public Limb ContainingLimb { get; private set; }
 
         public Organ(Pawn parent, Body body) : base(body)
