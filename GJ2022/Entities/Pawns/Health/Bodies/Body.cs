@@ -32,6 +32,13 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         //The pawn we are attached to
         public Pawn Parent { get; private set; }
 
+        //Stats
+        public float Conciousness   { get; internal set; } = 0;
+        public float Movement       { get; internal set; } = 0;
+        public float Manipulation   { get; internal set; } = 0;
+        public float Vision         { get; internal set; } = 0;
+        public float Hearing        { get; internal set; } = 0;
+
         /// <summary>
         /// Setup the body and its internal atmosphere
         /// </summary>

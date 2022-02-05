@@ -27,16 +27,42 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         public abstract LimbFlags DefaultLimbFlags { get; }
 
         //The parent body
-        public Body ParentBody { get; }
+        public Body ParentBody { get; private set; }
+
+        //Slot we are inserted into
+        public BodySlots InsertedSlot { get; private set; }
 
         //The default limb flags of this limb
         public LimbFlags limbFlags;
 
         public Limb(Body body, BodySlots slot)
         {
+            limbFlags = DefaultLimbFlags;
+            Insert(body, slot);
+        }
+
+        public bool Insert(Body body, BodySlots slot)
+        {
+            //Remove the old organ
+            if (body.InsertedBodyparts[slot] != null)
+            {
+                //We cannot remove the old bodypart
+                if (!body.InsertedBodyparts[slot].Remove())
+                {
+                    return false;
+                }
+            }
+            //Insert the organ
             ParentBody = body;
             body.InsertedBodyparts[slot] = this;
-            limbFlags = DefaultLimbFlags;
+            return true;
+        }
+
+        public override bool Remove()
+        {
+            //Remove from the body
+            ParentBody.InsertedBodyparts[InsertedSlot] = null;
+            return base.Remove();
         }
 
         public abstract void SetupOrgans(Pawn pawn, Body body);

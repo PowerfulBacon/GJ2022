@@ -3,6 +3,9 @@
     public abstract class Injury
     {
 
+        //The name of the injury in the UI
+        public abstract string Name { get; }
+
         //Unique:
         //If an injury is unique it will never merge/stack with other identical injuries.
         //Set to false for injuries that are gradual (brain damage), but true for injuries that
@@ -13,7 +16,13 @@
         public abstract float PainPerDamage { get; }
 
         //Amount of damage on this injury
-        public float Damage { get; private set; }
+        public float Damage { get; set; }
+
+        //TODO
+        public Injury(float damage)
+        {
+            Damage = damage;
+        }
 
     }
 }

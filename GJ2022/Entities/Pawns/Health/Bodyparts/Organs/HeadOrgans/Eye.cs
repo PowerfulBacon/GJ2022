@@ -17,5 +17,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
 
         public override float VisionFactor => 50;
 
+        public override float MaxHealth => 10;
+
     }
 }
