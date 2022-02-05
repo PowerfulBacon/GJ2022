@@ -75,13 +75,13 @@ namespace GJ2022.Utility.MathConstructs
                 {
                     thisCopy[i] = trueTarget.Values[i];
                 }
-                extraDistance = totalDistance - distanceMoved;
+                extraDistance = distanceMoved - totalDistance;
                 return thisCopy;
             }
             for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
             {
                 float dist = (dynamic)trueTarget[i] - trueThis.Values[i];
-                thisCopy[i] += (dynamic)(dist / totalDistance * (speed / deltaTime));
+                thisCopy[i] += (dynamic)((dist / totalDistance) * (speed / deltaTime));
             }
             extraDistance = 0;
             return thisCopy;

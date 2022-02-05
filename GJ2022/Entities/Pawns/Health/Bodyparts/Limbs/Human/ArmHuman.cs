@@ -24,7 +24,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override void SetupOrgans(Pawn pawn, Body body)
         {
-            throw new NotImplementedException();
+            //TODO
+            return;
         }
 
         public override void OnDestruction()

@@ -1,5 +1,6 @@
 ﻿using GJ2022.Atmospherics;
 using GJ2022.Entities.Pawns.Health.Bodyparts;
+using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using System.Collections.Generic;
 
@@ -61,6 +62,12 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         }
 
         protected abstract void CreateDefaultBodyparts();
+
+        protected void SetupAndInsertLimb(Limb limb, BodySlots slot)
+        {
+            limb.SetupOrgans(Parent, this);
+            limb.Insert(this, slot);
+        }
 
         public void ProcessBody(float deltaTime)
         {

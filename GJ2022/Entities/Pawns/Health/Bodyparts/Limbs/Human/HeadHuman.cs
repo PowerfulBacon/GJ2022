@@ -23,6 +23,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override void SetupOrgans(Pawn pawn, Body body)
         {
+            //TODO
             containedOrgans.Add(new Brain(pawn, body));
         }
     }

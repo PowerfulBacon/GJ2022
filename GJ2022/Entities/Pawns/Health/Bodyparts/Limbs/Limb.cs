@@ -35,6 +35,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         public Limb(Body body, BodySlots slot) : base(body)
         {
             limbFlags = DefaultLimbFlags;
+            //Setup the internal organs of this bodypart
+            SetupOrgans(body.Parent, body);
+            //Insert it into the body provided
             Insert(body, slot);
         }
 
@@ -49,8 +52,14 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
                     return false;
                 }
             }
-            //Insert the organ
+            //Insert the limb
             body.InsertedBodyparts[slot] = this;
+            //Update body
+            body.Conciousness += ConciousnessFactor;
+            body.Manipulation += ManipulationFactor;
+            body.Movement += MovementFactor;
+            body.Hearing += HearingFactor;
+            body.Vision += VisionFactor;
             return true;
         }
 

@@ -308,7 +308,7 @@ namespace GJ2022.Entities.Pawns
             float speed = _speed;
             if (speed == -1)
             {
-                speed = 0.1f * PawnBody.Movement;
+                speed = 0.001f * PawnBody.Movement;
             }
             //Check if our target moved
             if (entityTargetDestination != null && (entityTargetDestination.Position != targetDestinationPosition || entityTargetDestination.Location != null))
@@ -337,9 +337,13 @@ namespace GJ2022.Entities.Pawns
             {
                 //Increment the path position
                 positionOnPath++;
-                //If we still have more distance to move, move it
-                if (extraDistance > 0)
-                    TraversePath(deltaTime, extraDistance * deltaTime);
+            }
+            //If we still have more distance to move, move it
+            if (extraDistance > 0)
+            {
+                Log.WriteLine($"Recursive call to move {extraDistance} extra distance");
+                //We need to actually pass the distance travelled, while extraDistance is a speed
+                TraversePath(deltaTime, extraDistance * deltaTime);
             }
         }
 

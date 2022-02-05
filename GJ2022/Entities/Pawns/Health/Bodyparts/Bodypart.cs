@@ -43,7 +43,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
 
         public Bodypart(Body body)
         {
-            this.Body = body;
+            Body = body;
         }
 
         //TODO: Make this apply damage and the special effects of injuries
