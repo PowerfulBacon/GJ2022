@@ -95,6 +95,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 else if (limb.HighPressureDamage < pressure)
                 {
                     //Apply high pressure damage
+                    //TODO
                     limb.AddInjury(new Crush(deltaTime * (float)Math.Sqrt(pressure - limb.HighPressureDamage)));
                 }
             }
