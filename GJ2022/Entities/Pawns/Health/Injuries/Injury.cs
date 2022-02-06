@@ -18,7 +18,6 @@
         //Amount of damage on this injury
         public float Damage { get; set; }
 
-        //TODO
         public Injury(float damage)
         {
             Damage = damage;
