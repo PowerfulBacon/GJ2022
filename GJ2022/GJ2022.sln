@@ -10,6 +10,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GJ2022.Tests", "..\GJ2022.T
 		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD} = {0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GJ2022.DmiIconConversionUtility", "..\GJ2022.DmiIconConversionUtility\GJ2022.DmiIconConversionUtility.csproj", "{047A7C91-7A94-4393-8D25-54BF23498193}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD} = {0DDD9894-DD59-41DC-A7F8-9C74D7E87ABD}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +63,24 @@ Global
 		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|x64.Build.0 = Release|x64
 		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|x86.ActiveCfg = Release|x86
 		{F716B796-AFDC-45D0-B69E-1FAA5DADB940}.Release|x86.Build.0 = Release|x86
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Debug|x64.Build.0 = Debug|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Debug|x86.Build.0 = Debug|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Game Build|Any CPU.ActiveCfg = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Game Build|Any CPU.Build.0 = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Game Build|x64.ActiveCfg = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Game Build|x64.Build.0 = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Game Build|x86.ActiveCfg = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Game Build|x86.Build.0 = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Release|x64.ActiveCfg = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Release|x64.Build.0 = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Release|x86.ActiveCfg = Release|Any CPU
+		{047A7C91-7A94-4393-8D25-54BF23498193}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
