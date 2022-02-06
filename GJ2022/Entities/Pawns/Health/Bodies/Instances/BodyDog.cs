@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Corgi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,12 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 
         protected override void CreateDefaultBodyparts()
         {
-            //TODO
-            return;
+            new BodyCorgi(this, Health.BodySlots.SLOT_BODY);
+            new HeadCorgi(this, Health.BodySlots.SLOT_HEAD);
+            new LegCorgi(this, Health.BodySlots.SLOT_LEG_BACK_LEFT);
+            new LegCorgi(this, Health.BodySlots.SLOT_LEG_BACK_RIGHT);
+            new LegCorgi(this, Health.BodySlots.SLOT_LEG_FRONT_LEFT);
+            new LegCorgi(this, Health.BodySlots.SLOT_LEG_FRONT_RIGHT);
         }
     }
 }

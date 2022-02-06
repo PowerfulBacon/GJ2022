@@ -2842,6 +2842,819 @@
       "directional": "CARDINAL",
       "index_x": 14,
       "index_y": 31
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_smooth_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_smooth_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_dtiger_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_dtiger_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_ltiger_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_ltiger_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_spikes_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_spikes_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 0
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_clockwork_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 3,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_clockwork_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 7,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.breaker",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.m_snout_sharp_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.m_snout_round_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.m_snout_sharplight_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.m_snout_sharplight_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.m_snout_roundlight_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 1
+    },
+    {
+      "id": "mutant_bodyparts.m_snout_roundlight_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 3,
+      "index_y": 2
+    },
+    {
+      "id": "mutant_bodyparts.m_horns_short_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 2
+    },
+    {
+      "id": "mutant_bodyparts.m_horns_simple_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 2
+    },
+    {
+      "id": "mutant_bodyparts.m_horns_curled_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 2
+    },
+    {
+      "id": "mutant_bodyparts.m_horns_ram_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 2
+    },
+    {
+      "id": "mutant_bodyparts.m_horns_angler_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 2
+    },
+    {
+      "id": "mutant_bodyparts.m_frills_simple_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 3
+    },
+    {
+      "id": "mutant_bodyparts.m_frills_short_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 3
+    },
+    {
+      "id": "mutant_bodyparts.m_frills_aqua_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 3
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_short_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 3
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_shortmeme_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 3
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_shortmeme_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 3
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_long_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 3
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_long_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 4
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_longmeme_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 4
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_longmeme_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 4
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_aqua_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 4
+    },
+    {
+      "id": "mutant_bodyparts.m_spines_aqua_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 4
+    },
+    {
+      "id": "mutant_bodyparts.m_body_markings_dtiger_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 4
+    },
+    {
+      "id": "mutant_bodyparts.f_body_markings_dtiger_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 4
+    },
+    {
+      "id": "mutant_bodyparts.m_body_markings_ltiger_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 5
+    },
+    {
+      "id": "mutant_bodyparts.f_body_markings_ltiger_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 5
+    },
+    {
+      "id": "mutant_bodyparts.m_body_markings_lbelly_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 5
+    },
+    {
+      "id": "mutant_bodyparts.f_body_markings_lbelly_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 5
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_smooth_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 17,
+      "index_y": 5
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_smooth_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 24,
+      "index_y": 6
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_dtiger_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 2,
+      "index_y": 8
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_dtiger_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 9,
+      "index_y": 9
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_ltiger_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 16,
+      "index_y": 10
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_ltiger_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 23,
+      "index_y": 11
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_spikes_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 1,
+      "index_y": 13
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_spikes_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 8,
+      "index_y": 14
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_clockwork_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 15,
+      "index_y": 15
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_clockwork_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 19,
+      "index_y": 15
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_short_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 24,
+      "index_y": 15
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_shortmeme_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 2,
+      "index_y": 17
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_shortmeme_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 9,
+      "index_y": 18
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_long_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 16,
+      "index_y": 19
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_long_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 23,
+      "index_y": 20
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_longmeme_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 1,
+      "index_y": 22
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_longmeme_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 8,
+      "index_y": 23
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_aqua_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 15,
+      "index_y": 24
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingspines_aqua_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 9,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 22,
+      "index_y": 25
+    },
+    {
+      "id": "mutant_bodyparts.m_ears_cat_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 27
+    },
+    {
+      "id": "mutant_bodyparts.m_ears_cat_BEHIND",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 27
+    },
+    {
+      "id": "mutant_bodyparts.m_tail_cat_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 27
+    },
+    {
+      "id": "mutant_bodyparts.m_earsinner_cat_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 27
+    },
+    {
+      "id": "mutant_bodyparts.m_waggingtail_cat_FRONT",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 5,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 17,
+      "index_y": 27
+    },
+    {
+      "id": "mutant_bodyparts.m_caps_round_ADJ",
+      "file": "mutant_bodyparts.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 28
     }
   ]
 }

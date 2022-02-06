@@ -1,4 +1,6 @@
 ﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
+using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs;
+using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Felinid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,12 +26,12 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 
         protected override void CreateDefaultBodyparts()
         {
-            new Bodyparts.Limbs.Human.BodyHuman(this, Health.BodySlots.SLOT_BODY);
-            new Bodyparts.Limbs.Human.HeadHuman(this, Health.BodySlots.SLOT_HEAD);
-            new Bodyparts.Limbs.Human.ArmHuman(this, Health.BodySlots.SLOT_ARM_LEFT);
-            new Bodyparts.Limbs.Human.ArmHuman(this, Health.BodySlots.SLOT_ARM_RIGHT);
-            new Bodyparts.Limbs.Human.LegHuman(this, Health.BodySlots.SLOT_LEG_LEFT);
-            new Bodyparts.Limbs.Human.LegHuman(this, Health.BodySlots.SLOT_LEG_RIGHT);
+            new Bodyparts.Limbs.Limbs.BodyHuman(this, Health.BodySlots.SLOT_BODY);
+            new HeadHuman(this, Health.BodySlots.SLOT_HEAD);
+            new ArmHuman(this, Health.BodySlots.SLOT_ARM_LEFT);
+            new ArmHuman(this, Health.BodySlots.SLOT_ARM_RIGHT);
+            new LegHuman(this, Health.BodySlots.SLOT_LEG_LEFT);
+            new LegHuman(this, Health.BodySlots.SLOT_LEG_RIGHT);
         }
     }
 }
