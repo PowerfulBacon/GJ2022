@@ -27,6 +27,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override float LowPressureDamage => 20;
 
+        public virtual bool IsGendered { get; } = true;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             containedOrgans.Add(new Brain(pawn, body));
@@ -40,8 +42,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override void AddOverlay(Renderable renderable)
         {
-            //TODO: Genders
-            renderable.AddOverlay($"head", new StandardRenderable($"human_head_male"), Layers.LAYER_PAWN + 0.01f);
+            string gender_extension = IsGendered ? $"_{Body.GetGenderText()}" : "";
+            renderable.AddOverlay($"head", new StandardRenderable($"human_head{gender_extension}"), Layers.LAYER_PAWN + 0.01f);
         }
 
         public override void RemoveOverlay(Renderable renderable)

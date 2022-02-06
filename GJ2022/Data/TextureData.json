@@ -15,7 +15,7 @@
       "index_y": 0
     },
     {
-      "id": "grass_side",
+      "id": "transparent",
       "file": "ground.bmp",
       "width": 32,
       "height": 32,

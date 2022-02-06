@@ -17,6 +17,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
     /// </summary>
     public class BodyHuman : Limb
     {
+
         public BodyHuman(Body body, BodySlots slot) : base(body, slot)
         {
             
@@ -32,12 +33,25 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public override float LowPressureDamage => 20;
 
+        public virtual bool IsGendered { get; } = true;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             containedOrgans.Add(new Heart(pawn, body));
             containedOrgans.Add(new Liver(pawn, body));
             containedOrgans.Add(new Lung(pawn, body));
             containedOrgans.Add(new Stomach(pawn, body));
+        }
+
+        public override void AddOverlay(Renderable renderable)
+        {
+            string gender_extension = IsGendered ? $"_{Body.GetGenderText()}" : "";
+            renderable.AddOverlay($"body", new StandardRenderable($"human_body{gender_extension}"), Layers.LAYER_PAWN + 0.01f);
+        }
+
+        public override void RemoveOverlay(Renderable renderable)
+        {
+            renderable.RemoveOvelay($"body");
         }
 
         public override void UpdateDamageOverlays(Renderable renderable)

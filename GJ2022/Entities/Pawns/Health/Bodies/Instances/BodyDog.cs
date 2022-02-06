@@ -18,6 +18,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
             Health.BodySlots.SLOT_LEG_FRONT_RIGHT,
         };
 
+        public override bool HasGender => true;
+
         protected override void CreateDefaultBodyparts()
         {
             //TODO

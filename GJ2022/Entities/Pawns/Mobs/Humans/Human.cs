@@ -19,7 +19,7 @@ namespace GJ2022.Entities.Pawns.Mobs.Humans
 
         public override Body PawnBody { get; } = new BodyHuman();
 
-        public override Renderable Renderable { get; set; } = new StandardRenderable("human_body_male");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("transparent");
 
         protected override void AddEquipOverlay(InventorySlot targetSlot, IEquippable item)
         {

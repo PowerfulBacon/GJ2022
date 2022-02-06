@@ -15,6 +15,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
     public abstract class Body
     {
 
+        private static Random random = new Random();
+
         //List of the name of the body slots this body uses.
         public abstract BodySlots[] BodySlots { get; }
 
@@ -46,6 +48,13 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         public float Vision         { get; internal set; } = 0;
         public float Hearing        { get; internal set; } = 0;
 
+        //Does this body use gender?
+        //Robots and constructs shouldn't have a gender, while dogs and people should
+        public abstract bool HasGender { get; }
+
+        //Gender of the mob
+        public Genders Gender { get; }
+
         /// <summary>
         /// Setup the body and its internal atmosphere
         /// </summary>
@@ -58,6 +67,18 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             foreach (BodySlots slot in BodySlots)
             {
                 InsertedLimbs.Add(slot, null);
+            }
+            //Assign gender
+            if (HasGender)
+            {
+                if (random.NextDouble() > 0.5f)
+                    Gender = Genders.MALE;
+                else
+                    Gender = Genders.FEMALE;
+            }
+            else
+            {
+                Gender = Genders.AGENDER;
             }
         }
 
@@ -145,6 +166,20 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             float d = (pressureLimit + pressureLimit * multiplierMax - (float)Math.Sqrt((-pressureLimit - ab) * (-pressureLimit - ab) - 4 * (pressureLimit * pressureLimit))) / (2 * pressureLimit);
             float c = d * multiplierMax / (1 - d);
             return multiplierMax / (pressure + c) + d;
+        }
+
+        public string GetGenderText()
+        {
+            switch (Gender)
+            {
+                case Genders.AGENDER:
+                    return "agender";
+                case Genders.FEMALE:
+                    return "female";
+                case Genders.MALE:
+                    return "male";
+            }
+            return "agender";
         }
 
     }
