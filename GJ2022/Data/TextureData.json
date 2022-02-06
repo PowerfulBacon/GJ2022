@@ -616,6 +616,2178 @@
       "index_x": 20,
       "index_y": 6,
       "directional": "CARDINAL"
+    },
+    {
+      "id": "human_face.default",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.eyes",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.jelleyes",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.debrained",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.lips_lipstick",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.facial_watson",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.facial_brokenman",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.facial_chaplin",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.facial_fullbeard",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 0
+    },
+    {
+      "id": "human_face.facial_fumanchu",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_elvis",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_abe",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_chin",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_gt",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_hip",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_hogan",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_selleck",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 1
+    },
+    {
+      "id": "human_face.facial_neckbeard",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.facial_longbeard",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.facial_longbeard_l",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.facial_wise",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.facial_dwarf",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.facial_jensen",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.facial_fiveoclock",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.bald",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 2
+    },
+    {
+      "id": "human_face.hair_a",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_b",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_c",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_d",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_e",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_f",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_bedhead",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_dreads",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 3
+    },
+    {
+      "id": "human_face.hair_vlong",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_jensen",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_skinhead",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_halfbang",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_kusanagi",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_ponytail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_ponytail2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_ponytail5",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 4
+    },
+    {
+      "id": "human_face.hair_halfbang2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 5
+    },
+    {
+      "id": "human_face.hair_bedheadv2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 5
+    },
+    {
+      "id": "human_face.hair_longfringe",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 5
+    },
+    {
+      "id": "human_face.hair_curls",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 5
+    },
+    {
+      "id": "human_face.hair_himecut",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 5
+    },
+    {
+      "id": "human_face.hair_himecut2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 5
+    },
+    {
+      "id": "human_face.hair_himeup",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 5
+    },
+    {
+      "id": "human_face.hair_bedheadv3",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_vlongfringe",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_longest",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_longest2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_spikey",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_bigafro",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_afro",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_braid",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 6
+    },
+    {
+      "id": "human_face.hair_braid2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_gelled",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_sargeant",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_kagami",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_afro2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_beehive",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_bobcurl",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_bobcut",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 7
+    },
+    {
+      "id": "human_face.hair_bowlcut",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_buzzcut",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_combover",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_crewcut",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_devilock",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_emo",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_feather",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_hitop",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 8
+    },
+    {
+      "id": "human_face.hair_odango",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 9
+    },
+    {
+      "id": "human_face.hair_ombre",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 9
+    },
+    {
+      "id": "human_face.hair_parted",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 9
+    },
+    {
+      "id": "human_face.hair_pompadour",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 9
+    },
+    {
+      "id": "human_face.hair_quiff",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 9
+    },
+    {
+      "id": "human_face.hair_updo",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 9
+    },
+    {
+      "id": "human_face.facial_vandyke",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 9
+    },
+    {
+      "id": "human_face.hair_lbangs",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_part",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_braided",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_bun",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_sidetail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_sidetail2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_braidfront",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_antenna",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 10
+    },
+    {
+      "id": "human_face.hair_protagonist",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_pigtails",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_sidetail3",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_hbraid",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_gentle",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_oneshoulder",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_tressshoulder",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_messy",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 11
+    },
+    {
+      "id": "human_face.hair_shorthair2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_braidtail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_ponytail3",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_longovereye",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_keanu",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_swept",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_business2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_hedgehog",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 12
+    },
+    {
+      "id": "human_face.hair_business",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 13
+    },
+    {
+      "id": "human_face.hair_shorthair3",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 13
+    },
+    {
+      "id": "human_face.hair_bob",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 13
+    },
+    {
+      "id": "human_face.hair_bunhead2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 13
+    },
+    {
+      "id": "human_face.hair_ponytail4",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 13
+    },
+    {
+      "id": "human_face.hair_long",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 13
+    },
+    {
+      "id": "human_face.hair_long2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 13
+    },
+    {
+      "id": "human_face.hair_bigflattop",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 14
+    },
+    {
+      "id": "human_face.hair_drillhair",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 14
+    },
+    {
+      "id": "human_face.hair_bigpompadour",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 14
+    },
+    {
+      "id": "human_face.hair_spiky",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 14
+    },
+    {
+      "id": "human_face.hair_spiky2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 14
+    },
+    {
+      "id": "human_face.hair_business3",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 14
+    },
+    {
+      "id": "human_face.hair_business4",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 14
+    },
+    {
+      "id": "human_face.hair_bob2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_pigtails2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_swept2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_pixie",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_sidetail4",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_beehivev2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_largebun",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_shortbraid",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 15
+    },
+    {
+      "id": "human_face.hair_reversemohawkold",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.hair_megaeyebrows",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.hair_longemo",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.hair_shortovereye",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.hair_longsidepart",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.hair_longstraightponytail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.hair_highponytail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.lips_spray_face",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 16
+    },
+    {
+      "id": "human_face.hair_boddicker",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 17
+    },
+    {
+      "id": "human_face.hair_sidecut",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 17
+    },
+    {
+      "id": "human_face.eyes_missing",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 17
+    },
+    {
+      "id": "human_face.eyes_glow_gs",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        10,
+        1
+      ],
+      "index_x": 30,
+      "index_y": 17
+    },
+    {
+      "id": "human_face.hair_drillhairextended",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 17
+    },
+    {
+      "id": "human_face.hair_long3",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 17
+    },
+    {
+      "id": "human_face.snail_eyes",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_sideburn",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_mutton",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_moustache",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_pencilstache",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_smallstache",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_volaju",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_3oclock",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 18
+    },
+    {
+      "id": "human_face.facial_5oclockmoustache",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_7oclock",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_7oclockmoustache",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_walrus",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_muttonmus",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_martialartist",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_dorsalfnil",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_croppedfullbeard",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 19
+    },
+    {
+      "id": "human_face.facial_chinlessbeard",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.facial_moonshiner",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.hair_rosa",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.hair_80s",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.hair_floorlength_bedhead",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.hair_country",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.hair_ponytail7",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.hair_ponytail6",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 20
+    },
+    {
+      "id": "human_face.hair_emofringe",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 21
+    },
+    {
+      "id": "human_face.hair_unshaven_mohawk",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 21
+    },
+    {
+      "id": "human_face.hair_long_bedhead",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 21
+    },
+    {
+      "id": "human_face.hair_manbun",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 21
+    },
+    {
+      "id": "human_face.hair_veryshortovereyealternate",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 21
+    },
+    {
+      "id": "human_face.hair_shorthime",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 21
+    },
+    {
+      "id": "human_face.hair_thinningfront",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 21
+    },
+    {
+      "id": "human_face.hair_stail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_cia",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_mulder",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_nitori",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_joestar",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_shortbangs",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_halfshaved",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_undercutleft",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 22
+    },
+    {
+      "id": "human_face.hair_oxton",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_fringetail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_bun3",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_wisp",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_undercutright",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_spikyponytail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_cornrowbun",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_cornrowtail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 23
+    },
+    {
+      "id": "human_face.hair_cornrowbraid",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_shavedmohawk",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_topknot",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_ronin",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_bowlcut2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_thinningrear",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_thinning",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_jade",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 24
+    },
+    {
+      "id": "human_face.hair_flair",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 25
+    },
+    {
+      "id": "human_face.hair_father",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 25
+    },
+    {
+      "id": "human_face.hair_doublebun",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 25
+    },
+    {
+      "id": "human_face.hair_twintail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 25
+    },
+    {
+      "id": "human_face.hair_emo2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 25
+    },
+    {
+      "id": "human_face.hair_lowfade",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 25
+    },
+    {
+      "id": "human_face.hair_medfade",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 25
+    },
+    {
+      "id": "human_face.hair_highfade",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 26
+    },
+    {
+      "id": "human_face.hair_baldfade",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 26
+    },
+    {
+      "id": "human_face.hair_nofade",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 26
+    },
+    {
+      "id": "human_face.hair_trimflat",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 26
+    },
+    {
+      "id": "human_face.hair_shaved",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 26
+    },
+    {
+      "id": "human_face.hair_trimmed",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 26
+    },
+    {
+      "id": "human_face.hair_tightbun",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 26
+    },
+    {
+      "id": "human_face.hair_volaju",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 27
+    },
+    {
+      "id": "human_face.hair_cornrows",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 27
+    },
+    {
+      "id": "human_face.hair_cornrows2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 27
+    },
+    {
+      "id": "human_face.hair_dandypompadour",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 27
+    },
+    {
+      "id": "human_face.hair_poofy",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 27
+    },
+    {
+      "id": "human_face.hair_drillruru",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 27
+    },
+    {
+      "id": "human_face.hair_coffeehouse",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_shavedpart",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_modern",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_unkept",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_undercut",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_shorthairg",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_bob4",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_toriyama",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 28
+    },
+    {
+      "id": "human_face.hair_doublespikes",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 29
+    },
+    {
+      "id": "human_face.hair_parted2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 29
+    },
+    {
+      "id": "human_face.hair_tightponytail",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 29
+    },
+    {
+      "id": "human_face.hair_shortafro",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 29
+    },
+    {
+      "id": "human_face.hair_ebgel",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 29
+    },
+    {
+      "id": "human_face.hair_curtains",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 29
+    },
+    {
+      "id": "human_face.hair_hugepompadour",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 29
+    },
+    {
+      "id": "human_face.hair_reversemohawk",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.facial_powerful",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.hair_mullet",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.hair_moustache",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.facial_stachenchops",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.hair_spamton",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.facial_thecolonel",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.hair_alchemist",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 30,
+      "index_y": 30
+    },
+    {
+      "id": "human_face.facial_robotnik",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 31
+    },
+    {
+      "id": "human_face.hair_pride",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 31
+    },
+    {
+      "id": "human_face.facial_eyebrows",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 31
+    },
+    {
+      "id": "human_face.hair_bald2",
+      "file": "human_face.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 31
     }
   ]
 }

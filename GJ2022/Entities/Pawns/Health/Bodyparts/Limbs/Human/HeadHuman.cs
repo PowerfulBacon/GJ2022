@@ -29,6 +29,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
 
         public virtual bool IsGendered { get; } = true;
 
+        public virtual bool HasHair { get; } = true;
+
         public override void SetupOrgans(Pawn pawn, Body body)
         {
             containedOrgans.Add(new Brain(pawn, body));
@@ -44,11 +46,15 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
         {
             string gender_extension = IsGendered ? $"_{Body.GetGenderText()}" : "";
             renderable.AddOverlay($"head", new StandardRenderable($"human_head{gender_extension}"), Layers.LAYER_PAWN + 0.01f);
+            if(HasHair)
+                renderable.AddOverlay($"hair", new StandardRenderable($"human_face.{Body.GetRandomHaircut()}"), Layers.LAYER_PAWN + 0.04f);
         }
 
         public override void RemoveOverlay(Renderable renderable)
         {
             renderable.RemoveOvelay($"head");
+            if(HasHair)
+                renderable.RemoveOvelay($"hair");
         }
 
         public override void UpdateDamageOverlays(Renderable renderable)
