@@ -13,6 +13,7 @@ namespace GJ2022.Entities.Pawns
         public void Death(string cause)
         {
             Log.WriteLine("i died lol");
+            Renderable.UpdateRotation((float)Math.PI / 2);
             PawnControllerSystem.Singleton.StopProcessing(this);
             //throw new System.NotImplementedException();
         }

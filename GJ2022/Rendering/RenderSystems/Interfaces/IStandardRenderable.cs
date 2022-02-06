@@ -13,6 +13,8 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
 
         Vector<float> GetPosition();
 
+        float GetRotation();
+
         Directions Direction { get; }
 
     }

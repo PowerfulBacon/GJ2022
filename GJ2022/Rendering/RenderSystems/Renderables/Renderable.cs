@@ -30,6 +30,22 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public abstract void ContinueRendering();
         public abstract void PauseRendering();
 
+        public float Rotation { get; private set; } = 0;
+
+        public virtual void UpdateRotation(float rotation)
+        {
+            Rotation = rotation;
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.UpdateRotation(rotation);
+                }
+            }
+        }
+
         public Directions Direction { get; private set; } = Directions.NONE;
 
         public virtual void UpdateDirection(Directions direction)
@@ -135,6 +151,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             overlay.UpdatePosition(_overlayPosition);
             overlay.layerChangeHandler?.Invoke(layer);
             overlay.UpdateDirection(Direction);
+            overlay.UpdateRotation(Rotation);
             lock (Overlays)
             {
                 Overlays.Add(id, overlay);

@@ -40,7 +40,25 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             lock (renderableBatchIndex)
                 if (renderableBatchIndex.Count > 0)
                     lock (renderableBatchIndex.Keys.ElementAt(0))
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 2);
+        }
+
+        //===================
+        // Rotation Handling
+        //===================
+
+        public override void UpdateRotation(float rotation)
+        {
+            base.UpdateRotation(rotation);
+            lock (renderableBatchIndex)
+                if (renderableBatchIndex.Count > 0)
+                    lock (renderableBatchIndex.Keys.ElementAt(0))
                         (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+        }
+
+        public float GetRotation()
+        {
+            return Rotation;
         }
 
         //===================
@@ -78,7 +96,10 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             lock(renderableBatchIndex)
                 if (renderableBatchIndex.Count > 0)
                     lock(renderableBatchIndex.Keys.ElementAt(0))
+                    {
                         (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 0);
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+                    }
         }
 
         /// <summary>
@@ -91,7 +112,10 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             lock (renderableBatchIndex)
                 if (renderableBatchIndex.Count > 0)
                     lock (renderableBatchIndex.Keys.ElementAt(0))
+                    {
                         (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 0);
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+                    }
         }
 
         //===================
@@ -105,7 +129,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             lock (renderableBatchIndex)
                 if (renderableBatchIndex.Count > 0)
                     lock (renderableBatchIndex.Keys.ElementAt(0))
-                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 2);
         }
 
         public override RendererTextureData GetRendererTextureData()

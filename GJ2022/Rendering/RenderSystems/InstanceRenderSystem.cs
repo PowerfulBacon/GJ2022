@@ -17,11 +17,11 @@ namespace GJ2022.Rendering.RenderSystems
 
         protected override string SystemShaderName => "instanceShader";
 
-        protected override int BufferCount => 2;
+        protected override int BufferCount => 3;
 
-        protected override int[] BufferWidths { get; } = new int[] { 3, 4 };
+        protected override int[] BufferWidths { get; } = new int[] { 3, 1, 4 };
 
-        protected override uint[] BufferDataPointsPerInstance { get; } = new uint[] { 1, 1 };
+        protected override uint[] BufferDataPointsPerInstance { get; } = new uint[] { 1, 1, 1 };
 
         protected override RenderBatchGroup GetBatchGroup(IStandardRenderable renderable)
         {
@@ -40,6 +40,7 @@ namespace GJ2022.Rendering.RenderSystems
 
         public override float[] GetBufferData(IStandardRenderable targetItem, int bufferIndex)
         {
+            Matrix objectMatrix;
             switch (bufferIndex)
             {
                 case 0:
@@ -50,6 +51,10 @@ namespace GJ2022.Rendering.RenderSystems
                         position[2]
                     };
                 case 1:
+                    return new float[] {
+                        targetItem.GetRotation()
+                    };
+                case 2:
                     RendererTextureData texData = targetItem.GetRendererTextureData();
                     //Apply directional offset
                     int indexX = texData.IndexX;
