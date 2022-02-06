@@ -1,4 +1,6 @@
 ﻿using GJ2022.Atmospherics;
+using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns.Health.Bodyparts;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
@@ -105,20 +107,44 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             for (int i = InsertedLimbs.Count - 1; i >= 0; i--)
             {
                 Limb limb = InsertedLimbs.Values.ElementAt(i);
+                //Check if the limb is destroyed
                 if (limb == null || (limb.limbFlags & LimbFlags.LIMB_DESTROYED) != 0)
                     continue;
+                //If not do stuff
                 if (limb.LowPressureDamage > pressure)
                 {
+                    //Check if the limb is covered
+                    bool limbProtected = false;
+                    foreach (IEquippable equippable in Parent.EquippedItems.Values)
+                    {
+                        if ((equippable.ProtectedHazards & PawnBehaviours.PawnHazards.HAZARD_LOW_PRESSURE) != 0 && limb.IsCovered(equippable.CoverFlags))
+                        {
+                            limbProtected = true;
+                            break;
+                        }
+                    }
                     //Apply low pressure damage proportionally
                     //4 damage per second at 0 pressure
                     //1 damage per second at 20 pressure
-                    limb.AddInjury(new Crush(deltaTime * GetLowPressureDamageMultiplier(4, limb.LowPressureDamage, pressure)));
+                    if(!limbProtected)
+                        limb.AddInjury(new Crush(deltaTime * GetLowPressureDamageMultiplier(4, limb.LowPressureDamage, pressure)));
                 }
                 else if (limb.HighPressureDamage < pressure)
                 {
-                    //Apply high pressure damage
-                    //TODO
-                    limb.AddInjury(new Crush(deltaTime * (float)Math.Sqrt(pressure - limb.HighPressureDamage)));
+                    //Check if the limb is covered
+                    bool limbProtected = false;
+                    foreach (IEquippable equippable in Parent.EquippedItems.Values)
+                    {
+                        if ((equippable.ProtectedHazards & PawnBehaviours.PawnHazards.HAZARD_HIGH_PRESSURE) != 0 && limb.IsCovered(equippable.CoverFlags))
+                        {
+                            limbProtected = true;
+                            break;
+                        }
+                    }
+                    if(!limbProtected)
+                        //Apply high pressure damage
+                        //TODO
+                        limb.AddInjury(new Crush(deltaTime * (float)Math.Sqrt(pressure - limb.HighPressureDamage)));
                 }
             }
             //Process all processing organs
@@ -194,6 +220,14 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 default:
                     return ListPicker.Pick(new string[] { ListPicker.Pick(maleHaircuts), ListPicker.Pick(femaleHaircuts) });
             }
+        }
+
+        /// <summary>
+        /// Update limb overlays to account for new cover flags
+        /// </summary>
+        public void UpdateLimbOverlays(BodyCoverFlags oldCoverFlags, ClothingFlags oldClothingFlags)
+        {
+
         }
 
         //TODO: Put these in a txt data file or at least in its own .cs file

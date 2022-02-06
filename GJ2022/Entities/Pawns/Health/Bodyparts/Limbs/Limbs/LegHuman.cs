@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -26,6 +27,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
         public override float HighPressureDamage => 200;
 
         public override float LowPressureDamage => 20;
+
+        public override BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_LEGS | BodyCoverFlags.COVER_FEET;
 
         public override void SetupOrgans(Pawn pawn, Body body)
         {

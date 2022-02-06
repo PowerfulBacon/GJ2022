@@ -27,6 +27,10 @@ namespace GJ2022.Entities.Items.Clothing.Back
 
         public override Renderable Renderable { get; set; } = new StandardRenderable("jetpack");
 
+        public ClothingFlags ClothingFlags => ClothingFlags.NONE;
+
+        public BodyCoverFlags CoverFlags => BodyCoverFlags.NONE;
+
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
             RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);

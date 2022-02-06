@@ -1,4 +1,5 @@
 ﻿using GJ2022.Atmospherics.Gasses;
+using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns.Health.Bodies;
 using System;
 using System.Collections.Generic;

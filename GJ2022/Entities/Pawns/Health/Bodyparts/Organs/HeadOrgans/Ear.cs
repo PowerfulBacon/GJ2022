@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodies;
+﻿using GJ2022.Entities.Items.Clothing;
+using GJ2022.Entities.Pawns.Health.Bodies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,6 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
 
         public override float MaxHealth => 15;
 
+        public override BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_HEAD;
     }
 }

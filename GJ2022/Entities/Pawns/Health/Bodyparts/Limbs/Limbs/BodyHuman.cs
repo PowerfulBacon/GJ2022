@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodies;
+﻿using GJ2022.Entities.Items.Clothing;
+using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans;
 using GJ2022.Game.GameWorld;
@@ -34,6 +35,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
         public override float LowPressureDamage => 20;
 
         public virtual bool IsGendered { get; } = true;
+
+        public override BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_BODY;
 
         public override void SetupOrgans(Pawn pawn, Body body)
         {

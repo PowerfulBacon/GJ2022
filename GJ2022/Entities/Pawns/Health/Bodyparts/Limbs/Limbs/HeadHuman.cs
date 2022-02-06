@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodies;
+﻿using GJ2022.Entities.Items.Clothing;
+using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans.Felinid;
@@ -31,6 +32,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
         public virtual bool IsGendered { get; } = true;
 
         public virtual bool HasHair { get; } = true;
+
+        public override BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_HEAD;
 
         public override void SetupOrgans(Pawn pawn, Body body)
         {

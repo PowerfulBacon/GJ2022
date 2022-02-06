@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodies;
+﻿using GJ2022.Entities.Items.Clothing;
+using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using System;
@@ -24,6 +25,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Felinid
         public override float LowPressureDamage => 20;
 
         public override float MaxHealth => 15;
+
+        public override BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_TAIL;
 
         public override void AddOverlay(Renderable renderable)
         {

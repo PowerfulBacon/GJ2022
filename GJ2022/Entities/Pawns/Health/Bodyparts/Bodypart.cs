@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodies;
+﻿using GJ2022.Entities.Items.Clothing;
+using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Injuries;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using System.Collections.Generic;
@@ -38,6 +39,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
 
         //Max health of the bodypart
         public abstract float MaxHealth { get; }
+
+        //The parts a peice of clothing must cover in order to protect this
+        public virtual BodyCoverFlags CoverFlags { get; }
 
         //Current bodypart health
         public float Health { get; private set; } = 0;
@@ -110,6 +114,11 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
 
         public virtual void UpdateDamageOverlays(Renderable renderable)
         { }
+
+        public bool IsCovered(BodyCoverFlags coveredFlags)
+        {
+            return (CoverFlags & coveredFlags) == CoverFlags;
+        }
 
     }
 }
