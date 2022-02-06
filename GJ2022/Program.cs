@@ -40,7 +40,6 @@ namespace GJ2022
         {
 
             //Start texture loading
-            TextureCache.LoadTextureDataJson();
             BlueprintLoader.LoadBlueprints();
 
             //Set the window hints
@@ -49,6 +48,12 @@ namespace GJ2022
             //Create the window
             Window window = SetupWindow();
             UsingOpenGL = true;
+
+            //Initialize the renderer
+            RenderMaster.Initialize();
+
+            //Load texture data after openGL
+            TextureCache.LoadTextureDataJson();
 
             //Setup open AL
             AudioMaster.Initialize();
@@ -64,13 +69,12 @@ namespace GJ2022
             //Load text
             TextLoader.LoadText();
 
-            //Initialize the renderer
-            RenderMaster.Initialize();
-
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
             while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) { }
             Log.WriteLine("Done loading", LogType.DEBUG);
+
+            TextureCache.InitializeTextureObjects();
 
             //Create the error texture (so it has uint of 0)
             TextureCache.GetTexture("error");

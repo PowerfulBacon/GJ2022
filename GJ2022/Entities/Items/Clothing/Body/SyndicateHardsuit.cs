@@ -49,7 +49,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
         {
             Location = null;
             Position = pawn.Position;
-            UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED);
+            UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
         }
 
         private SignalResponse ParentMoveReact(object source, params object[] parameters)

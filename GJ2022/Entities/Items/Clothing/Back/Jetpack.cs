@@ -41,7 +41,7 @@ namespace GJ2022.Entities.Items.Clothing.Back
 
         public void OnUnequip(Pawn pawn, InventorySlot slot)
         {
-            UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED);
+            UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
             Location = null;
             Position = pawn.Position;
         }

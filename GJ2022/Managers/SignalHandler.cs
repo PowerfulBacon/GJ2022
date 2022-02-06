@@ -20,7 +20,7 @@ namespace GJ2022.Managers
             NONE,
         }
 
-        private static Dictionary<object, Dictionary<Signal, SignalDelegate>> registeredSignals = new Dictionary<object, Dictionary<Signal, SignalDelegate>>();
+        private static Dictionary<object, Dictionary<Signal, List<SignalDelegate>>> registeredSignals = new Dictionary<object, Dictionary<Signal, List<SignalDelegate>>>();
 
         public static SignalResponse SendSignalSynchronously(object target, Signal signal, params object[] data)
         {
@@ -28,7 +28,8 @@ namespace GJ2022.Managers
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_SIGNALS, () =>
             {
                 if (registeredSignals.ContainsKey(target) && registeredSignals[target].ContainsKey(signal))
-                    result = registeredSignals[target][signal].Invoke(target, data);
+                    foreach(SignalDelegate registeredSignal in registeredSignals[target][signal])
+                        result = registeredSignal.Invoke(target, data);
                 return true;
             });
             return result;
@@ -40,8 +41,11 @@ namespace GJ2022.Managers
             {
                 if (registeredSignals.ContainsKey(target) && registeredSignals[target].ContainsKey(signal))
                 {
-                    SignalDelegate runningDelegate = registeredSignals[target][signal];
-                    Task.Run(() => runningDelegate.Invoke(target, data));
+                    foreach (SignalDelegate registeredSignal in registeredSignals[target][signal])
+                    {
+                        SignalDelegate runningDelegate = registeredSignal;
+                        Task.Run(() => runningDelegate.Invoke(target, data));
+                    }
                 }
                 return true;
             });
@@ -67,7 +71,7 @@ namespace GJ2022.Managers
             return registeredSignals.ContainsKey(target) && registeredSignals[target].ContainsKey(signal);
         }
 
-        public static void UnregisterSignal(object target, Signal signal)
+        public static void UnregisterSignal(object target, Signal signal, SignalDelegate callback)
         {
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_SIGNALS, () =>
             {
@@ -76,7 +80,9 @@ namespace GJ2022.Managers
                     Log.WriteLine($"Failed to unregister signal {signal} on {target}, due to it not being registered", LogType.WARNING);
                     return true;
                 }
-                registeredSignals[target].Remove(signal);
+                registeredSignals[target][signal].Remove(callback);
+                if (registeredSignals[target][signal].Count == 0)
+                    registeredSignals[target].Remove(signal);
                 if (registeredSignals[target].Count == 0)
                     registeredSignals.Remove(target);
                 return true;
@@ -88,8 +94,10 @@ namespace GJ2022.Managers
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_SIGNALS, () =>
             {
                 if (!registeredSignals.ContainsKey(target))
-                    registeredSignals.Add(target, new Dictionary<Signal, SignalDelegate>());
-                registeredSignals[target].Add(signal, callback);
+                    registeredSignals.Add(target, new Dictionary<Signal, List<SignalDelegate>>());
+                if(!registeredSignals[target].ContainsKey(signal))
+                    registeredSignals[target].Add(signal, new List<SignalDelegate>());
+                registeredSignals[target][signal].Add(callback);
                 return true;
             });
         }

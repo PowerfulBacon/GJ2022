@@ -21,7 +21,7 @@ namespace GJ2022.Entities.Items.Clothing.Head.HardsuitHelmet
 
         public PawnHazards ProtectedHazards => PawnHazards.HAZARD_LOW_PRESSURE | PawnHazards.HAZARD_HIGH_PRESSURE;
 
-        public string EquipTexture => "head.hardsuit0-syndi";
+        public string EquipTexture => "head.hardsuit1-syndi";
 
         public ClothingFlags ClothingFlags => ClothingFlags.HIDE_EYES | ClothingFlags.HIDE_HAIR;
 
@@ -29,21 +29,18 @@ namespace GJ2022.Entities.Items.Clothing.Head.HardsuitHelmet
 
         public override string Name => "Syndicate Hardsuit Helmet";
 
-        public override string UiTexture => "hats.hardsuit0-syndi";
+        public override string UiTexture => "hats.hardsuit1-syndi";
 
-        public override Renderable Renderable { get; set; } = new StandardRenderable("hats.hardsuit0-syndi");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("hats.hardsuit1-syndi");
 
         public bool AppendSlotToIconState => false;
 
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
-            Location = pawn;
         }
 
         public void OnUnequip(Pawn pawn, InventorySlot slot)
         {
-            Location = null;
-            Position = pawn.Position;
         }
     }
 }
