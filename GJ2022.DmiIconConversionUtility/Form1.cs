@@ -70,8 +70,8 @@ namespace GJ2022.DmiIconConversionUtility
                 Directory.CreateDirectory(outputDirectory);
                 FileStream createdBitmapFile = File.Create($"{outputDirectory}/{fileRawName}.bmp");
 
-                int newWidth = (int)Math.Pow(2, (int)Math.Log(texture.width, 2) + 1);
-                int newHeight = (int)Math.Pow(2, (int)Math.Log(texture.height, 2) + 1);
+                int newWidth = (int)Math.Pow(2, (int)Math.Log(texture.width - 1, 2) + 1);
+                int newHeight = (int)Math.Pow(2, (int)Math.Log(texture.height - 1, 2) + 1);
                 int xBorder = newWidth - texture.width;
                 int yBorder = newHeight - texture.height;
 
