@@ -119,6 +119,12 @@
     <None Update="Data\IconFiles\ground.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\IconFiles\hats.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\IconFiles\head.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\IconFiles\human_face.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

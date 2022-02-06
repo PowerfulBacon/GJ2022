@@ -7,6 +7,8 @@ namespace GJ2022.Entities.ComponentInterfaces
     public interface IEquippable
     {
 
+        bool AppendSlotToIconState { get; }
+
         //The slot flags it can be put in.
         InventorySlot Slots { get; }
 

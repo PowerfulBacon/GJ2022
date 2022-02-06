@@ -31,6 +31,8 @@ namespace GJ2022.Entities.Items.Clothing.Back
 
         public BodyCoverFlags CoverFlags => BodyCoverFlags.NONE;
 
+        public bool AppendSlotToIconState => true;
+
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
             RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);

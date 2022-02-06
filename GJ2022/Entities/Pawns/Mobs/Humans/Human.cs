@@ -23,7 +23,8 @@ namespace GJ2022.Entities.Pawns.Mobs.Humans
 
         protected override void AddEquipOverlay(InventorySlot targetSlot, IEquippable item)
         {
-            Renderable.AddOverlay($"wear_{InventoryHelper.GetSlotAppend(targetSlot)}", new StandardRenderable($"{item.EquipTexture}_{InventoryHelper.GetSlotAppend(targetSlot)}"), Layers.LAYER_PAWN + 0.08f);
+            string slotAppend = item.AppendSlotToIconState ? $"_{InventoryHelper.GetSlotAppend(targetSlot)}" : "";
+            Renderable.AddOverlay($"wear_{InventoryHelper.GetSlotAppend(targetSlot)}", new StandardRenderable($"{item.EquipTexture}{slotAppend}"), Layers.LAYER_PAWN + 0.08f);
         }
     }
 }

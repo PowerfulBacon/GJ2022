@@ -29,6 +29,8 @@ namespace GJ2022.Entities.Items.Clothing.Body
 
         public BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_FEET | BodyCoverFlags.COVER_ARMS | BodyCoverFlags.COVER_BODY | BodyCoverFlags.COVER_FEET | BodyCoverFlags.COVER_HANDS | BodyCoverFlags.COVER_LEGS | BodyCoverFlags.COVER_TAIL;
 
+        public bool AppendSlotToIconState => true;
+
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
             Location = pawn;
