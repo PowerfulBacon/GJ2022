@@ -70,6 +70,11 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
         {
             throw new NotImplementedException();
         }
+
+        public float GetRotation()
+        {
+            return 0;
+        }
     }
 
     [TestClass]
