@@ -196,7 +196,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             }
         }
 
-        //TODO: Put these in a txt data file
+        //TODO: Put these in a txt data file or at least in its own .cs file
 
         //Sort haircuts into male and female haircuts
         //Generally this is done by length for easier identification even
