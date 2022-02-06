@@ -618,6 +618,60 @@
       "directional": "CARDINAL"
     },
     {
+      "id": "brute_body_2",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 8,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_head_2",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 8,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_rightarm_2",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 8,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_leftarm_2",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 8,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_rightleg_2",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 16,
+      "index_y": 8,
+      "directional": "CARDINAL"
+    },
+    {
+      "id": "brute_leftleg_2",
+      "file": "ground.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 20,
+      "index_y": 8,
+      "directional": "CARDINAL"
+    },
+    {
       "id": "human_face.default",
       "file": "human_face.bmp",
       "width": 32,

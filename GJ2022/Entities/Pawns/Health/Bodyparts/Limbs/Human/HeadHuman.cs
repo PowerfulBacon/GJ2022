@@ -61,7 +61,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
         {
             if (renderable.HasOverlay($"damhead"))
                 renderable.RemoveOvelay($"damhead");
-            if (Health < MaxHealth)
+            if (Health <= 0)
+                renderable.AddOverlay($"damhead", new StandardRenderable($"brute_head_2"), Layers.LAYER_PAWN + 0.03f);
+            else if (Health < MaxHealth)
                 renderable.AddOverlay("damhead", new StandardRenderable($"brute_head_0"), Layers.LAYER_PAWN + 0.03f);
         }
     }

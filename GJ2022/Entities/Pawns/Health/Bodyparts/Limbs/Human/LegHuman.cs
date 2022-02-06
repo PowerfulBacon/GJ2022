@@ -50,7 +50,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Human
             string direction = InsertedSlot == BodySlots.SLOT_LEG_LEFT ? "left" : "right";
             if (renderable.HasOverlay($"{direction}damleg"))
                 renderable.RemoveOvelay($"{direction}damleg");
-            if (Health < MaxHealth)
+            if(Health <= 0)
+                renderable.AddOverlay($"{direction}damleg", new StandardRenderable($"brute_{direction}leg_2"), Layers.LAYER_PAWN + 0.03f);
+            else if (Health < MaxHealth)
                 renderable.AddOverlay($"{direction}damleg", new StandardRenderable($"brute_{direction}leg_0"), Layers.LAYER_PAWN + 0.03f);
         }
     }
