@@ -104,6 +104,9 @@
     <None Update="Data\Audio\effects\space_wind.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\Audio\mecha\mechmove03.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\ConstructionData\BlueprintData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

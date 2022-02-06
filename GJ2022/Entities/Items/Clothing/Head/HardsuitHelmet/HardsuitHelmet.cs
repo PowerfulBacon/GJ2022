@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Audio;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Pawns;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -37,10 +38,12 @@ namespace GJ2022.Entities.Items.Clothing.Head.HardsuitHelmet
 
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
+            new AudioSource().PlaySound("mecha/mechmove03.wav", pawn.Position[0], pawn.Position[1]);
         }
 
         public void OnUnequip(Pawn pawn, InventorySlot slot)
         {
+            new AudioSource().PlaySound("mecha/mechmove03.wav", pawn.Position[0], pawn.Position[1]);
         }
     }
 }
