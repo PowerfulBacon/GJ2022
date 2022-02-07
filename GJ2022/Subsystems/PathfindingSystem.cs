@@ -1,4 +1,6 @@
-﻿using GJ2022.Game.GameWorld;
+﻿using GJ2022.Atmospherics;
+using GJ2022.Atmospherics.Gasses;
+using GJ2022.Game.GameWorld;
 using GJ2022.Pathfinding;
 using GJ2022.PawnBehaviours;
 using GJ2022.Utility.MathConstructs;
@@ -87,6 +89,12 @@ namespace GJ2022.Subsystems
             {
                 request.failedDelegate?.Invoke();
                 return;
+            }
+            //If the start has no air and the end does, allow breath pathfinding
+            Atmosphere startAtmos = World.GetTurf(request.Start[0], request.Start[1])?.Atmosphere?.ContainedAtmosphere;
+            if (startAtmos == null || startAtmos.GetMoles(Oxygen.Singleton) <= 0.02f)
+            {
+                request.ignoringHazards |= PawnHazards.HAZARD_BREATH;
             }
             //Create the process data
             PathfindingProcessData processData = new PathfindingProcessData();
@@ -190,25 +198,25 @@ namespace GJ2022.Subsystems
             if (!IsPointChecked(processData, position + new Vector<int>(0, 1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
                     && position[1] < processData.MaximumY
                     && !World.IsSolid(position + new Vector<int>(0, 1))
-                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.NORTH))
+                    && HazardCheck(ignoringHazards, position, source, ConnectingDirections.NORTH))
                 connectingDirections |= ConnectingDirections.NORTH;
             //Check east
             if (!IsPointChecked(processData, position + new Vector<int>(1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
                     && position[0] < processData.MaximumX
                     && !World.IsSolid(position + new Vector<int>(1, 0))
-                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.EAST))
+                    && HazardCheck(ignoringHazards, position, source, ConnectingDirections.EAST))
                 connectingDirections |= ConnectingDirections.EAST;
             //Check south
             if (!IsPointChecked(processData, position + new Vector<int>(0, -1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
                     && position[1] > processData.MinimumY
                     && !World.IsSolid(position + new Vector<int>(0, -1))
-                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.SOUTH))
+                    && HazardCheck(ignoringHazards, position, source, ConnectingDirections.SOUTH))
                 connectingDirections |= ConnectingDirections.SOUTH;
             //Check west
             if (!IsPointChecked(processData, position + new Vector<int>(-1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
                     && position[0] > processData.MinimumX
                     && !World.IsSolid(position + new Vector<int>(-1, 0))
-                    && GravityCheck(ignoringHazards, position, source, ConnectingDirections.WEST))
+                    && HazardCheck(ignoringHazards, position, source, ConnectingDirections.WEST))
                 connectingDirections |= ConnectingDirections.WEST;
             //Return valid directions
             return connectingDirections;
@@ -228,6 +236,23 @@ namespace GJ2022.Subsystems
             //Check if we have scanned the incomming direction
             ConnectingDirections scannedDirections = processData.ProcessedPoints[position];
             return (scannedDirections & sourceDirection) != 0;
+        }
+
+        private bool HazardCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
+        {
+            return GravityCheck(ignoringHazards, position, source, direction) && BreathCheck(ignoringHazards, position, source, direction);
+        }
+
+        private bool BreathCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
+        {
+            //Ignore breath
+            if ((ignoringHazards & PawnHazards.HAZARD_BREATH) != 0)
+                return true;
+            //Check air
+            if (World.GetTurf(position[0], position[1])?.Atmosphere?.ContainedAtmosphere?.GetMoles(Oxygen.Singleton) > 0.02f)
+                return true;
+            //Area has no air
+            return false;
         }
 
         private bool GravityCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)

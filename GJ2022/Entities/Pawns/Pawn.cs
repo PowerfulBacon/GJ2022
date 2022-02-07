@@ -402,7 +402,8 @@ namespace GJ2022.Entities.Pawns
                 new PathfindingRequest(
                     Position,
                     targetDestinationPosition,
-                    cachedHazardProtection,
+                    //If we have an internal tank, allow pathing through airless areas
+                    cachedHazardProtection | (HasInternalTank() ? PawnHazards.HAZARD_BREATH : PawnHazards.NONE),
                     (Path path) =>
                     {
                         followingPath = path;

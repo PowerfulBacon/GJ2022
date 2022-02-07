@@ -28,5 +28,21 @@ namespace GJ2022.Entities.Pawns
             return World.GetTurf((int)Position[0], (int)Position[1])?.Atmosphere?.ContainedAtmosphere;
         }
 
+        /// <summary>
+        /// Check if we have an internal tank.
+        /// Used for pathfinding
+        /// </summary>
+        public bool HasInternalTank()
+        {
+            IBreathMask breathMask = (EquippedItems.ContainsKey(InventorySlot.SLOT_MASK) ? EquippedItems[InventorySlot.SLOT_MASK] : null) as IBreathMask;
+            if (breathMask != null)
+            {
+                Atmosphere breathSource = breathMask.GetBreathSource();
+                if (breathSource != null && breathSource.GetMoles(Oxygen.Singleton) > 0.1f)
+                    return true;
+            }
+            return false;
+        }
+
     }
 }
