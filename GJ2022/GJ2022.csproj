@@ -113,6 +113,9 @@
     <None Update="Data\FontData.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\IconFiles\back.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\IconFiles\debug.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -129,6 +132,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\IconFiles\human_face.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\IconFiles\mask.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\IconFiles\masks.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\IconFiles\mutant_bodyparts.bmp">

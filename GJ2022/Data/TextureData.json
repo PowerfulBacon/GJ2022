@@ -13410,295 +13410,4482 @@
       "index_x": 20,
       "index_y": 23
     },
-          {
-          "id": "tank.oxygen",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 0,
-          "index_y": 0
-      },
-      {
-          "id": "tank.anesthetic",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 1,
-          "index_y": 0
-      },
-      {
-          "id": "tank.air",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 2,
-          "index_y": 0
-      },
-      {
-          "id": "tank.clown",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 3,
-          "index_y": 0
-      },
-      {
-          "id": "tank.plasma",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 4,
-          "index_y": 0
-      },
-      {
-          "id": "tank.emergency",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 5,
-          "index_y": 0
-      },
-      {
-          "id": "tank.emergency_engi",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 6,
-          "index_y": 1
-      },
-      {
-          "id": "tank.emergency_double",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 0,
-          "index_y": 1
-      },
-      {
-          "id": "tank.emergency_tst",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 1,
-          "index_y": 1
-      },
-      {
-          "id": "tank.oxygen_f",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 2,
-          "index_y": 1
-      },
-      {
-          "id": "tank.oxygen_fr",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 3,
-          "index_y": 1
-      },
-      {
-          "id": "tank.canister",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 4,
-          "index_y": 1
-      },
-      {
-          "id": "tank.jetpack",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 5,
-          "index_y": 2
-      },
-      {
-          "id": "tank.jetpack-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 2,
-          "animation_delays": [
-             2,
-             2,
-          ],
-          "index_x": 6,
-          "index_y": 2
-      },
-      {
-          "id": "tank.jetpack-mini",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 1,
-          "index_y": 2
-      },
-      {
-          "id": "tank.jetpack-mini-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 3,
-          "animation_rewind": true,
-          "animation_delays": [
-             5,
-             1,
-             1
-          ],
-          "index_x": 2,
-          "index_y": 2
-      },
-      {
-          "id": "tank.jetpack-void",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 5,
-          "index_y": 3
-      },
-      {
-          "id": "tank.jetpack-void-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 2,
-          "animation_delays": [
-             5,
-             5,
-          ],
-          "index_x": 6,
-          "index_y": 3
-      },
-      {
-          "id": "tank.jetpack-black",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 1,
-          "index_y": 3
-      },
-      {
-          "id": "tank.jetpack-black-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 2,
-          "animation_delays": [
-             2,
-             2,
-          ],
-          "index_x": 2,
-          "index_y": 3
-      },
-      {
-          "id": "tank.bomb_assembly",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 4,
-          "index_y": 4
-      },
-      {
-          "id": "tank.jetpack-mining",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 5,
-          "index_y": 4
-      },
-      {
-          "id": "tank.jetpack-mining-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 2,
-          "animation_delays": [
-             2,
-             2,
-          ],
-          "index_x": 6,
-          "index_y": 4
-      },
-      {
-          "id": "tank.plasmaman_tank",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 1,
-          "index_y": 4
-      },
-      {
-          "id": "tank.plasmaman_tank_belt",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 2,
-          "index_y": 5
-      },
-      {
-          "id": "tank.jetpack-captain",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 3,
-          "index_y": 5
-      },
-      {
-          "id": "tank.jetpack-captain-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 2,
-          "animation_delays": [
-             2,
-             2,
-          ],
-          "index_x": 4,
-          "index_y": 5
-      },
-      {
-          "id": "tank.jetpack-sec",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 6,
-          "index_y": 5
-      },
-      {
-          "id": "tank.jetpack-sec-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 2,
-          "animation_delays": [
-             2,
-             2,
-          ],
-          "index_x": 0,
-          "index_y": 5
-      },
-      {
-          "id": "tank.jetpack-improvised",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "index_x": 2,
-          "index_y": 6
-      },
-      {
-          "id": "tank.jetpack-improvised-on",
-          "file": "tank.bmp",
-          "width": 32,
-          "height": 32,
-          "animation_frames": 2,
-          "animation_delays": [
-             2,
-             2,
-          ],
-          "index_x": 3,
-          "index_y": 6
-      }
+    {
+      "id": "tank.oxygen",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "tank.anesthetic",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 0
+    },
+    {
+      "id": "tank.air",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 0
+    },
+    {
+      "id": "tank.clown",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 0
+    },
+    {
+      "id": "tank.plasma",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 0
+    },
+    {
+      "id": "tank.emergency",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 0
+    },
+    {
+      "id": "tank.emergency_engi",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 1
+    },
+    {
+      "id": "tank.emergency_double",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 1
+    },
+    {
+      "id": "tank.emergency_tst",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 1
+    },
+    {
+      "id": "tank.oxygen_f",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 1
+    },
+    {
+      "id": "tank.oxygen_fr",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 1
+    },
+    {
+      "id": "tank.canister",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 1
+    },
+    {
+      "id": "tank.jetpack",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 2
+    },
+    {
+      "id": "tank.jetpack-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 6,
+      "index_y": 2
+    },
+    {
+      "id": "tank.jetpack-mini",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 2
+    },
+    {
+      "id": "tank.jetpack-mini-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 3,
+      "animation_rewind": true,
+      "animation_delays": [
+        5,
+        1,
+        1
+      ],
+      "index_x": 2,
+      "index_y": 2
+    },
+    {
+      "id": "tank.jetpack-void",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 3
+    },
+    {
+      "id": "tank.jetpack-void-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 2,
+      "animation_delays": [
+        5,
+        5
+      ],
+      "index_x": 6,
+      "index_y": 3
+    },
+    {
+      "id": "tank.jetpack-black",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 3
+    },
+    {
+      "id": "tank.jetpack-black-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 2,
+      "index_y": 3
+    },
+    {
+      "id": "tank.bomb_assembly",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 4
+    },
+    {
+      "id": "tank.jetpack-mining",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 4
+    },
+    {
+      "id": "tank.jetpack-mining-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 6,
+      "index_y": 4
+    },
+    {
+      "id": "tank.plasmaman_tank",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 4
+    },
+    {
+      "id": "tank.plasmaman_tank_belt",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 5
+    },
+    {
+      "id": "tank.jetpack-captain",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 5
+    },
+    {
+      "id": "tank.jetpack-captain-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 4,
+      "index_y": 5
+    },
+    {
+      "id": "tank.jetpack-sec",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 5
+    },
+    {
+      "id": "tank.jetpack-sec-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 0,
+      "index_y": 5
+    },
+    {
+      "id": "tank.jetpack-improvised",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 6
+    },
+    {
+      "id": "tank.jetpack-improvised-on",
+      "file": "tank.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 3,
+      "index_y": 6
+    },
+    {
+      "id": "back.electropack0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "back.electropack1",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 0
+    },
+    {
+      "id": "back.backpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 0
+    },
+    {
+      "id": "back.oxygen",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 0
+    },
+    {
+      "id": "back.oxygen_f",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 0
+    },
+    {
+      "id": "back.oxygen_fr",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 0
+    },
+    {
+      "id": "back.air",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 0
+    },
+    {
+      "id": "back.anesthetic",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 0
+    },
+    {
+      "id": "back.jetpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 1
+    },
+    {
+      "id": "back.jetpack-on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 4,
+      "index_y": 1
+    },
+    {
+      "id": "back.jetpack-black",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 1
+    },
+    {
+      "id": "back.jetpack-black-on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 16,
+      "index_y": 1
+    },
+    {
+      "id": "back.jetpack-captain",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 1
+    },
+    {
+      "id": "back.jetpack-captain-on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 28,
+      "index_y": 1
+    },
+    {
+      "id": "back.jetpack-mini",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 2
+    },
+    {
+      "id": "back.jetpack-mini-on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 3,
+      "animation_rewind": true,
+      "animation_delays": [
+        5,
+        2,
+        1
+      ],
+      "index_x": 8,
+      "index_y": 2
+    },
+    {
+      "id": "back.jetpack-mining",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 2
+    },
+    {
+      "id": "back.jetpack-mining-on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 24,
+      "index_y": 2
+    },
+    {
+      "id": "back.jetpack-void",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 3
+    },
+    {
+      "id": "back.jetpack-void-on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        4,
+        4
+      ],
+      "index_x": 4,
+      "index_y": 3
+    },
+    {
+      "id": "back.witch",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 3
+    },
+    {
+      "id": "back.clownpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 3
+    },
+    {
+      "id": "back.securitypack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 3
+    },
+    {
+      "id": "back.captainpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 3
+    },
+    {
+      "id": "back.holdingpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 7,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 25,
+      "index_y": 3
+    },
+    {
+      "id": "back.brokenpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 4
+    },
+    {
+      "id": "back.engiepackOLD",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 4
+    },
+    {
+      "id": "back.engiepack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 4
+    },
+    {
+      "id": "back.satchel",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 5
+    },
+    {
+      "id": "back.fireaxe0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 5
+    },
+    {
+      "id": "back.bandolier",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 5
+    },
+    {
+      "id": "back.cultpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 5
+    },
+    {
+      "id": "back.giftbag0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 5
+    },
+    {
+      "id": "back.giftbag1",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 5
+    },
+    {
+      "id": "back.giftbag2",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 5
+    },
+    {
+      "id": "back.welderpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 5
+    },
+    {
+      "id": "back.satchel-eng",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-med",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-chem",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-gen",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-tox",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-vir",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-sec",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-cap",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 6
+    },
+    {
+      "id": "back.satchel-norm",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 7
+    },
+    {
+      "id": "back.satchel-flat",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 7
+    },
+    {
+      "id": "back.satchel-hyd",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 7
+    },
+    {
+      "id": "back.katana",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 7
+    },
+    {
+      "id": "back.scythe0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 7
+    },
+    {
+      "id": "back.staffofchange",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 5,
+      "animation_rewind": true,
+      "animation_delays": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "index_x": 21,
+      "index_y": 7
+    },
+    {
+      "id": "back.staffofanimation",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 4,
+      "animation_rewind": true,
+      "animation_delays": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "index_x": 9,
+      "index_y": 8
+    },
+    {
+      "id": "back.staffofhealing",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 12,
+      "animation_delays": [
+        2,
+        2,
+        1,
+        2,
+        2,
+        1,
+        2,
+        2,
+        1,
+        2,
+        2,
+        1
+      ],
+      "index_x": 25,
+      "index_y": 8
+    },
+    {
+      "id": "back.staffofchaos",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 4,
+      "animation_delays": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "index_x": 9,
+      "index_y": 10
+    },
+    {
+      "id": "back.staffofdoor",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 4,
+      "animation_delays": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "index_x": 25,
+      "index_y": 10
+    },
+    {
+      "id": "back.staffofstorms",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        16,
+        4
+      ],
+      "index_x": 9,
+      "index_y": 11
+    },
+    {
+      "id": "back.mjollnir0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 11
+    },
+    {
+      "id": "back.spearglass0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 11
+    },
+    {
+      "id": "back.waterbackpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 11
+    },
+    {
+      "id": "back.roman_shield",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 11
+    },
+    {
+      "id": "back.waterbackpackjani",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 12
+    },
+    {
+      "id": "back.waterbackpackatmos",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 12
+    },
+    {
+      "id": "back.mimepack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 12
+    },
+    {
+      "id": "back.shotgun",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 12
+    },
+    {
+      "id": "back.riotshotgun",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 12
+    },
+    {
+      "id": "back.cshotgun",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 12
+    },
+    {
+      "id": "back.cshotgunc",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 12
+    },
+    {
+      "id": "back.dshotgun",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 12
+    },
+    {
+      "id": "back.ishotgun",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 13
+    },
+    {
+      "id": "back.dshotgun-d",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 13
+    },
+    {
+      "id": "back.pulse",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 13
+    },
+    {
+      "id": "back.dshotgun-l",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 13
+    },
+    {
+      "id": "back.dshotgun-p",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 13
+    },
+    {
+      "id": "back.dshotgun-g",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 13
+    },
+    {
+      "id": "back.dshotgun-f",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 13
+    },
+    {
+      "id": "back.sniper",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 13
+    },
+    {
+      "id": "back.sniper-mag",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 14
+    },
+    {
+      "id": "back.surplus",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 14
+    },
+    {
+      "id": "back.surplus-mag",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 14
+    },
+    {
+      "id": "back.moistnugget",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 14
+    },
+    {
+      "id": "back.esniper0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 14
+    },
+    {
+      "id": "back.esniper",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 14
+    },
+    {
+      "id": "back.riot",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 14
+    },
+    {
+      "id": "back.ionrifle0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 14
+    },
+    {
+      "id": "back.ionrifle25",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 15
+    },
+    {
+      "id": "back.ionrifle50",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 15
+    },
+    {
+      "id": "back.ionrifle75",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 15
+    },
+    {
+      "id": "back.ionrifle100",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 15
+    },
+    {
+      "id": "back.ionrifle",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 15
+    },
+    {
+      "id": "back.lasercannon0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 15
+    },
+    {
+      "id": "back.lasercannon25",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 15
+    },
+    {
+      "id": "back.lasercannon50",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 15
+    },
+    {
+      "id": "back.lasercannon75",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 16
+    },
+    {
+      "id": "back.lasercannon100",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 16
+    },
+    {
+      "id": "back.pulse0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        3,
+        3
+      ],
+      "index_x": 9,
+      "index_y": 16
+    },
+    {
+      "id": "back.pulse25",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 16
+    },
+    {
+      "id": "back.pulse50",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 16
+    },
+    {
+      "id": "back.pulse75",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 16
+    },
+    {
+      "id": "back.pulse100",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 16
+    },
+    {
+      "id": "back.teleriot1",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 17
+    },
+    {
+      "id": "back.ishotgunsling",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 17
+    },
+    {
+      "id": "back.defibunit",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 17
+    },
+    {
+      "id": "back.chronobackpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 3,
+      "animation_delays": [
+        1,
+        1,
+        1
+      ],
+      "index_x": 13,
+      "index_y": 17
+    },
+    {
+      "id": "back.duffel",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 17
+    },
+    {
+      "id": "back.duffel-syndie",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 17
+    },
+    {
+      "id": "back.duffel-syndiemed",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 18
+    },
+    {
+      "id": "back.duffel-captain",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 18
+    },
+    {
+      "id": "back.duffel-sec",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 18
+    },
+    {
+      "id": "back.duffel-med",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 18
+    },
+    {
+      "id": "back.duffel-eng",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 18
+    },
+    {
+      "id": "back.duffel-clown",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 18
+    },
+    {
+      "id": "back.duffel-syndieammo",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 18
+    },
+    {
+      "id": "back.duffel-drone",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 18
+    },
+    {
+      "id": "back.botpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 19
+    },
+    {
+      "id": "back.medicalpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 19
+    },
+    {
+      "id": "back.chempack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 19
+    },
+    {
+      "id": "back.genepack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 19
+    },
+    {
+      "id": "back.toxpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 19
+    },
+    {
+      "id": "back.viropack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 19
+    },
+    {
+      "id": "back.sheetUSA",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 19
+    },
+    {
+      "id": "back.energy_katana",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 19
+    },
+    {
+      "id": "back.plasmaman_tank",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 20
+    },
+    {
+      "id": "back.claymore",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 20
+    },
+    {
+      "id": "back.spearbomb0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 20
+    },
+    {
+      "id": "back.bannerpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 20
+    },
+    {
+      "id": "back.bannerpack-red",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 20
+    },
+    {
+      "id": "back.bannerpack-blue",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 20
+    },
+    {
+      "id": "back.chembackpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 20
+    },
+    {
+      "id": "back.buckler",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 20
+    },
+    {
+      "id": "back.pickaxe",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL_DIAGONAL",
+      "index_x": 1,
+      "index_y": 21
+    },
+    {
+      "id": "back.spickaxe",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL_DIAGONAL",
+      "index_x": 9,
+      "index_y": 21
+    },
+    {
+      "id": "back.dpickaxe",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL_DIAGONAL",
+      "index_x": 17,
+      "index_y": 21
+    },
+    {
+      "id": "back.holstered",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 21
+    },
+    {
+      "id": "back.notholstered",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 21
+    },
+    {
+      "id": "back.honker",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 22
+    },
+    {
+      "id": "back.hfrequency0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 22
+    },
+    {
+      "id": "back.satchel-explorer",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 22
+    },
+    {
+      "id": "back.explorerpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 22
+    },
+    {
+      "id": "back.talking_sword",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 22
+    },
+    {
+      "id": "back.rainbowbpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 22
+    },
+    {
+      "id": "back.spellblade",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 7,
+      "animation_delays": [
+        8,
+        1,
+        1,
+        5,
+        1,
+        1,
+        4
+      ],
+      "index_x": 25,
+      "index_y": 22
+    },
+    {
+      "id": "back.mining_hammer1",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_loop": true,
+      "index_x": 21,
+      "index_y": 23
+    },
+    {
+      "id": "back.quiver",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 23
+    },
+    {
+      "id": "back.hierophant_club",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 23
+    },
+    {
+      "id": "back.hierophant_club_beacon",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 24
+    },
+    {
+      "id": "back.hierophant_club_ready",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 4,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 5,
+      "index_y": 24
+    },
+    {
+      "id": "back.hierophant_club_ready_beacon",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 4,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 21,
+      "index_y": 24
+    },
+    {
+      "id": "back.stunprod",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 25
+    },
+    {
+      "id": "back.stunprod_nocell",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 25
+    },
+    {
+      "id": "back.stunprod_active",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 25
+    },
+    {
+      "id": "back.quiver_hardlight",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 25
+    },
+    {
+      "id": "back.flightpack_on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 4,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 21,
+      "index_y": 25
+    },
+    {
+      "id": "back.flightpack_boost",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 4,
+      "animation_rewind": true,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 5,
+      "index_y": 26
+    },
+    {
+      "id": "back.flightpack_off",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 26
+    },
+    {
+      "id": "back.flashshield",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 26
+    },
+    {
+      "id": "back.flashshield_flash",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 26
+    },
+    {
+      "id": "back.sky_bulge0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 27
+    },
+    {
+      "id": "back.jetpack-sec",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 27
+    },
+    {
+      "id": "back.jetpack-sec-on",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        2,
+        2
+      ],
+      "index_x": 9,
+      "index_y": 27
+    },
+    {
+      "id": "back.bostaff0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 27
+    },
+    {
+      "id": "back.godstaff-blue",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        1,
+        1
+      ],
+      "index_x": 21,
+      "index_y": 27
+    },
+    {
+      "id": "back.godstaff-red",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        1,
+        1
+      ],
+      "index_x": 29,
+      "index_y": 27
+    },
+    {
+      "id": "back.scythe1",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 2,
+      "animation_delays": [
+        1,
+        1
+      ],
+      "index_x": 5,
+      "index_y": 28
+    },
+    {
+      "id": "back.ert_commander",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 28
+    },
+    {
+      "id": "back.ert_security",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 28
+    },
+    {
+      "id": "back.ert_medical",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 28
+    },
+    {
+      "id": "back.ert_engineering",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 28
+    },
+    {
+      "id": "back.snailshell",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 28
+    },
+    {
+      "id": "back.waterbackpackchem",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 29
+    },
+    {
+      "id": "back.waterbackpackop",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 29
+    },
+    {
+      "id": "back.bamboo_spear0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 29
+    },
+    {
+      "id": "back.bone_sword",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 29
+    },
+    {
+      "id": "back.bone_spear0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 29
+    },
+    {
+      "id": "back.bone_axe0",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 29
+    },
+    {
+      "id": "back.goliath_shield",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 29
+    },
+    {
+      "id": "back.pipebow_unloaded",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 29
+    },
+    {
+      "id": "back.pipebow_loaded",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 30
+    },
+    {
+      "id": "back.pipebow_firing",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 30
+    },
+    {
+      "id": "back.ashenbow_firing",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 9,
+      "index_y": 30
+    },
+    {
+      "id": "back.ashenbow_loaded",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 13,
+      "index_y": 30
+    },
+    {
+      "id": "back.ashenbow_unloaded",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 17,
+      "index_y": 30
+    },
+    {
+      "id": "back.cakpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 21,
+      "index_y": 30
+    },
+    {
+      "id": "back.ianpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 25,
+      "index_y": 30
+    },
+    {
+      "id": "back.lisapack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 29,
+      "index_y": 30
+    },
+    {
+      "id": "back.renaultpack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 31
+    },
+    {
+      "id": "back.runtimepack",
+      "file": "back.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 5,
+      "index_y": 31
+    },
+    {
+      "id": "mask.muzzle",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "mask.gas_mask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 0
+    },
+    {
+      "id": "mask.medical",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 0
+    },
+    {
+      "id": "mask.sterile",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 0
+    },
+    {
+      "id": "mask.syndicate",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 3,
+      "animation_rewind": true,
+      "animation_delays": [
+        3,
+        3,
+        3
+      ],
+      "index_x": 16,
+      "index_y": 0
+    },
+    {
+      "id": "mask.swat",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 0
+    },
+    {
+      "id": "mask.gas_alt",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 1
+    },
+    {
+      "id": "mask.gas_mining",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 1
+    },
+    {
+      "id": "mask.gas_mining_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 1
+    },
+    {
+      "id": "mask.owl",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 1
+    },
+    {
+      "id": "mask.cluwne",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 1
+    },
+    {
+      "id": "mask.clown",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 1
+    },
+    {
+      "id": "mask.death",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 1
+    },
+    {
+      "id": "mask.breath",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 2
+    },
+    {
+      "id": "mask.cigon",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 4,
+      "index_y": 2
+    },
+    {
+      "id": "mask.cigoff",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 3
+    },
+    {
+      "id": "mask.cigaron",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 10,
+      "index_y": 3
+    },
+    {
+      "id": "mask.cigar2on",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 12,
+      "index_y": 4
+    },
+    {
+      "id": "mask.cigaroff",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 5
+    },
+    {
+      "id": "mask.cigar2off",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 5
+    },
+    {
+      "id": "mask.facehugger",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 5
+    },
+    {
+      "id": "mask.facehugger_inactive",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 5
+    },
+    {
+      "id": "mask.facehugger_dead",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 6
+    },
+    {
+      "id": "mask.facehugger_corgi",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 6
+    },
+    {
+      "id": "mask.facehugger_corgipuppy",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 6
+    },
+    {
+      "id": "mask.plaguedoctor",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 6
+    },
+    {
+      "id": "mask.mime",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 6
+    },
+    {
+      "id": "mask.s-ninja",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 6
+    },
+    {
+      "id": "mask.fake-moustache",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 6
+    },
+    {
+      "id": "mask.sexyclown",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 6
+    },
+    {
+      "id": "mask.pig",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 7
+    },
+    {
+      "id": "mask.horsehead",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 7
+    },
+    {
+      "id": "mask.monkeymask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 7
+    },
+    {
+      "id": "mask.cowmask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 7
+    },
+    {
+      "id": "mask.sexymime",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 7
+    },
+    {
+      "id": "mask.cobpipeon",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 22,
+      "index_y": 7
+    },
+    {
+      "id": "mask.cobpipeoff",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 8
+    },
+    {
+      "id": "mask.balaclava",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 8
+    },
+    {
+      "id": "mask.luchador",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 9
+    },
+    {
+      "id": "mask.luchag",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 9
+    },
+    {
+      "id": "mask.luchar",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 9
+    },
+    {
+      "id": "mask.cobpipeon2",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 14,
+      "index_y": 9
+    },
+    {
+      "id": "mask.weldingmask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 9
+    },
+    {
+      "id": "mask.weldingmaskup",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 9
+    },
+    {
+      "id": "mask.pipeoff",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 10
+    },
+    {
+      "id": "mask.pipeon",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 4,
+      "index_y": 10
+    },
+    {
+      "id": "mask.spliffon",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 6,
+      "index_y": 11
+    },
+    {
+      "id": "mask.spliffoff",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 12
+    },
+    {
+      "id": "mask.joker",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 12
+    },
+    {
+      "id": "mask.rainbow",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 12
+    },
+    {
+      "id": "mask.balaclava_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 12
+    },
+    {
+      "id": "mask.breath_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 12
+    },
+    {
+      "id": "mask.medical_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 12
+    },
+    {
+      "id": "mask.sterile_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 13
+    },
+    {
+      "id": "mask.sechailer",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 13
+    },
+    {
+      "id": "mask.sechailer_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 13
+    },
+    {
+      "id": "mask.bandbotany_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 13
+    },
+    {
+      "id": "mask.bandbotany",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 13
+    },
+    {
+      "id": "mask.bandskull_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 13
+    },
+    {
+      "id": "mask.bandskull",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 13
+    },
+    {
+      "id": "mask.carp_mask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 14
+    },
+    {
+      "id": "mask.scaredmime",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 14
+    },
+    {
+      "id": "mask.sadmime",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 14
+    },
+    {
+      "id": "mask.black_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 12,
+      "index_y": 14
+    },
+    {
+      "id": "mask.blue_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 14,
+      "index_y": 15
+    },
+    {
+      "id": "mask.green_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 16,
+      "index_y": 16
+    },
+    {
+      "id": "mask.orange_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 18,
+      "index_y": 17
+    },
+    {
+      "id": "mask.purple_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 20,
+      "index_y": 18
+    },
+    {
+      "id": "mask.red_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 22,
+      "index_y": 19
+    },
+    {
+      "id": "mask.white_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 24,
+      "index_y": 20
+    },
+    {
+      "id": "mask.yellow_vape",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 26,
+      "index_y": 21
+    },
+    {
+      "id": "mask.joy",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 22
+    },
+    {
+      "id": "mask.rat",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 23
+    },
+    {
+      "id": "mask.fox",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 23
+    },
+    {
+      "id": "mask.bee",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 23
+    },
+    {
+      "id": "mask.bear",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 23
+    },
+    {
+      "id": "mask.bat",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 23
+    },
+    {
+      "id": "mask.raven",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 23
+    },
+    {
+      "id": "mask.jackal",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 23
+    },
+    {
+      "id": "mask.bumba",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 24
+    },
+    {
+      "id": "mask.tiki_eyebrow",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 24
+    },
+    {
+      "id": "mask.tiki_happy",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 24
+    },
+    {
+      "id": "mask.tiki_confused",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 24
+    },
+    {
+      "id": "mask.tiki_angry",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 24
+    },
+    {
+      "id": "mask.glass_pipe",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "animation_frames": 11,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 20,
+      "index_y": 24
+    },
+    {
+      "id": "mask.gskull",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 26
+    },
+    {
+      "id": "mask.mummy_mask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 26
+    },
+    {
+      "id": "mask.scarecrow_sack",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 26
+    },
+    {
+      "id": "mask.frog",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 26
+    },
+    {
+      "id": "mask.gondola",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 26
+    },
+    {
+      "id": "mask.bandred_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 26
+    },
+    {
+      "id": "mask.bandred",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 26
+    },
+    {
+      "id": "mask.bandgold_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 27
+    },
+    {
+      "id": "mask.bandgold",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 27
+    },
+    {
+      "id": "mask.bandblue_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 27
+    },
+    {
+      "id": "mask.bandblue",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 27
+    },
+    {
+      "id": "mask.bandgreen_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 27
+    },
+    {
+      "id": "mask.bandgreen",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 22,
+      "index_y": 27
+    },
+    {
+      "id": "mask.bandblack_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 26,
+      "index_y": 27
+    },
+    {
+      "id": "mask.bandblack",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 0,
+      "index_y": 28
+    },
+    {
+      "id": "mask.slime",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 4,
+      "index_y": 28
+    },
+    {
+      "id": "mask.chaos",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 8,
+      "index_y": 28
+    },
+    {
+      "id": "mask.banddurathread_up",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 12,
+      "index_y": 28
+    },
+    {
+      "id": "mask.banddurathread",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 16,
+      "index_y": 28
+    },
+    {
+      "id": "mask.spacepol",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 20,
+      "index_y": 28
+    },
+    {
+      "id": "mask.tiki_yalp",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 24,
+      "index_y": 28
+    },
+    {
+      "id": "mask.rus_balaclava",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 28,
+      "index_y": 28
+    },
+    {
+      "id": "mask.lollipop_stick",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 2,
+      "index_y": 29
+    },
+    {
+      "id": "mask.hunter",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 6,
+      "index_y": 29
+    },
+    {
+      "id": "mask.gas_alt_old",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 10,
+      "index_y": 29
+    },
+    {
+      "id": "mask.mad_mask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 14,
+      "index_y": 29
+    },
+    {
+      "id": "mask.trickymask",
+      "file": "mask.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 18,
+      "index_y": 29
+    },
+    {
+      "id": "masks.medical",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "masks.gas_mask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 0
+    },
+    {
+      "id": "masks.syndicate",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 0
+    },
+    {
+      "id": "masks.swat",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 0
+    },
+    {
+      "id": "masks.spacepol",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 0
+    },
+    {
+      "id": "masks.sterile",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 0
+    },
+    {
+      "id": "masks.death",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 0
+    },
+    {
+      "id": "masks.breath",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 0
+    },
+    {
+      "id": "masks.clown",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 0
+    },
+    {
+      "id": "masks.gas_alt",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 0
+    },
+    {
+      "id": "masks.gas_mining",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 0
+    },
+    {
+      "id": "masks.gas_mining_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 0
+    },
+    {
+      "id": "masks.owl",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 0
+    },
+    {
+      "id": "masks.muzzle",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 0
+    },
+    {
+      "id": "masks.cigoff",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 1
+    },
+    {
+      "id": "masks.cigon",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 1,
+      "index_y": 1
+    },
+    {
+      "id": "masks.cigbutt",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 1
+    },
+    {
+      "id": "masks.cigaroff",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 1
+    },
+    {
+      "id": "masks.cigaron",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 1
+    },
+    {
+      "id": "masks.cigar2off",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 1
+    },
+    {
+      "id": "masks.cigar2on",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 1
+    },
+    {
+      "id": "masks.cigarbutt",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 2
+    },
+    {
+      "id": "masks.plaguedoctor",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 2
+    },
+    {
+      "id": "masks.mime",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 2
+    },
+    {
+      "id": "masks.s-ninja",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 2
+    },
+    {
+      "id": "masks.(no name)",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 2
+    },
+    {
+      "id": "masks.fake-moustache",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 2
+    },
+    {
+      "id": "masks.spiderman",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 2
+    },
+    {
+      "id": "masks.sexyclown",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 2
+    },
+    {
+      "id": "masks.sexymime",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 2
+    },
+    {
+      "id": "masks.monkeymask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 2
+    },
+    {
+      "id": "masks.balaclava",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 2
+    },
+    {
+      "id": "masks.luchador",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 2
+    },
+    {
+      "id": "masks.luchag",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 2
+    },
+    {
+      "id": "masks.luchar",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 2
+    },
+    {
+      "id": "masks.cobpipeon",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 0,
+      "index_y": 3
+    },
+    {
+      "id": "masks.cobpipeoff",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 3
+    },
+    {
+      "id": "masks.pipeon",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 9,
+      "index_y": 3
+    },
+    {
+      "id": "masks.pipeoff",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 4
+    },
+    {
+      "id": "masks.frog",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 4
+    },
+    {
+      "id": "masks.pig",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 4
+    },
+    {
+      "id": "masks.horsehead",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 4
+    },
+    {
+      "id": "masks.golem",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 4
+    },
+    {
+      "id": "masks.weldingmask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 4
+    },
+    {
+      "id": "masks.weldingmaskup",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 4
+    },
+    {
+      "id": "masks.spliffon",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 8,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 10,
+      "index_y": 4
+    },
+    {
+      "id": "masks.roach",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 5
+    },
+    {
+      "id": "masks.spliffoff",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 5
+    },
+    {
+      "id": "masks.joker",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 5
+    },
+    {
+      "id": "masks.rainbow",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 5
+    },
+    {
+      "id": "masks.breath_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 5
+    },
+    {
+      "id": "masks.medical_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 5
+    },
+    {
+      "id": "masks.balaclava_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 5
+    },
+    {
+      "id": "masks.sterile_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 5
+    },
+    {
+      "id": "masks.sechailer",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 5
+    },
+    {
+      "id": "masks.sechailer_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 5
+    },
+    {
+      "id": "masks.bandred_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandred",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandblue_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandblue",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandgold_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandgold",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandgreen_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandgreen",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandbotany_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandbotany",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandskull_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandskull",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandblack_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 6
+    },
+    {
+      "id": "masks.bandblack",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 7
+    },
+    {
+      "id": "masks.carp_mask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 7
+    },
+    {
+      "id": "masks.shadowling",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 7
+    },
+    {
+      "id": "masks.sadmime",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 7
+    },
+    {
+      "id": "masks.scaredmime",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 7
+    },
+    {
+      "id": "masks.blaVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 7
+    },
+    {
+      "id": "masks.bluVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 7
+    },
+    {
+      "id": "masks.greeVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 7
+    },
+    {
+      "id": "masks.orgVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 7
+    },
+    {
+      "id": "masks.purVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 7
+    },
+    {
+      "id": "masks.redVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 7
+    },
+    {
+      "id": "masks.whiVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 7
+    },
+    {
+      "id": "masks.yelVape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 7
+    },
+    {
+      "id": "masks.black_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 7
+    },
+    {
+      "id": "masks.blue_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 8
+    },
+    {
+      "id": "masks.green_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 8
+    },
+    {
+      "id": "masks.red_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 8
+    },
+    {
+      "id": "masks.yellow_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 8
+    },
+    {
+      "id": "masks.white_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 8
+    },
+    {
+      "id": "masks.purple_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 8
+    },
+    {
+      "id": "masks.orange_vape",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 8
+    },
+    {
+      "id": "masks.vapeopen_low",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 8
+    },
+    {
+      "id": "masks.vapeopen_med",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 8
+    },
+    {
+      "id": "masks.vapeopen_high",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 8
+    },
+    {
+      "id": "masks.joy",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 8
+    },
+    {
+      "id": "masks.rat",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 8
+    },
+    {
+      "id": "masks.fox",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 8
+    },
+    {
+      "id": "masks.bee",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 8
+    },
+    {
+      "id": "masks.bear",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 9
+    },
+    {
+      "id": "masks.bat",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 9
+    },
+    {
+      "id": "masks.raven",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 9
+    },
+    {
+      "id": "masks.jackal",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 9
+    },
+    {
+      "id": "masks.bumba",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 9
+    },
+    {
+      "id": "masks.tiki_eyebrow",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 9
+    },
+    {
+      "id": "masks.tiki_happy",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 9
+    },
+    {
+      "id": "masks.tiki_confused",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 9
+    },
+    {
+      "id": "masks.tiki_angry",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 9
+    },
+    {
+      "id": "masks.tiki_yalp",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 9
+    },
+    {
+      "id": "masks.glass_pipe",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "animation_frames": 21,
+      "animation_delays": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "index_x": 10,
+      "index_y": 9
+    },
+    {
+      "id": "masks.gskull",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 11
+    },
+    {
+      "id": "masks.scarecrow_sack",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 11
+    },
+    {
+      "id": "masks.mummy_mask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 11
+    },
+    {
+      "id": "masks.gondola",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 11
+    },
+    {
+      "id": "masks.slime",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 11
+    },
+    {
+      "id": "masks.chaos",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 11
+    },
+    {
+      "id": "masks.banddurathread_up",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 11
+    },
+    {
+      "id": "masks.banddurathread",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 11
+    },
+    {
+      "id": "masks.rus_balaclava",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 11
+    },
+    {
+      "id": "masks.cluwne",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 11
+    },
+    {
+      "id": "masks.ronald",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 11
+    },
+    {
+      "id": "masks.the_jester",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 12
+    },
+    {
+      "id": "masks.pddallas",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 12
+    },
+    {
+      "id": "masks.pdhoxton",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 12
+    },
+    {
+      "id": "masks.pdwolf",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 4,
+      "index_y": 12
+    },
+    {
+      "id": "masks.pdchains",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 12
+    },
+    {
+      "id": "masks.fawkes",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 12
+    },
+    {
+      "id": "masks.scaryclownmask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 12
+    },
+    {
+      "id": "masks.bananamask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 8,
+      "index_y": 12
+    },
+    {
+      "id": "masks.gigglesmask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 9,
+      "index_y": 12
+    },
+    {
+      "id": "masks.freddy",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 10,
+      "index_y": 12
+    },
+    {
+      "id": "masks.bonnie",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 11,
+      "index_y": 12
+    },
+    {
+      "id": "masks.chica",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 12,
+      "index_y": 12
+    },
+    {
+      "id": "masks.foxy",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 13,
+      "index_y": 12
+    },
+    {
+      "id": "masks.richard",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 13
+    },
+    {
+      "id": "masks.hunter",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "directional": "CARDINAL",
+      "index_x": 1,
+      "index_y": 13
+    },
+    {
+      "id": "masks.gas_alt_old",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 5,
+      "index_y": 13
+    },
+    {
+      "id": "masks.mad_mask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 6,
+      "index_y": 13
+    },
+    {
+      "id": "masks.trickymask",
+      "file": "masks.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 7,
+      "index_y": 13
+    }
   ]
 }

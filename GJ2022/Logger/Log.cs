@@ -14,7 +14,7 @@ public static class Log
         if ((logType & LogFlags) != logType)
             return;
         //Write it
-        Console.WriteLine($"[{logType}][{DateTime.Now}] {message.ToString()}");
+        Console.WriteLine($"[{logType}][{DateTime.Now}] {message ?? "null"}");
     }
 
 }

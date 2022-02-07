@@ -65,6 +65,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     wantedSlot = InventorySlot.SLOT_BODY;
                 else if ((equippable.Slots & InventorySlot.SLOT_HEAD) != 0)
                     wantedSlot = InventorySlot.SLOT_HEAD;
+                else if ((equippable.Slots & InventorySlot.SLOT_MASK) != 0)
+                    wantedSlot = InventorySlot.SLOT_MASK;
                 else
                 {
                     completed = true;
