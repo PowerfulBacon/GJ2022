@@ -2,6 +2,7 @@
 using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Clothing.Body;
 using GJ2022.Entities.Items.Stacks;
+using GJ2022.Entities.Items.Tank;
 using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Pawns.Mobs;
@@ -116,6 +117,11 @@ namespace GJ2022
 
             new Jetpack(new Vector<float>(9, 8));
             new Pickaxe(new Vector<float>(3, 2));
+
+            new OxygenTank(new Vector<float>(4, 4));
+            new OxygenTank(new Vector<float>(4, 4));
+            new OxygenTank(new Vector<float>(4, 4));
+            new OxygenTank(new Vector<float>(4, 4));
 
             Dog dog = new Dog(new Vector<float>(2, 2));
             new DogBehaviour(dog);

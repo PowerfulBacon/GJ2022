@@ -1,5 +1,8 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Atmospherics;
+using GJ2022.Atmospherics.Gasses;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Effects;
+using GJ2022.Entities.Items.Tank;
 using GJ2022.Entities.Pawns;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -8,12 +11,21 @@ using static GJ2022.Managers.SignalHandler;
 
 namespace GJ2022.Entities.Items.Clothing.Back
 {
-    public class Jetpack : Item, IEquippable
+    public class Jetpack : GasTank, IEquippable
     {
 
         public Jetpack(Vector<float> position) : base(position)
         {
+            //12 moles of oxygen
+            //12 moles of hudrogen
+            //60 litre tank
+            //295.15k temperature
+            //~980kPa pressure
+            ContainedAtmosphere = new Atmosphere(AtmosphericConstants.IDEAL_TEMPERATURE, new PressurisedGas(Oxygen.Singleton, 12), new PressurisedGas(Hydrogen.Singleton, 12));
+            ContainedAtmosphere.SetVolume(60);
         }
+
+        public override Atmosphere ContainedAtmosphere { get; }
 
         public override string Name => "Jetpack";
 
@@ -32,6 +44,7 @@ namespace GJ2022.Entities.Items.Clothing.Back
         public BodyCoverFlags CoverFlags => BodyCoverFlags.NONE;
 
         public bool AppendSlotToIconState => true;
+
 
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {

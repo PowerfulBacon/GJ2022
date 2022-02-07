@@ -13409,6 +13409,296 @@
       "height": 32,
       "index_x": 20,
       "index_y": 23
-    }
+    },
+          {
+          "id": "tank.oxygen",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 0,
+          "index_y": 0
+      },
+      {
+          "id": "tank.anesthetic",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 0
+      },
+      {
+          "id": "tank.air",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 0
+      },
+      {
+          "id": "tank.clown",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 0
+      },
+      {
+          "id": "tank.plasma",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 0
+      },
+      {
+          "id": "tank.emergency",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 0
+      },
+      {
+          "id": "tank.emergency_engi",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 6,
+          "index_y": 1
+      },
+      {
+          "id": "tank.emergency_double",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 0,
+          "index_y": 1
+      },
+      {
+          "id": "tank.emergency_tst",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 1
+      },
+      {
+          "id": "tank.oxygen_f",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 1
+      },
+      {
+          "id": "tank.oxygen_fr",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 1
+      },
+      {
+          "id": "tank.canister",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 1
+      },
+      {
+          "id": "tank.jetpack",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 2
+      },
+      {
+          "id": "tank.jetpack-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             2,
+             2,
+          ],
+          "index_x": 6,
+          "index_y": 2
+      },
+      {
+          "id": "tank.jetpack-mini",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 2
+      },
+      {
+          "id": "tank.jetpack-mini-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 3,
+          "animation_rewind": true,
+          "animation_delays": [
+             5,
+             1,
+             1
+          ],
+          "index_x": 2,
+          "index_y": 2
+      },
+      {
+          "id": "tank.jetpack-void",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 3
+      },
+      {
+          "id": "tank.jetpack-void-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 6,
+          "index_y": 3
+      },
+      {
+          "id": "tank.jetpack-black",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 3
+      },
+      {
+          "id": "tank.jetpack-black-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             2,
+             2,
+          ],
+          "index_x": 2,
+          "index_y": 3
+      },
+      {
+          "id": "tank.bomb_assembly",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 4
+      },
+      {
+          "id": "tank.jetpack-mining",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 4
+      },
+      {
+          "id": "tank.jetpack-mining-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             2,
+             2,
+          ],
+          "index_x": 6,
+          "index_y": 4
+      },
+      {
+          "id": "tank.plasmaman_tank",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 4
+      },
+      {
+          "id": "tank.plasmaman_tank_belt",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 5
+      },
+      {
+          "id": "tank.jetpack-captain",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 5
+      },
+      {
+          "id": "tank.jetpack-captain-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             2,
+             2,
+          ],
+          "index_x": 4,
+          "index_y": 5
+      },
+      {
+          "id": "tank.jetpack-sec",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 6,
+          "index_y": 5
+      },
+      {
+          "id": "tank.jetpack-sec-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             2,
+             2,
+          ],
+          "index_x": 0,
+          "index_y": 5
+      },
+      {
+          "id": "tank.jetpack-improvised",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 6
+      },
+      {
+          "id": "tank.jetpack-improvised-on",
+          "file": "tank.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             2,
+             2,
+          ],
+          "index_x": 3,
+          "index_y": 6
+      }
   ]
 }

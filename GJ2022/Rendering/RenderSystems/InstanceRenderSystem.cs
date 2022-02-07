@@ -40,7 +40,6 @@ namespace GJ2022.Rendering.RenderSystems
 
         public override float[] GetBufferData(IStandardRenderable targetItem, int bufferIndex)
         {
-            Matrix objectMatrix;
             switch (bufferIndex)
             {
                 case 0:
