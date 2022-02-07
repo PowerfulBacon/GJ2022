@@ -41,7 +41,6 @@ namespace GJ2022.Entities.Items.Clothing.Mask
         public Atmosphere GetBreathSource()
         {
             Pawn pawn = Location as Pawn;
-            Log.WriteLine(Location);
             if (pawn == null)
                 return null;
             //Locate a valid tank
