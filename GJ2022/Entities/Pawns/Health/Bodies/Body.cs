@@ -44,6 +44,17 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         //The pawn we are attached to
         public Pawn Parent { get; private set; }
 
+        //The value used to calculate the amount of pain a pawn can take before it goes unconcious.
+        //The pain limit is calculated by taking the sum of the health of all limbs and multiplying that by this multiplier.
+        public virtual float PainCritMultiplier => 0.5f;
+
+        //Pain Threashold
+        //If not defined, will be created during init
+        public virtual float PainCritLimit { get; internal set; }
+
+        //Pain
+        public float Pain { get; internal set; } = 0;
+
         //Stats
         public float Conciousness   { get; internal set; } = 0;
         public float Movement       { get; internal set; } = 0;
@@ -89,6 +100,15 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         {
             Parent = parent;
             CreateDefaultBodyparts();
+            //Calculate pain crit threshold
+            if (PainCritLimit == default)
+            {
+                foreach (Bodypart part in InsertedLimbs.Values)
+                {
+                    PainCritLimit += part?.MaxHealth ?? 0;
+                }
+                PainCritLimit *= PainCritMultiplier;
+            }
         }
 
         protected abstract void CreateDefaultBodyparts();
@@ -169,6 +189,19 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         }
 
         /// <summary>
+        /// Adjusts the pain by the provided amount and crits the pawn if they have too much pain
+        /// </summary>
+        /// <param name="adjustAmount"></param>
+        public void AdjustPain(float adjustAmount)
+        {
+            Pain += adjustAmount;
+            if (Pain > PainCritLimit)
+                Parent.EnterCrit();
+            else
+                Parent.ExitCrit();
+        }
+
+        /// <summary>
         /// Starts at 0 and rises as you approach pressure = 0
         /// MultiplierMax = the multiplier for being at 0 pressure
         /// PressureLimit = The point at which the pressure multiplier is 1
@@ -223,6 +256,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         }
 
         /// <summary>
+        /// TODO
         /// Update limb overlays to account for new cover flags
         /// </summary>
         public void UpdateLimbOverlays(BodyCoverFlags oldCoverFlags, ClothingFlags oldClothingFlags)

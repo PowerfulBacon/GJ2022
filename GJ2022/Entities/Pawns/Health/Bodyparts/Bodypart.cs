@@ -60,6 +60,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         {
             //Calculate new damage
             Health -= injury.Damage;
+            //Update pain
+            Body.AdjustPain(injury.PainPerDamage * injury.Damage);
             //Check for destruction
             if (Health <= 0)
             {
@@ -69,6 +71,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
             if (injury.Unique)
             {
                 injuries.Add(injury);
+                //Update the damage overlays
+                UpdateDamageOverlays(Body.Parent.Renderable);
                 return;
             }
             //Check stacking
@@ -77,10 +81,13 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
                 if (!injuries[i].Unique && injuries.GetType() == injury.GetType())
                 {
                     injuries[i].Damage += injury.Damage;
+                    //Update the damage overlays
+                    UpdateDamageOverlays(Body.Parent.Renderable);
                     return;
                 }
             }
             injuries.Add(injury);
+            //Update the damage overlays
             UpdateDamageOverlays(Body.Parent.Renderable);
         }
 
@@ -102,9 +109,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
 
         //Called when the organ is destroyed
         public virtual void OnDestruction()
-        {
-            Log.WriteLine($"{this} was destroyed!");
-        }
+        { }
 
         public virtual void AddOverlay(Renderable renderable)
         { }

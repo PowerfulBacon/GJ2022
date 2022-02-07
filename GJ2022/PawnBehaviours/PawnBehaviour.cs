@@ -78,8 +78,8 @@ namespace GJ2022.PawnBehaviours
                 currentAction.OnActionCancel(this);
             }
             currentAction = forcedAction;
-            currentAction.OnActionStart(this);
-            currentAction.PerformProcess(this);
+            currentAction?.OnActionStart(this);
+            currentAction?.PerformProcess(this);
         }
 
         public void PauseActionFor(PawnAction action, double time)

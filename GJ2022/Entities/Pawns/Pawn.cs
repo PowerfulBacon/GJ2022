@@ -10,6 +10,7 @@ using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns
@@ -281,7 +282,19 @@ namespace GJ2022.Entities.Pawns
         {
             //Process body
             PawnBody.ProcessBody(deltaTime);
+            //Draw debug lines
             DrawHelpfulLine();
+            //If dead
+            if (Dead)
+                return;
+            //If we are in crit don't bother with this stuff
+            if (InCrit)
+            {
+                //Update animation
+                Renderable.UpdateRotation((float)(Math.Sin(GLFW.Glfw.Time) * 0.3f + Math.PI * 0.5f));
+                //End procesing here
+                return;
+            }
             //Hazard reaction, prepare to panic
             HazardReact();
             //Idle behaviour

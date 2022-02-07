@@ -44,6 +44,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
+            if (parent.Owner.InCrit)
+                return false;
             if (World.HasAreaInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40, (Area area) =>
             {
                 if (unreachablePositions.Contains(area.Position))

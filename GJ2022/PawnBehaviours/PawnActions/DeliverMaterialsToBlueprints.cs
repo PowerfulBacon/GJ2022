@@ -37,6 +37,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
+            if (parent.Owner.InCrit)
+                return false;
             return PawnControllerSystem.QueuedBlueprints.Count > 0;
         }
 
