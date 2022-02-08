@@ -10,6 +10,7 @@ using System.Linq;
 namespace GJ2022.Subsystems
 {
 
+    //MAJOR TODO: MOVE ATMOS CHANGING TO HERE
     /// <summary>
     /// When a turf is created we need to check all the surrounding tiles to see if they are enclosed.
     /// When a turf is destoyed, we need to merge all atmospheres that were touching it

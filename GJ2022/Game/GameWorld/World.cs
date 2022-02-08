@@ -15,6 +15,17 @@ namespace GJ2022.Game.GameWorld
     public static class World
     {
 
+        private class IntegerReference
+        {
+
+            public IntegerReference(int value)
+            {
+                Value = value;
+            }
+
+            public int Value { get; set; } = 0;
+        }
+
         //Dictionary of turfs in the world
         public static PositionBasedBinaryList<Turf> WorldTurfs = new PositionBasedBinaryList<Turf>();
 
@@ -35,7 +46,7 @@ namespace GJ2022.Game.GameWorld
         public static PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
 
         //An integer storing the amount of atmospheric blocking things at this location
-        public static PositionBasedBinaryList<int> AtmosphericBlockers = new PositionBasedBinaryList<int>();
+        private static PositionBasedBinaryList<IntegerReference> AtmosphericBlockers = new PositionBasedBinaryList<IntegerReference>();
 
         //======================
         // In range detectors
@@ -167,7 +178,33 @@ namespace GJ2022.Game.GameWorld
         // Atmospheric Blockers
         //======================
 
-        public static 
+        public static void AddAtmosphericBlocker(int x, int y)
+        {
+            IntegerReference reference = AtmosphericBlockers.Get(x, y);
+            if (reference == null)
+                AtmosphericBlockers.Add(x, y, new IntegerReference(1));
+            else
+                reference.Value++;
+        }
+
+        public static void RemoveAtmosphericBlock(int x, int y)
+        {
+            IntegerReference reference = AtmosphericBlockers.Get(x, y);
+            if (reference == null)
+                return;
+            reference.Value --;
+            if (reference.Value == 0)
+                AtmosphericBlockers.Remove(x, y);
+        }
+
+        //======================
+        // Atmospheric Flow
+        //======================
+
+        public static bool AllowsAtmosphericFlow(int x, int y)
+        {
+            return AtmosphericBlockers.Get(x, y) != null;
+        }
 
         //======================
         // Pawns
@@ -382,16 +419,6 @@ namespace GJ2022.Game.GameWorld
             if (!IsSolid(x - 1, y))
                 return new Vector<float>(x - 1, y + 1);
             return null;
-        }
-
-        //======================
-        // Atmospheric Flow
-        //======================
-
-        public static bool AllowsAtmosphericFlow(int x, int y)
-        {
-            Turf locatedTurf = GetTurf(x, y);
-            return locatedTurf == null || locatedTurf.AllowAtmosphericFlow;
         }
 
         //======================

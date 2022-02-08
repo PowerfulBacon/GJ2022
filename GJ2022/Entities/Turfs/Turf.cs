@@ -43,6 +43,9 @@ namespace GJ2022.Entities.Turfs
                 AtmosphericsSystem.Singleton.OnTurfChanged(oldTurf, this);
             //Set the direction
             Direction = Directions.NONE;
+            //Atmos flow blocking
+            if (AllowAtmosphericFlow)
+                World.AddAtmosphericBlocker(x, y);
 #if ATMOS_DEBUG
             //Create the atmos indicator
             attachedTextObject = new Rendering.Text.TextObject("0", Colour.White, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
@@ -53,6 +56,9 @@ namespace GJ2022.Entities.Turfs
         //Set destroyed
         public bool Destroy(bool changed)
         {
+            //Atmos flow blocking
+            if (AllowAtmosphericFlow)
+                World.RemoveAtmosphericBlock(X, Y);
             //If we weren't changed, destroy the turf
             if (!changed)
                 AtmosphericsSystem.Singleton.OnTurfDestroyed(this);
