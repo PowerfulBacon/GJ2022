@@ -12,6 +12,7 @@ namespace GJ2022.Entities.Structures
 
         public Airlock(Vector<float> position) : base(position, Layers.LAYER_STRUCTURE)
         {
+
         }
 
     }

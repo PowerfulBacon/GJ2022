@@ -34,6 +34,9 @@ namespace GJ2022.Game.GameWorld
         //Dictionary containing all mobs in the world
         public static PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
 
+        //An integer storing the amount of atmospheric blocking things at this location
+        public static PositionBasedBinaryList<int> AtmosphericBlockers = new PositionBasedBinaryList<int>();
+
         //======================
         // In range detectors
         //======================
@@ -159,6 +162,12 @@ namespace GJ2022.Game.GameWorld
             }
             return output;
         }
+
+        //======================
+        // Atmospheric Blockers
+        //======================
+
+        public static 
 
         //======================
         // Pawns
