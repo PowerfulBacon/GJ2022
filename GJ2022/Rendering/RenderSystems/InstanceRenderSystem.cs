@@ -61,7 +61,7 @@ namespace GJ2022.Rendering.RenderSystems
                     //Directional shift
                     int directionalShift = Direction.GetDirectionalShift(targetItem.GetRendererTextureData().DirectionalMode, targetItem.Direction);
                     indexX = (indexX + directionalShift) % (texData.FileWidth / texData.Width);
-                    //TODO: Don't assume that dirs can't go across 2 lines lol!
+                    //TODO: Don't assume that dirs can't go across 3 lines lol!
                     indexY = indexY + ((texData.IndexX + directionalShift) >= (texData.FileWidth / texData.Width) ? 1 : 0);
                     return new float[] {
                         indexX,
