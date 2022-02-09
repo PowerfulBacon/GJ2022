@@ -102,7 +102,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
             Body.Hearing -= HearingFactor;
             Body.Vision -= VisionFactor;
             //Remove overlays
-            if(Body.Parent.Renderable != null)
+            if (Body.Parent.Renderable != null)
                 RemoveOverlay(Body.Parent.Renderable);
             return true;
         }
@@ -118,6 +118,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         { }
 
         public virtual void UpdateDamageOverlays(Renderable renderable)
+        { }
+
+        public virtual void UpdateCoveredOverlays(Renderable renderable, ClothingFlags oldFlags, ClothingFlags newFlags)
         { }
 
         public bool IsCovered(BodyCoverFlags coveredFlags)

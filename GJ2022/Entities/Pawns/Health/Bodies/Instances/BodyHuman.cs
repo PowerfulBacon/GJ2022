@@ -1,11 +1,4 @@
-﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
-using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs;
-using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Felinid;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs;
 
 namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 {

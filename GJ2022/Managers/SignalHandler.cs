@@ -28,7 +28,7 @@ namespace GJ2022.Managers
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_SIGNALS, () =>
             {
                 if (registeredSignals.ContainsKey(target) && registeredSignals[target].ContainsKey(signal))
-                    foreach(SignalDelegate registeredSignal in registeredSignals[target][signal])
+                    foreach (SignalDelegate registeredSignal in registeredSignals[target][signal])
                         result = registeredSignal.Invoke(target, data);
                 return true;
             });
@@ -95,7 +95,7 @@ namespace GJ2022.Managers
             {
                 if (!registeredSignals.ContainsKey(target))
                     registeredSignals.Add(target, new Dictionary<Signal, List<SignalDelegate>>());
-                if(!registeredSignals[target].ContainsKey(signal))
+                if (!registeredSignals[target].ContainsKey(signal))
                     registeredSignals[target].Add(signal, new List<SignalDelegate>());
                 registeredSignals[target][signal].Add(callback);
                 return true;

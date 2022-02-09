@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GJ2022.Entities.Pawns.Health.Bodies;
-using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Bionic;
+﻿using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Bionic;
 using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Pawns.Mobs.Humans

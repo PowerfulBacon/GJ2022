@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace GJ2022.Subsystems
 {
@@ -70,7 +69,7 @@ namespace GJ2022.Subsystems
                 {
                     lock (targetQueue)
                     {
-                        
+
                         //Check length
                         if (targetQueue.Count == 0)
                         {
@@ -104,7 +103,7 @@ namespace GJ2022.Subsystems
                     Log.WriteLine(e, LogType.ERROR);
                 }
             }
-            
+
         }
 
         protected override void AfterWorldInit()

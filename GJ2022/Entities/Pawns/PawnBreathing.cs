@@ -2,11 +2,6 @@
 using GJ2022.Atmospherics.Gasses;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Pawns
 {

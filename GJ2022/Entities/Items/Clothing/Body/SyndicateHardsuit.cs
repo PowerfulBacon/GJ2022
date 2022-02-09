@@ -60,7 +60,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
             //Check for pressure hazard
             bool shouldHelmet = (atmosphere == null || (pawn.PawnBody.InsertedLimbs.ContainsKey(Pawns.Health.BodySlots.SLOT_HEAD) && (atmosphere.KiloPascalPressure < pawn.PawnBody.InsertedLimbs[Pawns.Health.BodySlots.SLOT_HEAD].LowPressureDamage + 20 || atmosphere.KiloPascalPressure > pawn.PawnBody.InsertedLimbs[Pawns.Health.BodySlots.SLOT_HEAD].HighPressureDamage - 20)));
             //Put up the helmet
-            if(shouldHelmet)
+            if (shouldHelmet)
                 DeployHelmet(pawn);
             //Take down the helmet
             else

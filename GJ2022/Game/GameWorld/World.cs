@@ -192,7 +192,7 @@ namespace GJ2022.Game.GameWorld
             IntegerReference reference = AtmosphericBlockers.Get(x, y);
             if (reference == null)
                 return;
-            reference.Value --;
+            reference.Value--;
             if (reference.Value == 0)
                 AtmosphericBlockers.Remove(x, y);
         }

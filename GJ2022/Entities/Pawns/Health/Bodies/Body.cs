@@ -7,7 +7,6 @@ using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
-using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.Helpers;
 using System;
 using System.Collections.Generic;
@@ -56,11 +55,11 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         public float Pain { get; internal set; } = 0;
 
         //Stats
-        public float Conciousness   { get; internal set; } = 0;
-        public float Movement       { get; internal set; } = 0;
-        public float Manipulation   { get; internal set; } = 0;
-        public float Vision         { get; internal set; } = 0;
-        public float Hearing        { get; internal set; } = 0;
+        public float Conciousness { get; internal set; } = 0;
+        public float Movement { get; internal set; } = 0;
+        public float Manipulation { get; internal set; } = 0;
+        public float Vision { get; internal set; } = 0;
+        public float Hearing { get; internal set; } = 0;
 
         //Does this body use gender?
         //Robots and constructs shouldn't have a gender, while dogs and people should
@@ -146,7 +145,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                     //Apply low pressure damage proportionally
                     //4 damage per second at 0 pressure
                     //1 damage per second at 20 pressure
-                    if(!limbProtected)
+                    if (!limbProtected)
                         limb.AddInjury(new Crush(deltaTime * GetLowPressureDamageMultiplier(4, limb.LowPressureDamage, pressure)));
                 }
                 else if (limb.HighPressureDamage < pressure)
@@ -161,7 +160,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                             break;
                         }
                     }
-                    if(!limbProtected)
+                    if (!limbProtected)
                         //Apply high pressure damage
                         //TODO
                         limb.AddInjury(new Crush(deltaTime * (float)Math.Sqrt(pressure - limb.HighPressureDamage)));
@@ -256,12 +255,20 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         }
 
         /// <summary>
-        /// TODO
         /// Update limb overlays to account for new cover flags
         /// </summary>
-        public void UpdateLimbOverlays(BodyCoverFlags oldCoverFlags, ClothingFlags oldClothingFlags)
+        public void UpdateLimbOverlays(ClothingFlags oldFlags, ClothingFlags newFlags)
         {
-
+            foreach (Limb limb in InsertedLimbs.Values)
+            {
+                //Update the limb
+                limb.UpdateCoveredOverlays(Parent.Renderable, oldFlags, newFlags);
+                //Update limbs children
+                foreach (Organ organ in limb.containedOrgans)
+                {
+                    organ.UpdateCoveredOverlays(Parent.Renderable, oldFlags, newFlags);
+                }
+            }
         }
 
         //TODO: Put these in a txt data file or at least in its own .cs file

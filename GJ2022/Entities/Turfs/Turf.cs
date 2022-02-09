@@ -10,7 +10,6 @@ using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Linq;
-using System.Threading;
 
 namespace GJ2022.Entities.Turfs
 {
@@ -94,7 +93,7 @@ namespace GJ2022.Entities.Turfs
                 {
                     foreach (PressurisedGas gas in block.ContainedAtmosphere.AtmosphericContents.Values.ToList())
                     {
-                        if(gas != null && !Renderable.HasOverlay($"atmosphere_{gas.gas}"))
+                        if (gas != null && !Renderable.HasOverlay($"atmosphere_{gas.gas}"))
                             Renderable.AddOverlay($"atmosphere_{gas.gas}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
                     }
                 }
