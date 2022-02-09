@@ -266,6 +266,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 return;
             foreach (Limb limb in InsertedLimbs.Values)
             {
+                //Nothing inserted in this slot.
+                if (limb == null)
+                    continue;
                 //Update the limb
                 limb.UpdateCoveredOverlays(renderable, oldFlags, newFlags);
                 //Update limbs children
