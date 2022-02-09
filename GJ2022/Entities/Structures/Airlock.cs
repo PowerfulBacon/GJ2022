@@ -12,7 +12,7 @@ namespace GJ2022.Entities.Structures
 
         public Airlock(Vector<float> position) : base(position, Layers.LAYER_STRUCTURE)
         {
-
+            World.AddAtmosphericBlocker((int)position[0], (int)position[1]);
         }
 
     }

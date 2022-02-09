@@ -35,16 +35,16 @@ namespace GJ2022.Entities.Turfs
             //Set the new turf
             oldTurf?.Destroy(true);
             World.SetTurf(x, y, this);
-            //TEMP:
-            if (oldTurf == null)
-                AtmosphericsSystem.Singleton.OnTurfCreated(this);
-            else
-                AtmosphericsSystem.Singleton.OnTurfChanged(oldTurf, this);
             //Set the direction
             Direction = Directions.NONE;
             //Atmos flow blocking
             if (AllowAtmosphericFlow)
-                World.AddAtmosphericBlocker(x, y);
+                World.AddAtmosphericBlocker(x, y, false);
+            //Tell the atmos system a turf was created / changed at this location
+            if (oldTurf == null)
+                AtmosphericsSystem.Singleton.OnTurfCreated(this);
+            else
+                AtmosphericsSystem.Singleton.OnTurfChanged(oldTurf, this);
 #if ATMOS_DEBUG
             //Create the atmos indicator
             attachedTextObject = new Rendering.Text.TextObject("0", Colour.White, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
@@ -57,7 +57,7 @@ namespace GJ2022.Entities.Turfs
         {
             //Atmos flow blocking
             if (AllowAtmosphericFlow)
-                World.RemoveAtmosphericBlock(X, Y);
+                World.RemoveAtmosphericBlock(X, Y, false);
             //If we weren't changed, destroy the turf
             if (!changed)
                 AtmosphericsSystem.Singleton.OnTurfDestroyed(this);

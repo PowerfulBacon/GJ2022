@@ -6,6 +6,7 @@ using GJ2022.Entities.Markers;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Structures;
 using GJ2022.Entities.Turfs;
+using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
 
@@ -178,23 +179,31 @@ namespace GJ2022.Game.GameWorld
         // Atmospheric Blockers
         //======================
 
-        public static void AddAtmosphericBlocker(int x, int y)
+        public static void AddAtmosphericBlocker(int x, int y, bool updateAtmos = true)
         {
             IntegerReference reference = AtmosphericBlockers.Get(x, y);
             if (reference == null)
+            {
                 AtmosphericBlockers.Add(x, y, new IntegerReference(1));
+                if (updateAtmos)
+                    AtmosphericsSystem.Singleton.OnAtmosBlockingChange(x, y, true);
+            }
             else
                 reference.Value++;
         }
 
-        public static void RemoveAtmosphericBlock(int x, int y)
+        public static void RemoveAtmosphericBlock(int x, int y, bool updateAtmos = true)
         {
             IntegerReference reference = AtmosphericBlockers.Get(x, y);
             if (reference == null)
                 return;
             reference.Value--;
             if (reference.Value == 0)
+            {
                 AtmosphericBlockers.Remove(x, y);
+                if (updateAtmos)
+                    AtmosphericsSystem.Singleton.OnAtmosBlockingChange(x, y, false);
+            }
         }
 
         //======================
