@@ -2,6 +2,7 @@
 using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Injuries;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts
@@ -58,10 +59,18 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         //TODO: Make this apply damage and the special effects of injuries
         public void AddInjury(Injury injury)
         {
+            float actualDamage = Math.Min(injury.Damage, Health);
             //Calculate new damage
             Health -= injury.Damage;
             //Update pain
             Body.AdjustPain(injury.PainPerDamage * injury.Damage);
+            //Adjust stats
+            float lostProportion = actualDamage / MaxHealth;
+            Body.Conciousness -= ConciousnessFactor * lostProportion;
+            Body.Manipulation -= ManipulationFactor * lostProportion;
+            Body.Movement -= MovementFactor * lostProportion;
+            Body.Hearing -= HearingFactor * lostProportion;
+            Body.Vision -= VisionFactor * lostProportion;
             //Check for destruction
             if (Health <= 0)
             {
@@ -95,12 +104,12 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         public virtual bool Remove()
         {
             //Remove the bodies overall stats
-            //TODO: Account for damage
-            Body.Conciousness -= ConciousnessFactor;
-            Body.Manipulation -= ManipulationFactor;
-            Body.Movement -= MovementFactor;
-            Body.Hearing -= HearingFactor;
-            Body.Vision -= VisionFactor;
+            float remainingProportionalFactor = Health / MaxHealth;
+            Body.Conciousness -= ConciousnessFactor * remainingProportionalFactor;
+            Body.Manipulation -= ManipulationFactor * remainingProportionalFactor;
+            Body.Movement -= MovementFactor * remainingProportionalFactor;
+            Body.Hearing -= HearingFactor * remainingProportionalFactor;
+            Body.Vision -= VisionFactor * remainingProportionalFactor;
             //Remove overlays
             if (Body.Parent.Renderable != null)
                 RemoveOverlay(Body.Parent.Renderable);

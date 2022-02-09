@@ -85,6 +85,8 @@ namespace GJ2022.Entities.Turfs
 
         public virtual void OnAtmopshereContentsChanged(AtmosphericBlock block)
         {
+            if (Renderable == null)
+                return;
             //check if overlays changed
             lock (Renderable)
             {
