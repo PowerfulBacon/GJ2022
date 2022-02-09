@@ -1,5 +1,7 @@
 ﻿using GJ2022.Atmospherics.Gasses;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.Pawns;
+using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -56,6 +58,11 @@ namespace GJ2022.Entities.Structures
             {
                 Destroy();
                 return;
+            }
+            //Hurt pawns
+            foreach (Pawn pawn in World.GetPawns(turf.X, turf.Y))
+            {
+                pawn.PawnBody.ApplyDamageRandomly(new Burn(0.1f * deltaTime));
             }
             //Consume oxygen
             turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, Math.Max(molesOfOxygenLeft - (OXYGEN_BURN_RATE * deltaTime), 0.0f));

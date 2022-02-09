@@ -4,6 +4,7 @@ using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns.Health.Bodyparts;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
+using GJ2022.Entities.Pawns.Health.Injuries;
 using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
@@ -277,6 +278,30 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                     organ.UpdateCoveredOverlays(renderable, oldFlags, newFlags);
                 }
             }
+        }
+
+        /// <summary>
+        /// Applies an injury to a random bodypart.
+        /// </summary>
+        /// <param name="injury"></param>
+        public bool ApplyDamageRandomly(Injury injury)
+        {
+            Limb selectedLimb = GetRandomWorkingLimb();
+            if (selectedLimb == null)
+                return false;
+            selectedLimb.AddInjury(injury);
+            return true;
+        }
+
+        private Limb GetRandomWorkingLimb()
+        {
+            List<Limb> limbs = new List<Limb>();
+            foreach (Limb limb in InsertedLimbs.Values)
+                if (limb != null && limb.Health > 0)
+                    limbs.Add(limb);
+            if (limbs.Count == 0)
+                return null;
+            return ListPicker.Pick(limbs);
         }
 
         //TODO: Put these in a txt data file or at least in its own .cs file
