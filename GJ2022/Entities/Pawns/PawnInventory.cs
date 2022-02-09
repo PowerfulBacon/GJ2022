@@ -39,7 +39,7 @@ namespace GJ2022.Entities.Pawns
                 //Update bodypart hiding
                 ClothingFlags oldFlags = HiddenBodypartsFlags;
                 HiddenBodypartsFlags |= item.ClothingFlags;
-                PawnBody.UpdateLimbOverlays(oldFlags, HiddenBodypartsFlags);
+                PawnBody.UpdateLimbOverlays(Renderable, oldFlags, HiddenBodypartsFlags);
                 return true;
             });
         }
