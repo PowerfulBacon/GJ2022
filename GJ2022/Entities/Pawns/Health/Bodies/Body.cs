@@ -7,6 +7,7 @@ using GJ2022.Entities.Pawns.Health.Bodyparts.Organs;
 using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
+using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.Helpers;
 using System;
 using System.Collections.Generic;
@@ -67,6 +68,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         //Gender of the mob
         public Genders Gender { get; }
+
+        public virtual bool SupportsLimbOverlays { get; } = false;
 
         /// <summary>
         /// Setup the body and its internal atmosphere
@@ -257,16 +260,18 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         /// <summary>
         /// Update limb overlays to account for new cover flags
         /// </summary>
-        public void UpdateLimbOverlays(ClothingFlags oldFlags, ClothingFlags newFlags)
+        public void UpdateLimbOverlays(Renderable renderable, ClothingFlags oldFlags, ClothingFlags newFlags)
         {
+            if (!SupportsLimbOverlays)
+                return;
             foreach (Limb limb in InsertedLimbs.Values)
             {
                 //Update the limb
-                limb.UpdateCoveredOverlays(Parent.Renderable, oldFlags, newFlags);
+                limb.UpdateCoveredOverlays(renderable, oldFlags, newFlags);
                 //Update limbs children
                 foreach (Organ organ in limb.containedOrgans)
                 {
-                    organ.UpdateCoveredOverlays(Parent.Renderable, oldFlags, newFlags);
+                    organ.UpdateCoveredOverlays(renderable, oldFlags, newFlags);
                 }
             }
         }

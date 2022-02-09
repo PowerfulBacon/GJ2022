@@ -44,6 +44,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
 
         public override void AddOverlay(Renderable renderable)
         {
+            if (!Body.SupportsLimbOverlays)
+                return;
             string gender_extension = IsGendered ? $"_{Body.GetGenderText()}" : "";
             renderable.AddOverlay($"head", new StandardRenderable($"human_head{gender_extension}"), Layers.LAYER_PAWN + 0.01f);
             //Add hair if this head uses hair and doesn't have hair hidden.
@@ -53,12 +55,16 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
 
         public override void RemoveOverlay(Renderable renderable)
         {
+            if (!Body.SupportsLimbOverlays)
+                return;
             renderable.RemoveOvelay($"head");
             renderable.RemoveOvelay($"hair");
         }
 
         public override void UpdateDamageOverlays(Renderable renderable)
         {
+            if (!Body.SupportsLimbOverlays)
+                return;
             if (renderable.HasOverlay($"damhead"))
                 renderable.RemoveOvelay($"damhead");
             if (Health <= 0)

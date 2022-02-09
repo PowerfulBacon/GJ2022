@@ -17,6 +17,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 
         public override bool HasGender => true;
 
+        public override bool SupportsLimbOverlays => true;
+
         protected override void CreateDefaultBodyparts()
         {
             new Bodyparts.Limbs.Limbs.BodyHuman(this, Health.BodySlots.SLOT_BODY);

@@ -13,19 +13,5 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Corgi
 
         public override LimbFlags DefaultLimbFlags => LimbFlags.CRITICAL_LIMB | LimbFlags.NO_INSERTION;
 
-        public override void AddOverlay(Renderable renderable)
-        {
-            return;
-        }
-
-        public override void RemoveOverlay(Renderable renderable)
-        {
-            return;
-        }
-
-        public override void UpdateDamageOverlays(Renderable renderable)
-        {
-            return;
-        }
     }
 }
