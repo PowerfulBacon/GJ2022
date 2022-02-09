@@ -1,5 +1,6 @@
 ﻿using GJ2022.Atmospherics;
 using GJ2022.Entities.Pawns.Health.Bodies;
+using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
 {
@@ -24,18 +25,20 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
             if (atmosphere == null)
             {
                 Body.internalAtmosphere.ClearGasses();
-                ProcessLungDamage();
                 return;
             }
             //Equalize gasses in lungs with the gasses in the atmosphere.
             Body.internalAtmosphere.Equalize(atmosphere);
-            ProcessLungDamage();
+            ProcessLungDamage(deltaTime, atmosphere);
         }
 
-        private void ProcessLungDamage()
+        private void ProcessLungDamage(float deltaTime, Atmosphere atmosphere)
         {
-            //TODO
-            //If the temperature is too extreme, take damage
+            //If the temperature is too extreme, take damage (60 degrees)
+            if (atmosphere.KelvinTemperature > AtmosphericConstants.TEMPERATURE_C0 + 60)
+            {
+                AddInjury(new Burn(0.1f * deltaTime));
+            }
         }
 
     }
