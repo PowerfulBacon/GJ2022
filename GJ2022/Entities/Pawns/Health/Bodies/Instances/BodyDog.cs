@@ -16,6 +16,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 
         public override bool HasGender => true;
 
+        public override float MaximumBloodVolume => 3000;
+
+        protected override float DefaultBloodProportion => 2000f / 3000f;
+
         protected override void CreateDefaultBodyparts()
         {
             new BodyCorgi(this, Health.BodySlots.SLOT_BODY);

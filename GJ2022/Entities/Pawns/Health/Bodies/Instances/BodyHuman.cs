@@ -19,6 +19,10 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 
         public override bool SupportsLimbOverlays => true;
 
+        public override float MaximumBloodVolume => 6500;
+
+        protected override float DefaultBloodProportion => 4500f / 6500f;
+
         protected override void CreateDefaultBodyparts()
         {
             new Bodyparts.Limbs.Limbs.BodyHuman(this, Health.BodySlots.SLOT_BODY);

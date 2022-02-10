@@ -70,7 +70,32 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         //Gender of the mob
         public Genders Gender { get; }
 
+        //Does the body support limb overlays?
         public virtual bool SupportsLimbOverlays { get; } = false;
+
+        //Does the body require blood?
+        public virtual bool RequiresBlood { get; } = true;
+
+        //The blood efficiency
+        //Based on the amount of blood in the body. As a pawn bleeds, the blood efficiency
+        //will decrease until there is not enough blood to carry enough oxygen to the brain.
+        public float BloodEfficiency { get; private set; } = 1.0f;
+
+        //The maximum volume of blood in this body
+        //In ml
+        public abstract float MaximumBloodVolume { get; }
+
+        //Amount of blood currently in the body
+        public float BloodVolume { get; }
+
+        //The proportion of blood that is considered safe, if blood volume > MaximumBloodVolume * DefaultBloodProportion, efficiency will be 1.
+        protected abstract float DefaultBloodProportion { get; }
+
+        //Rate at which bleeding naturally fixes itself in ml per second per second
+        public abstract float BleedFixRate { get; }
+
+        //Rate at which we are currently bleeding, in ml per second.
+        public float BleedRate { get; private set; } = 0;
 
         /// <summary>
         /// Setup the body and its internal atmosphere
@@ -96,6 +121,11 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             else
             {
                 Gender = Genders.AGENDER;
+            }
+            //Set the blood
+            if (RequiresBlood)
+            {
+                BloodVolume = MaximumBloodVolume * DefaultBloodProportion;
             }
         }
 
