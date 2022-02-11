@@ -155,7 +155,6 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public void ProcessBody(float deltaTime)
         {
-            Log.WriteLine($"Bleeding at a rate of -{BleedRate}ml/s, Current blood: {BloodVolume}, Efficiency: {BloodEfficiency}");
             //Process bleeding
             ProcessBleeding(deltaTime);
             //Process pressure damage (TODO: If not protected via pressure resistant clothing)
