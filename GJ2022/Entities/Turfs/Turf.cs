@@ -38,7 +38,7 @@ namespace GJ2022.Entities.Turfs
             //Set the direction
             Direction = Directions.NONE;
             //Atmos flow blocking
-            if (AllowAtmosphericFlow)
+            if (!AllowAtmosphericFlow)
                 World.AddAtmosphericBlocker(x, y, false);
             //Tell the atmos system a turf was created / changed at this location
             if (oldTurf == null)
@@ -56,7 +56,7 @@ namespace GJ2022.Entities.Turfs
         public bool Destroy(bool changed)
         {
             //Atmos flow blocking
-            if (AllowAtmosphericFlow)
+            if (!AllowAtmosphericFlow)
                 World.RemoveAtmosphericBlock(X, Y, false);
             //If we weren't changed, destroy the turf
             if (!changed)

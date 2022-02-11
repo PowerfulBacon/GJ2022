@@ -233,7 +233,7 @@ namespace GJ2022.Entities.Pawns
                     Position,
                     targetDestinationPosition,
                     //If we have an internal tank, allow pathing through airless areas
-                    cachedHazardProtection | (HasInternalTank() ? PawnHazards.HAZARD_BREATH : PawnHazards.NONE),
+                    cachedHazardProtection | (HasInternalTank() ? PawnHazards.HAZARD_BREATH : PawnHazards.NONE) | (IsPressureProtected() ? PawnHazards.HAZARD_LOW_PRESSURE : PawnHazards.NONE),
                     (Path path) =>
                     {
                         followingPath = path;

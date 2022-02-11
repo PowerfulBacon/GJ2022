@@ -90,8 +90,13 @@ namespace GJ2022.Subsystems
                 request.failedDelegate?.Invoke();
                 return;
             }
-            //If the start has no air and the end does, allow breath pathfinding
+            //If the start has no pressure and the end does, allow low-pressure pathfinding
             Atmosphere startAtmos = World.GetTurf(request.Start[0], request.Start[1])?.Atmosphere?.ContainedAtmosphere;
+            if (startAtmos == null || startAtmos.KiloPascalPressure < 50)
+            {
+                request.ignoringHazards |= PawnHazards.HAZARD_LOW_PRESSURE;
+            }
+            //If the start has no air and the end does, allow breath pathfinding
             if (startAtmos == null || startAtmos.GetMoles(Oxygen.Singleton) <= 0.02f)
             {
                 request.ignoringHazards |= PawnHazards.HAZARD_BREATH;
@@ -240,7 +245,16 @@ namespace GJ2022.Subsystems
 
         private bool HazardCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
         {
-            return GravityCheck(ignoringHazards, position, source, direction) && BreathCheck(ignoringHazards, position, source, direction);
+            return GravityCheck(ignoringHazards, position, source, direction) && BreathCheck(ignoringHazards, position, source, direction) && LowPressureCheck(ignoringHazards, position, source, direction);
+        }
+
+        private bool LowPressureCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
+        {
+            //Ignoring low pressure
+            if ((ignoringHazards & PawnHazards.HAZARD_LOW_PRESSURE) != 0)
+                return true;
+            //Check for pressure (50 should be safe)
+            return World.GetTurf(position[0], position[1])?.Atmosphere?.ContainedAtmosphere?.KiloPascalPressure > 50;
         }
 
         private bool BreathCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)

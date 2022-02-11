@@ -212,7 +212,7 @@ namespace GJ2022.Game.GameWorld
 
         public static bool AllowsAtmosphericFlow(int x, int y)
         {
-            return AtmosphericBlockers.Get(x, y) != null;
+            return AtmosphericBlockers.Get(x, y) == null;
         }
 
         //======================

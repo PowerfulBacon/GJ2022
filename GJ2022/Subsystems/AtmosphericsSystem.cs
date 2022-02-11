@@ -51,6 +51,9 @@ namespace GJ2022.Subsystems
         //Turf => null
         public void OnTurfDestroyed(Turf destroyedTurf)
         {
+            //Do nothing if nothing changed.
+            if (!destroyedTurf.AllowAtmosphericFlow && !World.AllowsAtmosphericFlow(destroyedTurf.X, destroyedTurf.Y))
+                return;
             List<AtmosphericBlock> blocksToClear = new List<AtmosphericBlock>();
             //If we didn't allow atmospheric flow, collect all surrounding atmospheres and merge them with null
             if (!destroyedTurf.AllowAtmosphericFlow)
@@ -74,9 +77,9 @@ namespace GJ2022.Subsystems
                 block.MergeAtmosphericBlockInto(null, new Vector<int>(destroyedTurf.X, destroyedTurf.Y));
         }
 
-        public void OnAtmosBlockingChange(int x, int y, bool newValue)
+        public void OnAtmosBlockingChange(int x, int y, bool flowBlocked)
         {
-            if (newValue)
+            if (!flowBlocked)
             {
                 //Atmos flow allowed -> disallowed
                 //Atmos flow disallowed -> allowed
@@ -157,14 +160,16 @@ namespace GJ2022.Subsystems
         //Turf => Turf
         public void OnTurfChanged(Turf oldTurf, Turf newTurf)
         {
+            //atmos flow is allowed in the new location if the new turf allows flow and the world allows flow
+            bool newAtmosphericFlowAllowed = newTurf.AllowAtmosphericFlow && World.AllowsAtmosphericFlow(newTurf.X, newTurf.Y);
             //Atmosflow allowed => allowed - inherit the old turfs atmosphere
-            if (oldTurf.AllowAtmosphericFlow && newTurf.AllowAtmosphericFlow)
+            if (oldTurf.AllowAtmosphericFlow && newAtmosphericFlowAllowed)
             {
                 //Swap the old turf for the new turf in the atmosphere list
                 oldTurf.Atmosphere?.ChangeTurf(oldTurf, newTurf);
             }
             //Atmosflow allowed => disallowed - Check to see if we need to split the atmosphere area in half (Add surrounding tiles to processing queue)
-            else if (oldTurf.AllowAtmosphericFlow && !newTurf.AllowAtmosphericFlow)
+            else if (oldTurf.AllowAtmosphericFlow && !newAtmosphericFlowAllowed)
             {
                 //TODO: this one
                 //Set the atmosphere to be outdated
@@ -184,7 +189,7 @@ namespace GJ2022.Subsystems
             }
             //Atmosflow disallowed => allowed - Merge surrounding atmospheres
             //TODO: Investigate pressure sometimes dropping to 0
-            else if (!oldTurf.AllowAtmosphericFlow && newTurf.AllowAtmosphericFlow)
+            else if (!oldTurf.AllowAtmosphericFlow && newAtmosphericFlowAllowed)
             {
                 //Collect all surrounding atmospheres
                 List<AtmosphericBlock> blocksToMerge = new List<AtmosphericBlock>();
