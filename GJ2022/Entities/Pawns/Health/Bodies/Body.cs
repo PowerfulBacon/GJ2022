@@ -92,10 +92,11 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         protected abstract float DefaultBloodProportion { get; }
 
         //Rate at which bleeding naturally fixes itself in ml per second per second
+        //y=\frac{1}{2}ax^{2}+\frac{1}{2}x where BleedFixRate = a
         public abstract float BleedFixRate { get; }
 
         //Rate at which we are currently bleeding, in ml per second.
-        public float BleedRate { get; private set; } = 0;
+        public float BleedRate { get; private set; } = 100;
 
         /// <summary>
         /// Setup the body and its internal atmosphere
@@ -154,6 +155,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public void ProcessBody(float deltaTime)
         {
+            Log.WriteLine($"Bleeding at a rate of -{BleedRate}ml/s, Current blood: {BloodVolume}, Efficiency: {BloodEfficiency}");
             //Process bleeding
             ProcessBleeding(deltaTime);
             //Process pressure damage (TODO: If not protected via pressure resistant clothing)
@@ -320,7 +322,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             //Decrease blood
             BloodVolume = Math.Max(BloodVolume - BleedRate * deltaTime, 0.0f);
             //Update bleed efficiency
-            BloodEfficiency = Math.Min(BloodVolume / DefaultBloodProportion, 1.0f);
+            BloodEfficiency = Math.Min(BloodVolume / (DefaultBloodProportion * MaximumBloodVolume), 1.0f);
             //Update the bleed rate to account for bleeding healing over time
             BleedRate = Math.Max(BleedRate - BleedFixRate * deltaTime, 0.0f);
         }

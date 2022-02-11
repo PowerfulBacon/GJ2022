@@ -18,6 +18,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies.Instances
 
         public override float MaximumBloodVolume => 3000;
 
+        public override float BleedFixRate => 2f;
+
         protected override float DefaultBloodProportion => 2000f / 3000f;
 
         protected override void CreateDefaultBodyparts()

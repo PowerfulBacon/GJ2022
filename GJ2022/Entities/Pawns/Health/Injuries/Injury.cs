@@ -18,6 +18,9 @@
         //Amount of damage on this injury
         public float Damage { get; set; }
 
+        //Amount of bleeding caused by this injury
+        public abstract float Bleeding { get; }
+
         public Injury(float damage)
         {
             Damage = damage;

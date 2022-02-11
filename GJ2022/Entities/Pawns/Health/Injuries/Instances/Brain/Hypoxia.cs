@@ -12,5 +12,6 @@
 
         public override float PainPerDamage => 0;
 
+        public override float Bleeding => 0;
     }
 }

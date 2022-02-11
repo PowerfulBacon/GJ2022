@@ -20,6 +20,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs.Bionic
 
         public override float LowPressureDamage => 0;
 
+        public override bool HasBloodFlow => false;
+
         public override void AddOverlay(Renderable renderable)
         {
             string direction = InsertedSlot == BodySlots.SLOT_ARM_LEFT ? "left" : "right";

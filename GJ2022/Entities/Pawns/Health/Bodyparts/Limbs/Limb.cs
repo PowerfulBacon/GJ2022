@@ -33,6 +33,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs
         public abstract float HighPressureDamage { get; }
         public abstract float LowPressureDamage { get; }
 
+        //Can this limb bleed?
+        public virtual bool HasBloodFlow { get; } = true;
+
         public Limb(Body body, BodySlots slot) : base(body)
         {
             limbFlags = DefaultLimbFlags;

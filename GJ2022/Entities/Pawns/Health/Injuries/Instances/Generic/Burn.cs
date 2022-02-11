@@ -17,5 +17,8 @@ namespace GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic
         public override bool Unique => false;
 
         public override float PainPerDamage => 1.3f;
+
+        public override float Bleeding => 0;
+
     }
 }
