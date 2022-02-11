@@ -86,7 +86,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         public abstract float MaximumBloodVolume { get; }
 
         //Amount of blood currently in the body
-        public float BloodVolume { get; }
+        public float BloodVolume { get; private set; }
 
         //The proportion of blood that is considered safe, if blood volume > MaximumBloodVolume * DefaultBloodProportion, efficiency will be 1.
         protected abstract float DefaultBloodProportion { get; }
@@ -154,6 +154,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public void ProcessBody(float deltaTime)
         {
+            //Process bleeding
+            ProcessBleeding(deltaTime);
             //Process pressure damage (TODO: If not protected via pressure resistant clothing)
             Turf location = World.GetTurf((int)Parent.Position[0], (int)Parent.Position[1]);
             float pressure = location?.Atmosphere?.ContainedAtmosphere.KiloPascalPressure ?? 0;
@@ -308,6 +310,27 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                     organ.UpdateCoveredOverlays(renderable, oldFlags, newFlags);
                 }
             }
+        }
+
+        /// <summary>
+        /// Process blood loss as well as bleed healing
+        /// </summary>
+        private void ProcessBleeding(float deltaTime)
+        {
+            //Decrease blood
+            BloodVolume = Math.Max(BloodVolume - BleedRate * deltaTime, 0.0f);
+            //Update bleed efficiency
+            BloodEfficiency = Math.Min(BloodVolume / DefaultBloodProportion, 1.0f);
+            //Update the bleed rate to account for bleeding healing over time
+            BleedRate = Math.Max(BleedRate - BleedFixRate * deltaTime, 0.0f);
+        }
+
+        /// <summary>
+        /// Change the bleeding rate by the specified amount.
+        /// </summary>
+        public void AdjustBleed(float bleedRateDelta)
+        {
+            BleedRate += bleedRateDelta;
         }
 
         /// <summary>
