@@ -63,9 +63,20 @@ namespace GJ2022.DmiIconConversionUtility
             height = decoder.Height;
             width = decoder.Width;
 
+            Console.WriteLine($"PNG Image loaded with colour type: {decoder.ColorType}");
+            if (decoder.ColorType != PngColorType.RGBA)
+            {
+                Console.WriteLine("INVALID PNG COLOUR TYPE, ATTEMPTING TO CONVERT.");
+                decoder.TransformPaletteToRgb();
+                decoder.SaveTransformations();
+                Console.WriteLine($"PNG Image loaded with colour type: {decoder.ColorType}");
+            }
+
             //Read the image
             data = new byte[decoder.DecompressedSize];
             decoder.Decode(data);
+            //decoder.TransformSetBgr();
+
 
             //Begin reading DMI data.
             string dmi_data = decoder.GetPngText();
