@@ -63,7 +63,6 @@ namespace GJ2022.Rendering.RenderSystems
                     indexX = (indexX + directionalShift) % (texData.FileWidth / texData.Width);
                     //TODO: Don't assume that dirs can't go across 3 lines lol!
                     indexY = indexY + ((texData.IndexX + directionalShift) >= (texData.FileWidth / texData.Width) ? 1 : 0);
-                    Log.WriteLine($"{texData.IndexX}, {texData.IndexX + directionalShift} >= {texData.FileWidth / texData.Width}, y: {indexY}");
                     return new float[] {
                         indexX,
                         indexY,

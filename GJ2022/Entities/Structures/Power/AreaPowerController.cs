@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GJ2022.Entities.Items.StockParts.Cells;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
@@ -11,6 +12,9 @@ namespace GJ2022.Entities.Structures.Power
 {
     public class AreaPowerController : Structure
     {
+
+        //The cell inside this APC
+        private Cell insertedCell;
 
         public AreaPowerController(Vector<float> position, Directions direction) : base(position, Layers.LAYER_STRUCTURE)
         {
@@ -32,6 +36,7 @@ namespace GJ2022.Entities.Structures.Power
             }
             World.AddAreaPowerController((int)position[0], (int)position[1], this);
             Position += offset;
+            insertedCell = new StandardCell(this);
             UpdateOverlays();
         }
 
@@ -50,7 +55,7 @@ namespace GJ2022.Entities.Structures.Power
         public void UpdateOverlays()
         {
             Renderable.ClearOverlays();
-            Renderable.AddOverlay("power", new StandardRenderable("power.apco3-1"), Layers.LAYER_STRUCTURE + 0.01f);
+            Renderable.AddOverlay("power", new StandardRenderable("power.apco3-0"), Layers.LAYER_STRUCTURE + 0.01f);
         }
 
     }
