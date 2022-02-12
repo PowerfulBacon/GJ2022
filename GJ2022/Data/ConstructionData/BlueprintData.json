@@ -43,7 +43,8 @@
         "canister_debug",
         "canister_debug_h2",
         "fire",
-        "heavy_conduit_instant"
+        "heavy_conduit_instant",
+        "apc_instant"
       ]
     }
   ],
@@ -194,6 +195,13 @@
       "isRoom": true,
       "edge": "heavy_conduit_instant",
       "fill": "heavy_conduit_instant"
+    },
+    {
+      "id": "apc_instant",
+      "name": "Spawn APC",
+      "isRoom": false,
+      "edge": "apc_instant",
+      "fill": "apc_instant"
     }
   ],
   "blueprints": [
@@ -399,6 +407,15 @@
       "priority": 1,
       "blueprintType": "Blueprint",
       "texture": "power_cond_heavy.1-2-4-8",
+      "layer": 5,
+      "instant": true
+    },
+    {
+      "id": "apc_instant",
+      "created_type": "AreaPowerController",
+      "priority": 1,
+      "blueprintType": "BlueprintDirectional",
+      "texture": "power.apc0",
       "layer": 5,
       "instant": true
     }

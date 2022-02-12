@@ -143,6 +143,9 @@
     <None Update="Data\IconFiles\mutant_bodyparts.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\IconFiles\power.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\IconFiles\power_cond_heavy.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
