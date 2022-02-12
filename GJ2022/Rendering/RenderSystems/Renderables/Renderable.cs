@@ -30,6 +30,22 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public abstract void ContinueRendering();
         public abstract void PauseRendering();
 
+        public float Rotation { get; private set; } = 0;
+
+        public virtual void UpdateRotation(float rotation)
+        {
+            Rotation = rotation;
+            if (Overlays == null)
+                return;
+            lock (Overlays)
+            {
+                foreach (Renderable overlay in Overlays.Values)
+                {
+                    overlay.UpdateRotation(rotation);
+                }
+            }
+        }
+
         public Directions Direction { get; private set; } = Directions.NONE;
 
         public virtual void UpdateDirection(Directions direction)
@@ -55,10 +71,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         public void SetRenderableBatchIndex(object associatedSet, int index)
         {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                renderableBatchIndex[associatedSet] = index;
-            else
-                renderableBatchIndex.Add(associatedSet, index);
+            lock (renderableBatchIndex)
+            {
+                if (renderableBatchIndex.ContainsKey(associatedSet))
+                    renderableBatchIndex[associatedSet] = index;
+                else
+                    renderableBatchIndex.Add(associatedSet, index);
+            }
         }
 
         /// <summary>
@@ -67,10 +86,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         /// </summary>
         public int GetRenderableBatchIndex(object associatedSet)
         {
-            if (renderableBatchIndex.ContainsKey(associatedSet))
-                return renderableBatchIndex[associatedSet];
-            else
-                return -1;
+            lock (renderableBatchIndex)
+            {
+                if (renderableBatchIndex.ContainsKey(associatedSet))
+                    return renderableBatchIndex[associatedSet];
+                else
+                    return -1;
+            }
         }
 
         //Overlays
@@ -117,12 +139,19 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             }
         }
 
+        public bool HasOverlay(string id)
+        {
+            return Overlays?.ContainsKey(id) ?? false;
+        }
+
         public void AddOverlay(string id, Renderable overlay, float layer)
         {
             if (Overlays == null)
                 Overlays = new Dictionary<string, Renderable>();
             overlay.UpdatePosition(_overlayPosition);
             overlay.layerChangeHandler?.Invoke(layer);
+            overlay.UpdateDirection(Direction);
+            overlay.UpdateRotation(Rotation);
             lock (Overlays)
             {
                 Overlays.Add(id, overlay);
@@ -147,7 +176,11 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         {
             lock (Overlays)
             {
-                Overlays.Remove(id);
+                if (Overlays.ContainsKey(id))
+                {
+                    Overlays[id].StopRendering();
+                    Overlays.Remove(id);
+                }
             }
         }
 

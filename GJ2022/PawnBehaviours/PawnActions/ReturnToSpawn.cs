@@ -20,6 +20,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
+            if (parent.Owner.InCrit)
+                return false;
             return parent.Owner.Position.Length() > 20;
         }
 

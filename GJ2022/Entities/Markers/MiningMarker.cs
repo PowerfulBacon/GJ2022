@@ -10,7 +10,7 @@ namespace GJ2022.Entities.Markers
     public class MiningMarker : Marker
     {
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("mining_marker", true);
+        public override Renderable Renderable { get; set; } = new StandardRenderable("mining_marker", true);
 
         public MiningMarker(Vector<float> position) : base(position, Layers.LAYER_MARKER)
         {
@@ -18,15 +18,8 @@ namespace GJ2022.Entities.Markers
             if (Destroyed)
                 return;
             //Register signal
-            Asteroid mineral = World.GetTurf((int)Position[0], (int)Position[1]) as Asteroid;
-            if (mineral != null)
-                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, (object source, object[] parameters) =>
-                {
-                    if (Destroyed)
-                        return SignalHandler.SignalResponse.NONE;
-                    Destroy();
-                    return SignalHandler.SignalResponse.NONE;
-                });
+            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral)
+                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
         }
 
         public override bool IsValidPosition()
@@ -36,17 +29,23 @@ namespace GJ2022.Entities.Markers
 
         public override bool Destroy()
         {
-            Asteroid mineral = World.GetTurf((int)Position[0], (int)Position[1]) as Asteroid;
-            if (mineral != null && SignalHandler.HasSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED))
-                SignalHandler.UnregisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED);
+            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral && SignalHandler.HasSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED))
+                SignalHandler.UnregisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
             return base.Destroy();
+        }
+
+        private SignalHandler.SignalResponse DestroyMarker(object source, object[] parameters)
+        {
+            if (Destroyed)
+                return SignalHandler.SignalResponse.NONE;
+            Destroy();
+            return SignalHandler.SignalResponse.NONE;
         }
 
         public void HandleAction(Pawn pawn)
         {
             //Mine the rock at this position
-            Asteroid mineral = World.GetTurf((int)Position[0], (int)Position[1]) as Asteroid;
-            if (mineral == null || mineral.Destroyed)
+            if (!(World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral) || mineral.Destroyed)
             {
                 Destroy();
                 return;

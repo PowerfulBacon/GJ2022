@@ -1,23 +1,22 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
-using GJ2022.Entities.Items;
+using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers.TaskManager;
 using GJ2022.Pathfinding;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
-using System.Collections.Generic;
+using System;
 
 namespace GJ2022.Entities.Pawns
 {
-    public class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
+    public abstract partial class Pawn : Entity, IProcessable, IMousePress, IMoveBehaviour
     {
 
         //The renderable attached to our pawn
-        protected override Renderable Renderable { get; set; } = new CircleRenderable(Colour.Random);
+        public override Renderable Renderable { get; set; } = new CircleRenderable(Colour.Random);
 
         //TODO: Draw debug pathfinding lines
         public static bool DrawLines = false;
@@ -35,16 +34,13 @@ namespace GJ2022.Entities.Pawns
 
         public float Height => 1.0f;
 
+        public virtual bool UsesLimbOverlays { get; } = false;
+
+        //The body attached to this pawn
+        public abstract Body PawnBody { get; }
+
         //The AI controller
         public PawnBehaviour behaviourController;
-
-        //Equipped items
-        public Dictionary<InventorySlot, IEquippable> EquippedItems = new Dictionary<InventorySlot, IEquippable>();
-        //Flags of hazards we are protected from due to our equipped items
-        private PawnHazards cachedHazardProtection = PawnHazards.NONE;
-
-        //Held items
-        public Item[] heldItems = new Item[2];
 
         //The intended destination
         private Entity entityTargetDestination;
@@ -66,38 +62,7 @@ namespace GJ2022.Entities.Pawns
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
             MouseCollisionSubsystem.Singleton.StartTracking(this);
-        }
-
-        /// <summary>
-        /// Thread safe item equip
-        /// </summary>
-        public bool TryEquipItem(InventorySlot targetSlot, IEquippable item)
-        {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_EQUIPPABLES, () =>
-            {
-                //Check the slot
-                if (EquippedItems.ContainsKey(targetSlot))
-                    return false;
-                EquippedItems.Add(targetSlot, item);
-                item.OnEquip(this, targetSlot);
-                RecalculateHazardProtection();
-                AddEquipOverlay(targetSlot, item);
-                return true;
-            });
-        }
-
-        protected virtual void AddEquipOverlay(InventorySlot targetSlot, IEquippable item) { }
-
-        /// <summary>
-        /// Recalculate what hazards we are protected from
-        /// </summary>
-        private void RecalculateHazardProtection()
-        {
-            cachedHazardProtection = PawnHazards.NONE;
-            foreach (IEquippable item in EquippedItems.Values)
-            {
-                cachedHazardProtection |= item.ProtectedHazards;
-            }
+            PawnBody.SetupBody(this);
         }
 
         public void MoveTowardsEntity(Entity target)
@@ -143,136 +108,23 @@ namespace GJ2022.Entities.Pawns
             helpfulLine.Colour = followingPath != null ? Colour.Green : Colour.Red;
         }
 
-        public List<Item> GetHeldItems()
-        {
-            List<Item> items = new List<Item>();
-            for (int i = 0; i < heldItems.Length; i++)
-            {
-                if (heldItems[i] == null)
-                    continue;
-                if (heldItems[i].Destroyed || heldItems[i].Location != this)
-                {
-                    heldItems[i] = null;
-                    continue;
-                }
-                items.Add(heldItems[i]);
-            }
-            return items;
-        }
-
-        public bool TryPickupItem(Item item)
-        {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
-            {
-                //Destroyed items cannot be picked up
-                if (item.Destroyed)
-                    return false;
-                //Can't pickup if the item was moved somewhere else
-                if (!InReach(item))
-                    return false;
-                //Hands check
-                int freeIndex = -1;
-                for (int i = heldItems.Length - 1; i >= 0; i--)
-                {
-                    if (heldItems[i] == null)
-                    {
-                        freeIndex = i;
-                        break;
-                    }
-                }
-                //If we have no hands return false
-                if (freeIndex == -1)
-                    return false;
-                //Pickup the item
-                heldItems[freeIndex] = item;
-                item.Location = this;
-                return true;
-            });
-        }
-
-        public bool HasFreeHands()
-        {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
-            {
-                for (int i = heldItems.Length - 1; i >= 0; i--)
-                {
-                    if (heldItems[i] == null)
-                        return true;
-                    if (heldItems[i].Destroyed)
-                    {
-                        heldItems[i] = null;
-                        return true;
-                    }
-                }
-                return false;
-            });
-        }
-
-        public bool IsHoldingItems()
-        {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
-            {
-                for (int i = heldItems.Length - 1; i >= 0; i--)
-                {
-                    if (heldItems[i] != null)
-                    {
-                        if (!heldItems[i].Destroyed)
-                            return true;
-                        heldItems[i] = null;
-                    }
-                }
-                return false;
-            });
-        }
-
-        public bool DropFirstItem(Vector<float> dropLocation)
-        {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
-            {
-                for (int i = heldItems.Length - 1; i >= 0; i--)
-                {
-                    if (heldItems[i] == null)
-                        continue;
-                    if (heldItems[i].Destroyed)
-                    {
-                        heldItems[i] = null;
-                        continue;
-                    }
-                    //Drop the item out of ourselves
-                    heldItems[i].Location = null;
-                    heldItems[i].Position = dropLocation.Copy();
-                    heldItems[i] = null;
-                    return true;
-                }
-                return false;
-            });
-        }
-
-        public void DropHeldItems(Vector<float> dropLocation)
-        {
-            ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
-            {
-                for (int i = heldItems.Length - 1; i >= 0; i--)
-                {
-                    if (heldItems[i] == null)
-                        continue;
-                    if (heldItems[i].Destroyed)
-                    {
-                        heldItems[i] = null;
-                        continue;
-                    }
-                    //Drop the item out of ourselves
-                    heldItems[i].Position = dropLocation.Copy();
-                    heldItems[i].Location = null;
-                    heldItems[i] = null;
-                }
-                return true;
-            });
-        }
-
         public void Process(float deltaTime)
         {
+            //Process body
+            PawnBody.ProcessBody(deltaTime);
+            //Draw debug lines
             DrawHelpfulLine();
+            //If dead
+            if (Dead)
+                return;
+            //If we are in crit don't bother with this stuff
+            if (InCrit)
+            {
+                //Update animation
+                Renderable.UpdateRotation((float)(Math.Sin(GLFW.Glfw.Time) * 0.3f + Math.PI * 0.5f));
+                //End procesing here
+                return;
+            }
             //Hazard reaction, prepare to panic
             HazardReact();
             //Idle behaviour
@@ -296,8 +148,13 @@ namespace GJ2022.Entities.Pawns
         /// <summary>
         /// Travel along the specified path
         /// </summary>
-        private void TraversePath(float deltaTime, float distance = 0.1f)
+        private void TraversePath(float deltaTime, float _speed = -1)
         {
+            float speed = _speed;
+            if (speed == -1)
+            {
+                speed = CalculateSpeed();
+            }
             //Check if our target moved
             if (entityTargetDestination != null && (entityTargetDestination.Position != targetDestinationPosition || entityTargetDestination.Location != null))
             {
@@ -319,17 +176,28 @@ namespace GJ2022.Entities.Pawns
                 ? (Vector<float>)followingPath.Points[positionOnPath]
                 : targetDestinationPosition;
             //Move towards the point
-            float extraDistance;
-            Position = Position.MoveTowards(nextPathPosition, distance, deltaTime, out extraDistance);
+            Position = Position.MoveTowards(nextPathPosition, speed, deltaTime, out float extraDistance);
             //If we reached the point, move towards the next point
             if (Position == nextPathPosition)
             {
                 //Increment the path position
                 positionOnPath++;
-                //If we still have more distance to move, move it
-                if (extraDistance > 0)
-                    TraversePath(deltaTime, extraDistance * deltaTime);
             }
+            //If we still have more distance to move, move it
+            if (extraDistance > 0)
+            {
+                //We need to actually pass the distance travelled, while extraDistance is a speed
+                TraversePath(deltaTime, extraDistance * deltaTime);
+            }
+        }
+
+        private float CalculateSpeed()
+        {
+            //If we have gravity return movement factor
+            if (World.HasGravity(Position))
+                return 0.001f * PawnBody.Movement;
+            //Return regular speed
+            return 0.1f;
         }
 
         /// <summary>
@@ -364,7 +232,8 @@ namespace GJ2022.Entities.Pawns
                 new PathfindingRequest(
                     Position,
                     targetDestinationPosition,
-                    cachedHazardProtection,
+                    //If we have an internal tank, allow pathing through airless areas
+                    cachedHazardProtection | (HasInternalTank() ? PawnHazards.HAZARD_BREATH : PawnHazards.NONE) | (IsPressureProtected() ? PawnHazards.HAZARD_LOW_PRESSURE : PawnHazards.NONE),
                     (Path path) =>
                     {
                         followingPath = path;

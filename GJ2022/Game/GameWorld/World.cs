@@ -6,6 +6,7 @@ using GJ2022.Entities.Markers;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Structures;
 using GJ2022.Entities.Turfs;
+using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
 
@@ -14,6 +15,17 @@ namespace GJ2022.Game.GameWorld
 
     public static class World
     {
+
+        private class IntegerReference
+        {
+
+            public IntegerReference(int value)
+            {
+                Value = value;
+            }
+
+            public int Value { get; set; } = 0;
+        }
 
         //Dictionary of turfs in the world
         public static PositionBasedBinaryList<Turf> WorldTurfs = new PositionBasedBinaryList<Turf>();
@@ -33,6 +45,9 @@ namespace GJ2022.Game.GameWorld
 
         //Dictionary containing all mobs in the world
         public static PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
+
+        //An integer storing the amount of atmospheric blocking things at this location
+        private static PositionBasedBinaryList<IntegerReference> AtmosphericBlockers = new PositionBasedBinaryList<IntegerReference>();
 
         //======================
         // In range detectors
@@ -158,6 +173,46 @@ namespace GJ2022.Game.GameWorld
                 }
             }
             return output;
+        }
+
+        //======================
+        // Atmospheric Blockers
+        //======================
+
+        public static void AddAtmosphericBlocker(int x, int y, bool updateAtmos = true)
+        {
+            IntegerReference reference = AtmosphericBlockers.Get(x, y);
+            if (reference == null)
+            {
+                AtmosphericBlockers.Add(x, y, new IntegerReference(1));
+                if (updateAtmos)
+                    AtmosphericsSystem.Singleton.OnAtmosBlockingChange(x, y, true);
+            }
+            else
+                reference.Value++;
+        }
+
+        public static void RemoveAtmosphericBlock(int x, int y, bool updateAtmos = true)
+        {
+            IntegerReference reference = AtmosphericBlockers.Get(x, y);
+            if (reference == null)
+                return;
+            reference.Value--;
+            if (reference.Value == 0)
+            {
+                AtmosphericBlockers.Remove(x, y);
+                if (updateAtmos)
+                    AtmosphericsSystem.Singleton.OnAtmosBlockingChange(x, y, false);
+            }
+        }
+
+        //======================
+        // Atmospheric Flow
+        //======================
+
+        public static bool AllowsAtmosphericFlow(int x, int y)
+        {
+            return AtmosphericBlockers.Get(x, y) == null;
         }
 
         //======================
@@ -373,16 +428,6 @@ namespace GJ2022.Game.GameWorld
             if (!IsSolid(x - 1, y))
                 return new Vector<float>(x - 1, y + 1);
             return null;
-        }
-
-        //======================
-        // Atmospheric Flow
-        //======================
-
-        public static bool AllowsAtmosphericFlow(int x, int y)
-        {
-            Turf locatedTurf = GetTurf(x, y);
-            return locatedTurf == null || locatedTurf.AllowAtmosphericFlow;
         }
 
         //======================

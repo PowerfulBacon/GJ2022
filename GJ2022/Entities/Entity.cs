@@ -14,7 +14,7 @@ namespace GJ2022.Entities
     {
 
         //The renderable attached to this entity
-        protected abstract Renderable Renderable { get; set; }
+        public abstract Renderable Renderable { get; set; }
 
         //The layer of the object
         private float _layer = 0;
@@ -29,7 +29,7 @@ namespace GJ2022.Entities
         public List<Entity> Contents { get; private set; } = null;
 
         //Texture change handler
-        public string Texture { set { Renderable?.textureChangeHandler?.Invoke(value); } }
+        public string Texture { set => Renderable?.textureChangeHandler?.Invoke(value); }
 
         //Direction
         private Directions _direction;
@@ -123,7 +123,7 @@ namespace GJ2022.Entities
         //Location handler
         public Entity Location
         {
-            get { return _location; }
+            get => _location;
             set
             {
                 Entity oldLocation = _location;
@@ -167,7 +167,7 @@ namespace GJ2022.Entities
         //Layer handler
         public float Layer
         {
-            get { return _layer; }
+            get => _layer;
             set
             {
                 _layer = value;
@@ -178,7 +178,7 @@ namespace GJ2022.Entities
         //Position handler
         public Vector<float> Position
         {
-            get { return _position; }
+            get => _position;
             set
             {
                 Vector<float> oldPosition = _position.Copy();
@@ -191,15 +191,9 @@ namespace GJ2022.Entities
                 if (attachedTextObject != null)
                     attachedTextObject.Position = value + textObjectOffset;
                 //Change direction
-                if (delta[0] > -delta[1])
-                    if (delta[0] < delta[1])
-                        Direction = Directions.NORTH;
-                    else
-                        Direction = Directions.EAST;
-                else if (delta[0] < delta[1])
-                    Direction = Directions.WEST;
-                else
-                    Direction = Directions.SOUTH;
+                Direction = delta[0] > -delta[1]
+                    ? delta[0] < delta[1] ? Directions.NORTH : Directions.EAST
+                    : delta[0] < delta[1] ? Directions.WEST : Directions.SOUTH;
             }
         }
 

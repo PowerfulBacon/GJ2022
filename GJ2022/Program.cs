@@ -1,9 +1,13 @@
 ﻿using GJ2022.Audio;
 using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Clothing.Body;
+using GJ2022.Entities.Items.Clothing.Mask;
 using GJ2022.Entities.Items.Stacks;
+using GJ2022.Entities.Items.Tank;
 using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
+using GJ2022.Entities.Pawns.Mobs;
+using GJ2022.Entities.Pawns.Mobs.Humans;
 using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
 using GJ2022.PawnBehaviours.Behaviours;
@@ -33,11 +37,10 @@ namespace GJ2022
         /// -s [port] (Host the server with given port)
         /// -c [address] [port] (Host the client with given address and port)
         /// </summary>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
 
             //Start texture loading
-            TextureCache.LoadTextureDataJson();
             BlueprintLoader.LoadBlueprints();
 
             //Set the window hints
@@ -46,6 +49,12 @@ namespace GJ2022
             //Create the window
             Window window = SetupWindow();
             UsingOpenGL = true;
+
+            //Initialize the renderer
+            RenderMaster.Initialize();
+
+            //Load texture data after openGL
+            TextureCache.LoadTextureDataJson();
 
             //Setup open AL
             AudioMaster.Initialize();
@@ -61,13 +70,12 @@ namespace GJ2022
             //Load text
             TextLoader.LoadText();
 
-            //Initialize the renderer
-            RenderMaster.Initialize();
-
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
             while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) { }
             Log.WriteLine("Done loading", LogType.DEBUG);
+
+            TextureCache.InitializeTextureObjects();
 
             //Create the error texture (so it has uint of 0)
             TextureCache.GetTexture("error");
@@ -109,6 +117,12 @@ namespace GJ2022
 
             new Jetpack(new Vector<float>(9, 8));
             new Pickaxe(new Vector<float>(3, 2));
+
+            new OxygenTank(new Vector<float>(3, 4));
+            new OxygenTank(new Vector<float>(3, 4));
+            new OxygenTank(new Vector<float>(3, 4));
+            new OxygenTank(new Vector<float>(3, 4));
+            new BreathMask(new Vector<float>(3, 3));
 
             Dog dog = new Dog(new Vector<float>(2, 2));
             new DogBehaviour(dog);
@@ -156,7 +170,7 @@ namespace GJ2022
         /// <summary>
         /// Set the window hints
         /// </summary>
-        static void SetWindowHints()
+        private static void SetWindowHints()
         {
             Glfw.WindowHint(Hint.ContextVersionMajor, 3);
             Glfw.WindowHint(Hint.ContextVersionMinor, 3);
@@ -168,7 +182,7 @@ namespace GJ2022
         /// Setup the window, make it 1920 x 1080 by default
         /// TODO: Have it scale to screen resolution
         /// </summary>
-        static Window SetupWindow()
+        private static Window SetupWindow()
         {
             Window window = Glfw.CreateWindow(1920, 1080, "GJ2022", GLFW.Monitor.None, Window.None);
             Glfw.MakeContextCurrent(window);
@@ -179,7 +193,7 @@ namespace GJ2022
         /// <summary>
         /// Setup the callback methods
         /// </summary>
-        static void SetCallbacks(Window window)
+        private static void SetCallbacks(Window window)
         {
             Glfw.SetWindowSizeCallback(window, (IntPtr windowPtr, int width, int height) => WindowSizeCallback(windowPtr, width, height));
             Glfw.SetScrollCallback(window, (IntPtr windowPtr, double x, double y) => RenderMaster.mainCamera.OnScroll(y)); ;
@@ -189,7 +203,7 @@ namespace GJ2022
         /// Called when the window has been resized.
         /// Recalculate the view matrix of the camera
         /// </summary>
-        static void WindowSizeCallback(IntPtr window, int width, int height)
+        private static void WindowSizeCallback(IntPtr window, int width, int height)
         {
             RenderMaster.mainCamera.OnWindowResized(width, height);
         }

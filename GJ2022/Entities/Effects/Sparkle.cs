@@ -12,7 +12,7 @@ namespace GJ2022.Entities.Effects
 
         protected override int ExistanceTime => 1000;
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("sparkle");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("sparkle");
 
     }
 }

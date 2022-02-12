@@ -5,11 +5,11 @@ using GJ2022.Atmospherics.Block;
 using GJ2022.Audio;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
+using System.Linq;
 
 namespace GJ2022.Entities.Turfs
 {
@@ -26,28 +26,28 @@ namespace GJ2022.Entities.Turfs
         //Atmospheric block of this turf. Null represents space.
         public AtmosphericBlock Atmosphere { get; set; } = null;
 
-        bool creationStatus = false;
-
         public Turf(int x, int y) : base(new Vector<float>(x, y), Layers.LAYER_TURF)
         {
             X = x;
             Y = y;
             //Destroy the old turf
             Turf oldTurf = World.GetTurf(x, y);
-            creationStatus = oldTurf == null;
             //Set the new turf
             oldTurf?.Destroy(true);
             World.SetTurf(x, y, this);
-            //TEMP:
+            //Set the direction
+            Direction = Directions.NONE;
+            //Atmos flow blocking
+            if (!AllowAtmosphericFlow)
+                World.AddAtmosphericBlocker(x, y, false);
+            //Tell the atmos system a turf was created / changed at this location
             if (oldTurf == null)
                 AtmosphericsSystem.Singleton.OnTurfCreated(this);
             else
                 AtmosphericsSystem.Singleton.OnTurfChanged(oldTurf, this);
-            //Set the direction
-            Direction = Directions.NONE;
 #if ATMOS_DEBUG
             //Create the atmos indicator
-            attachedTextObject = new Rendering.Text.TextObject(creationStatus ? "C0" : "M0", creationStatus ? Colour.White : Colour.Green, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
+            attachedTextObject = new Rendering.Text.TextObject("0", Colour.White, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
             AtmosphericsSystem.Singleton.StartProcessing(this);
 #endif
         }
@@ -55,6 +55,9 @@ namespace GJ2022.Entities.Turfs
         //Set destroyed
         public bool Destroy(bool changed)
         {
+            //Atmos flow blocking
+            if (!AllowAtmosphericFlow)
+                World.RemoveAtmosphericBlock(X, Y, false);
             //If we weren't changed, destroy the turf
             if (!changed)
                 AtmosphericsSystem.Singleton.OnTurfDestroyed(this);
@@ -82,12 +85,23 @@ namespace GJ2022.Entities.Turfs
 
         public virtual void OnAtmopshereContentsChanged(AtmosphericBlock block)
         {
-            Renderable.ClearOverlays();
-            if (block != null)
+            if (Renderable == null)
+                return;
+            //check if overlays changed
+            lock (Renderable)
             {
-                foreach (PressurisedGas gas in block.ContainedAtmosphere.atmosphericContents.Values)
+                //Renderable.ClearOverlays();
+                if (block != null)
                 {
-                    Renderable.AddOverlay($"atmosphere_{gas.gas.ToString()}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
+                    foreach (PressurisedGas gas in block.ContainedAtmosphere.AtmosphericContents.Values.ToList())
+                    {
+                        if (gas != null && !Renderable.HasOverlay($"atmosphere_{gas.gas}"))
+                            Renderable.AddOverlay($"atmosphere_{gas.gas}", new StandardRenderable(gas.gas.OverlayTexture, true), Layers.LAYER_GAS);
+                    }
+                }
+                else
+                {
+                    Renderable.ClearOverlays();
                 }
             }
         }
@@ -103,10 +117,9 @@ namespace GJ2022.Entities.Turfs
 
         public void Process(float deltaTime)
         {
-            if(Atmosphere != null)
-                attachedTextObject.Text = $"{Math.Round(Atmosphere.ContainedAtmosphere.KiloPascalPressure, 2)}@{Math.Round(Atmosphere.ContainedAtmosphere.KelvinTemperature, 0)}k";
-            else
-                attachedTextObject.Text = $"N/A";
+            attachedTextObject.Text = Atmosphere != null
+                ? $"{Math.Round(Atmosphere.ContainedAtmosphere.KiloPascalPressure, 2)}@{Math.Round(Atmosphere.ContainedAtmosphere.KelvinTemperature, 0)}k"
+                : $"N/A";
         }
     }
 

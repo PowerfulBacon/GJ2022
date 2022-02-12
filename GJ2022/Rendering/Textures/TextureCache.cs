@@ -156,5 +156,15 @@ namespace GJ2022.Rendering.Textures
             LoadingComplete = true;
         }
 
+        public static void InitializeTextureObjects()
+        {
+            foreach (string jsonKey in TextureJsons.Keys)
+            {
+                TextureJson json = TextureJsons[jsonKey];
+                if (!TextureFileCache.ContainsKey(json.FileName))
+                    GetTexture(jsonKey);
+            }
+        }
+
     }
 }

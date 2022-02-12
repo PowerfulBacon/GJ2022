@@ -7,7 +7,7 @@ namespace GJ2022.Entities.Turfs.Standard.Solids.Minerals
     public class AsteroidIronOre : Asteroid
     {
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable($"mineral_iron");
+        public override Renderable Renderable { get; set; } = new StandardRenderable($"mineral_iron");
 
         public AsteroidIronOre(int x, int y) : base(x, y)
         { }

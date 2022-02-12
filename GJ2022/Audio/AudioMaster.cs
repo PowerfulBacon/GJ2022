@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GJ2022.Audio
 {
-    public unsafe static class AudioMaster
+    public static unsafe class AudioMaster
     {
 
         private static Device* audioDevice = null;

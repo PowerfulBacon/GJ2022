@@ -21,7 +21,7 @@ namespace GJ2022.Pathfinding
 
         //Hazard ignore flags
         //Not ignoring gravity will result in gravity being taken into account
-        public PawnHazards ignoringHazards { get; }
+        public PawnHazards ignoringHazards { get; set; }
 
         //Constructor
         public PathfindingRequest(Vector<int> start, Vector<int> end, PawnHazards ignoringHazards, PathFoundDelegate foundDelegate, PathFailedDelegate failedDelegate = null)

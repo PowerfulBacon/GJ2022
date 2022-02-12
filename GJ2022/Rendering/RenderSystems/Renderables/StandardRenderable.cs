@@ -37,8 +37,28 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         public override void UpdateDirection(Directions direction)
         {
             base.UpdateDirection(direction);
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+            lock (renderableBatchIndex)
+                if (renderableBatchIndex.Count > 0)
+                    lock (renderableBatchIndex.Keys.ElementAt(0))
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 2);
+        }
+
+        //===================
+        // Rotation Handling
+        //===================
+
+        public override void UpdateRotation(float rotation)
+        {
+            base.UpdateRotation(rotation);
+            lock (renderableBatchIndex)
+                if (renderableBatchIndex.Count > 0)
+                    lock (renderableBatchIndex.Keys.ElementAt(0))
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+        }
+
+        public float GetRotation()
+        {
+            return Rotation;
         }
 
         //===================
@@ -73,8 +93,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             _position[0] = position[0];
             _position[1] = position[1];
             //Update position in renderer
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 0);
+            lock (renderableBatchIndex)
+                if (renderableBatchIndex.Count > 0)
+                    lock (renderableBatchIndex.Keys.ElementAt(0))
+                    {
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 0);
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+                    }
         }
 
         /// <summary>
@@ -84,8 +109,13 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         {
             _position[2] = layer;
             //Update position in renderer
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 0);
+            lock (renderableBatchIndex)
+                if (renderableBatchIndex.Count > 0)
+                    lock (renderableBatchIndex.Keys.ElementAt(0))
+                    {
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 0);
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+                    }
         }
 
         //===================
@@ -96,8 +126,10 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         {
             _texture = newTexture;
             //Update position in renderer
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 1);
+            lock (renderableBatchIndex)
+                if (renderableBatchIndex.Count > 0)
+                    lock (renderableBatchIndex.Keys.ElementAt(0))
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 2);
         }
 
         public override RendererTextureData GetRendererTextureData()

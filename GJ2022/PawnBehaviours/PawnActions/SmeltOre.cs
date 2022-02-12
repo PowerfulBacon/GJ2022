@@ -31,6 +31,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
+            if (parent.Owner.InCrit)
+                return false;
             if (World.HasStructuresInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20, (List<Structure> area) =>
             {
                 foreach (Structure structure in area)

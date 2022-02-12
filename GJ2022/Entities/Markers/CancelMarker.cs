@@ -23,7 +23,7 @@ namespace GJ2022.Entities.Markers
             Destroy();
         }
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("cancel");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("cancel");
 
         public override bool IsValidPosition()
         {

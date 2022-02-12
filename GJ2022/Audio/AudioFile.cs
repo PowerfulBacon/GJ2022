@@ -86,10 +86,8 @@ namespace GJ2022.Audio
                 }
             }
             //Calculate playtime
-            int bufferSize;
-            int frequency;
-            alApi.GetBufferProperty(Buffer, GetBufferInteger.Size, out bufferSize);
-            alApi.GetBufferProperty(Buffer, GetBufferInteger.Frequency, out frequency);
+            alApi.GetBufferProperty(Buffer, GetBufferInteger.Size, out int bufferSize);
+            alApi.GetBufferProperty(Buffer, GetBufferInteger.Frequency, out int frequency);
             PlayTime = (float)bufferSize / (frequency * ChannelCount * BitsPerSample / 8);
             Log.WriteLine($"Loaded sound {filePath} successfully! ({ChannelCount} channels, {SampleRate} sampling rate, {ByteRate} byte rate, {BlockAlign} block align, {BitsPerSample} bits per sample, length: {PlayTime}s)");
         }

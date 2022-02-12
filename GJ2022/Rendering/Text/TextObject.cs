@@ -1,7 +1,6 @@
 ﻿using GJ2022.Rendering.RenderSystems;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GJ2022.Rendering.Text
 {
@@ -18,7 +17,7 @@ namespace GJ2022.Rendering.Text
         private Vector<float> _position;
         public Vector<float> Position
         {
-            get { return _position; }
+            get => _position;
             set
             {
                 _position = value;
@@ -70,7 +69,7 @@ namespace GJ2022.Rendering.Text
 
         public string Text
         {
-            get { return _text; }
+            get => _text;
             set
             {
                 _text = value;

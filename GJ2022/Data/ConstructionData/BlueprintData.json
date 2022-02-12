@@ -35,8 +35,10 @@
       "contents": [
         "dog",
         "human",
+        "human_bionic",
         "steel_building_instant",
         "plating_instant",
+        "door_instant",
         "canister_debug",
         "canister_debug_h2",
         "fire"
@@ -108,6 +110,13 @@
       "fill": "door"
     },
     {
+      "id": "door_instant",
+      "name": "Airlock (Instant)",
+      "isRoom": false,
+      "edge": "door_instant",
+      "fill": "door_instant"
+    },
+    {
       "id": "mining_marker",
       "name": "Mine Area",
       "isRoom": true,
@@ -141,6 +150,13 @@
       "isRoom": false,
       "edge": "human",
       "fill": "human"
+    },
+    {
+      "id": "human_bionic",
+      "name": "Spawn Human (Bionic Limbs)",
+      "isRoom": false,
+      "edge": "human_bionic",
+      "fill": "human_bionic"
     },
     {
       "id": "canister_debug",
@@ -273,6 +289,15 @@
       "instant": true
     },
     {
+      "id": "human_bionic",
+      "created_type": "BionicHuman",
+      "priority": 1,
+      "blueprintType": "BlueprintSentience",
+      "texture": "human_body_male",
+      "layer": 5,
+      "instant": true
+    },
+    {
       "id": "door",
       "created_type": "Airlock",
       "priority": 3,
@@ -282,6 +307,15 @@
       "cost": {
         "Iron": 20
       }
+    },
+    {
+      "id": "door_instant",
+      "created_type": "Airlock",
+      "priority": 3,
+      "blueprintType": "Blueprint",
+      "texture": "door_closed",
+      "layer": 1,
+      "instant": true
     },
     {
       "id": "catwalk",

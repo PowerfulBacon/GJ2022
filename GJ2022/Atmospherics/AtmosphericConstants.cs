@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GJ2022.Atmospherics
+﻿namespace GJ2022.Atmospherics
 {
     //https://github.com/BeeStation/BeeStation-Hornet/blob/master/code/__DEFINES/atmospherics.dm
     public static class AtmosphericConstants
@@ -22,6 +16,12 @@ namespace GJ2022.Atmospherics
         public const float IDEAL_TEMPERATURE = 295.15f;
         //How many liters of gas in a single tile (1 cubic meter)
         public const float TILE_GAS_VOLUME = 2500;
+
+        //Temperature constants
+        public const float TEMPERATURE_C0 = 273.15f;
+        public const float TEMPERATURE_C20 = TEMPERATURE_C0 + 20.0f;
+        //Temperature that is damaging to breathe (50 degrees)
+        public const float TEMPERATURE_DANGEROUS = TEMPERATURE_C0 + 50;
 
         private const float IDEAL_GAS_CONSTANT = (IDEAL_PRESSURE * TILE_GAS_VOLUME) / (41.27f * IDEAL_TEMPERATURE);
 

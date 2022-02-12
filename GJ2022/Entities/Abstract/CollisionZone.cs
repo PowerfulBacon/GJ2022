@@ -3,12 +3,13 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Abstract
 {
-    class CollisionZone : IMouseEnter, IMouseExit
+    public class CollisionZone : IMouseEnter, IMouseExit
     {
 
         public delegate void OnMouseDelegate();
-        public OnMouseDelegate onMouseEnter;
-        public OnMouseDelegate onMouseExit;
+
+        public OnMouseDelegate onMouseEnter = null;
+        public OnMouseDelegate onMouseExit = null;
 
         public float WorldX { get; private set; }
 
@@ -20,12 +21,14 @@ namespace GJ2022.Entities.Abstract
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 
-        public CollisionZone(Vector<float> position, Vector<float> scale)
+        public CollisionZone(Vector<float> position, Vector<float> scale, OnMouseDelegate mouseEnterEvent = null, OnMouseDelegate mouseExitEvent = null)
         {
             WorldX = position[0];
             WorldY = position[1];
             Width = scale[0];
             Height = scale[1];
+            onMouseEnter = mouseEnterEvent;
+            onMouseExit = mouseExitEvent;
         }
 
         public void OnMouseEnter()

@@ -4,15 +4,10 @@ using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GJ2022.Entities.Debug
 {
-    class DebugCanister : Structure
+    public class DebugCanister : Structure
     {
 
         protected virtual Gas SpawnedGas { get; } = Oxygen.Singleton;
@@ -29,11 +24,11 @@ namespace GJ2022.Entities.Debug
             Log.WriteLine($"Atmos ({turf.Atmosphere.BlockId}): Oxygen moles {turf.Atmosphere.ContainedAtmosphere.GetMoles(SpawnedGas)}/{turf.Atmosphere.ContainedAtmosphere.Moles}, Temperature {turf.Atmosphere.ContainedAtmosphere.KelvinTemperature}, Pressure: {turf.Atmosphere.ContainedAtmosphere.KiloPascalPressure}, Volume {turf.Atmosphere.ContainedAtmosphere.LitreVolume}");
         }
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("canister");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("canister");
 
     }
 
-    class DebugCanisterHydrogen : DebugCanister
+    public class DebugCanisterHydrogen : DebugCanister
     {
         protected override Gas SpawnedGas => Hydrogen.Singleton;
 

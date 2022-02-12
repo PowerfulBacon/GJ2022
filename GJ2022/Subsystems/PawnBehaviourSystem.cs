@@ -34,7 +34,8 @@ namespace GJ2022.Subsystems
             if (target.behaviourController != null)
                 processingBehaviours.Remove(target.behaviourController);
             target.behaviourController = behaviour;
-            processingBehaviours.Add(behaviour);
+            if (behaviour != null)
+                processingBehaviours.Add(behaviour);
         }
 
         public override void InitSystem()

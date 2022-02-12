@@ -10,7 +10,7 @@ namespace GJ2022.Entities.Turfs.Standard.Solids
 
         private static Random random = new Random();
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable($"stone");
+        public override Renderable Renderable { get; set; } = new StandardRenderable($"stone");
 
         public Asteroid(int x, int y) : base(x, y)
         {

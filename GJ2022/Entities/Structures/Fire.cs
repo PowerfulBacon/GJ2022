@@ -1,5 +1,7 @@
 ﻿using GJ2022.Atmospherics.Gasses;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Entities.Pawns;
+using GJ2022.Entities.Pawns.Health.Injuries.Instances.Generic;
 using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -27,7 +29,7 @@ namespace GJ2022.Entities.Structures
 
         public bool Destroyed { get; private set; } = false;
 
-        protected override Renderable Renderable { get; set; } = new StandardRenderable("fire", true);
+        public override Renderable Renderable { get; set; } = new StandardRenderable("fire", true);
 
         public override bool Destroy()
         {
@@ -57,9 +59,14 @@ namespace GJ2022.Entities.Structures
                 Destroy();
                 return;
             }
+            //Hurt pawns
+            foreach (Pawn pawn in World.GetPawns(turf.X, turf.Y))
+            {
+                pawn.PawnBody.ApplyDamageRandomly(new Burn(0.1f * deltaTime));
+            }
             //Consume oxygen
-            turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, Math.Max(molesOfOxygenLeft - OXYGEN_BURN_RATE * deltaTime, 0.0f));
-            turf.Atmosphere.ContainedAtmosphere.SetMoles(Hydrogen.Singleton, Math.Max(molesOfFlammableGasLeft - OXYGEN_BURN_RATE * deltaTime, 0.0f));
+            turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, Math.Max(molesOfOxygenLeft - (OXYGEN_BURN_RATE * deltaTime), 0.0f));
+            turf.Atmosphere.ContainedAtmosphere.SetMoles(Hydrogen.Singleton, Math.Max(molesOfFlammableGasLeft - (OXYGEN_BURN_RATE * deltaTime), 0.0f));
             //Increase temperature
             turf.Atmosphere.ContainedAtmosphere.SetTemperature(turf.Atmosphere.ContainedAtmosphere.KelvinTemperature + (25000 * deltaTime / turf.Atmosphere.ContainedAtmosphere.LitreVolume));
             //Spread to surrounding tiles

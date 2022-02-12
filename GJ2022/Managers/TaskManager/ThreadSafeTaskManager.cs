@@ -67,7 +67,7 @@ namespace GJ2022.Managers.TaskManager
             return result;
         }
 
-        public unsafe static int GetQueueId(int thread_id)
+        public static unsafe int GetQueueId(int thread_id)
         {
             lock (lockObject)
             {

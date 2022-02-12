@@ -28,6 +28,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override bool CanPerform(PawnBehaviour parent)
         {
+            if (parent.Owner.InCrit)
+                return false;
             //Quick check
             return World.HasMarkerInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 60, (Marker toCheck) =>
             {
