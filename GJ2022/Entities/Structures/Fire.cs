@@ -27,14 +27,11 @@ namespace GJ2022.Entities.Structures
             GlobalFires.Add((int)position[0], (int)position[1], this);
         }
 
-        public bool Destroyed { get; private set; } = false;
-
         public override Renderable Renderable { get; set; } = new StandardRenderable("fire", true);
 
         public override bool Destroy()
         {
             FireProcessingSystem.Singleton.StopProcessing(this);
-            Destroyed = true;
             GlobalFires.Remove((int)Position[0], (int)Position[1]);
             return base.Destroy();
         }
