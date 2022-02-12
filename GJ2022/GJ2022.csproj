@@ -229,4 +229,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Structures\Machines\" />
+  </ItemGroup>
+
 </Project>

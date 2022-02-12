@@ -1,4 +1,5 @@
-﻿using GJ2022.Game.GameWorld;
+﻿using GJ2022.Game;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
 using System;
@@ -25,17 +26,46 @@ namespace GJ2022.Entities.Structures.Power
 
         public override Renderable Renderable { get; set; } = new StandardRenderable("power_cond_heavy.node");
 
+        //Directions this conduit is attached to
         public Directions ConnectionDirections { get; set; } = Directions.NONE;
+
+        //Powernet reference
+        public Powernet powernet;
+
+        //Adjacent Conduit nodes
+        private PowerConduit northConduit;
+        private PowerConduit eastConduit;
+        private PowerConduit southConduit;
+        private PowerConduit westConduit;
+
+        /// <summary>
+        /// Simply merge 2 powernets together and returns the new powernet
+        /// </summary>
+        private Powernet MergePowernets(Powernet other)
+        {
+            //TODO
+            return powernet;
+        }
+
+        /// <summary>
+        /// Create 2 new powernets and propogate the networks to see if they can be merged
+        /// </summary>
+        private void SplitPowernetPropogation()
+        {
+
+        }
 
         public void AddNode()
         {
             int x = (int)Position[0];
             int y = (int)Position[1];
             UpdateIconState();
-            LocateConduit(x, y + 1)?.UpdateIconState();
-            LocateConduit(x + 1, y)?.UpdateIconState();
-            LocateConduit(x, y - 1)?.UpdateIconState();
-            LocateConduit(x - 1, y)?.UpdateIconState();
+            //Update adjacent icon states
+            northConduit?.UpdateIconState();
+            eastConduit?.UpdateIconState();
+            southConduit?.UpdateIconState();
+            westConduit?.UpdateIconState();
+            //Merge / adopt adjacent powernets
         }
 
         public void RemoveNode()
@@ -43,21 +73,26 @@ namespace GJ2022.Entities.Structures.Power
             int x = (int)Position[0];
             int y = (int)Position[1];
             UpdateIconState();
-            LocateConduit(x, y + 1)?.UpdateIconState();
-            LocateConduit(x + 1, y)?.UpdateIconState();
-            LocateConduit(x, y - 1)?.UpdateIconState();
-            LocateConduit(x - 1, y)?.UpdateIconState();
+            northConduit?.UpdateIconState();
+            eastConduit?.UpdateIconState();
+            southConduit?.UpdateIconState();
+            westConduit?.UpdateIconState();
         }
 
-        public void UpdateIconState()
+        public void LocateAdjacentConduits()
         {
             int x = (int)Position[0];
             int y = (int)Position[1];
             //Locate adjacent nodes
-            PowerConduit northConduit = LocateConduit(x, y + 1);
-            PowerConduit eastConduit = LocateConduit(x + 1, y);
-            PowerConduit southConduit = LocateConduit(x, y - 1);
-            PowerConduit westConduit = LocateConduit(x - 1, y);
+            northConduit = LocateConduit(x, y + 1);
+            eastConduit = LocateConduit(x + 1, y);
+            southConduit = LocateConduit(x, y - 1);
+            westConduit = LocateConduit(x - 1, y);
+        }
+
+        public void UpdateIconState()
+        {
+            LocateAdjacentConduits();
             //Set our icon state
             int count = (northConduit != null ? 1 : 0) + (eastConduit != null ? 1 : 0) + (southConduit != null ? 1 : 0) + (westConduit != null ? 1 : 0);
             int i = 0;
