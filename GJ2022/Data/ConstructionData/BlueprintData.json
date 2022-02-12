@@ -11,10 +11,11 @@
       ]
     },
     {
-      "name": "Structures",
+      "name": "Machines",
       "contents": [
         "door",
-        "furnace"
+        "furnace",
+        "heavy_conduit"
       ]
     },
     {
@@ -41,7 +42,8 @@
         "door_instant",
         "canister_debug",
         "canister_debug_h2",
-        "fire"
+        "fire",
+        "heavy_conduit_instant"
       ]
     }
   ],
@@ -178,6 +180,20 @@
       "isRoom": false,
       "edge": "fire",
       "fill": "fire"
+    },
+    {
+      "id": "heavy_conduit",
+      "name": "Heavy Conduit",
+      "isRoom": true,
+      "edge": "heavy_conduit",
+      "fill": "heavy_conduit"
+    },
+    {
+      "id": "heavy_conduit_instant",
+      "name": "Heavy Conduit (Free)",
+      "isRoom": true,
+      "edge": "heavy_conduit_instant",
+      "fill": "heavy_conduit_instant"
     }
   ],
   "blueprints": [
@@ -364,6 +380,26 @@
       "blueprintType": "Blueprint",
       "texture": "fire",
       "layer": 4,
+      "instant": true
+    },
+    {
+      "id": "heavy_conduit",
+      "created_type": "PowerConduit",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "power_cond_heavy.1-2-4-8",
+      "layer": 5,
+      "cost": {
+        "Iron": 2
+      }
+    },
+    {
+      "id": "heavy_conduit_instant",
+      "created_type": "PowerConduit",
+      "priority": 1,
+      "blueprintType": "Blueprint",
+      "texture": "power_cond_heavy.1-2-4-8",
+      "layer": 5,
       "instant": true
     }
   ]

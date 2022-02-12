@@ -39,7 +39,7 @@ namespace GJ2022.Entities
             set
             {
                 _direction = value;
-                Renderable.UpdateDirection(value);
+                Renderable?.UpdateDirection(value);
             }
         }
 

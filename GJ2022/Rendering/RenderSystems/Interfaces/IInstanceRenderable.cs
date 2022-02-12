@@ -23,6 +23,8 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
         //Store the renderable batch index somewhere, so it can be fetched later
         void SetRenderableBatchIndex(object associatedSet, int index);
 
+        void ClearRenderableBatchIndex(object associatedSet);
+
         //Fetch the renderable batch index
         int GetRenderableBatchIndex(object associatedSet);
 

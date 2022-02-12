@@ -7,6 +7,134 @@
 {
   "textures": [
     {
+      "id": "power_cond_heavy.node",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-1",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-2",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.1-2",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.1-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.1-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.2-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.2-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.1-2-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.1-4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 3
+    },
+    {
+      "id": "power_cond_heavy.1-2-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 3
+    },
+    {
+      "id": "power_cond_heavy.2-4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 3
+    },
+    {
+      "id": "power_cond_heavy.1-2-4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 3
+    },
+    {
       "id": "grass_top",
       "file": "ground.bmp",
       "width": 32,

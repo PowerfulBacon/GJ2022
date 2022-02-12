@@ -87,6 +87,8 @@ namespace GJ2022.Rendering.RenderSystems
             //Tell the element that it was moved
             batch.instanceRenderables[locatedIndex] = lastBatch.instanceRenderables[positionOfLast];
             batch.instanceRenderables[locatedIndex].SetRenderableBatchIndex(this, element.GetRenderableBatchIndex(this));
+            //Reset the index
+            element.ClearRenderableBatchIndex(this);
             //Copy data from the last batch element into the current one
             lastBatch.CopyTo(batch, positionOfLast, locatedIndex);
             //Decrease the render elements amount

@@ -87,7 +87,7 @@ namespace GJ2022.Rendering.Textures
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-            Log.WriteLine($"Texture {fileName} loaded successfully. (Mode: {compressionMethod}) (Thread: {Thread.CurrentThread.ManagedThreadId})", LogType.DEBUG);
+            Log.WriteLine($"Texture {fileName} loaded successfully. (Mode: {compressionMethod}) (Thread: {Thread.CurrentThread.ManagedThreadId}) (Texture uint: {TextureId})", LogType.DEBUG);
 
         }
 

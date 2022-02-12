@@ -53,6 +53,15 @@ namespace GJ2022.Rendering.Text
                 return -1;
         }
 
+        public void ClearRenderableBatchIndex(object associatedSet)
+        {
+            lock (renderableBatchIndex)
+            {
+                if (renderableBatchIndex.ContainsKey(associatedSet))
+                    renderableBatchIndex.Remove(associatedSet);
+            }
+        }
+
         public RendererTextureData GetRendererTextureData()
         {
             return TextureCache.GetTexture("text");
