@@ -21,5 +21,6 @@ namespace GJ2022.Entities.Items.StockParts.Cells
 
         public override Renderable Renderable { get; set; } = new StandardRenderable("power.cell");
 
+        public override float ChargeRate => 200;
     }
 }

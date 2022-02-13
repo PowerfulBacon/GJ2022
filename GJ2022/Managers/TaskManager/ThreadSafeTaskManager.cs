@@ -16,8 +16,9 @@ namespace GJ2022.Managers.TaskManager
         public const int TASK_RENDERING = 4;
         public const int TASK_MOUSE_SYSTEM = 5;
         public const int TASK_SIGNALS = 6;
+        public const int TASK_POWER_CONDUIT_PROPOGATION = 7;
 
-        public const int MAX_TASK_ID = 6;
+        public const int MAX_TASK_ID = 7;
 
         private static volatile Dictionary<int, int> totalActionsReserved = new Dictionary<int, int>();
         private static volatile Dictionary<int, int> currentAction = new Dictionary<int, int>();

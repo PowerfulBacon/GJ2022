@@ -71,6 +71,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\Structures\Machines\**" />
+    <EmbeddedResource Remove="Entities\Structures\Machines\**" />
+    <None Remove="Entities\Structures\Machines\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Data\TextureData.json~RF8ecf5ae2.TMP" />
   </ItemGroup>
 
@@ -227,10 +233,6 @@
     <None Update="zlib1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\Structures\Machines\" />
   </ItemGroup>
 
 </Project>

@@ -26,6 +26,8 @@ namespace GJ2022.Entities.Items.StockParts.Cells
 
         public float Charge { get; private set; }
 
+        public abstract float ChargeRate { get; }
+
         public void UpdateOverlays()
         {
             Renderable.ClearOverlays();

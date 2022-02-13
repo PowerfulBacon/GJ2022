@@ -1,6 +1,9 @@
 ﻿using GJ2022.Game;
 using GJ2022.Game.GameWorld;
+using GJ2022.Game.Power;
+using GJ2022.Managers.TaskManager;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using GJ2022.Rendering.Text;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -16,11 +19,14 @@ namespace GJ2022.Entities.Structures.Power
         {
             if (LocateConduit((int)position[0], (int)position[1]) != null)
             {
-                Destroy();
+                Destroy(false);
             }
             else
             {
+                textObjectOffset = new Vector<float>(0, -0.6f);
+                attachedTextObject = new TextObject($"{Powernet?.PowernetId}", Colour.White, Position + textObjectOffset, TextObject.PositionModes.WORLD_POSITION, 0.4f);
                 AddNode();
+                World.SetPowerCable((int)position[0], (int)position[1], this);
             }
         }
 
@@ -30,7 +36,17 @@ namespace GJ2022.Entities.Structures.Power
         public Directions ConnectionDirections { get; set; } = Directions.NONE;
 
         //Powernet reference
-        public Powernet powernet;
+        public Powernet _powernet;
+        public Powernet Powernet
+        {
+            get => _powernet;
+            set {
+                _powernet?.conduits.Remove(this);
+                _powernet = value;
+                attachedTextObject.Text = $"{_powernet?.PowernetId}";
+                _powernet.conduits.Add(this);
+            }
+        }
 
         //Adjacent Conduit nodes
         private PowerConduit northConduit;
@@ -38,13 +54,15 @@ namespace GJ2022.Entities.Structures.Power
         private PowerConduit southConduit;
         private PowerConduit westConduit;
 
-        /// <summary>
-        /// Simply merge 2 powernets together and returns the new powernet
-        /// </summary>
-        private Powernet MergePowernets(Powernet other)
+        public bool Destroy(bool initialized = true)
         {
-            //TODO
-            return powernet;
+            if (!initialized)
+                return base.Destroy();
+            if (!base.Destroy())
+                return false;
+            RemoveNode();
+            World.SetPowerCable((int)Position[0], (int)Position[1], null);
+            return true;
         }
 
         /// <summary>
@@ -52,31 +70,106 @@ namespace GJ2022.Entities.Structures.Power
         /// </summary>
         private void SplitPowernetPropogation()
         {
-
+            //Do this on a single thread to prevent 2 powernets fighting forever
+            ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_POWER_CONDUIT_PROPOGATION, () =>
+            {
+                //Change the powernet to something else
+                Powernet = new Powernet();
+                //Start the processing queue
+                Queue<PowerConduit> processingQueue = new Queue<PowerConduit>();
+                processingQueue.Enqueue(this);
+                //Begin processing
+                while (processingQueue.Count > 0)
+                {
+                    PowerConduit current = processingQueue.Dequeue();
+                    //Already has our power net
+                    if (current.Powernet == Powernet)
+                        continue;
+                    //Adopt into powernet
+                    current.Powernet = Powernet;
+                    //Get adjacent notes
+                    if (current.northConduit != null)
+                        processingQueue.Enqueue(current.northConduit);
+                    if (current.eastConduit != null)
+                        processingQueue.Enqueue(current.eastConduit);
+                    if (current.southConduit != null)
+                        processingQueue.Enqueue(current.southConduit);
+                    if (current.westConduit != null)
+                        processingQueue.Enqueue(current.westConduit);
+                }
+                return true;
+            });
         }
 
         public void AddNode()
         {
-            int x = (int)Position[0];
-            int y = (int)Position[1];
             UpdateIconState();
             //Update adjacent icon states
+            Powernet parentNet = null;
+            //North
             northConduit?.UpdateIconState();
+            if (northConduit?.Powernet != null)
+                parentNet = northConduit.Powernet;
+            //East
             eastConduit?.UpdateIconState();
+            if (parentNet != null)
+            {
+                if (eastConduit?.Powernet != parentNet)
+                {
+                    if (eastConduit?.Powernet != null)
+                        parentNet.Adopt(eastConduit.Powernet);
+                    else if (eastConduit != null)
+                        eastConduit.Powernet = parentNet;
+                }
+            }
+            else if (eastConduit?.Powernet != null)
+                parentNet = eastConduit.Powernet;
+            //South
             southConduit?.UpdateIconState();
+            if (parentNet != null)
+            {
+                if (southConduit?.Powernet != parentNet)
+                {
+                    if (southConduit?.Powernet != null)
+                        parentNet.Adopt(southConduit.Powernet);
+                    else if (southConduit != null)
+                        southConduit.Powernet = parentNet;
+                }
+            }
+            else if (southConduit?.Powernet != null)
+                parentNet = southConduit.Powernet;
+            //West
             westConduit?.UpdateIconState();
+            if (parentNet != null)
+            {
+                if (westConduit?.Powernet != parentNet)
+                {
+                    if (westConduit?.Powernet != null)
+                        parentNet.Adopt(westConduit.Powernet);
+                    else if (westConduit != null)
+                        westConduit.Powernet = parentNet;
+                }
+            }
+            else if (westConduit?.Powernet != null)
+                parentNet = westConduit.Powernet;
             //Merge / adopt adjacent powernets
+            if (parentNet == null)
+                Powernet = new Powernet();
+            else
+                Powernet = parentNet;
         }
 
         public void RemoveNode()
         {
-            int x = (int)Position[0];
-            int y = (int)Position[1];
             UpdateIconState();
             northConduit?.UpdateIconState();
+            northConduit?.SplitPowernetPropogation();
             eastConduit?.UpdateIconState();
+            eastConduit?.SplitPowernetPropogation();
             southConduit?.UpdateIconState();
+            southConduit?.SplitPowernetPropogation();
             westConduit?.UpdateIconState();
+            westConduit?.SplitPowernetPropogation();
         }
 
         public void LocateAdjacentConduits()
