@@ -5,10 +5,12 @@ layout (location = 1) in vec2 vertexUv;
 layout (location = 2) in vec3 instancePos;
 layout (location = 3) in float instanceRotation;
 layout (location = 4) in vec4 textureData;
+layout (location = 5) in vec4 instanceColour;
 
 //UV data
 out vec2 UV;
 out vec4 texData;
+out vec4 iColour;
 
 // The translation matrix (Model, View)
 //uniform mat4 objectMatrix;
@@ -40,4 +42,5 @@ void main()
     //Output the vertex UV to the fragment shader
     UV = vertexUv;
     texData = textureData;
+	iColour = instanceColour;
 }

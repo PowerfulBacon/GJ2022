@@ -2,6 +2,7 @@
 
 in vec2 UV;
 in vec4 texData;
+in vec4 iColour;
 
 out vec4 result;
 
@@ -25,7 +26,7 @@ void main()
     transformedUV *= vec2(texData[2] / spriteWidth, texData[3] / spriteHeight);
     transformedUV += vec2(texData[0] / spritesheetWidth, (spritesheetHeight - texData[1] - 1) / spritesheetHeight);
 
-    result = texture(textureSampler, transformedUV).rgba;
+    result = texture(textureSampler, transformedUV).rgba * iColour.rgba;
 
     if(result.a == 0)
     {

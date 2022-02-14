@@ -1,4 +1,5 @@
 ﻿using GJ2022.Rendering.Textures;
+using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Rendering.RenderSystems.Interfaces
 {
@@ -30,6 +31,9 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
 
         //Get the attached renderable texture data
         RendererTextureData GetRendererTextureData();
+
+        //The colour of the renderable
+        Colour Colour { get; }
 
     }
 

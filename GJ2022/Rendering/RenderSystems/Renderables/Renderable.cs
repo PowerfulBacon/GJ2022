@@ -107,6 +107,9 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         //Overlays
         private Dictionary<string, Renderable> Overlays { get; set; } = null;
 
+        //Colour
+        public Colour Colour { get; protected set; } = Colour.White;
+
         private Vector<float> _overlayPosition = new Vector<float>(0, 0);
 
         private void UpdateOvelayPosition(Vector<float> position)
