@@ -52,7 +52,7 @@ namespace GJ2022.Entities.Turfs
             AtmosphericsSystem.Singleton.StartProcessing(this);
 #endif
 #if PRESSURE_OVERLAY
-            Renderable.AddOverlay("pressure", overlay, Layers.LAYER_USER_INTERFACE);
+            Renderable.AddOverlay("pressure", overlay, Layers.LAYER_TURF + 0.1f);
             AtmosphericsSystem.Singleton.StartProcessing(this);
 #endif
         }
