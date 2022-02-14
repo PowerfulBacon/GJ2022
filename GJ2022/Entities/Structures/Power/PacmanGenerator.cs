@@ -39,7 +39,7 @@ namespace GJ2022.Entities.Structures.Power
         public void Process(float deltaTime)
         {
             PowernetInteractor.Supply = PowerSupply * deltaTime;
-            PowernetInteractor.AttachedPowernet.SendPower(PowerSupply * deltaTime);
+            PowernetInteractor.AttachedPowernet?.SendPower(PowerSupply * deltaTime);
         }
     }
 }
