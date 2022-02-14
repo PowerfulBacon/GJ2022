@@ -46,7 +46,7 @@ namespace GJ2022.Entities.Structures.Power
             insertedCell.TakePower(insertedCell.MaxCharge);
             textObjectOffset = new Vector<float>(0, -0.3f);
             attachedTextObject = new TextObject($"{insertedCell?.Charge}", Colour.White, Position + textObjectOffset, TextObject.PositionModes.WORLD_POSITION, 0.4f);
-            UpdateOverlays();
+            UpdateOverlays(0);
             PowerProcessingSystem.Singleton.StartProcessing(this);
         }
 
@@ -70,14 +70,16 @@ namespace GJ2022.Entities.Structures.Power
 
         int overlayState = 0;
 
-        public void UpdateOverlays()
+        public void UpdateOverlays(float chargeRate)
         {
             attachedTextObject.Text = $"{insertedCell?.Charge}";
             int newOverlayState;
-            if (PowernetInteractor.AttachedPowernet == null || insertedCell == null)
+            if (PowernetInteractor.AttachedPowernet == null || insertedCell == null || chargeRate <= 0)
                 newOverlayState = 1;
-            else
+            else if (insertedCell.Charge == insertedCell.MaxCharge)
                 newOverlayState = 2;
+            else
+                newOverlayState = 3;
             if (newOverlayState == overlayState)
                 return;
             overlayState = newOverlayState;
@@ -90,27 +92,33 @@ namespace GJ2022.Entities.Structures.Power
                 case 2:
                     Renderable.AddOverlay("power", new StandardRenderable("power.apco3-2"), Layers.LAYER_STRUCTURE + 0.01f);
                     break;
+                case 3:
+                    Renderable.AddOverlay("power", new StandardRenderable("power.apco3-1"), Layers.LAYER_STRUCTURE + 0.01f);
+                    break;
             }
         }
 
         public void Process(float deltaTime)
         {
-            UpdateOverlays();
             //Check if we are attached to a powernet
             if (PowernetInteractor.AttachedPowernet == null)
             {
+                UpdateOverlays(0);
                 return;
             }
             //Check we actually contain a cell
             if (insertedCell == null)
             {
+                UpdateOverlays(0);
                 PowernetInteractor.Demand = 0;
                 return;
             }
             //Charge our cell if we can
             float powerDemand = Math.Min(insertedCell.ChargeRate * deltaTime, insertedCell.MaxCharge - insertedCell.Charge);
             PowernetInteractor.Demand = powerDemand;
-            insertedCell.GivePower(PowernetInteractor.AttachedPowernet.ReceievePower(powerDemand));
+            float powerDelta = PowernetInteractor.AttachedPowernet.ReceievePower(powerDemand);
+            insertedCell.GivePower(powerDelta);
+            UpdateOverlays(powerDelta);
         }
 
     }
