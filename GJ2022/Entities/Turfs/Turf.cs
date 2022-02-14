@@ -1,4 +1,5 @@
 ﻿//#define ATMOS_DEBUG
+#define PRESSURE_OVERLAY
 
 using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Block;
@@ -50,11 +51,18 @@ namespace GJ2022.Entities.Turfs
             attachedTextObject = new Rendering.Text.TextObject("0", Colour.White, new Vector<float>(X, Y), Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.3f);
             AtmosphericsSystem.Singleton.StartProcessing(this);
 #endif
+#if PRESSURE_OVERLAY
+            Renderable.AddOverlay("pressure", overlay, Layers.LAYER_TURF + 0.1f);
+            AtmosphericsSystem.Singleton.StartProcessing(this);
+#endif
         }
 
         //Set destroyed
         public bool Destroy(bool changed)
         {
+#if PRESSURE_OVERLAY || ATMOS_DEBUG
+            AtmosphericsSystem.Singleton.StopProcessing(this);
+#endif
             //Atmos flow blocking
             if (!AllowAtmosphericFlow)
                 World.RemoveAtmosphericBlock(X, Y, false);
@@ -115,11 +123,22 @@ namespace GJ2022.Entities.Turfs
 #endif
         }
 
+#if PRESSURE_OVERLAY
+        StandardRenderable overlay = new StandardRenderable("white", true);
+#endif
+
         public void Process(float deltaTime)
         {
+#if PRESSURE_OVERLAY
+            float p = Atmosphere?.ContainedAtmosphere?.KiloPascalPressure ?? 0;
+            float pressureRed = (float)(2.0f / (1 + Math.Pow(Math.E, -p * 0.01f))) - 1.0f;
+            overlay.SetColour(new Colour(1 - pressureRed, pressureRed, 0, 0.3f));
+#endif
+#if ATMOS_DEBUG
             attachedTextObject.Text = Atmosphere != null
                 ? $"{Math.Round(Atmosphere.ContainedAtmosphere.KiloPascalPressure, 2)}@{Math.Round(Atmosphere.ContainedAtmosphere.KelvinTemperature, 0)}k"
                 : $"N/A";
+#endif
         }
     }
 
