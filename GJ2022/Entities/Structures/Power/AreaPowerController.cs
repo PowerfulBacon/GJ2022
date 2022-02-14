@@ -74,7 +74,7 @@ namespace GJ2022.Entities.Structures.Power
         {
             attachedTextObject.Text = $"{insertedCell?.Charge}";
             int newOverlayState;
-            if (PowernetInteractor.AttachedPowernet == null || insertedCell == null || chargeRate <= 0)
+            if (PowernetInteractor.AttachedPowernet == null || insertedCell == null || (chargeRate <= 0 && insertedCell.Charge != insertedCell.MaxCharge))
                 newOverlayState = 1;
             else if (insertedCell.Charge == insertedCell.MaxCharge)
                 newOverlayState = 2;

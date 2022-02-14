@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.Structures;
 using GJ2022.Entities.Structures.Power;
+using GJ2022.Game.GameWorld;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -75,6 +76,11 @@ namespace GJ2022.Game.Power
                 conduit._powernet = this;
                 conduit.attachedTextObject.Text = $"{PowernetId}";
                 conduits.Add(conduit);
+                //Update attached powernets
+                foreach (PowernetInteractor interactor in World.GetPowernetInteractors((int)conduit.Position[0], (int)conduit.Position[1]))
+                {
+                    interactor.AttachedPowernet = this;
+                }
             }
             powernet.conduits = null;
             //Take this supply and demand also
