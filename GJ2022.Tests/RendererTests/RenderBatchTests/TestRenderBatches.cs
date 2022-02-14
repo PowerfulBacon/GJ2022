@@ -29,6 +29,8 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
 
         public Directions Direction => Directions.NONE;
 
+        public Colour Colour => Colour.White;
+
         public Vector<float> GetInstancePosition() { return new Vector<float>(0, 0, 0); }
 
         public Colour GetLightingColour()
