@@ -95,6 +95,15 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             }
         }
 
+        public void ClearRenderableBatchIndex(object associatedSet)
+        {
+            lock (renderableBatchIndex)
+            {
+                if (renderableBatchIndex.ContainsKey(associatedSet))
+                    renderableBatchIndex.Remove(associatedSet);
+            }
+        }
+
         //Overlays
         private Dictionary<string, Renderable> Overlays { get; set; } = null;
 

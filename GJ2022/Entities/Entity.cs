@@ -39,7 +39,7 @@ namespace GJ2022.Entities
             set
             {
                 _direction = value;
-                Renderable.UpdateDirection(value);
+                Renderable?.UpdateDirection(value);
             }
         }
 
@@ -57,7 +57,7 @@ namespace GJ2022.Entities
         }
 
         //The text object attached to this
-        protected TextObject attachedTextObject;
+        public TextObject attachedTextObject;
         protected Vector<float> textObjectOffset = new Vector<float>(0, 0);
 
         public Entity(Vector<float> position, float layer)

@@ -28,7 +28,7 @@ namespace GJ2022.Entities.Blueprints
 
         public bool Destroyed { get; set; } = false;
 
-        public override Renderable Renderable { get; set; } = new BlueprintRenderable("error");
+        public override Renderable Renderable { get; set; }
 
         protected List<Item> contents = new List<Item>();
 
@@ -38,6 +38,11 @@ namespace GJ2022.Entities.Blueprints
             BlueprintDetail = blueprint;
             //Update the texture
             Texture = BlueprintDetail.Texture;
+            //Create the renderable
+            Renderable = new BlueprintRenderable(BlueprintDetail.Texture);
+            //Set the renderable stuff
+            Position = Position;
+            Layer = Layer;
         }
 
         public override bool Destroy()

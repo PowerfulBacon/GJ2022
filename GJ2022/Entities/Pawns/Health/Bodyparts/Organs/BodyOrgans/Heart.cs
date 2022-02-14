@@ -28,7 +28,6 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
             //Put carbon dioxide from the body into the bodies internal atmosphere.
             Body.internalAtmosphere.SetMoles(CarbonDioxide.Singleton, Body.internalAtmosphere.GetMoles(CarbonDioxide.Singleton) + Body.bloodstreamCarbonDioxideMoles);
             Body.bloodstreamCarbonDioxideMoles = 0;
-            Log.WriteLine(Body.bloodstreamOxygenMoles);
         }
     }
 }

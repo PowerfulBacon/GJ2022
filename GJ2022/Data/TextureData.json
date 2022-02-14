@@ -7,6 +7,134 @@
 {
   "textures": [
     {
+      "id": "power_cond_heavy.node",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-1",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-2",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 0
+    },
+    {
+      "id": "power_cond_heavy.0-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.1-2",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.1-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.1-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 1
+    },
+    {
+      "id": "power_cond_heavy.2-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.2-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.1-2-4",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 2
+    },
+    {
+      "id": "power_cond_heavy.1-4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 0,
+      "index_y": 3
+    },
+    {
+      "id": "power_cond_heavy.1-2-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 1,
+      "index_y": 3
+    },
+    {
+      "id": "power_cond_heavy.2-4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 2,
+      "index_y": 3
+    },
+    {
+      "id": "power_cond_heavy.1-2-4-8",
+      "file": "power_cond_heavy.bmp",
+      "width": 32,
+      "height": 32,
+      "index_x": 3,
+      "index_y": 3
+    },
+    {
       "id": "grass_top",
       "file": "ground.bmp",
       "width": 32,
@@ -17886,6 +18014,1060 @@
       "height": 32,
       "index_x": 7,
       "index_y": 13
-    }
+    },
+          {
+          "id": "power.light1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 0,
+          "index_y": 0
+      },
+      {
+          "id": "power.light0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 0
+      },
+      {
+          "id": "power.light-p",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 0
+      },
+      {
+          "id": "power.cell",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 0
+      },
+      {
+          "id": "power.hcell",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 0
+      },
+      {
+          "id": "power.h+cell",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 0
+      },
+      {
+          "id": "power.scell",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 6,
+          "index_y": 0
+      },
+      {
+          "id": "power.hpcell",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 7,
+          "index_y": 0
+      },
+      {
+          "id": "power.icell",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 8,
+          "index_y": 0
+      },
+      {
+          "id": "power.bscell",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 9,
+          "index_y": 0
+      },
+      {
+          "id": "power.cell-o1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             1,
+          ],
+          "index_x": 10,
+          "index_y": 0
+      },
+      {
+          "id": "power.cell-o2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 12,
+          "index_y": 0
+      },
+      {
+          "id": "power.term",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 13,
+          "index_y": 0
+      },
+      {
+          "id": "power.term-f",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 0,
+          "index_y": 1
+      },
+      {
+          "id": "power.coil",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 1
+      },
+      {
+          "id": "power.coil2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 1
+      },
+      {
+          "id": "power.coil1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 6,
+          "index_y": 1
+      },
+      {
+          "id": "power.wire",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 7,
+          "index_y": 1
+      },
+      {
+          "id": "power.wire2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 8,
+          "index_y": 1
+      },
+      {
+          "id": "power.wire1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 9,
+          "index_y": 1
+      },
+      {
+          "id": "power.ccharger",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 10,
+          "index_y": 1
+      },
+      {
+          "id": "power.ccharger-on",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 11,
+          "index_y": 1
+      },
+      {
+          "id": "power.ccharger-o0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 12,
+          "index_y": 1
+      },
+      {
+          "id": "power.ccharger-o1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 14,
+          "index_y": 1
+      },
+      {
+          "id": "power.ccharger-o2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 16,
+          "index_y": 2
+      },
+      {
+          "id": "power.ccharger-o3",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 1,
+          "index_y": 2
+      },
+      {
+          "id": "power.ccharger-o4",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             2,
+             2,
+          ],
+          "index_x": 3,
+          "index_y": 2
+      },
+      {
+          "id": "power.teg",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 5,
+          "index_y": 2
+      },
+      {
+          "id": "power.teg-op1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 9,
+          "index_y": 2
+      },
+      {
+          "id": "power.teg-op2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 13,
+          "index_y": 2
+      },
+      {
+          "id": "power.teg-op3",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 0,
+          "index_y": 3
+      },
+      {
+          "id": "power.teg-op4",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 4,
+          "index_y": 3
+      },
+      {
+          "id": "power.teg-op5",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 8,
+          "index_y": 3
+      },
+      {
+          "id": "power.teg-op6",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 12,
+          "index_y": 3
+      },
+      {
+          "id": "power.teg-broken",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 16,
+          "index_y": 4
+      },
+      {
+          "id": "power.teg-op7",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 3,
+          "index_y": 4
+      },
+      {
+          "id": "power.teg-op8",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 7,
+          "index_y": 4
+      },
+      {
+          "id": "power.teg-op9",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 11,
+          "index_y": 4
+      },
+      {
+          "id": "power.teg-op10",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 15,
+          "index_y": 5
+      },
+      {
+          "id": "power.teg-op11",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 2,
+          "index_y": 5
+      },
+      {
+          "id": "power.teg-oc00",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "index_x": 6,
+          "index_y": 5
+      },
+      {
+          "id": "power.teg-oc10",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "animation_frames": 2,
+          "animation_delays": [
+             3,
+             3,
+          ],
+          "index_x": 10,
+          "index_y": 5
+      },
+      {
+          "id": "power.teg-oc01",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "animation_frames": 2,
+          "animation_delays": [
+             3,
+             3,
+          ],
+          "index_x": 1,
+          "index_y": 6
+      },
+      {
+          "id": "power.teg-oc11",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "directional": "CARDINAL",
+          "animation_frames": 2,
+          "animation_delays": [
+             3,
+             3,
+          ],
+          "index_x": 9,
+          "index_y": 6
+      },
+      {
+          "id": "power.crema_switch",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 0,
+          "index_y": 7
+      },
+      {
+          "id": "power.portgen0legacy",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 7
+      },
+      {
+          "id": "power.portgen1legacy",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 7
+      },
+      {
+          "id": "power.portgen2legacy",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 7
+      },
+      {
+          "id": "power.filter",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 7
+      },
+      {
+          "id": "power.tank",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 7
+      },
+      {
+          "id": "power.rtg",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 6,
+          "index_y": 7
+      },
+      {
+          "id": "power.rtg-open",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 7,
+          "index_y": 7
+      },
+      {
+          "id": "power.switch-dbl-down",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 8,
+          "index_y": 7
+      },
+      {
+          "id": "power.switch-dbl-up",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 9,
+          "index_y": 8
+      },
+      {
+          "id": "power.switch-down",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 10,
+          "index_y": 8
+      },
+      {
+          "id": "power.switch-up",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 11,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 12,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-og1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             10,
+             10,
+          ],
+          "index_x": 13,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-og2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 15,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-og3",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 16,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-og4",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 0,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-og5",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-op0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-op1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-oc1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 4,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-oc0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 6,
+          "index_y": 8
+      },
+      {
+          "id": "power.smes-o",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 8,
+          "index_y": 9
+      },
+      {
+          "id": "power.grown_wires",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 9,
+          "index_y": 9
+      },
+      {
+          "id": "power.portgen0_0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_rewind": true,
+          "index_x": 10,
+          "index_y": 9
+      },
+      {
+          "id": "power.portgen0_1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 21,
+          "animation_rewind": true,
+          "animation_delays": [
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+          ],
+          "index_x": 11,
+          "index_y": 9
+      },
+      {
+          "id": "power.portgen1_0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_rewind": true,
+          "index_x": 15,
+          "index_y": 10
+      },
+      {
+          "id": "power.portgen1_1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 21,
+          "animation_rewind": true,
+          "animation_delays": [
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+          ],
+          "index_x": 16,
+          "index_y": 10
+      },
+      {
+          "id": "power.portgen2_0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 11
+      },
+      {
+          "id": "power.portgen2_1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 21,
+          "animation_rewind": true,
+          "animation_delays": [
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+             0.5,
+          ],
+          "index_x": 4,
+          "index_y": 11
+      },
+      {
+          "id": "power.apc0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 8,
+          "index_y": 12
+      },
+      {
+          "id": "power.apco3-1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 6,
+          "animation_delays": [
+             1,
+             1,
+             1,
+             1,
+             1,
+             2,
+          ],
+          "index_x": 9,
+          "index_y": 12
+      },
+      {
+          "id": "power.apco3-0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             10,
+             20,
+          ],
+          "index_x": 15,
+          "index_y": 12
+      },
+      {
+          "id": "power.apco3-2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             10,
+             10,
+          ],
+          "index_x": 0,
+          "index_y": 13
+      },
+      {
+          "id": "power.apc-spark",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 7,
+          "animation_delays": [
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+             1,
+          ],
+          "index_x": 2,
+          "index_y": 13
+      },
+      {
+          "id": "power.apcewires",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 9,
+          "index_y": 14
+      },
+      {
+          "id": "power.apcemag",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "animation_frames": 2,
+          "animation_delays": [
+             5,
+             5,
+          ],
+          "index_x": 10,
+          "index_y": 14
+      },
+      {
+          "id": "power.apc1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 12,
+          "index_y": 14
+      },
+      {
+          "id": "power.apc1-b-nocover",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 13,
+          "index_y": 14
+      },
+      {
+          "id": "power.apc1-nocover",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 14,
+          "index_y": 14
+      },
+      {
+          "id": "power.apc2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 15,
+          "index_y": 14
+      },
+      {
+          "id": "power.apc2-b-nocover",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 16,
+          "index_y": 14
+      },
+      {
+          "id": "power.apc2-nocover",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 0,
+          "index_y": 14
+      },
+      {
+          "id": "power.apc-b",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 14
+      },
+      {
+          "id": "power.apcmaint",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 15
+      },
+      {
+          "id": "power.apcox-0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 15
+      },
+      {
+          "id": "power.apcox-1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco0-0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 5,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco0-1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 6,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco0-2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 7,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco0-3",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 8,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco1-0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 9,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco1-1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 10,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco1-2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 11,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco1-3",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 12,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco2-0",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 13,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco2-1",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 14,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco2-2",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 15,
+          "index_y": 15
+      },
+      {
+          "id": "power.apco2-3",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 16,
+          "index_y": 15
+      },
+      {
+          "id": "power.cablerelay",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 0,
+          "index_y": 15
+      },
+      {
+          "id": "power.cablerelay-off",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 1,
+          "index_y": 16
+      },
+      {
+          "id": "power.cablerelay-on",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 2,
+          "index_y": 16
+      },
+      {
+          "id": "power.cablerelay-broken",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 3,
+          "index_y": 16
+      },
+      {
+          "id": "power.cablerelay-broken-cable",
+          "file": "power.bmp",
+          "width": 32,
+          "height": 32,
+          "index_x": 4,
+          "index_y": 16
+      }
   ]
 }

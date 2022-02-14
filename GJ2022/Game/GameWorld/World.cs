@@ -5,7 +5,9 @@ using GJ2022.Entities.Items;
 using GJ2022.Entities.Markers;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Structures;
+using GJ2022.Entities.Structures.Power;
 using GJ2022.Entities.Turfs;
+using GJ2022.Game.Power;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System.Collections.Generic;
@@ -36,6 +38,12 @@ namespace GJ2022.Game.GameWorld
         //Dictionary of markers in the world
         public static PositionBasedBinaryList<Marker> WorldMarkers = new PositionBasedBinaryList<Marker>();
 
+        //Dictionary of power cables in the world
+        public static PositionBasedBinaryList<PowerConduit> PowerCables = new PositionBasedBinaryList<PowerConduit>();
+
+        //Collection of interactors with the powernet.
+        public static PositionBasedBinaryList<List<PowernetInteractor>> PowernetInteractors = new PositionBasedBinaryList<List<PowernetInteractor>>();
+
         //Dictionary containing all items in the world at a specified position.
         //When an item moves, it needs to be updated in this list.
         public static PositionBasedBinaryList<List<Item>> WorldItems = new PositionBasedBinaryList<List<Item>>();
@@ -45,6 +53,9 @@ namespace GJ2022.Game.GameWorld
 
         //Dictionary containing all mobs in the world
         public static PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
+
+        //Dictionary containing all mobs in the world
+        public static PositionBasedBinaryList<List<AreaPowerController>> AreaPowerControllers = new PositionBasedBinaryList<List<AreaPowerController>>();
 
         //An integer storing the amount of atmospheric blocking things at this location
         private static PositionBasedBinaryList<IntegerReference> AtmosphericBlockers = new PositionBasedBinaryList<IntegerReference>();
@@ -216,6 +227,41 @@ namespace GJ2022.Game.GameWorld
         }
 
         //======================
+        // APCs
+        //======================
+
+        public static List<AreaPowerController> GetAreaPowerControllers(int x, int y)
+        {
+            return AreaPowerControllers.Get(x, y) ?? new List<AreaPowerController>() { };
+        }
+
+        /// <summary>
+        /// Add an pawn to the world list
+        /// </summary>
+        public static void AddAreaPowerController(int x, int y, AreaPowerController apc)
+        {
+            List<AreaPowerController> located = AreaPowerControllers.Get(x, y);
+            if (located != null)
+                located.Add(apc);
+            else
+                AreaPowerControllers.Add(x, y, new List<AreaPowerController>() { apc });
+        }
+
+        /// <summary>
+        /// Remove the pawn from the world list
+        /// </summary>
+        public static bool RemoveAreaPowerController(int x, int y, AreaPowerController apc)
+        {
+            List<AreaPowerController> located = AreaPowerControllers.Get(x, y);
+            if (located == null)
+                return false;
+            located.Remove(apc);
+            if (located.Count == 0)
+                AreaPowerControllers.Remove(x, y);
+            return true;
+        }
+
+        //======================
         // Pawns
         //======================
 
@@ -336,6 +382,79 @@ namespace GJ2022.Game.GameWorld
             located.Remove(item);
             if (located.Count == 0)
                 WorldItems.Remove(x, y);
+            return true;
+        }
+
+        //======================
+        // Power Cables
+        //======================
+
+        /// <summary>
+        /// Get the area at the specified location.
+        /// </summary>
+        public static PowerConduit GetPowerCable(int x, int y)
+        {
+            return PowerCables.Get(x, y);
+        }
+
+        /// <summary>
+        /// Set the area at the specified location
+        /// </summary>
+        public static void SetPowerCable(int x, int y, PowerConduit cable)
+        {
+            if (cable == null)
+                PowerCables.Remove(x, y);
+            else
+            {
+                //Add the power cable
+                PowerCables.Add(x, y, cable);
+                //Connect any interactors to us
+                foreach (PowernetInteractor interactor in GetPowernetInteractors(x, y))
+                {
+                    interactor.AttachedPowernet = cable.Powernet;
+                }
+            }
+        }
+
+        //======================
+        // Powernet Interactors
+        //======================
+
+        public static List<PowernetInteractor> GetPowernetInteractors(int x, int y)
+        {
+            return PowernetInteractors.Get(x, y) ?? new List<PowernetInteractor>() { };
+        }
+
+        /// <summary>
+        /// Add an structure to the world list
+        /// </summary>
+        public static void AddPowernetInteractor(int x, int y, PowernetInteractor interactor)
+        {
+            List<PowernetInteractor> located = PowernetInteractors.Get(x, y);
+            if (located != null)
+                located.Add(interactor);
+            else
+                PowernetInteractors.Add(x, y, new List<PowernetInteractor>() { interactor });
+            //Attach the interactor to the powernet at this location
+            Powernet joiningPowernet = GetPowerCable(x, y)?.Powernet;
+            if (joiningPowernet != null)
+                interactor.AttachedPowernet = joiningPowernet;
+            else
+                //Disconnect from powernet if there is no powernet at this location.
+                interactor.AttachedPowernet = null;
+        }
+
+        /// <summary>
+        /// Remove the istructuretem from the world list
+        /// </summary>
+        public static bool RemovePowernetInteractor(int x, int y, PowernetInteractor interactor)
+        {
+            List<PowernetInteractor> located = PowernetInteractors.Get(x, y);
+            if (located == null)
+                return false;
+            located.Remove(interactor);
+            if (located.Count == 0)
+                PowernetInteractors.Remove(x, y);
             return true;
         }
 

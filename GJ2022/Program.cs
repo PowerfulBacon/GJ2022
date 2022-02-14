@@ -8,6 +8,7 @@ using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Pawns.Mobs;
 using GJ2022.Entities.Pawns.Mobs.Humans;
+using GJ2022.Entities.Structures.Power;
 using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
 using GJ2022.PawnBehaviours.Behaviours;
@@ -128,6 +129,8 @@ namespace GJ2022
             new DogBehaviour(dog);
 
             jetpackPawn.TryEquipItem(InventorySlot.SLOT_BACK, new Jetpack(new Vector<float>(9, 8)));
+
+            new PacmanGenerator(new Vector<float>(7, 4));
 
             Random r = new Random();
             for (int x = 20; x < 100; x += r.Next(1, 10))

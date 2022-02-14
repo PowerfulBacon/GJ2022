@@ -83,10 +83,25 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         private void ChangeTexture(string newTexture)
         {
-            _texture = newTexture;
-            //Update position in renderer
-            if (renderableBatchIndex.Count > 0)
-                (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IBlueprintRenderable, BlueprintRenderSystem>)?.UpdateBatchData(this, 1);
+
+            uint textureUint = GetTextureUint();
+            if (textureUint == TextureCache.GetTexture(newTexture).TextureUint)
+            {
+                _texture = newTexture;
+                //Update position in renderer
+                lock (renderableBatchIndex)
+                    if (renderableBatchIndex.Count > 0)
+                        lock (renderableBatchIndex.Keys.ElementAt(0))
+                            (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IBlueprintRenderable, BlueprintRenderSystem>)?.UpdateBatchData(this, 1);
+            }
+            else if (IsRendering)
+            {
+                Log.WriteLine("Changed texture uint");
+                //Restart rendering since the texture file changed
+                StopRendering();
+                _texture = newTexture;
+                StartRendering();
+            }
         }
 
         public override RendererTextureData GetRendererTextureData()
