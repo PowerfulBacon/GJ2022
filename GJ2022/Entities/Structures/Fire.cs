@@ -59,7 +59,7 @@ namespace GJ2022.Entities.Structures
             //Hurt pawns
             foreach (Pawn pawn in World.GetPawns(turf.X, turf.Y))
             {
-                pawn.PawnBody.ApplyDamageRandomly(new Burn(0.1f * deltaTime));
+                pawn.PawnBody.ApplyDamageRandomly(new Burn(0.5f * deltaTime));
             }
             //Consume oxygen
             turf.Atmosphere.ContainedAtmosphere.SetMoles(Oxygen.Singleton, Math.Max(molesOfOxygenLeft - (OXYGEN_BURN_RATE * deltaTime), 0.0f));

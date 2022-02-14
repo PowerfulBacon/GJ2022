@@ -1,5 +1,5 @@
 ﻿//#define ATMOS_DEBUG
-#define PRESSURE_OVERLAY
+//#define PRESSURE_OVERLAY
 
 using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Block;
