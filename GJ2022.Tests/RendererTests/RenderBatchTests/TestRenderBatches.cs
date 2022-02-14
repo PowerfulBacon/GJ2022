@@ -78,7 +78,7 @@ namespace GJ2022.Tests.RendererTests.RenderBatchTests
 
         public void ClearRenderableBatchIndex(object associatedSet)
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 
