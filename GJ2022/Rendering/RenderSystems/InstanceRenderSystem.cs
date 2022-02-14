@@ -17,11 +17,11 @@ namespace GJ2022.Rendering.RenderSystems
 
         protected override string SystemShaderName => "instanceShader";
 
-        protected override int BufferCount => 3;
+        protected override int BufferCount => 4;
 
-        protected override int[] BufferWidths { get; } = new int[] { 3, 1, 4 };
+        protected override int[] BufferWidths { get; } = new int[] { 3, 1, 4, 4 };
 
-        protected override uint[] BufferDataPointsPerInstance { get; } = new uint[] { 1, 1, 1 };
+        protected override uint[] BufferDataPointsPerInstance { get; } = new uint[] { 1, 1, 1, 1 };
 
         protected override RenderBatchGroup GetBatchGroup(IStandardRenderable renderable)
         {
@@ -68,6 +68,13 @@ namespace GJ2022.Rendering.RenderSystems
                         indexY,
                         texData.Width,
                         texData.Height,
+                    };
+                case 3:
+                    return new float[] {
+                        targetItem.Colour.red,
+                        targetItem.Colour.green,
+                        targetItem.Colour.blue,
+                        targetItem.Colour.alpha,
                     };
             }
             throw new ArgumentException($"Invalid argument buffer index supplied: buffer supplied {bufferIndex}, maxBuffer: {BufferCount}");

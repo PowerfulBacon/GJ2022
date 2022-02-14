@@ -3,6 +3,7 @@ using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Renderables;
+using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
 {
@@ -50,7 +51,11 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
             renderable.AddOverlay($"head", new StandardRenderable($"human_head{gender_extension}"), Layers.LAYER_PAWN + 0.01f);
             //Add hair if this head uses hair and doesn't have hair hidden.
             if (HasHair && (Body.Parent.HiddenBodypartsFlags & ClothingFlags.HIDE_HAIR) == 0)
-                renderable.AddOverlay($"hair", new StandardRenderable($"human_face.{haircut}"), Layers.LAYER_PAWN + 0.04f);
+            {
+                StandardRenderable hair = new StandardRenderable($"human_face.{haircut}");
+                hair.SetColour(Colour.Random);
+                renderable.AddOverlay($"hair", hair, Layers.LAYER_PAWN + 0.04f);
+            }
         }
 
         public override void RemoveOverlay(Renderable renderable)
@@ -81,7 +86,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Limbs.Limbs
                 if ((newFlags & ClothingFlags.HIDE_HAIR) == 0)
                 {
                     //Hair is now visible
-                    renderable.AddOverlay($"hair", new StandardRenderable($"human_face.{haircut}"), Layers.LAYER_PAWN + 0.04f);
+                    StandardRenderable hair = new StandardRenderable($"human_face.{haircut}");
+                    hair.SetColour(Colour.Random);
+                    renderable.AddOverlay($"hair", hair, Layers.LAYER_PAWN + 0.04f);
                 }
                 else
                 {

@@ -72,6 +72,20 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         }
 
         //===================
+        // Colour Handling
+        //===================
+
+        public void SetColour(Colour colour)
+        {
+            Colour = colour;
+            //Update position in renderer
+            lock (renderableBatchIndex)
+                if (renderableBatchIndex.Count > 0)
+                    lock (renderableBatchIndex.Keys.ElementAt(0))
+                        (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 3);
+        }
+
+        //===================
         // Position Handling
         //===================
 

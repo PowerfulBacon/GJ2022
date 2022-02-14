@@ -17,8 +17,6 @@ namespace GJ2022.Rendering.RenderSystems.Interfaces
 
         UserInterfaceComponent.PositionModes PositionMode { get; }
 
-        Colour Colour { get; }
-
         bool isHovered { get; }
 
     }
