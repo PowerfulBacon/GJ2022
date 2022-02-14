@@ -10,6 +10,7 @@ using GJ2022.Game.GameWorld;
 using GJ2022.Game.Power;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
+using GJ2022.Subsystems.Processing;
 using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Structures.Power
@@ -46,6 +47,7 @@ namespace GJ2022.Entities.Structures.Power
             textObjectOffset = new Vector<float>(0, -0.3f);
             attachedTextObject = new TextObject($"{insertedCell?.Charge}", Colour.White, Position + textObjectOffset, TextObject.PositionModes.WORLD_POSITION, 0.4f);
             UpdateOverlays();
+            PowerProcessingSystem.Singleton.StartProcessing(this);
         }
 
         //Display offset, will screw up the positional checks of this
@@ -62,6 +64,7 @@ namespace GJ2022.Entities.Structures.Power
             Position -= offset;
             World.RemoveAreaPowerController((int)Position[0], (int)Position[1], this);
             World.RemovePowernetInteractor((int)Position[0], (int)Position[1], PowernetInteractor);
+            PowerProcessingSystem.Singleton.StopProcessing(this);
             return base.Destroy();
         }
 
@@ -105,8 +108,9 @@ namespace GJ2022.Entities.Structures.Power
                 return;
             }
             //Charge our cell if we can
-            PowernetInteractor.Demand = insertedCell.ChargeRate;
-            insertedCell.GivePower(PowernetInteractor.AttachedPowernet.ReceievePower(insertedCell.ChargeRate * deltaTime));
+            float powerDemand = Math.Min(insertedCell.ChargeRate * deltaTime, insertedCell.MaxCharge - insertedCell.Charge);
+            PowernetInteractor.Demand = powerDemand;
+            insertedCell.GivePower(PowernetInteractor.AttachedPowernet.ReceievePower(powerDemand));
         }
 
     }

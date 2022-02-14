@@ -43,7 +43,7 @@ namespace GJ2022.Game.Power
             {
                 if (value == _demand)
                     return;
-                float delta = _demand - value;
+                float delta = value - _demand;
                 _demand = value;
                 if (_pn != null)
                     _pn.AdjustDemand(delta);
@@ -58,7 +58,7 @@ namespace GJ2022.Game.Power
             {
                 if (value == _supply)
                     return;
-                float delta = _supply - value;
+                float delta = value - _supply;
                 _supply = value;
                 if (_pn != null)
                     _pn.AdjustSupply(delta);
