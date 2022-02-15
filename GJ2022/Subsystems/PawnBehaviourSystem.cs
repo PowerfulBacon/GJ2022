@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Pawns;
+using GJ2022.Managers;
 using GJ2022.PawnBehaviours;
 using GLFW;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace GJ2022.Subsystems
         public static PawnBehaviourSystem Singleton { get; } = new PawnBehaviourSystem();
 
         //2 second delay between AI fires
-        public override int sleepDelay => 2000;
+        public override int sleepDelay => (int)(2000 * TimeManager.TimeMultiplier);
 
         public override SubsystemFlags SubsystemFlags => SubsystemFlags.NO_PROCESSING;
 

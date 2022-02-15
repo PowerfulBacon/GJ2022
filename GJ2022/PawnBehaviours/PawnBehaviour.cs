@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Pawns;
+using GJ2022.Managers;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
@@ -85,7 +86,7 @@ namespace GJ2022.PawnBehaviours
         public void PauseActionFor(PawnAction action, double time)
         {
             if (Actions.ContainsKey(action))
-                Actions[action] = Math.Max(Actions[action], GLFW.Glfw.Time + time);
+                Actions[action] = Math.Max(Actions[action], TimeManager.Time + time);
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace GJ2022.PawnBehaviours
                     if (!Actions.ContainsKey(action))
                         continue;
                     double availableTime = Actions[action];
-                    if (((action.Overriding && !performingAction.Overriding) || action.Priority < highestPriorityAction) && action.CanPerform(this) && availableTime < GLFW.Glfw.Time)
+                    if (((action.Overriding && !performingAction.Overriding) || action.Priority < highestPriorityAction) && action.CanPerform(this) && availableTime < TimeManager.Time)
                     {
                         highestPriorityAction = action.Priority;
                         performingAction = action;

@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.Managers;
 using GLFW;
 using System;
 using System.Collections.Generic;
@@ -275,7 +276,7 @@ namespace GJ2022.Subsystems
                 else
                 {
                     //Process the entity.
-                    ProcessingEntities[i].Process(deltaTime);
+                    ProcessingEntities[i].Process(deltaTime * (float)TimeManager.TimeMultiplier);
                 }
             }
         }

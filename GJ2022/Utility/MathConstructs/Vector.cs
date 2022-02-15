@@ -67,7 +67,7 @@ namespace GJ2022.Utility.MathConstructs
                 trueThis = trueThis.IgnoreZ();
             }
             float totalDistance = (trueTarget - trueThis).Length();
-            float distanceMoved = speed / deltaTime;
+            float distanceMoved = speed * deltaTime;
             if (totalDistance < distanceMoved)
             {
                 //Dimensional safe copy
@@ -81,7 +81,7 @@ namespace GJ2022.Utility.MathConstructs
             for (int i = 0; i < Math.Min(trueTarget.Dimensions, trueThis.Dimensions); i++)
             {
                 float dist = (dynamic)trueTarget[i] - trueThis.Values[i];
-                thisCopy[i] += (dynamic)((dist / totalDistance) * (speed / deltaTime));
+                thisCopy[i] += (dynamic)((dist / totalDistance) * (speed * deltaTime));
             }
             extraDistance = 0;
             return thisCopy;

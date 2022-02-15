@@ -2,6 +2,7 @@
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Game.GameWorld;
+using GJ2022.Managers;
 using GJ2022.Pathfinding;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
@@ -121,7 +122,7 @@ namespace GJ2022.Entities.Pawns
             if (InCrit)
             {
                 //Update animation
-                Renderable.UpdateRotation((float)(Math.Sin(GLFW.Glfw.Time) * 0.3f + Math.PI * 0.5f));
+                Renderable.UpdateRotation((float)(Math.Sin(TimeManager.Time) * 0.3f + Math.PI * 0.5f));
                 //End procesing here
                 return;
             }

@@ -11,6 +11,7 @@ using GJ2022.Entities.Pawns.Mobs.Humans;
 using GJ2022.Entities.Structures.Power;
 using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.Game.Construction;
+using GJ2022.Managers;
 using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -147,10 +148,14 @@ namespace GJ2022
             Subsystem.WorldInitialize();
 
             //Rendering Loop
+            double lastTime = 0;
             while (!Glfw.WindowShouldClose(window))
             {
                 try
                 {
+                    double currentTime = Glfw.Time;
+                    TimeManager.UpdateTime(currentTime - lastTime);
+                    lastTime = currentTime;
                     //Perform rendering
                     RenderMaster.RenderWorld(window);
                 }
