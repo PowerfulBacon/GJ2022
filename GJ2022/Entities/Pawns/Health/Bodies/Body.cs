@@ -96,7 +96,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         public abstract float BleedFixRate { get; }
 
         //Rate at which we are currently bleeding, in ml per second.
-        public float BleedRate { get; private set; } = 100;
+        public float BleedRate { get; private set; } = 0;
 
         public bool Destroyed => false;
 

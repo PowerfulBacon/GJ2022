@@ -22,7 +22,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.BodyOrgans
             //this is just an arbitary number to stop pawns getting infinite oxygen and the lungs are always fine
             float maximumBodyOxygen = 0.05f;
             //Take oxygen from the internal atmosphere and put it into the body.
-            float transferedMoles = Math.Min(Math.Max(Math.Min(Body.internalAtmosphere.GetMoles(Oxygen.Singleton), maximumBodyOxygen) - Body.bloodstreamOxygenMoles, 0), TransferRate * deltaTime * Body.BloodEfficiency);
+            float transferEfficiency = (Body.internalAtmosphere.GetMoles(Oxygen.Singleton) / Body.internalAtmosphere.Moles);
+            float transferedMoles = Math.Min(Math.Max(Math.Min(Body.internalAtmosphere.GetMoles(Oxygen.Singleton) * transferEfficiency, maximumBodyOxygen) - Body.bloodstreamOxygenMoles, 0), TransferRate * deltaTime * Body.BloodEfficiency);
             Body.bloodstreamOxygenMoles += transferedMoles;
             Body.internalAtmosphere.SetMoles(Oxygen.Singleton, Body.internalAtmosphere.GetMoles(Oxygen.Singleton) - transferedMoles);
             //Put carbon dioxide from the body into the bodies internal atmosphere.
