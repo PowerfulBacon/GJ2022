@@ -1,35 +1,58 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Entities>
-  <Entity Name="Clothing" ParentName="Item" Abstract="true">
-    <!--Set variables that are on Entity-->
-    <Name>Example Suit</Name>
-    <Description>An example suit.</Description>
-    <!--Apply renderable data-->
-    <Renderable Type="StandardRenderable">
-      <!--Set the properties of the renderable-->
-      <Texture>TextureFile.Texture</Texture>
-      <IsTransparent>true</IsTransparent>
-      <!--Colour data structure-->
-      <Colour>
-        <Red>1</Red>
-        <Green>1</Green>
-        <Blue>1</Blue>
-        <Alpha>0.6</Alpha>
-      </Colour>
-    </Renderable>
-    <!--Components applied to all items of clothing-->
+  <!--Supertype for all clothes-->
+  <Entity Name="ClothingBase" ParentName="ItemBase" Abstract="true">
     <Components>
-      <li Class="Equippable">
-        <!--Enum Value-->
+      <Component_Equippable />
+    </Components>
+  </Entity>
+  <!--Head clothing-->
+  <Entity Name="ClothingBase_Head" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
         <Slots>
-          <Enum Type="InventorySlot" Value="SLOT_BACK" />
-          <Enum Type="InventorySlot" Value="SLOT_BODY" />
+          <EnumValue>SLOT_BACK</EnumValue>
         </Slots>
-        <!--Primitive Values-->
-        <EquipTexture>TextureFile.Texture</EquipTexture>
-        <AppendSlotToIconState>false</AppendSlotToIconState>
-      </li>
+        <CoverFlags>
+          <EnumValue>COVER_HEAD</EnumValue>
+        </CoverFlags>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Body Clothing-->
+  <Entity Name="ClothingBase_Body" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <Slots>
+          <EnumValue>SLOT_BODY</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_BODY</EnumValue>
+        </CoverFlags>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Back Clothing-->
+  <Entity Name="ClothingBase_Back" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <Slots>
+          <EnumValue>SLOT_BACK</EnumValue>
+        </Slots>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Mask Clothing-->
+  <Entity Name="ClothingBase_Mask" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <Slots>
+          <EnumValue>SLOT_MASK</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_MOUTH</EnumValue>
+        </CoverFlags>
+      </Component_Equippable>
     </Components>
   </Entity>
 </Entities>
-  

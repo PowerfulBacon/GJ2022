@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Constants>
+  <Constant Name="IDEAL_TEMPERATURE" Type="float">
+    295.15
+  </Constant>
+  <Constant Name="IDEAL_PRESSURE" Type="float">
+    101.33
+  </Constant>
+  <Constant Name="TILE_GAS_VOLUME" Type="float">
+    2500
+  </Constant>
+  <Constant Name="TEMPERATURE_C0" Type="float">
+    273.15f
+  </Constant>
+  <Constant Name="TEMPERATURE_C20" Type="float">
+    293.15f
+  </Constant>
+  <Constant Name="TEMPERATURE_DANGERUOS" Type="float">
+    323.15f
+  </Constant>
+</Constants>
