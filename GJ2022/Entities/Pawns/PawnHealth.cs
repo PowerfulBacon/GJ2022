@@ -44,6 +44,8 @@ namespace GJ2022.Entities.Pawns
         /// </summary>
         public void Death(string cause)
         {
+            if (Dead)
+                return;
             Dead = true;
             //Stop procesing
             PawnControllerSystem.Singleton.StopProcessing(this);
