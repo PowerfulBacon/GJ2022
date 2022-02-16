@@ -7,6 +7,7 @@ using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.LineRenderer;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Subsystems;
+using GJ2022.Subsystems.Processing;
 using GJ2022.Utility.MathConstructs;
 using System;
 
@@ -61,6 +62,7 @@ namespace GJ2022.Entities.Pawns
         public Pawn(Vector<float> position) : base(position, Layers.LAYER_PAWN)
         {
             PawnControllerSystem.Singleton.StartProcessing(this);
+            BodyProcessingSystem.Singleton.StartProcessing(PawnBody);
             MouseCollisionSubsystem.Singleton.StartTracking(this);
             PawnBody.SetupBody(this);
         }
@@ -110,8 +112,6 @@ namespace GJ2022.Entities.Pawns
 
         public void Process(float deltaTime)
         {
-            //Process body
-            PawnBody.ProcessBody(deltaTime);
             //Draw debug lines
             DrawHelpfulLine();
             //If dead
@@ -259,6 +259,7 @@ namespace GJ2022.Entities.Pawns
         {
             base.Destroy();
             PawnControllerSystem.Singleton.StopProcessing(this);
+            BodyProcessingSystem.Singleton.StopProcessing(PawnBody);
             Destroyed = true;
             return true;
         }

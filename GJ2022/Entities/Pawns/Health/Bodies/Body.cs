@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace GJ2022.Entities.Pawns.Health.Bodies
 {
-    public abstract class Body
+    public abstract class Body : IProcessable
     {
 
         private static Random random = new Random();
@@ -98,6 +98,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
         //Rate at which we are currently bleeding, in ml per second.
         public float BleedRate { get; private set; } = 100;
 
+        public bool Destroyed => false;
+
         /// <summary>
         /// Setup the body and its internal atmosphere
         /// </summary>
@@ -153,7 +155,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             limb.Insert(this, slot);
         }
 
-        public void ProcessBody(float deltaTime)
+        public void Process(float deltaTime)
         {
             //Process bleeding
             ProcessBleeding(deltaTime);
@@ -357,6 +359,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 return null;
             return ListPicker.Pick(limbs);
         }
+
+        public bool Destroy() => false;
 
         //TODO: Put these in a txt data file or at least in its own .cs file
 
