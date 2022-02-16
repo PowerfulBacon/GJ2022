@@ -15,6 +15,7 @@
         </Slots>
       </Component_Equippable>
       <Component_GasStorage>
+        <InternalsSource>true</InternalsSource>
         <DefaultGas Class="AtmosphereCreator">
           <KelvinTemperature>
             <Constant Name="IDEAL_TEMPERATURE" />
