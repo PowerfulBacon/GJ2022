@@ -9,6 +9,10 @@ namespace GJ2022.Components
     public abstract class Component
     {
 
+        /// <summary>
+        /// Called after a component has been added to an entity
+        /// and all the properties have been setup.
+        /// </summary>
         public abstract void OnComponentAdd();
 
         public abstract void OnComponentRemove();

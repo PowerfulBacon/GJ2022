@@ -19,7 +19,7 @@ namespace GJ2022.Entities.Markers
                 return;
             //Register signal
             if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral)
-                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
+                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
         }
 
         public override bool IsValidPosition()
@@ -34,12 +34,12 @@ namespace GJ2022.Entities.Markers
             return base.Destroy();
         }
 
-        private SignalHandler.SignalResponse DestroyMarker(object source, object[] parameters)
+        private object DestroyMarker(object source, object[] parameters)
         {
             if (Destroyed)
-                return SignalHandler.SignalResponse.NONE;
+                return null;
             Destroy();
-            return SignalHandler.SignalResponse.NONE;
+            return null;
         }
 
         public void HandleAction(Pawn pawn)

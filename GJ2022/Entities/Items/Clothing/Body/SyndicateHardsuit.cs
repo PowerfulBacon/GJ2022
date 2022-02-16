@@ -42,7 +42,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
             Location = pawn;
-            RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
+            RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, 0, ParentMoveReact);
         }
 
         public void OnUnequip(Pawn pawn, InventorySlot slot)
@@ -52,7 +52,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
             UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
         }
 
-        private SignalResponse ParentMoveReact(object source, params object[] parameters)
+        private object ParentMoveReact(object source, params object[] parameters)
         {
             Pawn pawn = source as Pawn;
             //Get current position
@@ -65,7 +65,7 @@ namespace GJ2022.Entities.Items.Clothing.Body
             //Take down the helmet
             else
                 UndeployHelmet(pawn);
-            return SignalResponse.NONE;
+            return null;
         }
 
         public void DeployHelmet(Pawn pawn)

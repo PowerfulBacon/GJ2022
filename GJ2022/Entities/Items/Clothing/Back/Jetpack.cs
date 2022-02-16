@@ -48,7 +48,7 @@ namespace GJ2022.Entities.Items.Clothing.Back
 
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
-            RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
+            RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, 0, ParentMoveReact);
             Location = pawn;
         }
 
@@ -59,11 +59,11 @@ namespace GJ2022.Entities.Items.Clothing.Back
             Position = pawn.Position;
         }
 
-        private SignalResponse ParentMoveReact(object source, params object[] parameters)
+        private object ParentMoveReact(object source, params object[] parameters)
         {
             Entity entity = source as Entity;
             new Sparkle((Vector<int>)entity.Position);
-            return SignalResponse.NONE;
+            return null;
         }
 
     }
