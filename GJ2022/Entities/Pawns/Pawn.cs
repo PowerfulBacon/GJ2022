@@ -196,9 +196,9 @@ namespace GJ2022.Entities.Pawns
         {
             //If we have gravity return movement factor
             if (World.HasGravity(Position))
-                return 0.001f * PawnBody.Movement;
+                return 0.04f * PawnBody.Movement;
             //Return regular speed
-            return 0.1f;
+            return 4f;
         }
 
         /// <summary>

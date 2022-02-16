@@ -53,7 +53,7 @@ namespace GJ2022.Utility.MathConstructs
         //TODO: REFACTOR THE LAYERING SYSTEM
         public Vector<T> MoveTowards(Vector<T> target, float speed, float deltaTime, out float extraDistance, bool ignoreZ = true)
         {
-            if (speed == 0)
+            if (speed == 0 || deltaTime == 0)
             {
                 extraDistance = 0;
                 return this;
