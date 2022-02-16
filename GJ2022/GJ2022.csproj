@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -77,7 +77,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Data\Core\Items\Items_Core.xml" />
     <None Remove="Data\TextureData.json~RF8ecf5ae2.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Data\Core\Items\Items_Core.xml" />
   </ItemGroup>
 
   <ItemGroup>

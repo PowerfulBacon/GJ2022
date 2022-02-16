@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entities>
+  <Entity Name="Clothing" ParentName="Item" Abstract="true">
+    <!--Set variables that are on Entity-->
+    <Name>Example Suit</Name>
+    <Description>An example suit.</Description>
+    <!--Apply renderable data-->
+    <Renderable Type="StandardRenderable">
+      <!--Set the properties of the renderable-->
+      <Texture>TextureFile.Texture</Texture>
+      <IsTransparent>true</IsTransparent>
+      <!--Colour data structure-->
+      <Colour>
+        <Red>1</Red>
+        <Green>1</Green>
+        <Blue>1</Blue>
+        <Alpha>0.6</Alpha>
+      </Colour>
+    </Renderable>
+    <!--Components applied to all items of clothing-->
+    <Components>
+      <li Class="Equippable">
+        <!--Enum Value-->
+        <Slots>
+          <Enum Type="InventorySlot" Value="SLOT_BACK" />
+          <Enum Type="InventorySlot" Value="SLOT_BODY" />
+        </Slots>
+        <!--Primitive Values-->
+        <EquipTexture>TextureFile.Texture</EquipTexture>
+        <AppendSlotToIconState>false</AppendSlotToIconState>
+      </li>
+    </Components>
+  </Entity>
+</Entities>
+  
