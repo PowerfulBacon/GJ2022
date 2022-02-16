@@ -38,7 +38,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts.Organs.HeadOrgans
             //Produce carbon dioxide
             Body.bloodstreamCarbonDioxideMoles += availableOxygen;
             //Take damage if oxygen is insufficient
-            if (availableOxygen < OxygenConsumptionRate * deltaTime * OxygenDamageProportion)
+            if (availableOxygen < OxygenConsumptionRate * OxygenDamageProportion * deltaTime)
             {
                 float damageProportion = 1 - (availableOxygen / OxygenConsumptionRate * deltaTime * OxygenDamageProportion);
                 AddInjury(new Hypoxia(damageProportion * OxygenDamageMultiplied * deltaTime));
