@@ -9,6 +9,16 @@ namespace GJ2022.Components
     public abstract class Component
     {
 
+        public ComponentHandler Parent { get; private set; }
+
+        /// <summary>
+        /// Create the component and attach it to a parent
+        /// </summary>
+        public void Attach(ComponentHandler parent)
+        {
+            Parent = parent;
+        }
+
         /// <summary>
         /// Called after a component has been added to an entity
         /// and all the properties have been setup.

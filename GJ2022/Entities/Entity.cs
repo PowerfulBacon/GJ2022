@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Components;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Managers.TaskManager;
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 
 namespace GJ2022.Entities
 {
-    public abstract class Entity
+    public abstract class Entity : ComponentHandler
     {
 
         //The renderable attached to this entity
