@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Components;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Items.Clothing;
 using GJ2022.Managers.TaskManager;
@@ -105,6 +106,8 @@ namespace GJ2022.Entities.Pawns
                 //Pickup the item
                 heldItems[freeIndex] = item;
                 item.Location = this;
+                //Send the pickup signal
+                item.SendSignal(Signal.SIGNAL_ITEM_PICKED_UP, this);
                 return true;
             });
         }
@@ -160,6 +163,9 @@ namespace GJ2022.Entities.Pawns
                     //Drop the item out of ourselves
                     heldItems[i].Location = null;
                     heldItems[i].Position = dropLocation.Copy();
+                    //Send drop signal
+                    heldItems[i].SendSignal(Signal.SIGNAL_ITEM_DROPPED, this);
+                    //Stop referencing
                     heldItems[i] = null;
                     return true;
                 }
@@ -183,6 +189,9 @@ namespace GJ2022.Entities.Pawns
                     //Drop the item out of ourselves
                     heldItems[i].Position = dropLocation.Copy();
                     heldItems[i].Location = null;
+                    //Send drop signal
+                    heldItems[i].SendSignal(Signal.SIGNAL_ITEM_DROPPED, this);
+                    //Stop referencing
                     heldItems[i] = null;
                 }
                 return true;
