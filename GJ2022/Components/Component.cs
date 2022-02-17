@@ -15,6 +15,9 @@ namespace GJ2022.Components
         /// </summary>
         public abstract void OnComponentAdd();
 
+        /// <summary>
+        /// Called when the component is removed from the parent
+        /// </summary>
         public abstract void OnComponentRemove();
 
     }
