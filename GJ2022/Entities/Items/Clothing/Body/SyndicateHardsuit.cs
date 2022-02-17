@@ -1,4 +1,5 @@
 ﻿using GJ2022.Atmospherics;
+using GJ2022.Components;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items.Clothing.Head.HardsuitHelmet;
 using GJ2022.Entities.Pawns;
@@ -6,7 +7,6 @@ using GJ2022.Game.GameWorld;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
-using static GJ2022.Managers.SignalHandler;
 
 namespace GJ2022.Entities.Items.Clothing.Body
 {
@@ -42,14 +42,14 @@ namespace GJ2022.Entities.Items.Clothing.Body
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
             Location = pawn;
-            RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, 0, ParentMoveReact);
+            pawn.RegisterSignal(Signal.SIGNAL_ENTITY_MOVED, 0, ParentMoveReact);
         }
 
         public void OnUnequip(Pawn pawn, InventorySlot slot)
         {
             Location = null;
             Position = pawn.Position;
-            UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
+            pawn.UnregisterSignal(Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
         }
 
         private object ParentMoveReact(object source, params object[] parameters)

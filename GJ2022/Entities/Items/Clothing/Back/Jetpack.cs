@@ -1,5 +1,6 @@
 ﻿using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Gasses;
+using GJ2022.Components;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Effects;
 using GJ2022.Entities.Items.Tank;
@@ -7,7 +8,6 @@ using GJ2022.Entities.Pawns;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
-using static GJ2022.Managers.SignalHandler;
 
 namespace GJ2022.Entities.Items.Clothing.Back
 {
@@ -48,13 +48,13 @@ namespace GJ2022.Entities.Items.Clothing.Back
 
         public void OnEquip(Pawn pawn, InventorySlot slot)
         {
-            RegisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, 0, ParentMoveReact);
+            pawn.RegisterSignal(Signal.SIGNAL_ENTITY_MOVED, 0, ParentMoveReact);
             Location = pawn;
         }
 
         public void OnUnequip(Pawn pawn, InventorySlot slot)
         {
-            UnregisterSignal(pawn, Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
+            pawn.UnregisterSignal(Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
             Location = null;
             Position = pawn.Position;
         }

@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Pawns;
+﻿using GJ2022.Components;
+using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Turfs.Standard.Solids;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
@@ -19,7 +20,7 @@ namespace GJ2022.Entities.Markers
                 return;
             //Register signal
             if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral)
-                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
+                mineral.RegisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
         }
 
         public override bool IsValidPosition()
@@ -29,8 +30,8 @@ namespace GJ2022.Entities.Markers
 
         public override bool Destroy()
         {
-            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral && SignalHandler.HasSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED))
-                SignalHandler.UnregisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
+            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral)
+                mineral.UnregisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
             return base.Destroy();
         }
 
