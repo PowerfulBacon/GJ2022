@@ -119,6 +119,18 @@
     <None Update="Data\FontData.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\GameData\Core\Constants_Atmospherics.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\GameData\Core\Items\Items_AtmosphericItems.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\GameData\Core\Items\Items_Clothing.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\GameData\Core\Items\Items_Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\IconFiles\back.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
