@@ -237,6 +237,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Items\" />
+    <Folder Include="EntityLoading\XmlDataStructures\" />
   </ItemGroup>
 
 </Project>

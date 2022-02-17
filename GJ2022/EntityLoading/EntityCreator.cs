@@ -1,0 +1,24 @@
+﻿using GJ2022.Utility.MathConstructs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GJ2022.EntityLoading
+{
+    public static class EntityCreator
+    {
+
+        /// <summary>
+        /// Create an entity from the xml construct at a specified position.
+        /// </summary>
+        /// <param name="name">The name of the entity's xml data.</param>
+        /// <param name="position">The position to spawn the entity at.</param>
+        public static void CreateEntity(string name, Vector<float> position)
+        {
+
+        }
+
+    }
+}
