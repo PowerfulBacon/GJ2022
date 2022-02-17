@@ -1,4 +1,4 @@
-﻿using GJ2022.Areas;
+﻿using GJ2022.Entities.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Pawns;

@@ -1,4 +1,4 @@
-﻿using GJ2022.Areas;
+﻿using GJ2022.Entities.Areas;
 using GJ2022.Entities.Items;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.Helpers;

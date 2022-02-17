@@ -4,7 +4,7 @@ using GJ2022.Managers.Stockpile;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
 
-namespace GJ2022.Areas
+namespace GJ2022.Entities.Areas
 {
 
     public class StockpileArea : Area

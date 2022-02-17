@@ -3,7 +3,7 @@ using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
 using GJ2022.Utility.MathConstructs;
 
-namespace GJ2022.Areas
+namespace GJ2022.Entities.Areas
 {
     public abstract class Area : Entity, IDestroyable
     {

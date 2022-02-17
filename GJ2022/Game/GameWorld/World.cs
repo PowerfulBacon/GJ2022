@@ -1,5 +1,5 @@
-﻿using GJ2022.Areas;
-using GJ2022.Entities;
+﻿using GJ2022.Entities;
+using GJ2022.Entities.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Markers;

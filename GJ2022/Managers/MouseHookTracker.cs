@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace GJ2022.GlobalDataComponents
+namespace GJ2022.Managers
 {
     /// <summary>
     /// Could be optimised using a binary insertion, but this is fine since hooks aren't added and removed often.
