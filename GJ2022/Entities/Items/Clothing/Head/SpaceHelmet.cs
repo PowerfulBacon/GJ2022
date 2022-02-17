@@ -16,7 +16,7 @@ namespace GJ2022.Entities.Items.Clothing.Head
 
         public PawnHazards ProtectedHazards => PawnHazards.HAZARD_LOW_PRESSURE;
 
-        public string EquipTexture => "todo";
+        public string EquipTexture => "head.space";
 
         public ClothingFlags ClothingFlags => ClothingFlags.HIDE_EYES | ClothingFlags.HIDE_HAIR;
 
@@ -24,9 +24,9 @@ namespace GJ2022.Entities.Items.Clothing.Head
 
         public override string Name => "Space Helmet";
 
-        public override string UiTexture => "todo";
+        public override string UiTexture => "hats.space";
 
-        public override Renderable Renderable { get; set; } = new StandardRenderable("todo");
+        public override Renderable Renderable { get; set; } = new StandardRenderable("hats.space");
 
         public bool AppendSlotToIconState => false;
 

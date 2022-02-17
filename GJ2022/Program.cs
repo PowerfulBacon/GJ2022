@@ -1,6 +1,7 @@
 ﻿using GJ2022.Audio;
 using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Clothing.Body;
+using GJ2022.Entities.Items.Clothing.Head;
 using GJ2022.Entities.Items.Clothing.Mask;
 using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Items.Tank;
@@ -88,18 +89,15 @@ namespace GJ2022
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
-            Pawn jetpackPawn = null;
             for (int i = 0; i < 4; i++)
             {
                 Human p = new Human(new Vector<float>(2.3f, 7.3f));
                 p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
-                jetpackPawn = p;
+                p.TryEquipItem(InventorySlot.SLOT_BACK, new OxygenTank(new Vector<float>(0, 0)));
+                p.TryEquipItem(InventorySlot.SLOT_MASK, new BreathMask(new Vector<float>(0, 0)));
+                p.TryEquipItem(InventorySlot.SLOT_HEAD, new SpaceHelmet(new Vector<float>(0, 0)));
                 new CrewmemberBehaviour(p);
             }
-
-            Human syndicate = new Human(new Vector<float>(-15, 0));
-            new CrewmemberBehaviour(syndicate);
-            syndicate.TryEquipItem(InventorySlot.SLOT_BODY, new SyndicateHardsuit(new Vector<float>(4, 7)));
 
             for (int x = 4; x < 6; x++)
             {
@@ -128,8 +126,6 @@ namespace GJ2022
 
             Dog dog = new Dog(new Vector<float>(2, 2));
             new DogBehaviour(dog);
-
-            jetpackPawn.TryEquipItem(InventorySlot.SLOT_BACK, new Jetpack(new Vector<float>(9, 8)));
 
             new PacmanGenerator(new Vector<float>(7, 4));
 
