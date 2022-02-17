@@ -1,6 +1,5 @@
 ﻿using GJ2022.Atmospherics;
 using GJ2022.Entities.ComponentInterfaces;
-using GJ2022.Entities.Items.Tank;
 using GJ2022.Entities.Pawns;
 using GJ2022.PawnBehaviours;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -41,11 +40,11 @@ namespace GJ2022.Entities.Items.Clothing.Mask
             foreach (IEquippable equippable in pawn.EquippedItems.Values)
             {
                 //TODO: Convert tank to an interface
-                GasTank tank = equippable as GasTank;
-                if (tank != null)
-                {
-                    return tank.ContainedAtmosphere;
-                }
+                //GasTank tank = equippable as GasTank;
+                //if (tank != null)
+                //{
+                //    return tank.ContainedAtmosphere;
+                //}
             }
             //No valid tanks found :(
             return null;

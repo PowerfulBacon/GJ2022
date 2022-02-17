@@ -4,7 +4,6 @@ using GJ2022.Entities.Items.Clothing.Body;
 using GJ2022.Entities.Items.Clothing.Head;
 using GJ2022.Entities.Items.Clothing.Mask;
 using GJ2022.Entities.Items.Stacks;
-using GJ2022.Entities.Items.Tank;
 using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Pawns.Mobs;
@@ -93,7 +92,7 @@ namespace GJ2022
             {
                 Human p = new Human(new Vector<float>(2.3f, 7.3f));
                 p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
-                p.TryEquipItem(InventorySlot.SLOT_BACK, new OxygenTank(new Vector<float>(0, 0)));
+                //p.TryEquipItem(InventorySlot.SLOT_BACK, new OxygenTank(new Vector<float>(0, 0)));
                 p.TryEquipItem(InventorySlot.SLOT_MASK, new BreathMask(new Vector<float>(0, 0)));
                 p.TryEquipItem(InventorySlot.SLOT_HEAD, new SpaceHelmet(new Vector<float>(0, 0)));
                 new CrewmemberBehaviour(p);
@@ -118,10 +117,6 @@ namespace GJ2022
             new Jetpack(new Vector<float>(9, 8));
             new Pickaxe(new Vector<float>(3, 2));
 
-            new OxygenTank(new Vector<float>(3, 4));
-            new OxygenTank(new Vector<float>(3, 4));
-            new OxygenTank(new Vector<float>(3, 4));
-            new OxygenTank(new Vector<float>(3, 4));
             new BreathMask(new Vector<float>(3, 3));
 
             Dog dog = new Dog(new Vector<float>(2, 2));

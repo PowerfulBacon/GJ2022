@@ -88,9 +88,9 @@ namespace GJ2022.Entities
             if (ThreadSafeClaimManager.HasClaim(this))
                 ThreadSafeClaimManager.ReleaseClaimBlocking(this);
             //Send the destroy signal
-            SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED);
+            SendSignal(Signal.SIGNAL_ENTITY_DESTROYED);
             //Unregister all signals
-            SignalHandler.UnregisterAll(this);
+            UnregisterAllSignals();
             //Stop rendering attached text
             if (attachedTextObject != null)
             {
@@ -188,7 +188,7 @@ namespace GJ2022.Entities
                 Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
                 if ((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
-                    SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
+                    SendSignal(Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
                 if (attachedTextObject != null)
                     attachedTextObject.Position = value + textObjectOffset;
                 //Change direction
