@@ -24,13 +24,11 @@ namespace GJ2022.Subsystems
         {
             if (TimeManager.TimeMultiplier == 0)
                 return;
-            Log.WriteLine("Calculating AI actions");
             Parallel.ForEach(processingBehaviours, new ParallelOptions { MaxDegreeOfParallelism = 10 },
                 behaviour =>
                 {
                     behaviour.HandlePawnBehaviour();
                 });
-            Log.WriteLine("Completed!");
         }
 
         public void ApplyPawnBehaviour(Pawn target, PawnBehaviour behaviour)

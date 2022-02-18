@@ -15,7 +15,7 @@ using System.Linq;
 namespace GJ2022.Entities.Turfs
 {
 
-    public abstract class Turf : Entity, IDestroyable, IProcessable
+    public class Turf : Entity, IDestroyable, IProcessable
     {
 
         //Position of the turf
@@ -81,7 +81,7 @@ namespace GJ2022.Entities.Turfs
             return base.Destroy();
         }
 
-        public abstract bool AllowAtmosphericFlow { get; }
+        public virtual bool AllowAtmosphericFlow { get; } = false;
 
         public void AtmosphericPressureChangeReact(Vector<float> flowPoint, float force)
         {

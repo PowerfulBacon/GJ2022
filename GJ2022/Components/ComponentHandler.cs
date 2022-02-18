@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GJ2022.EntityLoading;
+using GJ2022.EntityLoading.XmlDataStructures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Components
 {
-    public abstract class ComponentHandler
+    public abstract class ComponentHandler : IInstantiatable
     {
 
         /// <summary>
@@ -151,6 +153,19 @@ namespace GJ2022.Components
                 registeredSignals[signal][priority].Add(callback);
             }
         }
+
+        public virtual void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "Components":
+                    PropertyDef componentProperty = (PropertyDef)property;
+                    return;
+            }
+            throw new NotImplementedException($"SetProperty has not been setup to handle the property {name}.");
+        }
+
+        public abstract void Initialize();
 
     }
 }

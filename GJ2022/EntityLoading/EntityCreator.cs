@@ -17,7 +17,7 @@ namespace GJ2022.EntityLoading
         /// <param name="position">The position to spawn the entity at.</param>
         public static void CreateEntity(string name, Vector<float> position)
         {
-
+            EntityConfig.LoadedEntityDefs[name].InstantiateAt(position);
         }
 
     }

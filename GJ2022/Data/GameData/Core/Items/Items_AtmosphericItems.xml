@@ -3,6 +3,7 @@
   <Entity Name="OxygenTank" ParentName="ItemBase">
     <Name>Oxygen Tank</Name>
     <Description>A cylindrical, metal tank designed to hold small amounts of high-pressure oxygen gas.</Description>
+    <Layer>4</Layer>
     <Renderable Class="StandardRenderable">
       <Texture>tank.oxygen</Texture>
     </Renderable>

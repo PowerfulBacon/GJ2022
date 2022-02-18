@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.EntityLoading;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Components
 {
-    public abstract class Component
+    public abstract class Component : IInstantiatable
     {
 
         public ComponentHandler Parent { get; private set; }
@@ -19,6 +20,11 @@ namespace GJ2022.Components
             Parent = parent;
         }
 
+        public void Initialize()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Called after a component has been added to an entity
         /// and all the properties have been setup.
@@ -29,6 +35,8 @@ namespace GJ2022.Components
         /// Called when the component is removed from the parent
         /// </summary>
         public abstract void OnComponentRemove();
+
+        public abstract void SetProperty(string name, object property);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using GJ2022.Game.GameWorld;
+﻿using GJ2022.EntityLoading;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 
 namespace GJ2022.Rendering.RenderSystems.Renderables
 {
-    public abstract class Renderable : IInternalRenderable
+    public abstract class Renderable : IInternalRenderable, IInstantiatable
     {
 
         //Delegates
@@ -196,5 +197,29 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             }
         }
 
+        public void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "Texture":
+                    textureChangeHandler?.Invoke((string)property);
+                    return;
+                case "Rotation":
+                    UpdateRotation((float)property);
+                    return;
+                case "Layer":
+                    layerChangeHandler?.Invoke((float)property);
+                    return;
+                case "Overlays":
+                    //TODO
+                    break;
+            }
+            throw new System.NotImplementedException($"Renderable doesn't have a handler for the property {name}.");
+        }
+
+        public void Initialize()
+        {
+            StartRendering();
+        }
     }
 }

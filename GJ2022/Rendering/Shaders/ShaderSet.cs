@@ -41,10 +41,19 @@ namespace GJ2022.Rendering.Shaders
                 glCompileShader(vertex_shader);
                 glCompileShader(fragment_shader);
                 //Print the result of compiling the shader
-                Log.WriteLine($"{name}.vert: {glGetShaderInfoLog(vertex_shader)}");
-                Log.WriteLine($"{name}.frag: {glGetShaderInfoLog(fragment_shader)}");
-                //Print a debug message
-                Log.WriteLine($"Loaded {name} shaders successfully.");
+                string vertInfoLog = glGetShaderInfoLog(vertex_shader);
+                string fragInfoLog = glGetShaderInfoLog(fragment_shader);
+                if (vertInfoLog != string.Empty || fragInfoLog != string.Empty)
+                {
+                    Log.WriteLine($"{name}.vert: {vertInfoLog}");
+                    Log.WriteLine($"{name}.frag: {fragInfoLog}");
+                    Log.WriteLine("Shaders failed to compile.");
+                }
+                else
+                {
+                    //Print a debug message
+                    Log.WriteLine($"Loaded {name} shaders successfully.");
+                }
                 //Cache the shaders for faster loading later
                 loadedShaders.Add(name, this);
             }

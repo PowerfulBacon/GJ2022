@@ -172,7 +172,10 @@ namespace GJ2022.Subsystems
         private void Update(Window window)
         {
             while (!started && Firing)
-            { }
+            {
+                //Sleep to not consume all the CPU
+                Thread.Sleep(10);
+            }
             while (Firing)
             {
                 //Start a stopwatch to get time taken for execution.

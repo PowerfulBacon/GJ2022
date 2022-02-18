@@ -10,6 +10,7 @@ using GJ2022.Entities.Pawns.Mobs;
 using GJ2022.Entities.Pawns.Mobs.Humans;
 using GJ2022.Entities.Structures.Power;
 using GJ2022.Entities.Turfs.Standard.Floors;
+using GJ2022.EntityLoading;
 using GJ2022.Game.Construction;
 using GJ2022.Managers;
 using GJ2022.PawnBehaviours.Behaviours;
@@ -41,6 +42,12 @@ namespace GJ2022
         /// </summary>
         private static void Main(string[] args)
         {
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            EntityLoader.LoadEntities();
+            //return;
 
             //Start texture loading
             BlueprintLoader.LoadBlueprints();
@@ -87,6 +94,9 @@ namespace GJ2022
 
             //Create the background first
             new BackgroundRenderable().StartRendering();
+
+            //Debug oxygen tank
+            EntityCreator.CreateEntity("OxygenTank", new Vector<float>(3, 3));
 
             for (int i = 0; i < 4; i++)
             {
@@ -164,6 +174,7 @@ namespace GJ2022
 
             //Terminate GLFW
             Glfw.Terminate();
+
         }
 
         /// <summary>

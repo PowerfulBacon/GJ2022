@@ -1,5 +1,6 @@
 ﻿using GJ2022.Components;
 using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.EntityLoading;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Managers.TaskManager;
@@ -11,11 +12,17 @@ using System.Collections.Generic;
 
 namespace GJ2022.Entities
 {
-    public abstract class Entity : ComponentHandler
+    public class Entity : ComponentHandler
     {
 
         //The renderable attached to this entity
-        public abstract Renderable Renderable { get; set; }
+        public virtual Renderable Renderable { get; set; }
+
+        //Name
+        public string Name { get; set; }
+
+        //Description
+        public string Description { get; set; }
 
         //The layer of the object
         private float _layer = 0;
@@ -61,20 +68,34 @@ namespace GJ2022.Entities
         public TextObject attachedTextObject;
         protected Vector<float> textObjectOffset = new Vector<float>(0, 0);
 
-        public Entity(Vector<float> position, float layer)
+        public Entity(Vector<float> position)
         {
             if (position.Dimensions != 2)
             {
                 throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
             }
             Position = position;
-            Layer = layer;
         }
 
-        public Entity(Entity location, float layer)
+        public Entity(Vector<float> position, float layerDepreciated)
+        {
+            if (position.Dimensions != 2)
+            {
+                throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
+            }
+            Position = position;
+            Layer = layerDepreciated;
+        }
+
+        public Entity(Entity location)
         {
             Location = location;
-            Layer = layer;
+        }
+
+        public Entity(Entity location, float layerDepreciated)
+        {
+            Location = location;
+            Layer = layerDepreciated;
         }
 
         //Default destroy behaviour
@@ -202,6 +223,29 @@ namespace GJ2022.Entities
         {
             return (target.Position - Position).Length() < range && Location == target.Location;
         }
+
+        public override void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "Name":
+                    Name = (string)property;
+                    return;
+                case "Description":
+                    Description = (string)property;
+                    return;
+                case "Layer":
+                    Layer = Convert.ToSingle(property);
+                    return;
+                case "Renderable":
+                    Renderable = (Renderable)property;
+                    return;
+            }
+            base.SetProperty(name, property);
+        }
+
+        public override void Initialize()
+        { }
 
     }
 }

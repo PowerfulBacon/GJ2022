@@ -27,6 +27,10 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         private bool isTransparent;
 
+        public StandardRenderable()
+        {
+        }
+
         public StandardRenderable(string texture, bool isTransparent = false)
         {
             _texture = texture;
@@ -138,7 +142,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         private void ChangeTexture(string newTexture)
         {
-            uint textureUint = GetTextureUint();
+            uint textureUint = _texture == null ? 0 : GetTextureUint();
             if (textureUint == TextureCache.GetTexture(newTexture).TextureUint)
             {
                 _texture = newTexture;

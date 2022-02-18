@@ -100,5 +100,18 @@ namespace GJ2022.Components.Atmospherics
         /// </summary>
         private object ReturnParent(object source, params object[] data) => Parent;
 
+        public override void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "DefaultGas":
+                    DefaultGas = (AtmosphereCreator)property;
+                    return;
+                case "InternalsSource":
+                    InternalsSource = (bool)property;
+                    return;
+            }
+            throw new NotImplementedException($"{name} is not a known property");
+        }
     }
 }
