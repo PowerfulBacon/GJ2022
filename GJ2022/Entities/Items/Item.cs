@@ -16,7 +16,7 @@ namespace GJ2022.Entities.Items
 
         public bool Destroyed { get; private set; } = false;
 
-        public virtual string UiTexture { get; }
+        public virtual string UiTexture { get; private set; }
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 
@@ -108,6 +108,17 @@ namespace GJ2022.Entities.Items
                 "Pickup",
                 CoordinateHelper.PixelsToScreen(80),
                 Colour.UserInterfaceColour);*/
+        }
+
+        public override void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "UiTexture":
+                    UiTexture = (string)property;
+                    return;
+            }
+            base.SetProperty(name, property);
         }
     }
 }

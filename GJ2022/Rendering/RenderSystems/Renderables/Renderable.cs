@@ -3,6 +3,7 @@ using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Rendering.RenderSystems.Renderables
@@ -205,10 +206,10 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                     textureChangeHandler.Invoke((string)property);
                     return;
                 case "Rotation":
-                    UpdateRotation((float)property);
+                    UpdateRotation(Convert.ToSingle(property));
                     return;
                 case "Layer":
-                    layerChangeHandler?.Invoke((float)property);
+                    layerChangeHandler.Invoke(Convert.ToSingle(property));
                     return;
                 case "Overlays":
                     //TODO
