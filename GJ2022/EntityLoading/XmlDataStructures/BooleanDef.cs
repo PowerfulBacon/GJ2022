@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             this.value = value == "true" ? true : value == "false" ? false : throw new XmlException($"Unable to parse boolean value of {value}.");
         }
 
-        public override object GetValue(params object[] ctorParams)
+        public override object GetValue(Vector<float> initializePosition)
         {
             return value;
         }

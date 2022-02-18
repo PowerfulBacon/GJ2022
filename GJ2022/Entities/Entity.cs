@@ -19,7 +19,7 @@ namespace GJ2022.Entities
         public virtual Renderable Renderable { get; set; }
 
         //Name
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         //Description
         public string Description { get; set; }
@@ -68,15 +68,12 @@ namespace GJ2022.Entities
         public TextObject attachedTextObject;
         protected Vector<float> textObjectOffset = new Vector<float>(0, 0);
 
-        public Entity(Vector<float> position)
+        public Entity()
         {
-            if (position.Dimensions != 2)
-            {
-                throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
-            }
-            Position = position;
+            
         }
 
+        [Obsolete]
         public Entity(Vector<float> position, float layerDepreciated)
         {
             if (position.Dimensions != 2)
@@ -87,11 +84,7 @@ namespace GJ2022.Entities
             Layer = layerDepreciated;
         }
 
-        public Entity(Entity location)
-        {
-            Location = location;
-        }
-
+        [Obsolete]
         public Entity(Entity location, float layerDepreciated)
         {
             Location = location;
@@ -244,8 +237,10 @@ namespace GJ2022.Entities
             base.SetProperty(name, property);
         }
 
-        public override void Initialize()
-        { }
+        public override void Initialize(Vector<float> initializePosition)
+        {
+            Position = initializePosition;
+        }
 
     }
 }

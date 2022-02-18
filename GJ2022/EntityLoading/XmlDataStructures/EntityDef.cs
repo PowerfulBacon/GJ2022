@@ -15,7 +15,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
         {
         }
 
-        public override object GetValue(params object[] ctorParams)
+        public override object GetValue(Vector<float> initializePosition)
         {
             if (Tags.ContainsKey("Abstract"))
                 throw new Exception("Cannot instantiate an abstract class");
@@ -31,7 +31,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             //Locate the first constructor
             ConstructorInfo firstConstructor = loadedType.GetConstructors()[0];
             //Invoke the first constructor located, either with the provided constructor parameters or nothing
-            IInstantiatable created = firstConstructor.Invoke(firstConstructor.GetParameters().Length > 0 ? ctorParams : new object[0]) as IInstantiatable;
+            IInstantiatable created = firstConstructor.Invoke(new object[0]) as IInstantiatable;
             //The created class is not an instantiatable type
             if (created == null)
             {
@@ -43,7 +43,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
                 object propertyValue = null;
                 try
                 {
-                    propertyValue = property.GetValue(ctorParams);
+                    propertyValue = property.GetValue(initializePosition);
                     created.SetProperty(property.Name, propertyValue);
                 }
                 catch (Exception e)
@@ -52,14 +52,14 @@ namespace GJ2022.EntityLoading.XmlDataStructures
                 }
             }
             //Initialize the created thing
-            created.Initialize();
+            created.Initialize(initializePosition);
             //Return the created thing
             return created;
         }
 
         public object Instantiate()
         {
-            return GetValue();
+            return GetValue(Vector<float>.Zero);
         }
 
         /// <summary>

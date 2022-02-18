@@ -217,7 +217,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             throw new System.NotImplementedException($"Renderable doesn't have a handler for the property {name}.");
         }
 
-        public void Initialize()
+        public void Initialize(Vector<float> initializePosition)
         {
             StartRendering();
         }

@@ -6,6 +6,8 @@ namespace GJ2022.Utility.MathConstructs
     public struct Vector<T>
     {
 
+        public static Vector<float> Zero { get; } = new Vector<float>(0, 0);
+
         public Vector(params T[] values)
         {
             Values = values;

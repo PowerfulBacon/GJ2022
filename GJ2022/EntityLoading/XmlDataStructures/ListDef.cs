@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,12 @@ namespace GJ2022.EntityLoading.XmlDataStructures
                 throw new XmlException("The override tag cannot be used on lists!");
         }
 
-        public override object GetValue(params object[] ctorParams)
+        public override object GetValue(Vector<float> initializePosition)
         {
             List<object> values = new List<object>();
             foreach (PropertyDef property in GetChildren())
             {
-                values.Add(property.GetValue(ctorParams));
+                values.Add(property.GetValue(initializePosition));
             }
             return values;
         }

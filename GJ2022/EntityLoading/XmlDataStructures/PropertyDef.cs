@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
         /// Takes in constructor parameters for anything with children taking in ctor args.
         /// (Usually Vector<float> position)
         /// </summary>
-        public virtual object GetValue(params object[] ctorParams)
+        public virtual object GetValue(Vector<float> initializePosition)
         {
             //Return ourselves for special handling
             return this;

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Entities>
-  <Entity Name="ItemBase" Class="Entity" Abstract="true">
+  <Entity Name="ItemBase" Class="Item" Abstract="true">
     <Components>
       <Component_WorldTrack_Item />
       <Component_StockpileTrack />

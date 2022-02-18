@@ -1,4 +1,5 @@
 ﻿using GJ2022.EntityLoading;
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace GJ2022.Components
             Parent = parent;
         }
 
-        public void Initialize()
+        public void Initialize(Vector<float> initializePosition)
         {
             throw new NotImplementedException();
         }

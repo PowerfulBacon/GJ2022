@@ -1,4 +1,5 @@
 ﻿using GJ2022.Audio;
+using GJ2022.Entities;
 using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Clothing.Body;
 using GJ2022.Entities.Items.Clothing.Head;
@@ -96,7 +97,7 @@ namespace GJ2022
             new BackgroundRenderable().StartRendering();
 
             //Debug oxygen tank
-            EntityCreator.CreateEntity("OxygenTank", new Vector<float>(3, 3));
+            Entity createdEntity = EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(3, 3));
 
             for (int i = 0; i < 4; i++)
             {

@@ -1,5 +1,6 @@
 ﻿using GJ2022.EntityLoading;
 using GJ2022.EntityLoading.XmlDataStructures;
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -165,7 +166,7 @@ namespace GJ2022.Components
             throw new NotImplementedException($"SetProperty has not been setup to handle the property {name}.");
         }
 
-        public abstract void Initialize();
+        public abstract void Initialize(Vector<float> initializePosition);
 
     }
 }

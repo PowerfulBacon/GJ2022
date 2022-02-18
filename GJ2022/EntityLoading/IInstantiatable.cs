@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace GJ2022.EntityLoading
         /// <summary>
         /// Called after the object has been instantiated and all the properties have been set.
         /// </summary>
-        void Initialize();
+        void Initialize(Vector<float> initializePosition);
 
     }
 }

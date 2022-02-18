@@ -11,14 +11,12 @@ using GLFW;
 
 namespace GJ2022.Entities.Items
 {
-    public abstract class Item : Entity, IDestroyable, IMoveBehaviour, IMouseRightPress
+    public class Item : Entity, IDestroyable, IMoveBehaviour, IMouseRightPress
     {
-
-        public abstract string Name { get; }
 
         public bool Destroyed { get; private set; } = false;
 
-        public abstract string UiTexture { get; }
+        public virtual string UiTexture { get; }
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 
