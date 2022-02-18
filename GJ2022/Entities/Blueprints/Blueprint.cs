@@ -42,7 +42,6 @@ namespace GJ2022.Entities.Blueprints
             Renderable = new BlueprintRenderable(BlueprintDetail.Texture);
             //Set the renderable stuff
             Position = Position;
-            Layer = Layer;
         }
 
         public override bool Destroy()

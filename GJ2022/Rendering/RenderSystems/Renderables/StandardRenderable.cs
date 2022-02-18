@@ -28,8 +28,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         private bool isTransparent;
 
         public StandardRenderable()
-        {
-        }
+        { }
 
         public StandardRenderable(string texture, bool isTransparent = false)
         {

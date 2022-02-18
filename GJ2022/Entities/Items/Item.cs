@@ -28,6 +28,11 @@ namespace GJ2022.Entities.Items
 
         public float Height => 1.0f;
 
+        public Item() : base()
+        {
+            MouseCollisionSubsystem.Singleton.StartTracking(this);
+        }
+
         public Item(Vector<float> position) : base(position, Layers.LAYER_ITEM)
         {
             MouseCollisionSubsystem.Singleton.StartTracking(this);

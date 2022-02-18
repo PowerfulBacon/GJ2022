@@ -24,9 +24,6 @@ namespace GJ2022.Entities
         //Description
         public string Description { get; set; }
 
-        //The layer of the object
-        private float _layer = 0;
-
         //The position of the object in 2D space
         private Vector<float> _position = new Vector<float>(0, 0);
 
@@ -81,14 +78,14 @@ namespace GJ2022.Entities
                 throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
             }
             Position = position;
-            Layer = layerDepreciated;
+            Renderable?.layerChangeHandler?.Invoke(layerDepreciated);
         }
 
         [Obsolete]
         public Entity(Entity location, float layerDepreciated)
         {
             Location = location;
-            Layer = layerDepreciated;
+            Renderable?.layerChangeHandler?.Invoke(layerDepreciated);
         }
 
         //Default destroy behaviour
@@ -179,17 +176,6 @@ namespace GJ2022.Entities
                 Contents = null;
         }
 
-        //Layer handler
-        public float Layer
-        {
-            get => _layer;
-            set
-            {
-                _layer = value;
-                Renderable?.layerChangeHandler?.Invoke(_layer);
-            }
-        }
-
         //Position handler
         public Vector<float> Position
         {
@@ -226,9 +212,6 @@ namespace GJ2022.Entities
                     return;
                 case "Description":
                     Description = (string)property;
-                    return;
-                case "Layer":
-                    Layer = Convert.ToSingle(property);
                     return;
                 case "Renderable":
                     Renderable = (Renderable)property;
