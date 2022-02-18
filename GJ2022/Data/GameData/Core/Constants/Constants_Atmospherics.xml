@@ -10,12 +10,12 @@
     2500
   </Constant>
   <Constant Name="TEMPERATURE_C0" Type="float">
-    273.15f
+    273.15
   </Constant>
   <Constant Name="TEMPERATURE_C20" Type="float">
-    293.15f
+    293.15
   </Constant>
   <Constant Name="TEMPERATURE_DANGERUOS" Type="float">
-    323.15f
+    323.15
   </Constant>
 </Constants>

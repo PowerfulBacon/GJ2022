@@ -15,7 +15,8 @@ namespace GJ2022.EntityLoading.XmlDataStructures
 
         public BooleanDef(string name, string value) : base(name)
         {
-            this.value = value == "true" ? true : value == "false" ? false : throw new XmlException($"Unable to parse boolean value of {value}.");
+            string trimmedValue = value.Trim();
+            this.value = trimmedValue == "true" ? true : trimmedValue == "false" ? false : throw new XmlException($"Unable to parse boolean value of {value}.");
         }
 
         public override object GetValue(Vector<float> initializePosition)

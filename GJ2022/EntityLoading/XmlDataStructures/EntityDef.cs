@@ -17,12 +17,17 @@ namespace GJ2022.EntityLoading.XmlDataStructures
 
         public override object GetValue(Vector<float> initializePosition)
         {
+            return GetValue(initializePosition, false);
+        }
+
+        public object GetValue(Vector<float> initializePosition, bool useNameInsteadOfClassTag)
+        {
             if (Tags.ContainsKey("Abstract"))
                 throw new Exception("Cannot instantiate an abstract class");
-            if (!Tags.ContainsKey("Class"))
+            if (!useNameInsteadOfClassTag && !Tags.ContainsKey("Class"))
                 throw new XmlException($"Property with name {Name} did not have the required tag Class.");
             //Get the class to instantiate
-            string className = Tags["Class"];
+            string className = useNameInsteadOfClassTag ? Name : Tags["Class"];
             //Locate the type to load
             if (!EntityConfig.ClassTypeCache.ContainsKey(className))
                 throw new XmlException($"Property with name {Name} has an invalid Class tag ({className} is not a known class)");

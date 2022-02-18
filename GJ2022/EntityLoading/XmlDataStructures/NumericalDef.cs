@@ -14,7 +14,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
 
         public NumericalDef(string name, string value) : base(name)
         {
-            this.value = double.Parse(value);
+            this.value = double.Parse(value.Trim());
         }
 
         public override object GetValue(Vector<float> initializePosition)

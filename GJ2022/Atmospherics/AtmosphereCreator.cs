@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GJ2022.EntityLoading;
+using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Atmospherics
 {
-    public class AtmosphereCreator
+    public class AtmosphereCreator : IInstantiatable
     {
 
         public float KelvinTemperature { private get; set; } = AtmosphericConstants.IDEAL_TEMPERATURE;
@@ -30,5 +32,32 @@ namespace GJ2022.Atmospherics
             return atmosphere;
         }
 
+        public void Initialize(Vector<float> initializePosition)
+        {
+            return;
+        }
+
+        public void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "KelvinTemperature":
+                    KelvinTemperature = Convert.ToSingle(property);
+                    return;
+                case "LitreVolume":
+                    LitreVolume = Convert.ToSingle(property);
+                    return;
+                case "Oxygen":
+                    Oxygen = Convert.ToSingle(property);
+                    return;
+                case "CarbonDioxide":
+                    CarbonDioxide = Convert.ToSingle(property);
+                    return;
+                case "Hydrogen":
+                    Hydrogen = Convert.ToSingle(property);
+                    return;
+            }
+            throw new NotImplementedException($"AtmosphereCreator doesn't have property {name}.");
+        }
     }
 }

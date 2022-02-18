@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace GJ2022.Components
 {
@@ -161,6 +162,19 @@ namespace GJ2022.Components
             {
                 case "Components":
                     PropertyDef componentProperty = (PropertyDef)property;
+                    foreach (PropertyDef component in componentProperty.GetChildren())
+                    {
+                        try
+                        {
+                            EntityDef componentEntity = (EntityDef)component;
+                            Component instantiatedComponent = (Component)componentEntity.GetValue(Vector<float>.Zero, true);
+                            Components.Add(instantiatedComponent.GetType(), instantiatedComponent);
+                        }
+                        catch (XmlException e)
+                        {
+                            Log.WriteLine(e, LogType.ERROR);
+                        }
+                    }
                     return;
             }
             throw new NotImplementedException($"SetProperty has not been setup to handle the property {name}.");

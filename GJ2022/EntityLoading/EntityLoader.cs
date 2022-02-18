@@ -1,4 +1,5 @@
 ﻿using GJ2022.EntityLoading.XmlDataStructures;
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +24,6 @@ namespace GJ2022.EntityLoading
             Class,          //A class, when the value is got the class is instantiated and the properties defined in children xml nodes are set
             List,           //A simple list, has <ListEntry> for children
             Dictionary,     //A key-value pair with <DictEntry><Key>...</Key><Value>...</Value>
-            Constant,       //A constant value loaded from a constant list
             Components,     //Components is essentially a list but with the elements at the top level
             Property,       //All else failed
         }
@@ -66,6 +66,7 @@ namespace GJ2022.EntityLoading
                     failureCount = queuedDefs.Count + 1;
                 }
                 //Load
+                //TODO: Please remove this tuple and replace with something sane! -18/02/2022
                 (PropertyDef, XElement, PropertyDef) todo = queuedDefs.Dequeue();
                 //If dependancy isn't loaded (its either in this queue or doesn't exist), send to the back of the queue
                 if (!todo.Item1.DependanciesLoaded())
@@ -183,8 +184,14 @@ namespace GJ2022.EntityLoading
             else
             {
                 //Add to the list of EntityDefs or ConstDefs or whatever
-                Log.WriteLine($"Successfully created {(createdProperty.Tags.ContainsKey("Name") ? createdProperty.Tags["Name"] : createdProperty.Name)}");
-                if (createdProperty is EntityDef)
+                Log.WriteLine($"Successfully created {(createdProperty.Tags.ContainsKey("Name") ? createdProperty.Tags["Name"] : createdProperty.Name)}", LogType.LOG);
+                if (createdProperty.Name == "Constant")
+                {
+                    //TODO: Store these in a dictionary inside EntityConfig and allow them to be used.
+                    throw new NotImplementedException("TODO");
+                    //Log.WriteLine($"CONSTANT {createdProperty.Tags["Name"]} ({createdProperty.GetType()}) :[{createdProperty.GetValue(Vector<float>.Zero)}]", LogType.WARNING);
+                }
+                else if (createdProperty is EntityDef)
                 {
                     EntityConfig.LoadedEntityDefs.Add(createdProperty.Tags["Name"], createdProperty as EntityDef);
                 }
@@ -193,11 +200,11 @@ namespace GJ2022.EntityLoading
 
         private static DefTypes IdentifyDefinitionType(XElement element)
         {
-            if (element.Name.Equals(XName.Get("Constant")))
-                return DefTypes.Constant;
-            if (element.Attribute(XName.Get("Name")) != null)
+            if (element.Attribute(XName.Get("Name")) != null && element.Name != "Constant")
                 return DefTypes.Entity;
-            if (element.Attribute(XName.Get("Class")) != null)
+            //Classes either have the class attribute, or for the case of components
+            //they will always be classes (makes it a little easier to handle) rather than doing <Component_Equippable Class="Component_Equippable">
+            if (element.Attribute(XName.Get("Class")) != null || element.Parent?.Name.LocalName == "Components")
                 return DefTypes.Class;
             if (element.HasElements)
             {
@@ -209,9 +216,10 @@ namespace GJ2022.EntityLoading
                     return DefTypes.Enumerator;
                 return DefTypes.Property;
             }
-            if (element.Value == "true" || element.Value == "false")
+            string elementValue = element.Value.Trim();
+            if (elementValue == "true" || elementValue == "false")
                 return DefTypes.Boolean;
-            if (long.TryParse(element.Value, out _))
+            if (double.TryParse(elementValue, out _))
                 return DefTypes.Numerical;
             return DefTypes.Text;
         }

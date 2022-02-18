@@ -22,9 +22,7 @@ namespace GJ2022.Components
         }
 
         public void Initialize(Vector<float> initializePosition)
-        {
-            throw new NotImplementedException();
-        }
+        { }
 
         /// <summary>
         /// Called after a component has been added to an entity

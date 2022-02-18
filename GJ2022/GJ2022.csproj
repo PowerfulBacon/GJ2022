@@ -119,7 +119,7 @@
     <None Update="Data\FontData.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Data\GameData\Core\Constants_Atmospherics.xml">
+    <None Update="Data\GameData\Core\Constants\Constants_Atmospherics.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Data\GameData\Core\Items\Items_AtmosphericItems.xml">
