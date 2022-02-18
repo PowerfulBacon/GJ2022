@@ -47,6 +47,10 @@ public static class Log
             case LogType.LOG:
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 return;
+            case LogType.TEMP:
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+                return;
         }
     }
 

@@ -152,13 +152,17 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                         lock (renderableBatchIndex.Keys.ElementAt(0))
                             (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IStandardRenderable, InstanceRenderSystem>)?.UpdateBatchData(this, 2);
             }
-            else if(IsRendering)
+            else if (IsRendering)
             {
                 Log.WriteLine("Changed texture uint");
                 //Restart rendering since the texture file changed
                 StopRendering();
                 _texture = newTexture;
                 StartRendering();
+            }
+            else
+            {
+                _texture = newTexture;
             }
         }
 

@@ -202,7 +202,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             switch (name)
             {
                 case "Texture":
-                    textureChangeHandler?.Invoke((string)property);
+                    textureChangeHandler.Invoke((string)property);
                     return;
                 case "Rotation":
                     UpdateRotation((float)property);

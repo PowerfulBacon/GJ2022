@@ -48,9 +48,11 @@ namespace GJ2022.EntityLoading.XmlDataStructures
                 }
                 catch (Exception e)
                 {
-                    Log.WriteLine($"{e}\nProperty Name: {property.Name}\nProperty Value: {propertyValue.ToString() ?? "NULL REFERENCE"}", LogType.ERROR);
+                    Log.WriteLine($"{e}\nProperty Name: {property.Name}\nProperty Value: {propertyValue?.ToString() ?? "NULL REFERENCE"}", LogType.ERROR);
                 }
             }
+            //Initialize the created thing
+            created.Initialize();
             //Return the created thing
             return created;
         }
