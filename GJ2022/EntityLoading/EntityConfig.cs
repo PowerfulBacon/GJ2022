@@ -16,6 +16,11 @@ namespace GJ2022.EntityLoading
         public static Dictionary<string, EntityDef> LoadedEntityDefs = new Dictionary<string, EntityDef>();
 
         /// <summary>
+        /// All of the loaded constant values
+        /// </summary>
+        public static Dictionary<string, PropertyDef> LoadedConstants = new Dictionary<string, PropertyDef>();
+
+        /// <summary>
         /// A cache of all classes
         /// </summary>
         public static Dictionary<string, Type> ClassTypeCache = AppDomain.CurrentDomain.GetAssemblies()

@@ -25,6 +25,7 @@ namespace GJ2022.EntityLoading
             List,           //A simple list, has <ListEntry> for children
             Dictionary,     //A key-value pair with <DictEntry><Key>...</Key><Value>...</Value>
             Components,     //Components is essentially a list but with the elements at the top level
+            Constant,       //Constant stuff
             Property,       //All else failed
         }
 
@@ -142,6 +143,9 @@ namespace GJ2022.EntityLoading
                 case DefTypes.List:
                     createdProperty = new ListDef(element.Name.LocalName);
                     break;
+                case DefTypes.Constant:
+                    createdProperty = new ConstantDef(element.Name.LocalName);
+                    break;
                 default:
                     throw new XmlException($"Unable to instantiate defType {IdentifyDefinitionType(element)}.");
             }
@@ -187,9 +191,7 @@ namespace GJ2022.EntityLoading
                 Log.WriteLine($"Successfully created {(createdProperty.Tags.ContainsKey("Name") ? createdProperty.Tags["Name"] : createdProperty.Name)}", LogType.LOG);
                 if (createdProperty.Name == "Constant")
                 {
-                    //TODO: Store these in a dictionary inside EntityConfig and allow them to be used.
-                    throw new NotImplementedException("TODO");
-                    //Log.WriteLine($"CONSTANT {createdProperty.Tags["Name"]} ({createdProperty.GetType()}) :[{createdProperty.GetValue(Vector<float>.Zero)}]", LogType.WARNING);
+                    EntityConfig.LoadedConstants.Add(createdProperty.Tags["Name"], createdProperty);
                 }
                 else if (createdProperty is EntityDef)
                 {
@@ -214,6 +216,8 @@ namespace GJ2022.EntityLoading
                     return DefTypes.Dictionary;
                 if (element.Element(XName.Get("EnumValue")) != null)
                     return DefTypes.Enumerator;
+                if (element.Element(XName.Get("Constant")) != null)
+                    return DefTypes.Constant;
                 return DefTypes.Property;
             }
             string elementValue = element.Value.Trim();
