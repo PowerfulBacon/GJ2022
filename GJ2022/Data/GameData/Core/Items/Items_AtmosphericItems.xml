@@ -10,7 +10,6 @@
     </Renderable>
     <Components>
       <Component_Equippable>
-        <UiTexture>tank.oxygen</UiTexture>
         <EquipTexture>back.oxygen</EquipTexture>
         <Slots>
           <EnumValue>SLOT_BACK</EnumValue>
