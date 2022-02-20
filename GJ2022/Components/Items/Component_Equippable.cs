@@ -26,13 +26,13 @@ namespace GJ2022.Components.Items
         /// </summary>
         public bool AppendSlotToIconState { get; private set; } = false;
 
-        public InventorySlot Slots => InventorySlot.SLOT_MASK;
+        public InventorySlot Slots => InventorySlot.NONE;
 
         public PawnHazards ProtectedHazards => PawnHazards.NONE;
 
         public ClothingFlags ClothingFlags => ClothingFlags.NONE;
 
-        public BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_MOUTH;
+        public BodyCoverFlags CoverFlags => BodyCoverFlags.NONE;
 
         public override void OnComponentAdd()
         {
@@ -102,8 +102,16 @@ namespace GJ2022.Components.Items
 
         public override void SetProperty(string name, object property)
         {
-            //TODO
-            return;
+            switch (name)
+            {
+                case "EquipTexture":
+                    EquipTexture = (string)property;
+                    return;
+                case "AppendSlotToIconState":
+                    AppendSlotToIconState = (bool)property;
+                    return;
+            }
+            throw new NotImplementedException($"Unknown property on Component_Equippable ({name})");
         }
 
     }
