@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GJ2022.Entities;
+using GJ2022.Entities.Items.Clothing;
+using GJ2022.Entities.Pawns;
+using GJ2022.PawnBehaviours;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,19 +23,52 @@ namespace GJ2022.Components.Items
         /// </summary>
         public bool AppendSlotToIconState { get; private set; } = false;
 
+        public InventorySlot Slots => InventorySlot.SLOT_MASK;
+
+        public PawnHazards ProtectedHazards => PawnHazards.NONE;
+
+        public ClothingFlags ClothingFlags => ClothingFlags.NONE;
+
+        public BodyCoverFlags CoverFlags => BodyCoverFlags.COVER_MOUTH;
+
         public override void OnComponentAdd()
         {
-
-            return;
+            Parent.RegisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, -1, OnEquip);
+            Parent.RegisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, -1, OnUnequip);
         }
 
         public override void OnComponentRemove()
         {
-            return;
+            Parent.UnregisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, OnEquip);
+            Parent.UnregisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, OnUnequip);
+        }
+
+        /// <summary>
+        /// Delegate executed when the parent item was equipped by a pawn
+        /// </summary>
+        private object OnEquip(object parent, params object[] arguments)
+        {
+            Entity parentEntity = (Entity)parent;
+            Entity equippedEntity = (Entity)arguments[0];
+            parentEntity.Location = equippedEntity;
+            return null;
+        }
+
+        /// <summary>
+        /// Delegate executed when the parent item was unequipped
+        /// </summary>
+        private object OnUnequip(object parent, params object[] arguments)
+        {
+            Entity parentEntity = (Entity)parent;
+            Entity equippedEntity = (Entity)arguments[0];
+            parentEntity.Location = null;
+            parentEntity.Position = equippedEntity.Position;
+            return null;
         }
 
         public override void SetProperty(string name, object property)
         {
+            //TODO
             return;
         }
 
