@@ -128,6 +128,9 @@
     <None Update="Data\GameData\Core\Items\Items_Clothing.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\GameData\Core\Items\Items_ClothingMasks.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\GameData\Core\Items\Items_ClothingSpace.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
