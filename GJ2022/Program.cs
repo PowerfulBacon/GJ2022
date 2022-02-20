@@ -97,17 +97,19 @@ namespace GJ2022
             new BackgroundRenderable().StartRendering();
 
             //Debug oxygen tank
-            Entity createdEntity = EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3));
+            EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3));
+            EntityCreator.CreateEntity<Entity>("SpaceSuit", new Vector<float>(1, 4));
+            EntityCreator.CreateEntity<Entity>("SpaceHelmet", new Vector<float>(1, 5));
 
             var a = EntityConfig.LoadedEntityDefs;
 
             for (int i = 0; i < 4; i++)
             {
                 Human p = new Human(new Vector<float>(2.3f, 7.3f));
-                p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
+                //p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
                 //p.TryEquipItem(InventorySlot.SLOT_BACK, new OxygenTank(new Vector<float>(0, 0)));
                 p.TryEquipItem(InventorySlot.SLOT_MASK, new BreathMask(new Vector<float>(0, 0)));
-                p.TryEquipItem(InventorySlot.SLOT_HEAD, new SpaceHelmet(new Vector<float>(0, 0)));
+                //p.TryEquipItem(InventorySlot.SLOT_HEAD, new SpaceHelmet(new Vector<float>(0, 0)));
                 new CrewmemberBehaviour(p);
             }
 
