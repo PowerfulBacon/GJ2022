@@ -99,6 +99,8 @@ namespace GJ2022
             //Debug oxygen tank
             Entity createdEntity = EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3));
 
+            var a = EntityConfig.LoadedEntityDefs;
+
             for (int i = 0; i < 4; i++)
             {
                 Human p = new Human(new Vector<float>(2.3f, 7.3f));

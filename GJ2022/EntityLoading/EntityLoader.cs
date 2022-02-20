@@ -146,6 +146,9 @@ namespace GJ2022.EntityLoading
                 case DefTypes.Constant:
                     createdProperty = new ConstantDef(element.Name.LocalName);
                     break;
+                case DefTypes.Enumerator:
+                    createdProperty = new EnumDef(element.Name.LocalName);
+                    break;
                 default:
                     throw new XmlException($"Unable to instantiate defType {IdentifyDefinitionType(element)}.");
             }

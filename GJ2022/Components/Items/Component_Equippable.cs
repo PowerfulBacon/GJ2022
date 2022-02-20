@@ -2,6 +2,7 @@
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.PawnBehaviours;
 using GJ2022.PawnBehaviours.PawnActions;
 using GJ2022.Subsystems;
@@ -26,13 +27,13 @@ namespace GJ2022.Components.Items
         /// </summary>
         public bool AppendSlotToIconState { get; private set; } = false;
 
-        public InventorySlot Slots => InventorySlot.NONE;
+        public InventorySlot Slots { get; set; } = InventorySlot.NONE;
 
-        public PawnHazards ProtectedHazards => PawnHazards.NONE;
+        public PawnHazards ProtectedHazards { get; set; } = PawnHazards.NONE;
 
-        public ClothingFlags ClothingFlags => ClothingFlags.NONE;
+        public ClothingFlags ClothingFlags { get; set; } = ClothingFlags.NONE;
 
-        public BodyCoverFlags CoverFlags => BodyCoverFlags.NONE;
+        public BodyCoverFlags CoverFlags { get; set; } = BodyCoverFlags.NONE;
 
         public override void OnComponentAdd()
         {
@@ -109,6 +110,18 @@ namespace GJ2022.Components.Items
                     return;
                 case "AppendSlotToIconState":
                     AppendSlotToIconState = (bool)property;
+                    return;
+                case "Slots":
+                    Slots = ((EnumDef)property).GetValue<InventorySlot>();
+                    return;
+                case "ProtectedHazards":
+                    ProtectedHazards = ((EnumDef)property).GetValue<PawnHazards>();
+                    return;
+                case "ClothingFlags":
+                    ClothingFlags = ((EnumDef)property).GetValue<ClothingFlags>();
+                    return;
+                case "CoverFlags":
+                    CoverFlags = ((EnumDef)property).GetValue<BodyCoverFlags>();
                     return;
             }
             throw new NotImplementedException($"Unknown property on Component_Equippable ({name})");
