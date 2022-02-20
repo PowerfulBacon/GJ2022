@@ -22,7 +22,8 @@ namespace GJ2022.Components
         public delegate object SignalDelegate(object source, params object[] data);
 
         /// <summary>
-        /// A hashset containing all components attached to this
+        /// A hashset containing all components attached to this.
+        /// Use AddComponent, do not directly add to this dictionary.
         /// </summary>
         private Dictionary<Type, Component> Components { get; } = new Dictionary<Type, Component>();
 
