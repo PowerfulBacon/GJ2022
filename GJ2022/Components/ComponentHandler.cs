@@ -168,7 +168,7 @@ namespace GJ2022.Components
                         {
                             EntityDef componentEntity = (EntityDef)component;
                             Component instantiatedComponent = (Component)componentEntity.GetValue(Vector<float>.Zero, true);
-                            Components.Add(instantiatedComponent.GetType(), instantiatedComponent);
+                            AddComponent(instantiatedComponent);
                         }
                         catch (XmlException e)
                         {
