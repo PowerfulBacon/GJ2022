@@ -80,7 +80,7 @@ namespace GJ2022.Components.Atmospherics
         /// </summary>
         private object RegisterPawnInternalSource(object source, params object[] data)
         {
-            Pawn pawn = (Pawn)source;
+            Pawn pawn = (Pawn)data[0];
             pawn.RegisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_SOURCE, 1, ReturnParent);
             return null;
         }
@@ -90,7 +90,7 @@ namespace GJ2022.Components.Atmospherics
         /// </summary>
         private object UnregisterPawnInternalSource(object source, params object[] data)
         {
-            Pawn pawn = (Pawn)source;
+            Pawn pawn = (Pawn)data[0];
             pawn.UnregisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_SOURCE, ReturnParent);
             return null;
         }
