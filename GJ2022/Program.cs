@@ -21,6 +21,7 @@ using GJ2022.UserInterface;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using System.Threading;
 using static OpenGL.Gl;
 
 namespace GJ2022
@@ -79,7 +80,7 @@ namespace GJ2022
 
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
-            while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) { }
+            while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) Thread.Sleep(1);
             Log.WriteLine("Done loading", LogType.DEBUG);
 
             TextureCache.InitializeTextureObjects();
