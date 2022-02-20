@@ -16,6 +16,7 @@ namespace GJ2022.Components
         SIGNAL_RIGHT_CLICKED,       //!Called when something is right clicked, assuming it has code to handle that () => (bool)
         //=====Request Signals=====
         //These signals indicate that an action should be performed.
+        SIGNAL_ITEM_EQUIP_TO_PAWN,  //!Called when an item should be equipped to a specific pawn (Pawn) => ()
         //=====Response Signals=====
         //These signals are called after an action has been performed.
         SIGNAL_ITEM_PICKED_UP,      //!Signal called when an item has been picked up (Pawn) => ()
