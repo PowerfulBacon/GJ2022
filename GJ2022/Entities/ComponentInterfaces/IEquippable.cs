@@ -1,10 +1,12 @@
-﻿using GJ2022.Entities.Items.Clothing;
+﻿using GJ2022.Components;
+using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns;
 using GJ2022.PawnBehaviours;
+using System;
 
 namespace GJ2022.Entities.ComponentInterfaces
 {
-    public interface IEquippable
+    public interface IEquippable : IComponentHandler
     {
 
         bool AppendSlotToIconState { get; }
@@ -27,9 +29,11 @@ namespace GJ2022.Entities.ComponentInterfaces
         BodyCoverFlags CoverFlags { get; }
 
         //When the item is equipped
+        [Obsolete]
         void OnEquip(Pawn pawn, InventorySlot slot);
 
         //When the item is unequipped
+        [Obsolete]
         void OnUnequip(Pawn pawn, InventorySlot slot);
 
     }

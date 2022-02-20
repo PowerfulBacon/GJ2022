@@ -97,7 +97,7 @@ namespace GJ2022
             new BackgroundRenderable().StartRendering();
 
             //Debug oxygen tank
-            Entity createdEntity = EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(3, 3));
+            Entity createdEntity = EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3));
 
             for (int i = 0; i < 4; i++)
             {

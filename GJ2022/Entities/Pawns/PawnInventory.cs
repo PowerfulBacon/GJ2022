@@ -28,13 +28,17 @@ namespace GJ2022.Entities.Pawns
         /// </summary>
         public bool TryEquipItem(InventorySlot targetSlot, IEquippable item)
         {
-            return ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_EQUIPPABLES, () =>
+            lock (EquippedItems)
             {
                 //Check the slot
                 if (EquippedItems.ContainsKey(targetSlot))
                     return false;
+                //Check the slot
+                if (EquippedItems.ContainsKey(targetSlot))
+                    return false;
                 EquippedItems.Add(targetSlot, item);
-                item.OnEquip(this, targetSlot);
+                item.SendSignal(Signal.SIGNAL_ITEM_EQUIPPED, this, targetSlot);
+                item.OnEquip(this, targetSlot); //TODO: Remove
                 RecalculateHazardProtection();
                 AddEquipOverlay(targetSlot, item);
                 //Update bodypart hiding
@@ -42,7 +46,7 @@ namespace GJ2022.Entities.Pawns
                 HiddenBodypartsFlags |= item.ClothingFlags;
                 PawnBody.UpdateLimbOverlays(Renderable, oldFlags, HiddenBodypartsFlags);
                 return true;
-            });
+            }
         }
 
         /// <summary>

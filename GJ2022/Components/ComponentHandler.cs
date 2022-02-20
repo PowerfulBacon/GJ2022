@@ -10,7 +10,7 @@ using System.Xml;
 
 namespace GJ2022.Components
 {
-    public abstract class ComponentHandler : IInstantiatable
+    public abstract class ComponentHandler : IComponentHandler, IInstantiatable
     {
 
         /// <summary>
