@@ -59,6 +59,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodyparts
         //TODO: Make this apply damage and the special effects of injuries
         public void AddInjury(Injury injury)
         {
+            if (Body.NoDamage)
+                return;
             float actualDamage = Math.Min(injury.Damage, Health);
             //Calculate new damage
             Health -= injury.Damage;

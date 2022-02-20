@@ -6,6 +6,7 @@ using System;
 
 namespace GJ2022.Entities.ComponentInterfaces
 {
+    [Obsolete]
     public interface IEquippable : IComponentHandler
     {
 

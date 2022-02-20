@@ -160,8 +160,6 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public void Process(float deltaTime)
         {
-            if (NoDamage)
-                return;
             //Process bleeding
             ProcessBleeding(deltaTime);
             //Process pressure damage (TODO: If not protected via pressure resistant clothing)

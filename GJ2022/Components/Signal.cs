@@ -27,6 +27,6 @@ namespace GJ2022.Components
         //These signals indicate that some value is wanted.
         //Gas Storage Signals
         SIGNAL_GET_ATMOSPHERE,      //! Return the atmospheric contents () => (Atmosphere)
-        SIGNAL_PAWN_GET_INTERNAL_SOURCE //!TODO Returns the source of internals for a pawn () => ()
+        SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE //!TODO Returns the atmosphere source of internals for a pawn () => ()
     }
 }

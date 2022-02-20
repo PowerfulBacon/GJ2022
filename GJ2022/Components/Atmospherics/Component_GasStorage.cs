@@ -81,7 +81,7 @@ namespace GJ2022.Components.Atmospherics
         private object RegisterPawnInternalSource(object source, params object[] data)
         {
             Pawn pawn = (Pawn)data[0];
-            pawn.RegisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_SOURCE, 1, ReturnParent);
+            pawn.RegisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE, 1, ReturnAtmoshpere);
             return null;
         }
 
@@ -91,14 +91,14 @@ namespace GJ2022.Components.Atmospherics
         private object UnregisterPawnInternalSource(object source, params object[] data)
         {
             Pawn pawn = (Pawn)data[0];
-            pawn.UnregisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_SOURCE, ReturnParent);
+            pawn.UnregisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE, ReturnAtmoshpere);
             return null;
         }
 
         /// <summary>
         /// Returns the parent of this component
         /// </summary>
-        private object ReturnParent(object source, params object[] data) => Parent;
+        private object ReturnAtmoshpere(object source, params object[] data) => containedAtmopshere;
 
         public override void SetProperty(string name, object property)
         {
