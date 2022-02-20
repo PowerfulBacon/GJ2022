@@ -100,6 +100,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public bool Destroyed => false;
 
+        //Temp
+        public bool NoDamage { get; set; } = true;
+
         /// <summary>
         /// Setup the body and its internal atmosphere
         /// </summary>
@@ -157,6 +160,8 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public void Process(float deltaTime)
         {
+            if (NoDamage)
+                return;
             //Process bleeding
             ProcessBleeding(deltaTime);
             //Process pressure damage (TODO: If not protected via pressure resistant clothing)
