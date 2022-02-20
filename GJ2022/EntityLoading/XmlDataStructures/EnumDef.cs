@@ -29,5 +29,14 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             return (T)Enum.ToObject(typeof(T), value);
         }
 
+        public override PropertyDef Copy()
+        {
+            PropertyDef copy = new EnumDef(Name);
+            foreach (string key in Tags.Keys)
+                copy.Tags.Add(key, Tags[key]);
+            foreach (string key in Children.Keys)
+                copy.Children.Add(key, Children[key].Copy());
+            return copy;
+        }
     }
 }

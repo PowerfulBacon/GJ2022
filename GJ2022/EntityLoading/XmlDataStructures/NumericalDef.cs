@@ -27,5 +27,15 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             value = ((NumericalDef)overrider).value;
             base.UpdateFrom(overrider);
         }
+
+        public override PropertyDef Copy()
+        {
+            NumericalDef copy = new NumericalDef(Name, value.ToString());
+            foreach (string key in Tags.Keys)
+                copy.Tags.Add(key, Tags[key]);
+            foreach (string key in Children.Keys)
+                copy.Children.Add(key, Children[key].Copy());
+            return copy;
+        }
     }
 }

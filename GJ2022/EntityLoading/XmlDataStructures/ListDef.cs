@@ -50,5 +50,14 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             }
         }
 
+        public override PropertyDef Copy()
+        {
+            ListDef copy = new ListDef(Name);
+            foreach (string key in Tags.Keys)
+                copy.Tags.Add(key, Tags[key]);
+            foreach (PropertyDef child in Children)
+                copy.Children.Add(child.Copy());
+            return copy;
+        }
     }
 }

@@ -10,6 +10,10 @@ namespace GJ2022.EntityLoading.XmlDataStructures
     public class PropertyDef
     {
 
+        private static int num = 0;
+
+        public int UUID { get; } = num++;
+
         public string Name { get; }
 
         /// <summary>
@@ -21,6 +25,16 @@ namespace GJ2022.EntityLoading.XmlDataStructures
         /// Children components
         /// </summary>
         public Dictionary<string, PropertyDef> Children { get; } = new Dictionary<string, PropertyDef>();
+
+        public virtual PropertyDef Copy()
+        {
+            PropertyDef copy = new PropertyDef(Name);
+            foreach (string key in Tags.Keys)
+                copy.Tags.Add(key, Tags[key]);
+            foreach (string key in Children.Keys)
+                copy.Children.Add(key, Children[key].Copy());
+            return copy;
+        }
 
         /// <summary>
         /// Return the instantiated value of this property.
@@ -142,7 +156,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             foreach (string superPropertyName in parent.Children.Keys)
             {
                 //Inherit the child
-                Children.Add(superPropertyName, parent.Children[superPropertyName]);
+                Children.Add(superPropertyName, parent.Children[superPropertyName].Copy());
             }
         }
 

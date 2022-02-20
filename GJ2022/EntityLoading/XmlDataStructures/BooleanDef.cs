@@ -29,5 +29,15 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             value = ((BooleanDef)overrider).value;
             base.UpdateFrom(overrider);
         }
+
+        public override PropertyDef Copy()
+        {
+            TextDef copy = new TextDef(Name, value ? "true" : "false");
+            foreach (string key in Tags.Keys)
+                copy.Tags.Add(key, Tags[key]);
+            foreach (string key in Children.Keys)
+                copy.Children.Add(key, Children[key].Copy());
+            return copy;
+        }
     }
 }
