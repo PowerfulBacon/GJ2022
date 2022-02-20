@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GJ2022.Components.Atmospherics
+namespace GJ2022.Components.Items
 {
     public class Component_Equippable : Component
     {

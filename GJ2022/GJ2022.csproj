@@ -247,8 +247,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Components\Items\" />
-  </ItemGroup>
-
 </Project>
