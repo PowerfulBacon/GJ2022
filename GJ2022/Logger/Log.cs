@@ -15,11 +15,12 @@ public static class Log
         //Ignore this log
         if ((logType & LogFlags) != logType)
             return;
+        DateTime logTime = DateTime.Now;
         lock (consoleLock)
         {
             //Write it
             SetConsoleColor(logType);
-            Console.Write($"[{logType}][{DateTime.Now}]");
+            Console.Write($"[{logType}][{logTime}]");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine($" {message ?? "null"}");

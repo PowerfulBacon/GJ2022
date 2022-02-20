@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.Areas;
+﻿using GJ2022.Components;
+using GJ2022.Entities.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Pawns;
@@ -97,6 +98,8 @@ namespace GJ2022.Entities.Items
             if (Location != null)
                 return;
             if (PawnControllerSystem.Singleton.SelectedPawn == null)
+                return;
+            if (SendSignalSynchronously(Signal.SIGNAL_RIGHT_CLICKED)?.Equals(true) ?? false)
                 return;
             if (this is IEquippable)
                 PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new EquipItem(this));

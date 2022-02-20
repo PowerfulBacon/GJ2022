@@ -1,7 +1,10 @@
 ﻿using GJ2022.Entities;
+using GJ2022.Entities.Items;
 using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns;
 using GJ2022.PawnBehaviours;
+using GJ2022.PawnBehaviours.PawnActions;
+using GJ2022.Subsystems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +38,22 @@ namespace GJ2022.Components.Items
         {
             Parent.RegisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, -1, OnEquip);
             Parent.RegisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, -1, OnUnequip);
+            Parent.RegisterSignal(Signal.SIGNAL_RIGHT_CLICKED, 5, OnRightClicked);
         }
 
         public override void OnComponentRemove()
         {
             Parent.UnregisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, OnEquip);
             Parent.UnregisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, OnUnequip);
+            Parent.UnregisterSignal(Signal.SIGNAL_RIGHT_CLICKED, OnRightClicked);
+        }
+
+        private object OnRightClicked(object parent, params object[] arguments)
+        {
+            if (PawnControllerSystem.Singleton.SelectedPawn == null)
+                return false;
+            PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new EquipItem(Parent as Item));
+            return true;
         }
 
         /// <summary>

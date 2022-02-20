@@ -10,6 +10,10 @@ namespace GJ2022.Components
     {
         SIGNAL_ENTITY_MOVED,
         SIGNAL_ENTITY_DESTROYED,
+        //=====Block Signals=====
+        //These signals are called when something has happened (mouse click) and return
+        //true if something happens that should make other things not happen.
+        SIGNAL_RIGHT_CLICKED,       //!Called when something is right clicked, assuming it has code to handle that () => (bool)
         //=====Request Signals=====
         //These signals indicate that an action should be performed.
         //=====Response Signals=====
