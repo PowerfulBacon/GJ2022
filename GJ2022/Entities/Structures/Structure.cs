@@ -1,12 +1,25 @@
 ﻿using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Game.GameWorld;
 using GJ2022.Utility.MathConstructs;
+using System;
 
 namespace GJ2022.Entities.Structures
 {
-    public abstract class Structure : Entity, IDestroyable
+    public class Structure : Entity, IDestroyable
     {
 
+        public Structure() : base()
+        {
+            //Add the structure to the world list
+        }
+
+        public override void Initialize(Vector<float> initializePosition)
+        {
+            World.AddStructure((int)initializePosition[0], (int)initializePosition[1], this);
+            base.Initialize(initializePosition);
+        }
+
+        [Obsolete]
         public Structure(Vector<float> position, float layer) : base(position, layer)
         {
             //Add the structure to the world list

@@ -41,6 +41,7 @@ namespace GJ2022.EntityLoading
             {
                 Log.WriteLine("Clearing existing EntityConfig data... (LoadEntities was called again, likely a debug call)", LogType.WARNING);
                 EntityConfig.LoadedEntityDefs.Clear();
+                EntityConfig.LoadedConstants.Clear();
             }
             //Locate all game data XML files.
             foreach (string gameDataGroupName in Directory.GetDirectories(GAME_DATA_DIRECTORY))

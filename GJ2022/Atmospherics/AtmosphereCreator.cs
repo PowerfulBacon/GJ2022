@@ -33,9 +33,10 @@ namespace GJ2022.Atmospherics
         }
 
         public void Initialize(Vector<float> initializePosition)
-        {
-            return;
-        }
+        { }
+
+        public void PreInitialize(Vector<float> initializePosition)
+        { }
 
         public void SetProperty(string name, object property)
         {

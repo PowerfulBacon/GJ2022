@@ -220,6 +220,12 @@ namespace GJ2022.Entities
             base.SetProperty(name, property);
         }
 
+        //oh god this is so janky
+        public override void PreInitialize(Vector<float> initializePosition)
+        {
+            Position = initializePosition;
+        }
+
         public override void Initialize(Vector<float> initializePosition)
         {
             Position = initializePosition;

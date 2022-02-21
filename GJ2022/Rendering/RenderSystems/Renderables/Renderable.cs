@@ -222,5 +222,8 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         {
             StartRendering();
         }
+
+        public void PreInitialize(Vector<float> initializePosition)
+        { }
     }
 }

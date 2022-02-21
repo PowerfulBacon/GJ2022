@@ -20,5 +20,7 @@ namespace GJ2022.EntityLoading
         /// </summary>
         void Initialize(Vector<float> initializePosition);
 
+        void PreInitialize(Vector<float> initializePosition);
+
     }
 }

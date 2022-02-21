@@ -181,6 +181,8 @@ namespace GJ2022.Components
             throw new NotImplementedException($"SetProperty has not been setup to handle the property {name}.");
         }
 
+        public abstract void PreInitialize(Vector<float> initializePosition);
+
         public abstract void Initialize(Vector<float> initializePosition);
 
     }

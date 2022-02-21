@@ -35,6 +35,9 @@ namespace GJ2022.Components
         /// </summary>
         public abstract void OnComponentRemove();
 
+        public void PreInitialize(Vector<float> initializePosition)
+        { }
+
         public abstract void SetProperty(string name, object property);
 
     }

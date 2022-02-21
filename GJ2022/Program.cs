@@ -92,23 +92,13 @@ namespace GJ2022
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
-            //Debug oxygen tank
-            EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3));
-            EntityCreator.CreateEntity<Entity>("SpaceSuit", new Vector<float>(1, 4));
-            EntityCreator.CreateEntity<Entity>("SpaceHelmet", new Vector<float>(1, 5));
-            EntityCreator.CreateEntity<Entity>("BreathMask", new Vector<float>(1, 6));
-            EntityCreator.CreateEntity<Entity>("Jetpack", new Vector<float>(1, 7));
-            EntityCreator.CreateEntity<Entity>("Cell_Standard", new Vector<float>(1, 8));
-
-            var a = EntityConfig.LoadedEntityDefs;
-
             for (int i = 0; i < 4; i++)
             {
                 Human p = new Human(new Vector<float>(2.3f, 7.3f));
-                //p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
-                //p.TryEquipItem(InventorySlot.SLOT_BACK, new OxygenTank(new Vector<float>(0, 0)));
-                //p.TryEquipItem(InventorySlot.SLOT_MASK, new BreathMask(new Vector<float>(0, 0)));
-                //p.TryEquipItem(InventorySlot.SLOT_HEAD, new SpaceHelmet(new Vector<float>(0, 0)));
+                EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
+                EntityCreator.CreateEntity<Entity>("SpaceSuit", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
+                EntityCreator.CreateEntity<Entity>("SpaceHelmet", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
+                EntityCreator.CreateEntity<Entity>("BreathMask", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
                 new CrewmemberBehaviour(p);
             }
 
