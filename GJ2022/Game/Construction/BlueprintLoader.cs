@@ -121,7 +121,14 @@ namespace GJ2022.Game.Construction
                         BlueprintCategory createdCateogry = new BlueprintCategory(blueprintCategory.Value<string>("name"));
                         foreach (string categoryContent in blueprintCategory["contents"])
                         {
-                            createdCateogry.Contents.Add(loadedBlueprintSets[categoryContent]);
+                            try
+                            {
+                                createdCateogry.Contents.Add(loadedBlueprintSets[categoryContent]);
+                            }
+                            catch (Exception e)
+                            {
+                                Log.WriteLine(e, LogType.ERROR);
+                            }
                         }
                         BlueprintCategories.Add(createdCateogry.Name, createdCateogry);
                     }

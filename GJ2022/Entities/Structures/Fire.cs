@@ -21,6 +21,16 @@ namespace GJ2022.Entities.Structures
 
         private static PositionBasedBinaryList<Fire> GlobalFires = new PositionBasedBinaryList<Fire>();
 
+        public Fire() : base()
+        { }
+
+        public override void Initialize(Vector<float> initializePosition)
+        {
+            FireProcessingSystem.Singleton.StartProcessing(this);
+            GlobalFires.Add((int)Position[0], (int)Position[1], this);
+            base.Initialize(initializePosition);
+        }
+
         public Fire(Vector<float> position) : base(position, Layers.LAYER_FIRE)
         {
             FireProcessingSystem.Singleton.StartProcessing(this);
