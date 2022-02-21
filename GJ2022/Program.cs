@@ -1,7 +1,6 @@
 ﻿using GJ2022.Audio;
 using GJ2022.Entities;
 using GJ2022.Entities.Items.Stacks;
-using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Pawns.Mobs;
 using GJ2022.Entities.Pawns.Mobs.Humans;
@@ -127,8 +126,6 @@ namespace GJ2022
                     new Plating(x, y);
                 }
             }
-
-            new Pickaxe(new Vector<float>(3, 2));
 
             //new BreathMask(new Vector<float>(3, 3));
 
