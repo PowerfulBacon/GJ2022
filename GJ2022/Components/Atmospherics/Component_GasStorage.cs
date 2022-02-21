@@ -50,8 +50,8 @@ namespace GJ2022.Components.Atmospherics
             if (InternalsSource)
             {
                 //Register equip signal
-                Parent.RegisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, -1, RegisterPawnInternalSource);
-                Parent.RegisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, -1, UnregisterPawnInternalSource);
+                Parent.RegisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, -1, OnEquipped);
+                Parent.RegisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, -1, OnUnequipped);
             }
         }
 
@@ -63,8 +63,8 @@ namespace GJ2022.Components.Atmospherics
             if (InternalsSource)
             {
                 //Register equip signal
-                Parent.UnregisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, RegisterPawnInternalSource);
-                Parent.UnregisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, UnregisterPawnInternalSource);
+                Parent.UnregisterSignal(Signal.SIGNAL_ITEM_EQUIPPED, OnEquipped);
+                Parent.UnregisterSignal(Signal.SIGNAL_ITEM_UNEQUIPPED, OnUnequipped);
             }
         }
 
@@ -78,7 +78,7 @@ namespace GJ2022.Components.Atmospherics
         /// The parent of this component will now be returned when the SIGNAL_PAWN_GET_INTERNAL_SOURCE
         /// signal is sent to the pawn that has the parent item equipped.
         /// </summary>
-        private object RegisterPawnInternalSource(object source, params object[] data)
+        protected virtual object OnEquipped(object source, params object[] data)
         {
             Pawn pawn = (Pawn)data[0];
             pawn.RegisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE, 1, ReturnAtmoshpere);
@@ -88,7 +88,7 @@ namespace GJ2022.Components.Atmospherics
         /// <summary>
         /// Called when a pawn unequips the parent of this component.
         /// </summary>
-        private object UnregisterPawnInternalSource(object source, params object[] data)
+        protected virtual object OnUnequipped(object source, params object[] data)
         {
             Pawn pawn = (Pawn)data[0];
             pawn.UnregisterSignal(Signal.SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE, ReturnAtmoshpere);

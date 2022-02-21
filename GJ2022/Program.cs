@@ -1,6 +1,5 @@
 ﻿using GJ2022.Audio;
 using GJ2022.Entities;
-using GJ2022.Entities.Items.Clothing.Back;
 using GJ2022.Entities.Items.Stacks;
 using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
@@ -99,6 +98,7 @@ namespace GJ2022
             EntityCreator.CreateEntity<Entity>("SpaceSuit", new Vector<float>(1, 4));
             EntityCreator.CreateEntity<Entity>("SpaceHelmet", new Vector<float>(1, 5));
             EntityCreator.CreateEntity<Entity>("BreathMask", new Vector<float>(1, 6));
+            EntityCreator.CreateEntity<Entity>("Jetpack", new Vector<float>(1, 7));
 
             var a = EntityConfig.LoadedEntityDefs;
 
@@ -128,7 +128,6 @@ namespace GJ2022
                 }
             }
 
-            new Jetpack(new Vector<float>(9, 8));
             new Pickaxe(new Vector<float>(3, 2));
 
             //new BreathMask(new Vector<float>(3, 3));

@@ -29,24 +29,18 @@ namespace GJ2022.Entities.Pawns
         {
             lock (EquippedItems)
             {
-                lock (EquippedItems)
-                {
-                    //Check the slot
-                    if (EquippedItems.ContainsKey(targetSlot))
-                        return false;
-                    //Check the slot
-                    if (EquippedItems.ContainsKey(targetSlot))
-                        return false;
-                    //EquippedItems.Add(targetSlot, item);
-                    equippable.Parent.SendSignal(Signal.SIGNAL_ITEM_EQUIPPED, this, targetSlot);
-                    RecalculateHazardProtection();
-                    AddEquipOverlay(targetSlot, equippable);
-                    //Update bodypart hiding
-                    ClothingFlags oldFlags = HiddenBodypartsFlags;
-                    HiddenBodypartsFlags |= equippable.ClothingFlags;
-                    PawnBody.UpdateLimbOverlays(Renderable, oldFlags, HiddenBodypartsFlags);
-                    return true;
-                }
+                //Check the slot
+                if (EquippedItems.ContainsKey(targetSlot))
+                    return false;
+                EquippedItems.Add(targetSlot, equippable);
+                equippable.Parent.SendSignal(Signal.SIGNAL_ITEM_EQUIPPED, this, targetSlot);
+                RecalculateHazardProtection();
+                AddEquipOverlay(targetSlot, equippable);
+                //Update bodypart hiding
+                ClothingFlags oldFlags = HiddenBodypartsFlags;
+                HiddenBodypartsFlags |= equippable.ClothingFlags;
+                PawnBody.UpdateLimbOverlays(Renderable, oldFlags, HiddenBodypartsFlags);
+                return true;
             }
         }
 
@@ -58,9 +52,6 @@ namespace GJ2022.Entities.Pawns
         {
             lock (EquippedItems)
             {
-                //Check the slot
-                if (EquippedItems.ContainsKey(targetSlot))
-                    return false;
                 //Check the slot
                 if (EquippedItems.ContainsKey(targetSlot))
                     return false;

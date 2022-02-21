@@ -1,6 +1,7 @@
 ﻿using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Gasses;
 using GJ2022.Components;
+using GJ2022.Components.Items;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
@@ -54,7 +55,7 @@ namespace GJ2022.Entities.Pawns
         public bool IsPressureProtected()
         {
             BodyCoverFlags lowPressureCoveredFlags = BodyCoverFlags.NONE;
-            foreach (IEquippable equippable in EquippedItems.Values)
+            foreach (Component_Equippable equippable in EquippedItems.Values)
             {
                 if (equippable == null || (equippable.ProtectedHazards & PawnBehaviours.PawnHazards.HAZARD_LOW_PRESSURE) == 0)
                     continue;
