@@ -7,11 +7,15 @@ public static class Log
 
     private static LogType LogFlags = LogType.LOG_ALL;
 
+    public static int ExceptionCount = 0;
+
     /// <summary>
     /// TODO
     /// </summary>
     public static void WriteLine(object message, LogType logType = LogType.MESSAGE)
     {
+        if (message is Exception)
+            ExceptionCount++;
         //Ignore this log
         if ((logType & LogFlags) != logType)
             return;

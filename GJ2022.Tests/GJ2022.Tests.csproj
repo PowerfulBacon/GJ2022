@@ -156,6 +156,7 @@
   <ItemGroup>
     <Compile Include="AudioTests.cs" />
     <Compile Include="CodeLinters\LinterTest.cs" />
+    <Compile Include="EntityDefTest.cs" />
     <Compile Include="PathfindingTests.cs" />
     <Compile Include="Properties\RunSettings.Designer.cs">
       <AutoGen>True</AutoGen>
