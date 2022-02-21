@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entities>
+  <Entity Name="Cell" ParentName="ItemBase" Abstract="true">
+    <Name>Basic Power Cell</Name>
+    <Description>A basic power cell capable of holding small amounts of power.</Description>
+    <Components>
+      <Component_PowerStore />
+    </Components>
+  </Entity>
+  <Entity Name="Cell_Standard" ParentName="Cell">
+    <UiTexture>power.cell</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>power.cell</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_PowerStore>
+        <MaxPower>1000</MaxPower>
+        <ChargeRate>200</ChargeRate>
+      </Component_PowerStore>
+    </Components>
+  </Entity>
+</Entities>

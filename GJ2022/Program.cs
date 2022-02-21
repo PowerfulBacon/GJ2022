@@ -98,6 +98,7 @@ namespace GJ2022
             EntityCreator.CreateEntity<Entity>("SpaceHelmet", new Vector<float>(1, 5));
             EntityCreator.CreateEntity<Entity>("BreathMask", new Vector<float>(1, 6));
             EntityCreator.CreateEntity<Entity>("Jetpack", new Vector<float>(1, 7));
+            EntityCreator.CreateEntity<Entity>("Cell_Standard", new Vector<float>(1, 8));
 
             var a = EntityConfig.LoadedEntityDefs;
 

@@ -137,6 +137,9 @@
     <None Update="Data\GameData\Core\Items\Items_Core.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\GameData\Core\Items\Items_StockParts.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\IconFiles\back.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -8,6 +8,7 @@ using GJ2022.Utility.MathConstructs;
 
 namespace GJ2022.Entities.Items.StockParts.Cells
 {
+    [Obsolete]
     class StandardCell : Cell
     {
 
