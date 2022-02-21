@@ -18,14 +18,12 @@ namespace GJ2022.Components.Atmospherics
         {
             Entity parent = Parent as Entity;
             blockingPosition = parent.Position;
-            Log.WriteLine($"{blockingPosition} : {parent.Position}", LogType.TEMP);
             World.AddAtmosphericBlocker(blockingPosition[0], blockingPosition[1]);
             Parent.RegisterSignal(Signal.SIGNAL_ENTITY_MOVED, -1, ParentMoveReact);
         }
 
         public override void OnComponentRemove()
         {
-            Log.WriteLine($"REMOVED: {blockingPosition}", LogType.TEMP);
             World.RemoveAtmosphericBlock(blockingPosition[0], blockingPosition[1]);
             Parent.UnregisterSignal(Signal.SIGNAL_ENTITY_MOVED, ParentMoveReact);
         }
@@ -35,7 +33,6 @@ namespace GJ2022.Components.Atmospherics
             World.RemoveAtmosphericBlock(blockingPosition[0], blockingPosition[1]);
             Entity parent = Parent as Entity;
             blockingPosition = parent.Position;
-            Log.WriteLine($"MOVED: {blockingPosition}", LogType.TEMP);
             World.AddAtmosphericBlocker(blockingPosition[0], blockingPosition[1]);
             return null;
         }

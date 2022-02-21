@@ -143,6 +143,9 @@
     <None Update="Data\GameData\Core\Structures\Structures_Core.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\GameData\Core\Structures\Structures_Decoration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\GameData\Core\Structures\Structures_Doors.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

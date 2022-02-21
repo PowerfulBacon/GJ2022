@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entities>
+  <Entity Name="Catwalk" ParentName="StructureBase">
+    <Renderable Class="StandardRenderable">
+      <Layer>2</Layer>
+      <Texture>catwalk</Texture>
+    </Renderable>
+  </Entity>
+</Entities>
