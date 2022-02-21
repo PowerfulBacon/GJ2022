@@ -29,7 +29,7 @@ namespace GJ2022.Components.Power
 
         private object GivePower(object source, params object[] arguments)
         {
-            int amount = Convert.ToInt32(arguments[0]);
+            float amount = Convert.ToSingle(arguments[0]);
             float powerGiven = Math.Min(amount, MaxPower - StoredPower);
             StoredPower += powerGiven;
             return powerGiven;
@@ -37,7 +37,7 @@ namespace GJ2022.Components.Power
 
         private object TakePower(object source, params object[] arguments)
         {
-            int amount = Convert.ToInt32(arguments[0]);
+            float amount = Convert.ToSingle(arguments[0]);
             float powerTaken = Math.Min(amount, StoredPower);
             StoredPower -= powerTaken;
             return powerTaken;

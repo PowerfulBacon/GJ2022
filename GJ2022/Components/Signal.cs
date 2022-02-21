@@ -17,8 +17,8 @@ namespace GJ2022.Components
         //=====Request Signals=====
         //These signals indicate that an action should be performed.
         SIGNAL_ITEM_EQUIP_TO_PAWN,  //! Called when an item should be equipped to a specific pawn (Pawn) => ()
-        SIGNAL_ITEM_GIVE_POWER,     //! Give power to something (int: amount) => (int: remaining)
-        SIGNAL_ITEM_TAKE_POWER,     //! Take power from something if available (int: amountWanted) => (int: amountSupplied)
+        SIGNAL_ITEM_GIVE_POWER,     //! Give power to something (int: amount) => (float: remaining)
+        SIGNAL_ITEM_TAKE_POWER,     //! Take power from something if available (float: amountWanted) => (float: amountSupplied)
         //=====Response Signals=====
         //These signals are called after an action has been performed.
         SIGNAL_ITEM_PICKED_UP,      //!Signal called when an item has been picked up (Pawn) => ()
@@ -30,6 +30,7 @@ namespace GJ2022.Components
         //Gas Storage Signals
         SIGNAL_GET_ATMOSPHERE,      //! Return the atmospheric contents () => (Atmosphere)
         SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE,    //!TODO Returns the atmosphere source of internals for a pawn () => ()
-        SIGNAL_GET_STORED_POWER,    //! Return the amount of power stored in this object () => (int: storedPower)
+        SIGNAL_GET_STORED_POWER,    //! Return the amount of power stored in this object () => (float: storedPower)
+        SIGNAL_GET_COUNT,           //! Return the amount of items represented by this entity () => (int: count)
     }
 }

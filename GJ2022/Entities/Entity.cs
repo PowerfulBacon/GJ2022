@@ -63,7 +63,7 @@ namespace GJ2022.Entities
 
         //The text object attached to this
         public TextObject attachedTextObject;
-        protected Vector<float> textObjectOffset = new Vector<float>(0, 0);
+        public Vector<float> textObjectOffset = new Vector<float>(0, 0);
 
         public Entity()
         {
