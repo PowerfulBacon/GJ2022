@@ -114,7 +114,9 @@ namespace GJ2022.Game.GameWorld
         // Spiral Distance Getters
         //======================
 
+        //TODO: Optimise me :)
         public static List<T> GetSpiralThings<T>(string thingGroup, int original_x, int original_y, int range)
+            where T : IComponentHandler
         {
             List<T> output = new List<T>();
             if (!TrackedComponentHandlers.ContainsKey(thingGroup))
@@ -126,9 +128,10 @@ namespace GJ2022.Game.GameWorld
                 {
                     for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
                     {
-                        T located = (T)TrackedComponentHandlers[thingGroup].Get(x, y);
+                        List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
                         if (located != null)
-                            output.Add(located);
+                            foreach (T thing in located)
+                                output.Add(thing);
                     }
                 }
             }
@@ -263,6 +266,45 @@ namespace GJ2022.Game.GameWorld
         public static bool AllowsAtmosphericFlow(int x, int y)
         {
             return AtmosphericBlockers.Get(x, y) == null;
+        }
+
+        //======================
+        // Things
+        //======================
+
+        public static List<IComponentHandler> GetThings(string thingGroup, int x, int y)
+        {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                return new List<IComponentHandler>() { };
+            return TrackedComponentHandlers[thingGroup].Get(x, y) ?? new List<IComponentHandler>() { };
+        }
+
+        /// <summary>
+        /// Add an pawn to the world list
+        /// </summary>
+        public static void AddThing(string thingGroup, int x, int y, IComponentHandler thing)
+        {
+            List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
+            if (located != null)
+                located.Add(thing);
+            else
+                TrackedComponentHandlers[thingGroup].Add(x, y, new List<IComponentHandler>() { thing });
+        }
+
+        /// <summary>
+        /// Remove the pawn from the world list
+        /// </summary>
+        public static bool RemoveThing(string thingGroup, int x, int y, IComponentHandler thing)
+        {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                return false;
+            List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
+            if (located == null)
+                return false;
+            located.Remove(thing);
+            if (located.Count == 0)
+                TrackedComponentHandlers[thingGroup].Remove(x, y);
+            return true;
         }
 
         //======================

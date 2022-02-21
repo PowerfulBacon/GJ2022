@@ -19,6 +19,8 @@ using GJ2022.UserInterface;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using static OpenGL.Gl;
 
