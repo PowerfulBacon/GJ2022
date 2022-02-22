@@ -142,6 +142,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                             continue;
                         ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
                         {
+                            //TODO: Readd smelting
                             //targetFurnace.Smelt(parent.Owner, item as IronOre);
                             return true;
                         });

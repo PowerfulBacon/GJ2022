@@ -33,5 +33,6 @@ namespace GJ2022.Components
         SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE,    //!TODO Returns the atmosphere source of internals for a pawn () => ()
         SIGNAL_GET_STORED_POWER,    //! Return the amount of power stored in this object () => (float: storedPower)
         SIGNAL_GET_COUNT,           //! Return the amount of items represented by this entity () => (int: count)
+        SIGNAL_GET_POWER_DEMAND,    //! Get the power demand of this signal (float: deltaTime) => (float: demand)
     }
 }

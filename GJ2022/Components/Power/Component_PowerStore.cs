@@ -18,6 +18,7 @@ namespace GJ2022.Components.Power
             Parent.RegisterSignal(Signal.SIGNAL_GET_STORED_POWER, 5, ReturnPower);
             Parent.RegisterSignal(Signal.SIGNAL_ITEM_TAKE_POWER, 5, TakePower);
             Parent.RegisterSignal(Signal.SIGNAL_ITEM_GIVE_POWER, 5, GivePower);
+            Parent.RegisterSignal(Signal.SIGNAL_GET_POWER_DEMAND, 5, GetDemand);
         }
 
         public override void OnComponentRemove()
@@ -25,6 +26,7 @@ namespace GJ2022.Components.Power
             Parent.UnregisterSignal(Signal.SIGNAL_GET_STORED_POWER, ReturnPower);
             Parent.UnregisterSignal(Signal.SIGNAL_GET_STORED_POWER, TakePower);
             Parent.UnregisterSignal(Signal.SIGNAL_ITEM_GIVE_POWER, GivePower);
+            Parent.UnregisterSignal(Signal.SIGNAL_GET_POWER_DEMAND, GetDemand);
         }
 
         private object GivePower(object source, params object[] arguments)
@@ -44,6 +46,8 @@ namespace GJ2022.Components.Power
         }
 
         private object ReturnPower(object source, params object[] arguments) => StoredPower;
+
+        private object GetDemand(object source, params object[] arguments) => Math.Min(ChargeRate * Convert.ToSingle(arguments[0]), MaxPower - StoredPower);
 
         public override void SetProperty(string name, object property)
         {
