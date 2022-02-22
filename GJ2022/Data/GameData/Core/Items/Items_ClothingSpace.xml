@@ -91,4 +91,29 @@
       </Component_Equippable>
     </Components>
   </Entity>
+  <!--Syndicate Hardsuit-->
+  <Entity Name="SyndicateHardsuit" ParentName="Hardsuit">
+    <Name>Syndicate Hardsuit</Name>
+    <Description>A blood-red armoured hardsuit made from a unique carbon-fiber based alloy, able to withstand the pressures of space while still maintaining a suprisingly strong protection against gunfire.</Description>
+    <UiTexture>spacesuit</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>spacesuit</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <!--Insert the component that puts the hardsuit helmet inside the suit-->
+      <Component_InternalEntity>
+        <StoredEntityDef Class="SyndicateHardsuitHelmet" />
+      </Component_InternalEntity>
+    </Components>
+  </Entity>
+  <Entity Name="SyndicateHardsuitHelmet" ParentName="HardsuitHelmet">
+    <Name>Space Suit</Name>
+    <Description>A pressure-resistant suit designed for protecting humans from the dangers of outer space.</Description>
+    <UiTexture>spacesuit</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>spacesuit</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+  </Entity>
 </Entities>
