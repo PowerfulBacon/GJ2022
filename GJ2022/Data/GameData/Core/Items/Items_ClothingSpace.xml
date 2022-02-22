@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Entities>
+  <!--Generic Space Suit + Space Helmet-->
   <Entity Name="SpaceSuit" ParentName="ClothingBase_Body">
     <Name>Space Suit</Name>
     <Description>A pressure-resistant suit designed for protecting humans from the dangers of outer space.</Description>
@@ -57,6 +58,35 @@
         </ClothingFlags>
         <ProtectedHazards>
           <EnumValue>HAZARD_LOW_PRESSURE</EnumValue>
+        </ProtectedHazards>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Generic Hardsuit + Contained Hardsuit Helmet-->
+  <Entity Name="Hardsuit" ParentName="SpaceSuit" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <AppendSlotToIconState>false</AppendSlotToIconState>
+        <ProtectedHazards>
+          <EnumValue>HAZARD_LOW_PRESSURE</EnumValue>
+          <!--Hardsuits protect from high pressure + low pressure-->
+          <EnumValue>HAZARD_HIGH_PRESSURE</EnumValue>
+        </ProtectedHazards>
+      </Component_Equippable>
+      <!--Insert the component that puts the hardsuit helmet inside the suit-->
+      <Component_InternalEntity>
+        <StoredEntityDef Class="HardsuitHelmet" />
+      </Component_InternalEntity>
+    </Components>
+  </Entity>
+  <Entity Name="HardsuitHelmet" ParentName="SpaceHelmet" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <AppendSlotToIconState>false</AppendSlotToIconState>
+        <ProtectedHazards>
+          <EnumValue>HAZARD_LOW_PRESSURE</EnumValue>
+          <!--Hardsuits protect from high pressure + low pressure-->
+          <EnumValue>HAZARD_HIGH_PRESSURE</EnumValue>
         </ProtectedHazards>
       </Component_Equippable>
     </Components>

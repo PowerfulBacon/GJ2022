@@ -43,7 +43,7 @@ namespace GJ2022.Components.Items
         {
             switch (name)
             {
-                case "StoredEntity":
+                case "StoredEntityDef":
                     //Instantiate the entity
                     StoredEntityDef = ((EntityDef)property);
                     return;
