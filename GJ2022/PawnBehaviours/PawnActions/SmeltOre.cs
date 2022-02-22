@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities;
+﻿using GJ2022.Components;
+using GJ2022.Entities;
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Items.Stacks.Ores;
 using GJ2022.Entities.Structures;
@@ -33,11 +34,14 @@ namespace GJ2022.PawnBehaviours.PawnActions
         {
             if (parent.Owner.InCrit)
                 return false;
-            if (World.HasStructuresInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20, (List<Structure> area) =>
+            if (World.HasThingInRange("Furnace", (int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20, (List<IComponentHandler> area) =>
             {
-                foreach (Structure structure in area)
+                foreach (IComponentHandler structure in area)
                 {
-                    if (structure is Furnace && !unreachableLocations.Contains(structure.Position))
+                    Entity e = structure as Entity;
+                    if (e == null)
+                        continue;
+                    if (!unreachableLocations.Contains(e.Position))
                         return true;
                 }
                 return false;
@@ -83,7 +87,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         public override void OnActionStart(PawnBehaviour parent)
         {
             ReleaseFurnaceClaiedOre(parent);
-            Furnace located = LocateValidFurnace(parent);
+            Entity located = LocateValidFurnace(parent);
             //If we couldn't locate a furnace, or claim a blueprint
             if (located == null || !ThreadSafeClaimManager.ReserveClaimBlocking(parent.Owner, located))
             {
@@ -118,7 +122,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override void OnPawnReachedLocation(PawnBehaviour parent)
         {
-            Furnace targetFurnace = ThreadSafeClaimManager.GetClaimedItem(parent.Owner) as Furnace;
+            Entity targetFurnace = ThreadSafeClaimManager.GetClaimedItem(parent.Owner);
             switch (haulActionState)
             {
                 case HaulItemActionModes.DELIVER_ITEM:
@@ -138,7 +142,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                             continue;
                         ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
                         {
-                            targetFurnace.Smelt(parent.Owner, item as IronOre);
+                            //targetFurnace.Smelt(parent.Owner, item as IronOre);
                             return true;
                         });
                     }
@@ -176,20 +180,17 @@ namespace GJ2022.PawnBehaviours.PawnActions
             return;
         }
 
-        private Furnace LocateValidFurnace(PawnBehaviour parent)
+        private Entity LocateValidFurnace(PawnBehaviour parent)
         {
-            foreach (Structure structure in World.GetSprialStructure((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20))
+            foreach (Entity structure in World.GetSpiralThings<Entity>("Furnace", (int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20))
             {
                 //If we marked this location as unreachable, ignore it.
                 if (unreachableLocations.Contains(structure.Position))
                     continue;
-                //Not a furnace
-                if (!(structure is Furnace))
-                    continue;
                 //Claimed
                 if (structure.IsClaimed)
                     continue;
-                return structure as Furnace;
+                return structure;
             }
             //Nope
             parent.PauseActionFor(this, 10);

@@ -143,6 +143,8 @@ namespace GJ2022.Entities
                 _location?.RemoveFromContents(this);
                 //Set the location
                 _location = value;
+                //Send the signal
+                SendSignal(Signal.SIGNAL_ENTITY_MOVED, oldLocation, value);
                 //If we changed location, pause / resume rendering.
                 if (value == null)
                 {
@@ -188,7 +190,7 @@ namespace GJ2022.Entities
                 Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
                 if ((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
-                    SendSignal(Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
+                    SendSignal(Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition, value);
                 if (attachedTextObject != null)
                     attachedTextObject.Position = value + textObjectOffset;
                 //Change direction

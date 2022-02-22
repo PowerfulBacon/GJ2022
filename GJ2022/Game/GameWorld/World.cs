@@ -284,6 +284,8 @@ namespace GJ2022.Game.GameWorld
         /// </summary>
         public static void AddThing(string thingGroup, int x, int y, IComponentHandler thing)
         {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                TrackedComponentHandlers.Add(thingGroup, new PositionBasedBinaryList<List<IComponentHandler>>());
             List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
             if (located != null)
                 located.Add(thing);
