@@ -85,7 +85,7 @@ namespace GJ2022.Components.Generic
                     Key = (string)property;
                     return;
             }
-            throw new NotImplementedException();
+            throw new NotImplementedException($"Invalid property {name}");
         }
     }
 }

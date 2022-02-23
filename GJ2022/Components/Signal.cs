@@ -18,6 +18,7 @@ namespace GJ2022.Components
         SIGNAL_ITEM_EQUIP_TO_PAWN,  //! Called when an item should be equipped to a specific pawn (Pawn) => ()
         SIGNAL_ITEM_GIVE_POWER,     //! Give power to something (int: amount) => (float: remaining)
         SIGNAL_ITEM_TAKE_POWER,     //! Take power from something if available (float: amountWanted) => (float: amountSupplied)
+        SIGNAL_ENTITY_MINE,         //! Mine an entity (Pawn: miner) => ()
         //=====Response Signals=====
         //These signals are called after an action has been performed.
         SIGNAL_ITEM_PICKED_UP,      //!Signal called when an item has been picked up (Pawn) => ()

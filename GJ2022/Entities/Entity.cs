@@ -67,12 +67,18 @@ namespace GJ2022.Entities
 
         public Entity()
         {
-            
+            World.EntitiesCreated++;
+        }
+
+        ~Entity()
+        {
+            World.EntitiesGarbageCollected++;
         }
 
         [Obsolete]
         public Entity(Vector<float> position, float layerDepreciated)
         {
+            World.EntitiesCreated++;
             if (position.Dimensions != 2)
             {
                 throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
@@ -84,6 +90,7 @@ namespace GJ2022.Entities
         [Obsolete]
         public Entity(Entity location, float layerDepreciated)
         {
+            World.EntitiesCreated++;
             Location = location;
             Renderable?.layerChangeHandler?.Invoke(layerDepreciated);
         }
@@ -91,8 +98,7 @@ namespace GJ2022.Entities
         //Default destroy behaviour
         public virtual bool Destroy()
         {
-            if (!(this is IDestroyable))
-                throw new Exception("Non destroyable entity was destroyed!");
+            World.EntitiesDestroyed++;
             //Remove from inventories
             Location?.RemoveFromContents(this);
             //Release our claims

@@ -19,6 +19,10 @@ namespace GJ2022.Game.GameWorld
     public static class World
     {
 
+        public static int EntitiesCreated { get; set; } = 0;
+        public static int EntitiesDestroyed { get; set; } = 0;
+        public static int EntitiesGarbageCollected { get; set; } = 0;
+
         private class IntegerReference
         {
 
@@ -648,7 +652,7 @@ namespace GJ2022.Game.GameWorld
         {
             Turf locatedTurf = GetTurf(x, y);
             //TODO: Proper ISolid + directional solidity
-            return locatedTurf != null && locatedTurf is ISolid;
+            return locatedTurf != null && locatedTurf.Solid;
         }
 
         //======================

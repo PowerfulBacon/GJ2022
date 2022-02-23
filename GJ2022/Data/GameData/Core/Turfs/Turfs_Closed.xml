@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+  
+  <Entity Name="Wall" ParentName="ClosedTurf">
+    <Name>Steel Wall</Name>
+    <Description>A solid airtight wall made of steel.</Description>
+    <Renderable Class="StandardRenderable">
+      <Texture>wall</Texture>
+    </Renderable>
+  </Entity>
+
+  <Entity Name="GoldWall" ParentName="ClosedTurf">
+    <Name>Gold Wall</Name>
+    <Description>A wall made from pure gold. Ludicrously expensive and absolutely ridiculous.</Description>
+    <Renderable Class="StandardRenderable">
+      <Texture>gold_wall</Texture>
+    </Renderable>
+  </Entity>
+
+  <Entity Name="Asteroid" ParentName="ClosedTurf">
+    <Name>Asteroid</Name>
+    <Description>A simple asteriod floating in space.</Description>
+    <Renderable Class="StandardRenderable">
+      <Texture>stone</Texture>
+    </Renderable>
+    <Components>
+      <Component_Interaction>
+        <AiHelperName>Mine</AiHelperName>
+        <InteractionEvent Class="MineInteraction" />
+      </Component_Interaction>
+    </Components>
+  </Entity>
+
+</Entities>
