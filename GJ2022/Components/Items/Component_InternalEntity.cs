@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities;
+using GJ2022.EntityLoading;
 using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Utility.MathConstructs;
 using System;
@@ -18,7 +19,7 @@ namespace GJ2022.Components.Items
         /// <summary>
         /// The definition of the entity to create when the component is added
         /// </summary>
-        public EntityDef StoredEntityDef { get; set; }
+        public string EntityToCreate { get; set; }
 
         /// <summary>
         /// The entity stored within us
@@ -28,7 +29,7 @@ namespace GJ2022.Components.Items
         public override void OnComponentAdd()
         {
             //Instantiate the entity
-            StoredEntity = (Entity)StoredEntityDef.GetValue(Vector<float>.Zero);
+            StoredEntity = EntityCreator.CreateEntity<Entity>(EntityToCreate, Vector<float>.Zero);
             //Move it inside our parent
             StoredEntity.Location = Parent as Entity;
         }
@@ -43,12 +44,12 @@ namespace GJ2022.Components.Items
         {
             switch (name)
             {
-                case "StoredEntityDef":
+                case "EntityToCreate":
                     //Instantiate the entity
-                    StoredEntityDef = ((EntityDef)property);
+                    EntityToCreate = (string)property;
                     return;
             }
-            throw new NotImplementedException();
+            throw new NotImplementedException($"Invalid property {name}");
         }
     }
 }

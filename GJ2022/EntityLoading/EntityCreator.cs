@@ -24,6 +24,5 @@ namespace GJ2022.EntityLoading
         {
             return (T)EntityConfig.LoadedEntityDefs[name].InstantiateAt(position);
         }
-
     }
 }

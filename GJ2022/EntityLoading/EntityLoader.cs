@@ -225,7 +225,7 @@ namespace GJ2022.EntityLoading
                 return DefTypes.Property;
             }
             string elementValue = element.Value.Trim();
-            if (elementValue == "true" || elementValue == "false")
+            if (elementValue.Equals("true") || elementValue.Equals("false"))
                 return DefTypes.Boolean;
             if (double.TryParse(elementValue, out _))
                 return DefTypes.Numerical;
