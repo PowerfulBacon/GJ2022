@@ -14,6 +14,11 @@ namespace GJ2022.Components
         void AddComponent(Component component);
 
         /// <summary>
+        /// Get all components of type
+        /// </summary>
+        List<Component> GetComponentsOfType(Type componentType);
+
+        /// <summary>
         /// Sends a signal to a target, and waits for the response.
         /// </summary>
         /// <returns>The highest-priority non-null signal response object.</returns>

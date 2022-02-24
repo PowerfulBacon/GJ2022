@@ -24,6 +24,7 @@ namespace GJ2022.Components
         /// <summary>
         /// A hashset containing all components attached to this.
         /// Use AddComponent, do not directly add to this dictionary.
+        /// ====Every entity having a dictionary is memory expensive====
         /// </summary>
         private Dictionary<Type, Component> Components { get; } = new Dictionary<Type, Component>();
 
@@ -185,5 +186,9 @@ namespace GJ2022.Components
 
         public abstract void Initialize(Vector<float> initializePosition);
 
+        public List<Component> GetComponentsOfType(Type componentType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
