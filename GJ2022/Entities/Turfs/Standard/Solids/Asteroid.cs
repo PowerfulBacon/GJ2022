@@ -5,7 +5,8 @@ using System;
 
 namespace GJ2022.Entities.Turfs.Standard.Solids
 {
-    public class Asteroid : Solid
+    [Obsolete]
+    public class Asteroid : Turf
     {
 
         private static Random random = new Random();

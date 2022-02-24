@@ -30,7 +30,7 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             string className = useNameInsteadOfClassTag ? Name : Tags["Class"];
             //Locate the type to load
             if (!EntityConfig.ClassTypeCache.ContainsKey(className))
-                throw new XmlException($"Property with name {Name} has an invalid Class tag ({className} is not a known class)");
+                throw new XmlException($"Property with name {Name} has an invalid Class tag ({className} is not a known class, it must extend IInsantiable)");
             Type loadedType = EntityConfig.ClassTypeCache[className];
             //Instantiate the located type
             //Locate the first constructor

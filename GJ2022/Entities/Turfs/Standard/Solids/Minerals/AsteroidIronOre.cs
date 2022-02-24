@@ -1,9 +1,11 @@
 ﻿using GJ2022.Entities.Items.Stacks.Ores;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
+using System;
 
 namespace GJ2022.Entities.Turfs.Standard.Solids.Minerals
 {
+    [Obsolete]
     public class AsteroidIronOre : Asteroid
     {
 

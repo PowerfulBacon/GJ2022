@@ -43,6 +43,8 @@ namespace GJ2022.Entities.Turfs
         {
             X = (int)initializePosition[0];
             Y = (int)initializePosition[1];
+            //Set the position to update the renderable
+            Position = new Vector<float>(X, Y);
             //Destroy the old turf
             Turf oldTurf = World.GetTurf(X, Y);
             //Set the new turf

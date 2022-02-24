@@ -30,5 +30,11 @@
       </Component_Interaction>
     </Components>
   </Entity>
+  
+  <Entity Name="AsteroidIronOre" ParentName="Asteroid">
+    <Renderable Class="StandardRenderable">
+      <Texture>stone</Texture>
+    </Renderable>
+  </Entity>
 
 </Entities>

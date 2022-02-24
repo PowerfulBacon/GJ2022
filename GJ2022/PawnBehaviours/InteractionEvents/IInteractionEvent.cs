@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities;
 using GJ2022.Entities.Pawns;
+using GJ2022.EntityLoading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.PawnBehaviours.InteractionEvents
 {
-    public interface IInteractionEvent
+    public interface IInteractionEvent : IInstantiatable
     {
 
         /// <summary>

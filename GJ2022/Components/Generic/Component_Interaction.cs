@@ -43,7 +43,7 @@ namespace GJ2022.Components.Generic
                     base.SetProperty("Key", property);
                     return;
                 case "InteractionEvent":
-                    InteractionEvent = (IInteractionEvent)((EntityDef)property).GetValue(Vector<float>.Zero);
+                    InteractionEvent = (IInteractionEvent)property;
                     return;
             }
             base.SetProperty(name, property);

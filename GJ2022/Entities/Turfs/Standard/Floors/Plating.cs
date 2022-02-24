@@ -2,7 +2,7 @@
 
 namespace GJ2022.Entities.Turfs.Standard.Floors
 {
-    public class Plating : Floor
+    public class Plating : Turf
     {
 
         public override Renderable Renderable { get; set; } = new StandardRenderable($"plating");

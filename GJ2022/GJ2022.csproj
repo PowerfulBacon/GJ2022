@@ -155,6 +155,12 @@
     <None Update="Data\GameData\Core\Structures\Structures_Machines.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\GameData\Core\Turfs\Turfs_Closed.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\GameData\Core\Turfs\Turfs_Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\IconFiles\back.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
