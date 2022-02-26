@@ -19,19 +19,17 @@ namespace GJ2022.Entities.Markers
             if (Destroyed)
                 return;
             //Register signal
-            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral)
-                mineral.RegisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
+            World.GetTurf((int)Position[0], (int)Position[1]).RegisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
         }
 
         public override bool IsValidPosition()
         {
-            return World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid;
+            return World.GetThings("Mine", (int)Position[0], (int)Position[1]).Count > 0;
         }
 
         public override bool Destroy()
         {
-            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral)
-                mineral.UnregisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
+            World.GetTurf((int)Position[0], (int)Position[1])?.UnregisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
             return base.Destroy();
         }
 
@@ -45,14 +43,10 @@ namespace GJ2022.Entities.Markers
 
         public void HandleAction(Pawn pawn)
         {
-            //Mine the rock at this position
-            if (!(World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral) || mineral.Destroyed)
-            {
+            //Perform mining
+            World.GetTurf((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_ENTITY_MINE, pawn);
+            if(!Destroyed)
                 Destroy();
-                return;
-            }
-            //Destroy the mineral
-            mineral.Mine();
         }
 
     }

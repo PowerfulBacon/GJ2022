@@ -33,7 +33,7 @@ namespace GJ2022.Components.Generic
         {
             Entity parentEntity = Parent as Entity;
             //Drop item
-            DroppedItemDef.GetValue(parentEntity.Position);
+            DroppedItemDef?.GetValue(parentEntity.Position);
             //Destroy parent
             parentEntity.Destroy();
             return null;
@@ -44,7 +44,7 @@ namespace GJ2022.Components.Generic
             switch (name)
             {
                 case "DroppedItemDef":
-                    DroppedItemDef = (EntityDef)property;
+                    DroppedItemDef = EntityDef.ConvertToEntity((PropertyDef)property);
                     return;
                 case "MinDropCount":
                     MinDropCount = Convert.ToInt32(property);

@@ -15,6 +15,16 @@ namespace GJ2022.EntityLoading.XmlDataStructures
         {
         }
 
+        public static EntityDef ConvertToEntity(PropertyDef property)
+        {
+            EntityDef createdEntity = new EntityDef(property.Name);
+            foreach (string key in property.Tags.Keys)
+                createdEntity.Tags.Add(key, property.Tags[key]);
+            foreach (string key in property.Children.Keys)
+                createdEntity.Children.Add(key, property.Children[key].Copy());
+            return createdEntity;
+        }
+
         public override object GetValue(Vector<float> initializePosition)
         {
             return GetValue(initializePosition, false);

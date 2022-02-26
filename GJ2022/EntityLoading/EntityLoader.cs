@@ -229,7 +229,9 @@ namespace GJ2022.EntityLoading
                 return DefTypes.Boolean;
             if (double.TryParse(elementValue, out _))
                 return DefTypes.Numerical;
-            return DefTypes.Text;
+            if(elementValue.Length > 0)
+                return DefTypes.Text;
+            return DefTypes.Property;
         }
 
     }

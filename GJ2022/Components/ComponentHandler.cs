@@ -26,7 +26,7 @@ namespace GJ2022.Components
         /// Use AddComponent, do not directly add to this dictionary.
         /// ====Every entity having a dictionary is memory expensive====
         /// </summary>
-        private Dictionary<Type, Component> Components { get; } = new Dictionary<Type, Component>();
+        private List<Component> Components { get; } = new List<Component>();
 
         /// <summary>
         /// Adds a component to a component handler.
@@ -43,7 +43,7 @@ namespace GJ2022.Components
             //Set the parent
             component.Attach(this);
             //Add the component
-            Components.Add(component.GetType(), component);
+            Components.Add(component);
             //Call on component add
             component.OnComponentAdd();
         }
@@ -123,8 +123,9 @@ namespace GJ2022.Components
             {
                 if (!registeredSignals.ContainsKey(signal))
                     return;
-                foreach (int priority in registeredSignals[signal].Keys)
+                for (int i = registeredSignals[signal].Count - 1; i >= 0; i--)
                 {
+                    int priority = registeredSignals[signal].Keys.ElementAt(i);
                     registeredSignals[signal][priority].Remove(callback);
                     if (registeredSignals[signal][priority].Count == 0)
                         registeredSignals[signal].Remove(priority);
@@ -186,9 +187,5 @@ namespace GJ2022.Components
 
         public abstract void Initialize(Vector<float> initializePosition);
 
-        public List<Component> GetComponentsOfType(Type componentType)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

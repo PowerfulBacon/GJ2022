@@ -28,6 +28,7 @@
         <AiHelperName>Mine</AiHelperName>
         <InteractionEvent Class="MineInteraction" />
       </Component_Interaction>
+      <Component_Mineable />
     </Components>
   </Entity>
   
@@ -35,6 +36,13 @@
     <Renderable Class="StandardRenderable">
       <Texture>stone</Texture>
     </Renderable>
+    <Components>
+      <Component_Mineable>
+        <DroppedItemDef ParentName="OxygenTank" />
+        <MinDropCount>4</MinDropCount>
+        <MaxDropCount>12</MaxDropCount>
+      </Component_Mineable>
+    </Components>
   </Entity>
 
 </Entities>
