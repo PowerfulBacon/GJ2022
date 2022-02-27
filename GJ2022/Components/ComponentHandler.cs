@@ -50,6 +50,8 @@ namespace GJ2022.Components
 
         public void RemoveComponent(Component component)
         {
+            if (!Components.Contains(component))
+                return;
             //Call onComponentRemove
             component.OnComponentRemove();
             //Remove the component

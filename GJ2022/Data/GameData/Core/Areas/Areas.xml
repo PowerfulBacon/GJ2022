@@ -5,11 +5,10 @@
     <Renderable Class="StandardRenderable">
       <Texture>area_stockpile</Texture>
       <Layer>5</Layer>
+      <IsTransparent>true</IsTransparent>
     </Renderable>
     <Components>
-      <Component_Tracked>
-        <Key>Stockpile</Key>
-      </Component_Tracked>
+      <Component_Stockpile />
   </Components>
   </Entity>
   

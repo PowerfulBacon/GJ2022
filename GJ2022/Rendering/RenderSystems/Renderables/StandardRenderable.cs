@@ -236,6 +236,9 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                     RandomMax = Convert.ToInt32(property);
                     ChangeTexture(_texture);
                     return;
+                case "IsTransparent":
+                    isTransparent = Convert.ToBoolean(property);
+                    return;
             }
             base.SetProperty(name, property);
         }
