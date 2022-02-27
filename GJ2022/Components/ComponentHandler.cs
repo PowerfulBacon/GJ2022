@@ -58,6 +58,12 @@ namespace GJ2022.Components
             component.Attach(null);
         }
 
+        public void RemoveAllComponents()
+        {
+            foreach (Component component in Components)
+                RemoveComponent(component);
+        }
+
         /// <summary>
         /// A dictionary containing:
         /// Key: The identifier for a signal

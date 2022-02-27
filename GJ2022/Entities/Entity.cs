@@ -108,6 +108,8 @@ namespace GJ2022.Entities
             SendSignal(Signal.SIGNAL_ENTITY_DESTROYED);
             //Unregister all signals
             UnregisterAllSignals();
+            //Remove all components
+            RemoveAllComponents();
             //Stop rendering attached text
             if (attachedTextObject != null)
             {

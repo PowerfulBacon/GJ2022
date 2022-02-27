@@ -67,7 +67,7 @@ namespace GJ2022.Entities.Items
             World.AddItem((int)Position[0], (int)Position[1], this);
             //Calculate stockpile
             (World.GetArea((int)oldPosition[0], (int)oldPosition[1]) as StockpileArea)?.UnregisterItem(this);
-            (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.RegisterItem(this);
+            //TODO: (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.RegisterItem(this);
         }
 
         public void OnMoved(Entity oldLocation)
