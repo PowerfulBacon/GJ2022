@@ -1,4 +1,5 @@
-﻿using GJ2022.Components;
+﻿using GJ2022.Audio;
+using GJ2022.Components;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Turfs.Standard.Solids;
 using GJ2022.Game.GameWorld;
@@ -43,6 +44,7 @@ namespace GJ2022.Entities.Markers
 
         public void HandleAction(Pawn pawn)
         {
+            new AudioSource().PlaySound($"effects/picaxe{World.Random.Next(1, 4)}.wav", Position[0], Position[1]);
             //Perform mining
             World.GetTurf((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_ENTITY_MINE, pawn);
             if(!Destroyed)

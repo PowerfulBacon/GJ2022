@@ -11,6 +11,7 @@ using GJ2022.Entities.Turfs;
 using GJ2022.Game.Power;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Game.GameWorld
@@ -18,6 +19,8 @@ namespace GJ2022.Game.GameWorld
 
     public static class World
     {
+
+        public static Random Random { get; } = new Random();
 
         public static int EntitiesCreated { get; set; } = 0;
         public static int EntitiesDestroyed { get; set; } = 0;
