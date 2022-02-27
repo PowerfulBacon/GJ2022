@@ -3,6 +3,7 @@ using GJ2022.Rendering.Models;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Linq;
 
 namespace GJ2022.Rendering.RenderSystems.Renderables
@@ -27,12 +28,21 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         private bool isTransparent;
 
+        public int RandomMax { get; private set; } = 0;
+
+        private string UsingTexture(string texture) => RandomMax > 0 ?
+                $"{texture}{World.Random.Next(1, RandomMax)}"
+                : texture;
+
         public StandardRenderable()
         { }
 
         public StandardRenderable(string texture, bool isTransparent = false)
         {
-            _texture = texture;
+            if (RandomMax > 0)
+                _texture = $"{texture}{World.Random.Next(1, RandomMax)}";
+            else
+                _texture = texture;
             this.isTransparent = isTransparent;
             StartRendering();
         }
@@ -141,10 +151,15 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 
         private void ChangeTexture(string newTexture)
         {
-            uint textureUint = _texture == null ? 0 : GetTextureUint();
-            if (textureUint == TextureCache.GetTexture(newTexture).TextureUint)
+            if (!IsRendering)
             {
-                _texture = newTexture;
+                _texture = UsingTexture(newTexture);
+                return;
+            }
+            uint textureUint = _texture == null ? 0 : GetTextureUint();
+            if (textureUint == TextureCache.GetTexture(UsingTexture(newTexture)).TextureUint)
+            {
+                _texture = UsingTexture(newTexture);
                 //Update position in renderer
                 lock (renderableBatchIndex)
                     if (renderableBatchIndex.Count > 0)
@@ -156,12 +171,8 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
                 Log.WriteLine("Changed texture uint");
                 //Restart rendering since the texture file changed
                 StopRendering();
-                _texture = newTexture;
+                _texture = UsingTexture(newTexture);
                 StartRendering();
-            }
-            else
-            {
-                _texture = newTexture;
             }
         }
 
@@ -215,6 +226,18 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             IsRendering = false;
             RenderSystem.StopRendering(this);
             StopRenderingOverlays();
+        }
+
+        public override void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "RandomMax":
+                    RandomMax = Convert.ToInt32(property);
+                    ChangeTexture(_texture);
+                    return;
+            }
+            base.SetProperty(name, property);
         }
     }
 }

@@ -5,7 +5,6 @@ using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Pawns.Mobs;
 using GJ2022.Entities.Pawns.Mobs.Humans;
 using GJ2022.Entities.Structures.Power;
-using GJ2022.Entities.Turfs.Standard.Floors;
 using GJ2022.EntityLoading;
 using GJ2022.Game.Construction;
 using GJ2022.Managers;
@@ -116,7 +115,7 @@ namespace GJ2022
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    new Plating(x, y);
+                    EntityCreator.CreateEntity("Plating", new Vector<float>(x, y));
                 }
             }
 

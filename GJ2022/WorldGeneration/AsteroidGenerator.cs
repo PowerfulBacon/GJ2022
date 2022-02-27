@@ -1,5 +1,4 @@
-﻿using GJ2022.Entities.Turfs.Standard.Floors;
-using GJ2022.EntityLoading;
+﻿using GJ2022.EntityLoading;
 using LibNoise;
 
 namespace GJ2022.WorldGeneration
@@ -52,7 +51,7 @@ namespace GJ2022.WorldGeneration
                 else
                     EntityCreator.CreateEntity("Asteroid", new Utility.MathConstructs.Vector<float>(x, y));
             else if (value > 0.65)
-                new AsteroidSand(x, y);
+                EntityCreator.CreateEntity("AsteroidSand", new Utility.MathConstructs.Vector<float>(x, y));
         }
 
     }

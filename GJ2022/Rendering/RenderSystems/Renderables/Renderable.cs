@@ -198,7 +198,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
             }
         }
 
-        public void SetProperty(string name, object property)
+        public virtual void SetProperty(string name, object property)
         {
             switch (name)
             {
