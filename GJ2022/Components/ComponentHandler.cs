@@ -60,8 +60,8 @@ namespace GJ2022.Components
 
         public void RemoveAllComponents()
         {
-            foreach (Component component in Components)
-                RemoveComponent(component);
+            for(int i = Components.Count - 1; i >= 0; i--)
+                RemoveComponent(Components[i]);
         }
 
         /// <summary>

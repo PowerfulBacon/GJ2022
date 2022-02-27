@@ -28,6 +28,8 @@ namespace GJ2022.Components
         SIGNAL_ITEM_DROPPED,        //!Signal called when an item was dropped by a pawn (Pawn) => ()
         SIGNAL_ENTITY_MOVED,        //!Signal called when an entity changes position (Vector<float> position, Vector<flota> oldPosition) => ()
         SIGNAL_ENTITY_LOCATION,     //!Signal called when an entity changes loc (Entity loc, Entity oldLoc) => ()
+        SIGNAL_AREA_CONTENTS_ADDED, //!Signal called when an item is added to the contents of an area (Item item) => ()
+        SIGNAL_AREA_CONTENTS_REMOVED,   //!Signal called when an item is removed from the contents of an area (Item item) => ()
         //=====Get Signals=====
         //These signals indicate that some value is wanted.
         //Gas Storage Signals

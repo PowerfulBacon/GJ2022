@@ -3,6 +3,7 @@ using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.Helpers;
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,12 +55,20 @@ namespace GJ2022.Managers.Stockpile
             return ListPicker.Pick(targetItems);
         }
 
-        public static void AddStockpileArea(Area area)
+        public static void AddStockpileArea(Vector<float> position)
         {
             //Add all items at this position to the stockpile
-            foreach (Item item in World.GetItems((int)area.Position[0], (int)area.Position[1]))
+            foreach (Item item in World.GetItems((int)position[0], (int)position[1]))
             {
                 AddItem(item);
+            }
+        }
+
+        public static void RemoveStockpileArea(Vector<float> position)
+        {
+            foreach (Item item in World.GetItems((int)position[0], (int)position[1]))
+            {
+                RemoveItem(item);
             }
         }
 

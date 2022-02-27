@@ -1,4 +1,6 @@
 ﻿using GJ2022.Components.Generic;
+using GJ2022.Entities;
+using GJ2022.Managers.Stockpile;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,12 +21,18 @@ namespace GJ2022.Components.Areas
             aiHelperTracker = new Component_Tracked();
             aiHelperTracker.Key = "Stockpile";
             Parent.AddComponent(aiHelperTracker);
+            //Add stockpile area
+            Entity parent = Parent as Entity;
+            StockpileManager.AddStockpileArea(parent.Position);
         }
 
         public override void OnComponentRemove()
         {
             Parent.RemoveComponent(aiHelperTracker);
             aiHelperTracker = null;
+            //Remove stockpiler area
+            Entity parent = Parent as Entity;
+            StockpileManager.RemoveStockpileArea(parent.Position);
         }
 
         public override void SetProperty(string name, object property)
