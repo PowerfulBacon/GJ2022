@@ -34,7 +34,7 @@
   
   <Entity Name="AsteroidIronOre" ParentName="Asteroid">
     <Renderable Class="StandardRenderable">
-      <Texture>stone</Texture>
+      <Texture>mineral_iron</Texture>
     </Renderable>
     <Components>
       <Component_Mineable>
