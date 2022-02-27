@@ -108,7 +108,8 @@ namespace GJ2022
             {
                 for (int y = 4; y < 6; y++)
                 {
-                    new Iron(new Vector<float>(x, y), 50, 50);
+                    EntityCreator.CreateEntity<Entity>("Iron", new Vector<float>(x, y))
+                        .SendSignal(Components.Signal.SIGNAL_SET_STACK_SIZE, 50);
                 }
             }
 
@@ -132,7 +133,8 @@ namespace GJ2022
             {
                 for (int y = 20; y < 100; y += r.Next(1, 10))
                 {
-                    new Gold(new Vector<float>(x, y), 50, 50);
+                    EntityCreator.CreateEntity<Entity>("Gold", new Vector<float>(x, y))
+                        .SendSignal(Components.Signal.SIGNAL_SET_STACK_SIZE, 50);
                 }
             }
 

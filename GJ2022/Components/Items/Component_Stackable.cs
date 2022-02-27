@@ -29,6 +29,7 @@ namespace GJ2022.Components.Items
             Parent.AddComponent(stackableTrackComponent);
             //Register signals
             Parent.RegisterSignal(Signal.SIGNAL_GET_COUNT, 5, ReturnStackSize);
+            Parent.RegisterSignal(Signal.SIGNAL_SET_STACK_SIZE, -1, SetStackSize);
             //Setup the text display
             Entity parent = Parent as Entity;
             parent.textObjectOffset = new Vector<float>(0, -0.6f);
@@ -42,10 +43,19 @@ namespace GJ2022.Components.Items
             stackableTrackComponent = null;
             //Unregister signals
             Parent.UnregisterSignal(Signal.SIGNAL_GET_COUNT, ReturnStackSize);
+            Parent.UnregisterSignal(Signal.SIGNAL_SET_STACK_SIZE, SetStackSize);
             //Remove the text
             Entity parent = Parent as Entity;
             parent.attachedTextObject.StopRendering();
             parent.attachedTextObject = null;
+        }
+
+        private object SetStackSize(object source, params object[] parameters)
+        {
+            StackSize = Math.Min(Convert.ToInt32(parameters[0]), MaxStackSize);
+            Entity parent = Parent as Entity;
+            parent.attachedTextObject.Text = $"{StackSize}";
+            return null;
         }
 
         private object ReturnStackSize(object source, params object[] parameters) => StackSize;

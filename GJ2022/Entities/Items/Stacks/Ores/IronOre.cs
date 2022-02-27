@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Pawns;
+using GJ2022.EntityLoading;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Utility.MathConstructs;
 
@@ -17,7 +18,8 @@ namespace GJ2022.Entities.Items.Stacks.Ores
 
         public void DoSmelt(Pawn user)
         {
-            new Iron(user.Position, 50, StackSize);
+            EntityCreator.CreateEntity<Entity>("Iron", Position)
+                        .SendSignal(Components.Signal.SIGNAL_SET_STACK_SIZE, StackSize);
             Destroy();
         }
 

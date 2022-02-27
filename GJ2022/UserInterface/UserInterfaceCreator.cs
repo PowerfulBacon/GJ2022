@@ -5,6 +5,7 @@ using GJ2022.EntityLoading;
 using GJ2022.Game.Construction;
 using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Game.Construction.BlueprintSets;
+using GJ2022.Game.GameWorld;
 using GJ2022.Rendering;
 using GJ2022.Rendering.Text;
 using GJ2022.Subsystems;
@@ -75,12 +76,19 @@ namespace GJ2022.UserInterface
                 new string[] {
                     "Draw path lines",
                     "Reload EntityDefs",
+                    "Print Trackers",
                 },
                 new OnButtonPressed[] {
                     () => { Pawn.DrawLines = !Pawn.DrawLines; },
                     () => {
                         EntityLoader.LoadEntities();
                         CreateEntitySpawnDD();
+                    },
+                    () => {
+                        foreach(string key in World.TrackedComponentHandlers.Keys)
+                        {
+                            Log.WriteLine($"{key} => {World.TrackedComponentHandlers[key]}", LogType.DEBUG);
+                        }
                     }
                 });
         }

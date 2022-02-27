@@ -9,6 +9,7 @@ using GJ2022.PawnBehaviours.PawnActions;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
+using System;
 
 namespace GJ2022.Entities.Items
 {
@@ -90,7 +91,7 @@ namespace GJ2022.Entities.Items
 
         public virtual int Count()
         {
-            return 1;
+            return Convert.ToInt32(SendSignalSynchronously(Signal.SIGNAL_GET_COUNT) ?? 1);
         }
 
         public void OnRightPressed(Window window)
@@ -101,10 +102,7 @@ namespace GJ2022.Entities.Items
                 return;
             if (SendSignalSynchronously(Signal.SIGNAL_RIGHT_CLICKED)?.Equals(true) ?? false)
                 return;
-            if (this is IEquippable)
-                PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new EquipItem(this));
-            else
-                PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new HaulItems(this));
+            PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new HaulItems(this));
             /*UserInterfaceButton button = new UserInterfaceButton(
                 WorldToScreenHelper.GetScreenCoordinates(window, Position) + CoordinateHelper.PixelsToScreen(0, 80),
                 CoordinateHelper.PixelsToScreen(300, 80),

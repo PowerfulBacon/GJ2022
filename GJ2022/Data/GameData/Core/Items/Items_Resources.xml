@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+  
+  <Entity Name="Iron" ParentName="ItemBase">
+    <Name>Iron</Name>
+    <Description>A stack of iron sheets. Useful for construction.</Description>
+    <UiTexture>iron</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>iron</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Stackable>
+        <MaxStackSize>50</MaxStackSize>
+        <Key>iron</Key>
+      </Component_Stackable>
+    </Components>
+  </Entity>
+
+  <Entity Name="Gold" ParentName="ItemBase">
+    <Name>Gold</Name>
+    <Description>A stack of solid gold bars. Insanely expensive, but not good for much else.</Description>
+    <UiTexture>gold</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>gold</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Stackable>
+        <MaxStackSize>50</MaxStackSize>
+        <Key>gold</Key>
+      </Component_Stackable>
+    </Components>
+  </Entity>
+  
+</Entities>
