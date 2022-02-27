@@ -7,6 +7,7 @@ using GJ2022.Entities.Pawns.Mobs.Humans;
 using GJ2022.Entities.Structures.Power;
 using GJ2022.EntityLoading;
 using GJ2022.Game.Construction;
+using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
@@ -177,7 +178,7 @@ namespace GJ2022
             Glfw.WindowHint(Hint.ContextVersionMajor, 3);
             Glfw.WindowHint(Hint.ContextVersionMinor, 3);
             Glfw.WindowHint(Hint.OpenglProfile, Profile.Core);
-            Glfw.WindowHint(Hint.Resizable, false);
+            Glfw.WindowHint(Hint.Resizable, true);
         }
 
         /// <summary>
@@ -208,6 +209,7 @@ namespace GJ2022
         private static void WindowSizeCallback(IntPtr window, int width, int height)
         {
             RenderMaster.mainCamera.OnWindowResized(width, height);
+            glViewport(0, 0, width, height);
         }
 
     }

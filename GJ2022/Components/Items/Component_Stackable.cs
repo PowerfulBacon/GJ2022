@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities;
+﻿using GJ2022.Components.Generic;
+using GJ2022.Entities;
 using GJ2022.Rendering.Text;
 using GJ2022.Utility.MathConstructs;
 using System;
@@ -12,12 +13,21 @@ namespace GJ2022.Components.Items
     public class Component_Stackable : Component
     {
 
-        public int MaxStackSize { get; }
+        public int MaxStackSize { get; private set; } = 1;
 
-        public int StackSize { get; set; }
+        public int StackSize { get; private set; } = 1;
+
+        public string Key { get; private set; }
+
+        private Component_Tracked stackableTrackComponent;
 
         public override void OnComponentAdd()
         {
+            //Add a component to the parent for tracking stackable items (We need to track for merges)
+            stackableTrackComponent = new Component_Tracked();
+            stackableTrackComponent.Key = $"stackable_{Key}";
+            Parent.AddComponent(stackableTrackComponent);
+            //Register signals
             Parent.RegisterSignal(Signal.SIGNAL_GET_COUNT, 5, ReturnStackSize);
             //Setup the text display
             Entity parent = Parent as Entity;
@@ -27,6 +37,10 @@ namespace GJ2022.Components.Items
 
         public override void OnComponentRemove()
         {
+            //Remove the tracking component
+            Parent.RemoveComponent(stackableTrackComponent);
+            stackableTrackComponent = null;
+            //Unregister signals
             Parent.UnregisterSignal(Signal.SIGNAL_GET_COUNT, ReturnStackSize);
             //Remove the text
             Entity parent = Parent as Entity;
@@ -38,7 +52,18 @@ namespace GJ2022.Components.Items
 
         public override void SetProperty(string name, object property)
         {
-            throw new NotImplementedException();
+            switch (name)
+            {
+                case "StackSize":
+                    StackSize = Convert.ToInt32(property);
+                    return;
+                case "MaxStackSize":
+                    MaxStackSize = Convert.ToInt32(property);
+                    return;
+                case "Key":
+                    Key = (string)property;
+                    return;
+            }
         }
     }
 }

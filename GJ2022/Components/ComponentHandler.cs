@@ -48,6 +48,16 @@ namespace GJ2022.Components
             component.OnComponentAdd();
         }
 
+        public void RemoveComponent(Component component)
+        {
+            //Call onComponentRemove
+            component.OnComponentRemove();
+            //Remove the component
+            Components.Remove(component);
+            //Detach from the parent
+            component.Attach(null);
+        }
+
         /// <summary>
         /// A dictionary containing:
         /// Key: The identifier for a signal

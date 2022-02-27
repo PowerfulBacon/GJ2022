@@ -115,7 +115,7 @@ namespace GJ2022.Rendering
         public void OnWindowResized(int width, int height)
         {
             //todo
-            ProjectionMatrix = Matrix.GetScaleMatrix((float)height / width, 1, 0.01f);
+            //ProjectionMatrix = Matrix.GetScaleMatrix((float)height / width, height / 1080f, 0.01f);
             //float xScale = width / 1920.0f;
             //float yScale = height / 1080.0f;
             //float aspectRatio = (float)height / width;
