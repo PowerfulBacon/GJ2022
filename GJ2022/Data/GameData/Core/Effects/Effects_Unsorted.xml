@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+  <Entity Name="Sparkle" Class="Entity">
+    <Renderable Class="StandardRenderable">
+      <Texture>sparkle</Texture>
+      <Layer>7</Layer>
+    </Renderable>
+    <Components>
+      <Component_DeleteAfter>
+        <DeleteTime>1000</DeleteTime>
+      </Component_DeleteAfter>
+    </Components>
+  </Entity>
+</Entities>

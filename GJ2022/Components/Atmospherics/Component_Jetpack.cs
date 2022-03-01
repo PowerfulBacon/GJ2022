@@ -1,5 +1,5 @@
-﻿using GJ2022.Entities.Effects;
-using GJ2022.Entities.Pawns;
+﻿using GJ2022.Entities.Pawns;
+using GJ2022.EntityLoading;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace GJ2022.Components.Atmospherics
         private object MakeSparkles(object source, params object[] arguments)
         {
             Pawn pawn = (Pawn)source;
-            new Sparkle((Vector<int>)pawn.Position);
+            EntityCreator.CreateEntity("Sparkle", (Vector<int>)pawn.Position);
             return null;
         }
 

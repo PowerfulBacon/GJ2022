@@ -125,6 +125,9 @@
     <None Update="Data\GameData\Core\Constants\Constants_Atmospherics.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\GameData\Core\Effects\Effects_Unsorted.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Data\GameData\Core\Items\Items_AtmosphericItems.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -284,6 +287,10 @@
     <None Update="zlib1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\GameData\Core\Effects\" />
   </ItemGroup>
 
 </Project>
