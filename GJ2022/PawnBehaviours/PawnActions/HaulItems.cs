@@ -1,4 +1,4 @@
-﻿using GJ2022.Areas;
+﻿using GJ2022.Entities.Areas;
 using GJ2022.Entities.Items;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.TaskManager;
@@ -50,7 +50,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             {
                 if (unreachablePositions.Contains(area.Position))
                     return false;
-                if (World.GetArea((int)area.Position[0], (int)area.Position[1]) is StockpileArea)
+                if (World.GetThings("Stockpile", (int)area.Position[0], (int)area.Position[1]).Count > 0)
                     return false;
                 return true;
             })
@@ -60,7 +60,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     {
                         if (unreachablePositions.Contains(item.Position))
                             continue;
-                        if (World.GetArea((int)item.Position[0], (int)item.Position[1]) is StockpileArea)
+                        if (World.GetThings("Stockpile", (int)item.Position[0], (int)item.Position[1]).Count > 0)
                             continue;
                         return true;
                     }
@@ -153,7 +153,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         /// </summary>
         private void GracefullyDeliver(PawnBehaviour parent)
         {
-            StockpileArea claimedArea = ThreadSafeClaimManager.GetClaimedItem(parent.Owner) as StockpileArea;
+            Area claimedArea = ThreadSafeClaimManager.GetClaimedItem(parent.Owner) as Area;
             //We had no reserved area, or the reserved area was deleted
             if (claimedArea == null)
             {
@@ -211,7 +211,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                         continue;
                     //Check if the item
                     //is in a stockpile, if it is, skip it
-                    if (World.GetArea((int)item.Position[0], (int)item.Position[1]) as StockpileArea != null)
+                    if (World.GetThings("Stockpile", (int)item.Position[0], (int)item.Position[1]).Count > 0)
                         continue;
                     //Looks like the item is valid!
                     targetItem = item;
@@ -220,7 +220,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             }
             else
             {
-                if (!forcedTarget.IsClaimed && forcedTarget.Location == null && !unreachablePositions.Contains(forcedTarget.Position) && World.GetArea((int)forcedTarget.Position[0], (int)forcedTarget.Position[1]) as StockpileArea == null)
+                if (!forcedTarget.IsClaimed && forcedTarget.Location == null && !unreachablePositions.Contains(forcedTarget.Position) && World.GetThings("Stockpile", (int)forcedTarget.Position[0], (int)forcedTarget.Position[1]).Count == 0)
                     targetItem = forcedTarget;
             }
             //No item was located
@@ -255,16 +255,12 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 completed = true;
                 return;
             }
-            //Locate an unclaimed stockpile zone
-            StockpileArea freeStockpileArea = null;
+            Area freeStockpileArea = null;
             //Extend range for forced haul
-            foreach (Area area in World.GetSprialAreas((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], forcedTarget == null ? 60 : 120))
+            foreach (Area area in World.GetSpiralThings<Area>("Stockpile", (int)parent.Owner.Position[0], (int)parent.Owner.Position[1], forcedTarget == null ? 60 : 120))
             {
                 //If the area is claimed, skip it
                 if (area.IsClaimed)
-                    continue;
-                //If the area is not a stockpile, skip it
-                if (!(area is StockpileArea))
                     continue;
                 //Unreachable stockpiles
                 if (unreachablePositions.Contains(area.Position))
@@ -273,7 +269,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 if (World.GetItems((int)area.Position[0], (int)area.Position[1]).Count > 0)
                     continue;
                 //A good stockpile area
-                freeStockpileArea = (StockpileArea)area;
+                freeStockpileArea = area;
                 break;
             }
             //If we cannot locate a stockpile zone, cancel this task and drop all items

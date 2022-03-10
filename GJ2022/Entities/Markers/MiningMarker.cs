@@ -1,5 +1,6 @@
-﻿using GJ2022.Entities.Pawns;
-using GJ2022.Entities.Turfs.Standard.Solids;
+﻿using GJ2022.Audio;
+using GJ2022.Components;
+using GJ2022.Entities.Pawns;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems.Renderables;
@@ -18,40 +19,35 @@ namespace GJ2022.Entities.Markers
             if (Destroyed)
                 return;
             //Register signal
-            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral)
-                SignalHandler.RegisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
+            World.GetTurf((int)Position[0], (int)Position[1]).RegisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
         }
 
         public override bool IsValidPosition()
         {
-            return World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid;
+            return World.GetThings("Mine", (int)Position[0], (int)Position[1]).Count > 0;
         }
 
         public override bool Destroy()
         {
-            if (World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral && SignalHandler.HasSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED))
-                SignalHandler.UnregisterSignal(mineral, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
+            World.GetTurf((int)Position[0], (int)Position[1])?.UnregisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
             return base.Destroy();
         }
 
-        private SignalHandler.SignalResponse DestroyMarker(object source, object[] parameters)
+        private object DestroyMarker(object source, object[] parameters)
         {
             if (Destroyed)
-                return SignalHandler.SignalResponse.NONE;
+                return null;
             Destroy();
-            return SignalHandler.SignalResponse.NONE;
+            return null;
         }
 
         public void HandleAction(Pawn pawn)
         {
-            //Mine the rock at this position
-            if (!(World.GetTurf((int)Position[0], (int)Position[1]) is Asteroid mineral) || mineral.Destroyed)
-            {
+            new AudioSource().PlaySound($"effects/picaxe{World.Random.Next(1, 4)}.wav", Position[0], Position[1]);
+            //Perform mining
+            World.GetTurf((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_ENTITY_MINE, pawn);
+            if(!Destroyed)
                 Destroy();
-                return;
-            }
-            //Destroy the mineral
-            mineral.Mine();
         }
 
     }

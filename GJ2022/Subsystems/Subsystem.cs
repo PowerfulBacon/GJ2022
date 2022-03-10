@@ -33,7 +33,7 @@ namespace GJ2022.Subsystems
 
         //Subsystem control variable
         //If this valie is set to false, the subsystem will be killed
-        protected static volatile bool Firing = true;
+        public static bool Firing { get; protected set; } = true;
 
         //Is the subsystem started?
         private volatile bool started = false;
@@ -172,7 +172,10 @@ namespace GJ2022.Subsystems
         private void Update(Window window)
         {
             while (!started && Firing)
-            { }
+            {
+                //Sleep to not consume all the CPU
+                Thread.Sleep(10);
+            }
             while (Firing)
             {
                 //Start a stopwatch to get time taken for execution.

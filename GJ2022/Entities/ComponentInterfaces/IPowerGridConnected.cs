@@ -12,6 +12,7 @@ namespace GJ2022.Entities.ComponentInterfaces
     /// <summary>
     /// Represents something that is directly connected to a cable in the powergrid
     /// </summary>
+    [Obsolete]
     public interface IPowerGridConnected
     {
 

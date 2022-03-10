@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+
+  <Entity Name="Plating" ParentName="OpenTurf">
+    <Name>Steel Plating</Name>
+    <Description>A metallic steel plating used as the foundation of most orbital stations.</Description>
+    <Renderable Class="StandardRenderable">
+      <Texture>plating</Texture>
+    </Renderable>
+  </Entity>
+
+  <Entity Name="GoldFloor" ParentName="OpenTurf">
+    <Name>Gold Floor</Name>
+    <Description>A floor made of gold, with intricate patterns engraved into it.</Description>
+    <Renderable Class="StandardRenderable">
+      <Texture>gold_floor</Texture>
+    </Renderable>
+  </Entity>
+
+  <Entity Name="AsteroidSand" ParentName="OpenTurf">
+    <Name>Asteroid Sand</Name>
+    <Description>Sand made from the rock deposited in deep-space asteroids.</Description>
+    <Renderable Class="StandardRenderable">
+      <Texture>asteroid_sand_</Texture>
+      <RandomMax>13</RandomMax>
+    </Renderable>
+  </Entity>
+
+</Entities>
+  

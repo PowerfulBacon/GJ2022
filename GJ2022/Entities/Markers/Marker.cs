@@ -13,10 +13,16 @@ namespace GJ2022.Entities.Markers
         {
             //Instantly destroy
             if (!IsValidPosition())
+            {
                 Destroy();
+                return;
+            }
             Marker marker = World.GetMarker((int)position[0], (int)position[1]);
             if (marker != null)
+            {
                 marker.Destroy();
+                return;
+            }
             World.SetMarker((int)position[0], (int)position[1], this);
         }
 

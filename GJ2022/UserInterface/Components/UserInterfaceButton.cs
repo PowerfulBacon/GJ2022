@@ -1,5 +1,5 @@
 ﻿using GJ2022.Entities.ComponentInterfaces.MouseEvents;
-using GJ2022.GlobalDataComponents;
+using GJ2022.Managers;
 using GJ2022.Rendering.RenderSystems.Renderables;
 using GJ2022.Rendering.Text;
 using GJ2022.Subsystems;

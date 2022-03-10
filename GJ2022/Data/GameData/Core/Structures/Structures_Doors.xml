@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entities>
+  <Entity Name="Airlock" ParentName="StructureBase">
+    <Renderable Class="StandardRenderable">
+      <Layer>6</Layer>
+      <Texture>door_closed</Texture>
+    </Renderable>
+    <Components>
+      <Component_AtmosphericBlocker />
+    </Components>
+  </Entity>
+</Entities>

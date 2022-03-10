@@ -1,4 +1,5 @@
-﻿using GJ2022.Areas;
+﻿using GJ2022.Components;
+using GJ2022.Entities.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Pawns;
@@ -8,17 +9,16 @@ using GJ2022.PawnBehaviours.PawnActions;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
+using System;
 
 namespace GJ2022.Entities.Items
 {
-    public abstract class Item : Entity, IDestroyable, IMoveBehaviour, IMouseRightPress
+    public class Item : Entity, IDestroyable, IMoveBehaviour, IMouseRightPress
     {
-
-        public abstract string Name { get; }
 
         public bool Destroyed { get; private set; } = false;
 
-        public abstract string UiTexture { get; }
+        public virtual string UiTexture { get; private set; }
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 
@@ -30,6 +30,11 @@ namespace GJ2022.Entities.Items
 
         public float Height => 1.0f;
 
+        public Item() : base()
+        {
+            MouseCollisionSubsystem.Singleton.StartTracking(this);
+        }
+
         public Item(Vector<float> position) : base(position, Layers.LAYER_ITEM)
         {
             MouseCollisionSubsystem.Singleton.StartTracking(this);
@@ -40,7 +45,7 @@ namespace GJ2022.Entities.Items
             base.Destroy();
             Destroyed = true;
             World.RemoveItem((int)Position[0], (int)Position[1], this);
-            (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.UnregisterItem(this);
+            World.GetArea((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
             //Handle inventory removal
             if (Location is Pawn holder)
             {
@@ -61,8 +66,8 @@ namespace GJ2022.Entities.Items
             World.RemoveItem((int)oldPosition[0], (int)oldPosition[1], this);
             World.AddItem((int)Position[0], (int)Position[1], this);
             //Calculate stockpile
-            (World.GetArea((int)oldPosition[0], (int)oldPosition[1]) as StockpileArea)?.UnregisterItem(this);
-            (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.RegisterItem(this);
+            World.GetArea((int)oldPosition[0], (int)oldPosition[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
+            World.GetArea((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_ADDED, this);
         }
 
         public void OnMoved(Entity oldLocation)
@@ -76,7 +81,7 @@ namespace GJ2022.Entities.Items
             }
             MouseCollisionSubsystem.Singleton.StopTracking(this);
             World.RemoveItem((int)Position[0], (int)Position[1], this);
-            (World.GetArea((int)Position[0], (int)Position[1]) as StockpileArea)?.UnregisterItem(this);
+            World.GetArea((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
         }
 
         public void UpdateCount()
@@ -86,7 +91,7 @@ namespace GJ2022.Entities.Items
 
         public virtual int Count()
         {
-            return 1;
+            return Convert.ToInt32(SendSignalSynchronously(Signal.SIGNAL_GET_COUNT) ?? 1);
         }
 
         public void OnRightPressed(Window window)
@@ -95,16 +100,26 @@ namespace GJ2022.Entities.Items
                 return;
             if (PawnControllerSystem.Singleton.SelectedPawn == null)
                 return;
-            if (this is IEquippable)
-                PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new EquipItem(this));
-            else
-                PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new HaulItems(this));
+            if (SendSignalSynchronously(Signal.SIGNAL_RIGHT_CLICKED)?.Equals(true) ?? false)
+                return;
+            PawnControllerSystem.Singleton.SelectedPawn.behaviourController?.PawnActionIntercept(new HaulItems(this));
             /*UserInterfaceButton button = new UserInterfaceButton(
                 WorldToScreenHelper.GetScreenCoordinates(window, Position) + CoordinateHelper.PixelsToScreen(0, 80),
                 CoordinateHelper.PixelsToScreen(300, 80),
                 "Pickup",
                 CoordinateHelper.PixelsToScreen(80),
                 Colour.UserInterfaceColour);*/
+        }
+
+        public override void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "UiTexture":
+                    UiTexture = (string)property;
+                    return;
+            }
+            base.SetProperty(name, property);
         }
     }
 }

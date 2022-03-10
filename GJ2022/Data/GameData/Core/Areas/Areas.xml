@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+  
+  <Entity Name="StockpileArea" Class="Area">
+    <Renderable Class="StandardRenderable">
+      <Texture>area_stockpile</Texture>
+      <Layer>5</Layer>
+      <IsTransparent>true</IsTransparent>
+    </Renderable>
+    <Components>
+      <Component_Stockpile />
+  </Components>
+  </Entity>
+  
+</Entities>

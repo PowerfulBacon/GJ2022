@@ -1,5 +1,6 @@
-﻿using GJ2022.Areas;
+﻿using GJ2022.Components;
 using GJ2022.Entities;
+using GJ2022.Entities.Areas;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Markers;
@@ -10,6 +11,7 @@ using GJ2022.Entities.Turfs;
 using GJ2022.Game.Power;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Game.GameWorld
@@ -17,6 +19,12 @@ namespace GJ2022.Game.GameWorld
 
     public static class World
     {
+
+        public static Random Random { get; } = new Random();
+
+        public static int EntitiesCreated { get; set; } = 0;
+        public static int EntitiesDestroyed { get; set; } = 0;
+        public static int EntitiesGarbageCollected { get; set; } = 0;
 
         private class IntegerReference
         {
@@ -28,6 +36,14 @@ namespace GJ2022.Game.GameWorld
 
             public int Value { get; set; } = 0;
         }
+
+        /// <summary>
+        /// A dictionary containing a key value pair
+        /// where the key is the ID of a tracking group and the value
+        /// is the position based binary list containing the details of the 
+        /// things being tracked.
+        /// </summary>
+        public static Dictionary<string, PositionBasedBinaryList<List<IComponentHandler>>> TrackedComponentHandlers = new Dictionary<string, PositionBasedBinaryList<List<IComponentHandler>>>();
 
         //Dictionary of turfs in the world
         public static PositionBasedBinaryList<Turf> WorldTurfs = new PositionBasedBinaryList<Turf>();
@@ -64,6 +80,13 @@ namespace GJ2022.Game.GameWorld
         // In range detectors
         //======================
 
+        public static bool HasThingInRange(string thingGroup, int x, int y, int range, BinaryList<List<IComponentHandler>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                return false;
+            return TrackedComponentHandlers[thingGroup].ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
+        }
+
         public static bool HasMarkerInRange(int x, int y, int range, BinaryList<Marker>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             return WorldMarkers.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
@@ -98,8 +121,34 @@ namespace GJ2022.Game.GameWorld
         // Spiral Distance Getters
         //======================
 
+        //TODO: Optimise me :)
+        public static List<T> GetSpiralThings<T>(string thingGroup, int original_x, int original_y, int range)
+            where T : IComponentHandler
+        {
+            List<T> output = new List<T>();
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                return output;
+            for (int r = 0; r <= range; r++)
+            {
+                //Get all items that are r distance away from (x, y)
+                for (int x = original_x - r; x <= original_x + r; x++)
+                {
+                    for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
+                    {
+                        List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
+                        if (located != null)
+                            foreach (T thing in located)
+                                output.Add(thing);
+                    }
+                }
+            }
+            return output;
+        }
+
         /// <summary>
-        /// Get spiral markers, ordered by distance from the origin
+        /// Get spiral markers, ordered by distance from the origin.
+        /// NOTE: It would be better to just iterate all the items (although that would
+        /// require a distance check)
         /// </summary>
         public static List<Marker> GetSprialMarkers(int original_x, int original_y, int range)
         {
@@ -224,6 +273,47 @@ namespace GJ2022.Game.GameWorld
         public static bool AllowsAtmosphericFlow(int x, int y)
         {
             return AtmosphericBlockers.Get(x, y) == null;
+        }
+
+        //======================
+        // Things
+        //======================
+
+        public static List<IComponentHandler> GetThings(string thingGroup, int x, int y)
+        {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                return new List<IComponentHandler>() { };
+            return TrackedComponentHandlers[thingGroup].Get(x, y) ?? new List<IComponentHandler>() { };
+        }
+
+        /// <summary>
+        /// Add an pawn to the world list
+        /// </summary>
+        public static void AddThing(string thingGroup, int x, int y, IComponentHandler thing)
+        {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                TrackedComponentHandlers.Add(thingGroup, new PositionBasedBinaryList<List<IComponentHandler>>());
+            List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
+            if (located != null)
+                located.Add(thing);
+            else
+                TrackedComponentHandlers[thingGroup].Add(x, y, new List<IComponentHandler>() { thing });
+        }
+
+        /// <summary>
+        /// Remove the pawn from the world list
+        /// </summary>
+        public static bool RemoveThing(string thingGroup, int x, int y, IComponentHandler thing)
+        {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                return false;
+            List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
+            if (located == null)
+                return false;
+            located.Remove(thing);
+            if (located.Count == 0)
+                TrackedComponentHandlers[thingGroup].Remove(x, y);
+            return true;
         }
 
         //======================
@@ -565,7 +655,7 @@ namespace GJ2022.Game.GameWorld
         {
             Turf locatedTurf = GetTurf(x, y);
             //TODO: Proper ISolid + directional solidity
-            return locatedTurf != null && locatedTurf is ISolid;
+            return locatedTurf != null && locatedTurf.Solid;
         }
 
         //======================

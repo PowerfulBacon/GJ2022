@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Components.Items;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Pawns.Health.Bodies;
 using GJ2022.Entities.Pawns.Health.Bodies.Instances;
 using GJ2022.Game.GameWorld;
@@ -25,6 +26,12 @@ namespace GJ2022.Entities.Pawns.Mobs.Humans
         {
             string slotAppend = item.AppendSlotToIconState ? $"_{InventoryHelper.GetSlotAppend(targetSlot)}" : "";
             Renderable.AddOverlay($"wear_{InventoryHelper.GetSlotAppend(targetSlot)}", new StandardRenderable($"{item.EquipTexture}{slotAppend}"), Layers.LAYER_PAWN + 0.08f);
+        }
+
+        protected override void AddEquipOverlay(InventorySlot targetSlot, Component_Equippable equippable)
+        {
+            string slotAppend = equippable.AppendSlotToIconState ? $"_{InventoryHelper.GetSlotAppend(targetSlot)}" : "";
+            Renderable.AddOverlay($"wear_{InventoryHelper.GetSlotAppend(targetSlot)}", new StandardRenderable($"{equippable.EquipTexture}{slotAppend}"), Layers.LAYER_PAWN + 0.08f);
         }
     }
 }

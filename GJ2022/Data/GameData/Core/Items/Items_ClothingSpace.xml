@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entities>
+  <!--Generic Space Suit + Space Helmet-->
+  <Entity Name="SpaceSuit" ParentName="ClothingBase_Body">
+    <Name>Space Suit</Name>
+    <Description>A pressure-resistant suit designed for protecting humans from the dangers of outer space.</Description>
+    <UiTexture>spacesuit</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>spacesuit</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Equippable>
+        <AppendSlotToIconState>true</AppendSlotToIconState>
+        <EquipTexture>spacesuit</EquipTexture>
+        <Slots>
+          <EnumValue>SLOT_BODY</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_FEET</EnumValue>
+          <EnumValue>COVER_ARMS</EnumValue>
+          <EnumValue>COVER_BODY</EnumValue>
+          <EnumValue>COVER_FEET</EnumValue>
+          <EnumValue>COVER_HANDS</EnumValue>
+          <EnumValue>COVER_LEGS</EnumValue>
+          <EnumValue>COVER_TAIL</EnumValue>
+        </CoverFlags>
+        <ClothingFlags>
+          <EnumValue>HIDE_TAIL</EnumValue>
+        </ClothingFlags>
+        <ProtectedHazards>
+          <EnumValue>HAZARD_LOW_PRESSURE</EnumValue>
+        </ProtectedHazards>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <Entity Name="SpaceHelmet" ParentName="ClothingBase_Head">
+    <Name>Space Suit Helmet</Name>
+    <Description>A pressure-resistant helmet designed to protect human heads from the dangers of deep space.</Description>
+    <UiTexture>hats.space</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>hats.space</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Equippable>
+        <EquipTexture>head.space</EquipTexture>
+        <Slots>
+          <EnumValue>SLOT_HEAD</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_HEAD</EnumValue>
+          <EnumValue>COVER_MOUTH</EnumValue>
+        </CoverFlags>
+        <ClothingFlags>
+          <EnumValue>HIDE_EYES</EnumValue>
+          <EnumValue>HIDE_HAIR</EnumValue>
+        </ClothingFlags>
+        <ProtectedHazards>
+          <EnumValue>HAZARD_LOW_PRESSURE</EnumValue>
+        </ProtectedHazards>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Generic Hardsuit + Contained Hardsuit Helmet-->
+  <Entity Name="Hardsuit" ParentName="SpaceSuit" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <AppendSlotToIconState>false</AppendSlotToIconState>
+        <ProtectedHazards>
+          <EnumValue>HAZARD_LOW_PRESSURE</EnumValue>
+          <!--Hardsuits protect from high pressure + low pressure-->
+          <EnumValue>HAZARD_HIGH_PRESSURE</EnumValue>
+        </ProtectedHazards>
+      </Component_Equippable>
+      <!--Insert the component that puts the hardsuit helmet inside the suit-->
+      <Component_InternalEntity_Hardsuit>
+        <EntityToCreate>HardsuitHelmet</EntityToCreate>
+      </Component_InternalEntity_Hardsuit>
+    </Components>
+  </Entity>
+  <Entity Name="HardsuitHelmet" ParentName="SpaceHelmet" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <ProtectedHazards>
+          <EnumValue>HAZARD_LOW_PRESSURE</EnumValue>
+          <!--Hardsuits protect from high pressure + low pressure-->
+          <EnumValue>HAZARD_HIGH_PRESSURE</EnumValue>
+        </ProtectedHazards>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  
+  
+  <!--Syndicate Hardsuit-->
+  <Entity Name="SyndicateHardsuit" ParentName="Hardsuit">
+    <Name>Syndicate Hardsuit</Name>
+    <Description>A blood-red armoured hardsuit made from a unique carbon-fiber based alloy, able to withstand the pressures of space while still maintaining a suprisingly strong protection against gunfire.</Description>
+    <UiTexture>syndicate_hardsuit</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>syndicate_hardsuit</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Equippable>
+        <AppendSlotToIconState>true</AppendSlotToIconState>
+        <EquipTexture>syndicate_hardsuit</EquipTexture>
+      </Component_Equippable>
+      <!--Insert the component that puts the hardsuit helmet inside the suit-->
+      <Component_InternalEntity_Hardsuit>
+        <EntityToCreate>SyndicateHardsuitHelmet</EntityToCreate>
+      </Component_InternalEntity_Hardsuit>
+    </Components>
+  </Entity>
+  
+  <Entity Name="SyndicateHardsuitHelmet" ParentName="HardsuitHelmet">
+    <Name>Space Suit</Name>
+    <Description>A pressure-resistant suit designed for protecting humans from the dangers of outer space.</Description>
+    <UiTexture>spacesuit</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>spacesuit</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Equippable>
+        <EquipTexture>head.hardsuit1-syndi</EquipTexture>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  
+</Entities>

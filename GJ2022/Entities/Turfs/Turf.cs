@@ -15,32 +15,46 @@ using System.Linq;
 namespace GJ2022.Entities.Turfs
 {
 
-    public abstract class Turf : Entity, IDestroyable, IProcessable
+    public class Turf : Entity, IDestroyable, IProcessable
     {
 
         //Position of the turf
-        public int X { get; }
-        public int Y { get; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
 
         public bool Destroyed { get; set; } = false;
 
         //Atmospheric block of this turf. Null represents space.
         public AtmosphericBlock Atmosphere { get; set; } = null;
 
+        public bool AllowAtmosphericFlow { get; private set; } = false;
+
+        public bool Solid { get; private set; } = false;
+
+        public Turf() : base() { }
+
+        [Obsolete]
         public Turf(int x, int y) : base(new Vector<float>(x, y), Layers.LAYER_TURF)
         {
-            X = x;
-            Y = y;
+            Initialize(new Vector<float>(x, y));
+        }
+
+        public override void Initialize(Vector<float> initializePosition)
+        {
+            X = (int)initializePosition[0];
+            Y = (int)initializePosition[1];
+            //Set the position to update the renderable
+            Position = new Vector<float>(X, Y);
             //Destroy the old turf
-            Turf oldTurf = World.GetTurf(x, y);
+            Turf oldTurf = World.GetTurf(X, Y);
             //Set the new turf
             oldTurf?.Destroy(true);
-            World.SetTurf(x, y, this);
+            World.SetTurf(X, Y, this);
             //Set the direction
             Direction = Directions.NONE;
             //Atmos flow blocking
             if (!AllowAtmosphericFlow)
-                World.AddAtmosphericBlocker(x, y, false);
+                World.AddAtmosphericBlocker(X, Y, false);
             //Tell the atmos system a turf was created / changed at this location
             if (oldTurf == null)
                 AtmosphericsSystem.Singleton.OnTurfCreated(this);
@@ -80,8 +94,6 @@ namespace GJ2022.Entities.Turfs
             Destroyed = true;
             return base.Destroy();
         }
-
-        public abstract bool AllowAtmosphericFlow { get; }
 
         public void AtmosphericPressureChangeReact(Vector<float> flowPoint, float force)
         {
@@ -140,6 +152,21 @@ namespace GJ2022.Entities.Turfs
                 : $"N/A";
 #endif
         }
+
+        public override void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "Solid":
+                    Solid = (bool)property;
+                    return;
+                case "AllowAtmosphericFlow":
+                    AllowAtmosphericFlow = (bool)property;
+                    return;
+            }
+            base.SetProperty(name, property);
+        }
+
     }
 
 }

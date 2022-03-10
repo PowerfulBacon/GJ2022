@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+  <Entity Name="OxygenTank" ParentName="ItemBase">
+    <Name>Oxygen Tank</Name>
+    <Description>A cylindrical, metal tank designed to hold small amounts of high-pressure oxygen gas.</Description>
+    <UiTexture>tank.oxygen</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>tank.oxygen</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Equippable>
+        <EquipTexture>back.oxygen</EquipTexture>
+        <Slots>
+          <EnumValue>SLOT_BACK</EnumValue>
+        </Slots>
+      </Component_Equippable>
+      <Component_GasStorage>
+        <InternalsSource>true</InternalsSource>
+        <DefaultGas Class="AtmosphereCreator">
+          <KelvinTemperature>
+            <Constant Name="IDEAL_TEMPERATURE" />
+          </KelvinTemperature>
+          <LitreVolume>40</LitreVolume>
+          <Oxygen>12</Oxygen>
+        </DefaultGas>
+      </Component_GasStorage>
+    </Components>
+  </Entity>
+  <Entity Name="Jetpack" ParentName="ClothingBase_Back">
+    <Name>Jetpack</Name>
+    <Description>A back mounted jetpack that expells gasses at high velocities in order to create proportion in low gravity environments.</Description>
+    <UiTexture>jetpack</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>jetpack</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Equippable>
+        <AppendSlotToIconState>true</AppendSlotToIconState>
+        <EquipTexture>jetpack</EquipTexture>
+        <ProtectedHazards>
+          <EnumValue>HAZARD_GRAVITY</EnumValue>
+        </ProtectedHazards>
+      </Component_Equippable>
+      <Component_Jetpack>
+        <InternalsSource>true</InternalsSource>
+        <DefaultGas Class="AtmosphereCreator">
+          <KelvinTemperature>
+            <Constant Name="IDEAL_TEMPERATURE" />
+          </KelvinTemperature>
+          <LitreVolume>60</LitreVolume>
+          <Oxygen>12</Oxygen>
+          <Hydrogen>12</Hydrogen>
+        </DefaultGas>
+      </Component_Jetpack>
+    </Components>
+  </Entity>
+</Entities>

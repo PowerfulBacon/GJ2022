@@ -9,5 +9,6 @@ public enum LogType
     LOG = 1 << 2,        //Log messages about player interactions on the server
     WARNING = 1 << 3,    //Warning messages such as invalid configs or something
     ERROR = 1 << 4,      //Error messages for exceptions
+    TEMP = 1 << 5,       //Temp message for debugging, super obvious and easy to remove
 }
 

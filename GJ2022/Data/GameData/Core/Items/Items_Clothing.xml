@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+  <!--Supertype for all clothes-->
+  <Entity Name="ClothingBase" ParentName="ItemBase" Abstract="true">
+    <Components>
+      <Component_Equippable />
+    </Components>
+  </Entity>
+  <!--Head clothing-->
+  <Entity Name="ClothingBase_Head" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <Slots>
+          <EnumValue>SLOT_BACK</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_HEAD</EnumValue>
+        </CoverFlags>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Body Clothing-->
+  <Entity Name="ClothingBase_Body" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <Slots>
+          <EnumValue>SLOT_BODY</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_BODY</EnumValue>
+        </CoverFlags>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Back Clothing-->
+  <Entity Name="ClothingBase_Back" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <Slots>
+          <EnumValue>SLOT_BACK</EnumValue>
+        </Slots>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+  <!--Mask Clothing-->
+  <Entity Name="ClothingBase_Mask" ParentName="ClothingBase" Abstract="true">
+    <Components>
+      <Component_Equippable>
+        <Slots>
+          <EnumValue>SLOT_MASK</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_MOUTH</EnumValue>
+        </CoverFlags>
+      </Component_Equippable>
+    </Components>
+  </Entity>
+</Entities>

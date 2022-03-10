@@ -17,7 +17,7 @@ namespace GJ2022.Subsystems
 
         private AsteroidGenerator asteroidGenerator;
 
-        public HashSet<Vector<int>> GeneratedPositions = new HashSet<Vector<int>>();
+        public PositionBasedBinaryList<bool> GeneratedPositions = new PositionBasedBinaryList<bool>();
 
         public override void Fire(Window window)
         {
@@ -28,9 +28,9 @@ namespace GJ2022.Subsystems
             {
                 for (int y = (int)cam_y - 50; y <= cam_y + 50; y++)
                 {
-                    if (GeneratedPositions.Contains(new Vector<int>(x, y)))
+                    if (GeneratedPositions.Get(x, y))
                         continue;
-                    GeneratedPositions.Add(new Vector<int>(x, y));
+                    GeneratedPositions.Add(x, y, true);
                     asteroidGenerator.GeneratePosition(x, y);
                 }
             }

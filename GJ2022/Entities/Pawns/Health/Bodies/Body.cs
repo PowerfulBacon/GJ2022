@@ -1,4 +1,5 @@
 ﻿using GJ2022.Atmospherics;
+using GJ2022.Components.Items;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns.Health.Bodyparts;
@@ -100,6 +101,9 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
 
         public bool Destroyed => false;
 
+        //Temp
+        public bool NoDamage { get; set; } = true;
+
         /// <summary>
         /// Setup the body and its internal atmosphere
         /// </summary>
@@ -173,7 +177,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 {
                     //Check if the limb is covered
                     bool limbProtected = false;
-                    foreach (IEquippable equippable in Parent.EquippedItems.Values)
+                    foreach (Component_Equippable equippable in Parent.EquippedItems.Values)
                     {
                         if ((equippable.ProtectedHazards & PawnBehaviours.PawnHazards.HAZARD_LOW_PRESSURE) != 0 && limb.IsCovered(equippable.CoverFlags))
                         {
@@ -191,7 +195,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
                 {
                     //Check if the limb is covered
                     bool limbProtected = false;
-                    foreach (IEquippable equippable in Parent.EquippedItems.Values)
+                    foreach (Component_Equippable equippable in Parent.EquippedItems.Values)
                     {
                         if ((equippable.ProtectedHazards & PawnBehaviours.PawnHazards.HAZARD_HIGH_PRESSURE) != 0 && limb.IsCovered(equippable.CoverFlags))
                         {

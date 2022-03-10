@@ -6,6 +6,8 @@ namespace GJ2022.Utility.MathConstructs
     public struct Vector<T>
     {
 
+        public static Vector<float> Zero => new Vector<float>(0, 0);
+
         public Vector(params T[] values)
         {
             Values = values;
@@ -90,14 +92,14 @@ namespace GJ2022.Utility.MathConstructs
         public static bool operator ==(Vector<T> a, Vector<T> b)
         {
             if (a.Dimensions != b.Dimensions) return false;
-            for (int i = 0; i < a.Dimensions; i++) if ((dynamic)a[i] != b[i]) return false;
+            for (int i = 0; i < a.Dimensions; i++) if (!a[i].Equals(b[i])) return false;
             return true;
         }
 
         public static bool operator !=(Vector<T> a, Vector<T> b)
         {
             if (a.Dimensions != b.Dimensions) return true;
-            for (int i = 0; i < a.Dimensions; i++) if ((dynamic)a[i] != b[i]) return true;
+            for (int i = 0; i < a.Dimensions; i++) if (!a[i].Equals(b[i])) return true;
             return false;
         }
 

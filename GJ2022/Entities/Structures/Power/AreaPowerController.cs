@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GJ2022.Components;
 using GJ2022.Entities.ComponentInterfaces;
-using GJ2022.Entities.Items.StockParts.Cells;
+using GJ2022.EntityLoading;
 using GJ2022.Game;
 using GJ2022.Game.GameWorld;
 using GJ2022.Game.Power;
@@ -19,7 +20,7 @@ namespace GJ2022.Entities.Structures.Power
     {
 
         //The cell inside this APC
-        private Cell insertedCell;
+        private Entity insertedCell;
 
         public AreaPowerController(Vector<float> position, Directions direction) : base(position, Layers.LAYER_STRUCTURE)
         {
@@ -42,10 +43,11 @@ namespace GJ2022.Entities.Structures.Power
             World.AddAreaPowerController((int)position[0], (int)position[1], this);
             World.AddPowernetInteractor((int)position[0], (int)position[1], PowernetInteractor);
             Position += offset;
-            insertedCell = new StandardCell(this);
-            insertedCell.TakePower(insertedCell.MaxCharge);
+            //TODO: Move this to a definition file
+            insertedCell = EntityCreator.CreateEntity<Entity>("Cell_Standard", position);
+            insertedCell.Location = this;
             textObjectOffset = new Vector<float>(0, -0.3f);
-            attachedTextObject = new TextObject($"{insertedCell?.Charge}", Colour.White, Position + textObjectOffset, TextObject.PositionModes.WORLD_POSITION, 0.4f);
+            attachedTextObject = new TextObject($"{insertedCell?.SendSignalSynchronously(Signal.SIGNAL_GET_STORED_POWER)}", Colour.White, Position + textObjectOffset, TextObject.PositionModes.WORLD_POSITION, 0.4f);
             UpdateOverlays(0);
             PowerProcessingSystem.Singleton.StartProcessing(this);
         }
@@ -72,11 +74,12 @@ namespace GJ2022.Entities.Structures.Power
 
         public void UpdateOverlays(float chargeRate)
         {
-            attachedTextObject.Text = $"{insertedCell?.Charge}";
+            attachedTextObject.Text = $"{insertedCell?.SendSignalSynchronously(Signal.SIGNAL_GET_STORED_POWER)}";
             int newOverlayState;
-            if (PowernetInteractor.AttachedPowernet == null || insertedCell == null || (chargeRate <= 0 && insertedCell.Charge != insertedCell.MaxCharge))
+            bool maxCharge = Convert.ToSingle(insertedCell.SendSignalSynchronously(Signal.SIGNAL_GET_POWER_DEMAND, 1)) == 0;
+            if (PowernetInteractor.AttachedPowernet == null || insertedCell == null || (chargeRate <= 0 && !maxCharge))
                 newOverlayState = 1;
-            else if (insertedCell.Charge == insertedCell.MaxCharge)
+            else if (maxCharge)
                 newOverlayState = 2;
             else
                 newOverlayState = 3;
@@ -114,10 +117,10 @@ namespace GJ2022.Entities.Structures.Power
                 return;
             }
             //Charge our cell if we can
-            float powerDemand = Math.Min(insertedCell.ChargeRate * deltaTime, insertedCell.MaxCharge - insertedCell.Charge);
+            float powerDemand = Convert.ToSingle(insertedCell.SendSignalSynchronously(Signal.SIGNAL_GET_POWER_DEMAND, deltaTime));
             PowernetInteractor.Demand = powerDemand;
             float powerDelta = PowernetInteractor.AttachedPowernet.ReceievePower(powerDemand);
-            insertedCell.GivePower(powerDelta);
+            insertedCell.SendSignal(Signal.SIGNAL_ITEM_GIVE_POWER, powerDelta);
             UpdateOverlays(powerDelta);
         }
 

@@ -1,17 +1,13 @@
 ﻿using GJ2022.Audio;
-using GJ2022.Entities.Items.Clothing.Back;
-using GJ2022.Entities.Items.Clothing.Body;
-using GJ2022.Entities.Items.Clothing.Head;
-using GJ2022.Entities.Items.Clothing.Mask;
+using GJ2022.Entities;
 using GJ2022.Entities.Items.Stacks;
-using GJ2022.Entities.Items.Tank;
-using GJ2022.Entities.Items.Tools.Mining;
 using GJ2022.Entities.Pawns;
 using GJ2022.Entities.Pawns.Mobs;
 using GJ2022.Entities.Pawns.Mobs.Humans;
 using GJ2022.Entities.Structures.Power;
-using GJ2022.Entities.Turfs.Standard.Floors;
+using GJ2022.EntityLoading;
 using GJ2022.Game.Construction;
+using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
@@ -23,6 +19,9 @@ using GJ2022.UserInterface;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 using static OpenGL.Gl;
 
 namespace GJ2022
@@ -42,6 +41,12 @@ namespace GJ2022
         /// </summary>
         private static void Main(string[] args)
         {
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            EntityLoader.LoadEntities();
+            //return;
 
             //Start texture loading
             BlueprintLoader.LoadBlueprints();
@@ -75,7 +80,7 @@ namespace GJ2022
 
             //Wait until texture loading is done
             Log.WriteLine("Waiting for async loading to complete...", LogType.DEBUG);
-            while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) { }
+            while (!TextureCache.LoadingComplete || !BlueprintLoader.BlueprintsLoaded) Thread.Sleep(1);
             Log.WriteLine("Done loading", LogType.DEBUG);
 
             TextureCache.InitializeTextureObjects();
@@ -92,10 +97,10 @@ namespace GJ2022
             for (int i = 0; i < 4; i++)
             {
                 Human p = new Human(new Vector<float>(2.3f, 7.3f));
-                p.TryEquipItem(InventorySlot.SLOT_BODY, new SpaceSuit(new Vector<float>(0, 0)));
-                p.TryEquipItem(InventorySlot.SLOT_BACK, new OxygenTank(new Vector<float>(0, 0)));
-                p.TryEquipItem(InventorySlot.SLOT_MASK, new BreathMask(new Vector<float>(0, 0)));
-                p.TryEquipItem(InventorySlot.SLOT_HEAD, new SpaceHelmet(new Vector<float>(0, 0)));
+                EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
+                EntityCreator.CreateEntity<Entity>("SpaceSuit", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
+                EntityCreator.CreateEntity<Entity>("SpaceHelmet", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
+                EntityCreator.CreateEntity<Entity>("BreathMask", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
                 new CrewmemberBehaviour(p);
             }
 
@@ -103,7 +108,8 @@ namespace GJ2022
             {
                 for (int y = 4; y < 6; y++)
                 {
-                    new Iron(new Vector<float>(x, y), 50, 50);
+                    EntityCreator.CreateEntity<Entity>("Iron", new Vector<float>(x, y))
+                        .SendSignal(Components.Signal.SIGNAL_SET_STACK_SIZE, 50);
                 }
             }
 
@@ -111,18 +117,11 @@ namespace GJ2022
             {
                 for (int y = 0; y < 10; y++)
                 {
-                    new Plating(x, y);
+                    EntityCreator.CreateEntity("Plating", new Vector<float>(x, y));
                 }
             }
 
-            new Jetpack(new Vector<float>(9, 8));
-            new Pickaxe(new Vector<float>(3, 2));
-
-            new OxygenTank(new Vector<float>(3, 4));
-            new OxygenTank(new Vector<float>(3, 4));
-            new OxygenTank(new Vector<float>(3, 4));
-            new OxygenTank(new Vector<float>(3, 4));
-            new BreathMask(new Vector<float>(3, 3));
+            //new BreathMask(new Vector<float>(3, 3));
 
             Dog dog = new Dog(new Vector<float>(2, 2));
             new DogBehaviour(dog);
@@ -134,7 +133,8 @@ namespace GJ2022
             {
                 for (int y = 20; y < 100; y += r.Next(1, 10))
                 {
-                    new Gold(new Vector<float>(x, y), 50, 50);
+                    EntityCreator.CreateEntity<Entity>("Gold", new Vector<float>(x, y))
+                        .SendSignal(Components.Signal.SIGNAL_SET_STACK_SIZE, 50);
                 }
             }
 
@@ -169,6 +169,7 @@ namespace GJ2022
 
             //Terminate GLFW
             Glfw.Terminate();
+
         }
 
         /// <summary>
@@ -179,7 +180,7 @@ namespace GJ2022
             Glfw.WindowHint(Hint.ContextVersionMajor, 3);
             Glfw.WindowHint(Hint.ContextVersionMinor, 3);
             Glfw.WindowHint(Hint.OpenglProfile, Profile.Core);
-            Glfw.WindowHint(Hint.Resizable, false);
+            Glfw.WindowHint(Hint.Resizable, true);
         }
 
         /// <summary>
@@ -210,6 +211,7 @@ namespace GJ2022
         private static void WindowSizeCallback(IntPtr window, int width, int height)
         {
             RenderMaster.mainCamera.OnWindowResized(width, height);
+            glViewport(0, 0, width, height);
         }
 
     }

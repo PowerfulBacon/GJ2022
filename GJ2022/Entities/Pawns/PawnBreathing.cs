@@ -1,5 +1,7 @@
 ﻿using GJ2022.Atmospherics;
 using GJ2022.Atmospherics.Gasses;
+using GJ2022.Components;
+using GJ2022.Components.Items;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items.Clothing;
 using GJ2022.Entities.Pawns.Health.Bodyparts.Limbs;
@@ -10,16 +12,24 @@ namespace GJ2022.Entities.Pawns
     public partial class Pawn
     {
 
+        /// <summary>
+        /// Breath source counter is used for tracking the amount of breath masks a pawn
+        /// has. Simpler than sending a synchronous signal every time, since when the item
+        /// with the breath mask component is equipped, this is increased and when dequipped, this
+        /// is decreased.
+        /// </summary>
+        public int BreathSourceCounter { get; set; } = 0;
+
         //Get wherver we are breathing from
         public Atmosphere GetBreathSource()
         {
-            //Check if we can breathe from internals
-            IBreathMask breathMask = (EquippedItems.ContainsKey(InventorySlot.SLOT_MASK) ? EquippedItems[InventorySlot.SLOT_MASK] : null) as IBreathMask;
-            if (breathMask != null)
+            if (BreathSourceCounter > 0)
             {
-                Atmosphere breathSource = breathMask.GetBreathSource();
+                Atmosphere breathSource = SendSignalSynchronously(Signal.SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE) as Atmosphere;
                 if (breathSource != null && breathSource.GetMoles(Oxygen.Singleton) > 0.1f)
+                {
                     return breathSource;
+                }
             }
             //Return atmosphere at the current location
             return World.GetTurf((int)Position[0], (int)Position[1])?.Atmosphere?.ContainedAtmosphere;
@@ -31,12 +41,13 @@ namespace GJ2022.Entities.Pawns
         /// </summary>
         public bool HasInternalTank()
         {
-            IBreathMask breathMask = (EquippedItems.ContainsKey(InventorySlot.SLOT_MASK) ? EquippedItems[InventorySlot.SLOT_MASK] : null) as IBreathMask;
-            if (breathMask != null)
+            if (BreathSourceCounter > 0)
             {
-                Atmosphere breathSource = breathMask.GetBreathSource();
+                Atmosphere breathSource = SendSignalSynchronously(Signal.SIGNAL_PAWN_GET_INTERNAL_ATMOSPHERE) as Atmosphere;
                 if (breathSource != null && breathSource.GetMoles(Oxygen.Singleton) > 0.1f)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -44,7 +55,7 @@ namespace GJ2022.Entities.Pawns
         public bool IsPressureProtected()
         {
             BodyCoverFlags lowPressureCoveredFlags = BodyCoverFlags.NONE;
-            foreach (IEquippable equippable in EquippedItems.Values)
+            foreach (Component_Equippable equippable in EquippedItems.Values)
             {
                 if (equippable == null || (equippable.ProtectedHazards & PawnBehaviours.PawnHazards.HAZARD_LOW_PRESSURE) == 0)
                     continue;

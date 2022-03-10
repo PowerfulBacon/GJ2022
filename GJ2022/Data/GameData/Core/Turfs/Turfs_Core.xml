@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Entities>
+
+  <Entity Name="TurfBase" Class="Turf" Abstract="true">
+    <Renderable Class="StandardRenderable">
+      <Layer>0</Layer>
+    </Renderable>
+  </Entity>
+
+  <Entity Name="OpenTurf" ParentName="TurfBase" Abstract="true">
+    <AllowAtmosphericFlow>true</AllowAtmosphericFlow>
+    <Solid>false</Solid>
+  </Entity>
+
+  <Entity Name="ClosedTurf" ParentName="TurfBase" Abstract="true">
+    <AllowAtmosphericFlow>false</AllowAtmosphericFlow>
+    <Solid>true</Solid>
+  </Entity>
+  
+</Entities>

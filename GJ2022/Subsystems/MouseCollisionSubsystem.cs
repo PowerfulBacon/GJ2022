@@ -40,10 +40,8 @@ namespace GJ2022.Subsystems
             //These require 'hard' tracking, for clickable world objects, we can just check clickable objects on that tile on press.
             if (tracker.PositionSpace == CursorSpace.SCREEN_SPACE || tracker is IMouseEnter || tracker is IMouseExit)
             {
-                Log.WriteLine("here we go");
                 ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_MOUSE_SYSTEM, () =>
                 {
-                    Log.WriteLine("going");
                     if (trackingEvents.ContainsKey(tracker))
                         return false;
                     trackingEvents.Add(tracker, MouseCollisionState.NONE);

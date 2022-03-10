@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -237,5 +238,30 @@ namespace GJ2022.Utility.MathConstructs
                 return ElementsInRange(minX, minY, maxX, maxY, midPoint + 1, end);
         }
 
+        public override string ToString()
+        {
+            string output = "{\n";
+            foreach (BinaryListElement<BinaryList<T>> xAxis in list.binaryListElements)
+            {
+                int x = xAxis.key;
+                foreach (BinaryListElement<T> thing in xAxis.value.binaryListElements)
+                {
+                    int y = thing.key;
+                    if (thing.value is IEnumerable)
+                    {
+                        output += $"\t({x}, {y}) = (";
+                        IEnumerator enumerator = (thing.value as IEnumerable).GetEnumerator();
+                        while (enumerator.MoveNext())
+                        {
+                            output += $"{enumerator.Current},";
+                        }
+                        output += $")\n";
+                    }
+                    else
+                        output += $"\t({x}, {y}) = ({thing.value})\n";
+                }
+            }
+            return output + "\n}";
+        }
     }
 }

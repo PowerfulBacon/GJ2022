@@ -1,4 +1,6 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Components;
+using GJ2022.Entities.ComponentInterfaces;
+using GJ2022.EntityLoading;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Managers.TaskManager;
@@ -10,14 +12,17 @@ using System.Collections.Generic;
 
 namespace GJ2022.Entities
 {
-    public abstract class Entity
+    public class Entity : ComponentHandler
     {
 
         //The renderable attached to this entity
-        public abstract Renderable Renderable { get; set; }
+        public virtual Renderable Renderable { get; set; }
 
-        //The layer of the object
-        private float _layer = 0;
+        //Name
+        public virtual string Name { get; set; }
+
+        //Description
+        public string Description { get; set; }
 
         //The position of the object in 2D space
         private Vector<float> _position = new Vector<float>(0, 0);
@@ -58,38 +63,53 @@ namespace GJ2022.Entities
 
         //The text object attached to this
         public TextObject attachedTextObject;
-        protected Vector<float> textObjectOffset = new Vector<float>(0, 0);
+        public Vector<float> textObjectOffset = new Vector<float>(0, 0);
 
-        public Entity(Vector<float> position, float layer)
+        public Entity()
         {
+            World.EntitiesCreated++;
+        }
+
+        ~Entity()
+        {
+            World.EntitiesGarbageCollected++;
+        }
+
+        [Obsolete]
+        public Entity(Vector<float> position, float layerDepreciated)
+        {
+            World.EntitiesCreated++;
             if (position.Dimensions != 2)
             {
                 throw new ArgumentException($"Position provided was {position}, but should have 2 dimensions!");
             }
             Position = position;
-            Layer = layer;
+            Renderable?.layerChangeHandler?.Invoke(layerDepreciated);
         }
 
-        public Entity(Entity location, float layer)
+        [Obsolete]
+        public Entity(Entity location, float layerDepreciated)
         {
+            World.EntitiesCreated++;
             Location = location;
-            Layer = layer;
+            Renderable?.layerChangeHandler?.Invoke(layerDepreciated);
         }
 
         //Default destroy behaviour
         public virtual bool Destroy()
         {
-            if (!(this is IDestroyable))
-                throw new Exception("Non destroyable entity was destroyed!");
+            World.EntitiesDestroyed++;
             //Remove from inventories
             Location?.RemoveFromContents(this);
             //Release our claims
             if (ThreadSafeClaimManager.HasClaim(this))
                 ThreadSafeClaimManager.ReleaseClaimBlocking(this);
             //Send the destroy signal
-            SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_DESTROYED);
+            SendSignal(Signal.SIGNAL_ENTITY_DESTROYED);
             //Unregister all signals
-            SignalHandler.UnregisterAll(this);
+            UnregisterAllSignals();
+            //Remove all components
+            RemoveAllComponents();
             //Stop rendering attached text
             if (attachedTextObject != null)
             {
@@ -131,6 +151,8 @@ namespace GJ2022.Entities
                 _location?.RemoveFromContents(this);
                 //Set the location
                 _location = value;
+                //Send the signal
+                SendSignal(Signal.SIGNAL_ENTITY_MOVED, oldLocation, value);
                 //If we changed location, pause / resume rendering.
                 if (value == null)
                 {
@@ -164,17 +186,6 @@ namespace GJ2022.Entities
                 Contents = null;
         }
 
-        //Layer handler
-        public float Layer
-        {
-            get => _layer;
-            set
-            {
-                _layer = value;
-                Renderable?.layerChangeHandler?.Invoke(_layer);
-            }
-        }
-
         //Position handler
         public Vector<float> Position
         {
@@ -187,7 +198,7 @@ namespace GJ2022.Entities
                 Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
                 if ((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
-                    SignalHandler.SendSignal(this, SignalHandler.Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition);
+                    SendSignal(Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition, value);
                 if (attachedTextObject != null)
                     attachedTextObject.Position = value + textObjectOffset;
                 //Change direction
@@ -200,6 +211,34 @@ namespace GJ2022.Entities
         public bool InReach(Entity target, float range = 0.5f)
         {
             return (target.Position - Position).Length() < range && Location == target.Location;
+        }
+
+        public override void SetProperty(string name, object property)
+        {
+            switch (name)
+            {
+                case "Name":
+                    Name = (string)property;
+                    return;
+                case "Description":
+                    Description = (string)property;
+                    return;
+                case "Renderable":
+                    Renderable = (Renderable)property;
+                    return;
+            }
+            base.SetProperty(name, property);
+        }
+
+        //oh god this is so janky
+        public override void PreInitialize(Vector<float> initializePosition)
+        {
+            Position = initializePosition;
+        }
+
+        public override void Initialize(Vector<float> initializePosition)
+        {
+            Position = initializePosition;
         }
 
     }

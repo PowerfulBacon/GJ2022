@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entities>
+  <Entity Name="BreathMask" ParentName="ClothingBase_Mask">
+    <Name>Breath Mask</Name>
+    <Description>A lightweight breath mask with the ability to connect to the majority of oxygen tanks.</Description>
+    <UiTexture>masks.breath</UiTexture>
+    <Renderable Class="StandardRenderable">
+      <Texture>masks.breath</Texture>
+      <Layer>4</Layer>
+    </Renderable>
+    <Components>
+      <Component_Equippable>
+        <EquipTexture>mask.breath</EquipTexture>
+        <Slots>
+          <EnumValue>SLOT_MASK</EnumValue>
+        </Slots>
+        <CoverFlags>
+          <EnumValue>COVER_MOUTH</EnumValue>
+        </CoverFlags>
+      </Component_Equippable>
+      <Component_BreathSource />
+    </Components>
+  </Entity>
+</Entities>

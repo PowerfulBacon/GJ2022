@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities.ComponentInterfaces;
+﻿using GJ2022.Components;
+using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Pawns;
 using GJ2022.Utility.MathConstructs;
@@ -56,23 +57,8 @@ namespace GJ2022.PawnBehaviours.PawnActions
             //Equip
             if (!item.Destroyed && parent.Owner.InReach(item))
             {
-                IEquippable equippable = item as IEquippable;
-                //Convert slot flags to an actual slot
-                InventorySlot wantedSlot;
-                if ((equippable.Slots & InventorySlot.SLOT_BACK) != 0)
-                    wantedSlot = InventorySlot.SLOT_BACK;
-                else if ((equippable.Slots & InventorySlot.SLOT_BODY) != 0)
-                    wantedSlot = InventorySlot.SLOT_BODY;
-                else if ((equippable.Slots & InventorySlot.SLOT_HEAD) != 0)
-                    wantedSlot = InventorySlot.SLOT_HEAD;
-                else if ((equippable.Slots & InventorySlot.SLOT_MASK) != 0)
-                    wantedSlot = InventorySlot.SLOT_MASK;
-                else
-                {
-                    completed = true;
-                    return;
-                }
-                parent.Owner.TryEquipItem(wantedSlot, equippable);
+                //Equip the item
+                item.SendSignal(Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, parent.Owner);
             }
             completed = true;
         }

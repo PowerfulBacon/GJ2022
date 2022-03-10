@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Entities>
+  <Entity Name="Furnace" ParentName="StructureBase">
+    <Renderable Class="StandardRenderable">
+      <Layer>6</Layer>
+      <Texture>furnace</Texture>
+    </Renderable>
+    <Components>
+      <Component_Tracked>
+        <Key>Furnace</Key>
+      </Component_Tracked>
+    </Components>
+  </Entity>
+</Entities>

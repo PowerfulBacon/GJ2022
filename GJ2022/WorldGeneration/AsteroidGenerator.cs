@@ -1,6 +1,4 @@
-﻿using GJ2022.Entities.Turfs.Standard.Floors;
-using GJ2022.Entities.Turfs.Standard.Solids;
-using GJ2022.Entities.Turfs.Standard.Solids.Minerals;
+﻿using GJ2022.EntityLoading;
 using LibNoise;
 
 namespace GJ2022.WorldGeneration
@@ -49,11 +47,11 @@ namespace GJ2022.WorldGeneration
                 return;
             if (value > 0.8)
                 if (oreValue > 0.8)
-                    new AsteroidIronOre(x, y);
+                    EntityCreator.CreateEntity("AsteroidIronOre", new Utility.MathConstructs.Vector<float>(x, y));
                 else
-                    new Asteroid(x, y);
+                    EntityCreator.CreateEntity("Asteroid", new Utility.MathConstructs.Vector<float>(x, y));
             else if (value > 0.65)
-                new AsteroidSand(x, y);
+                EntityCreator.CreateEntity("AsteroidSand", new Utility.MathConstructs.Vector<float>(x, y));
         }
 
     }

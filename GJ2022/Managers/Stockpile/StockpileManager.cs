@@ -1,7 +1,9 @@
-﻿using GJ2022.Areas;
+﻿using GJ2022.Entities.Areas;
 using GJ2022.Entities.Items;
+using GJ2022.Game.GameWorld;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.Helpers;
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +18,6 @@ namespace GJ2022.Managers.Stockpile
         //Second key = the stockpile area the items are stored in
         //Value = A list of items with the type and stockpile area specified
         public static Dictionary<Type, List<Item>> StockpileItems { get; } = new Dictionary<Type, List<Item>>();
-
-        public static HashSet<StockpileArea> StockpileAreas { get; } = new HashSet<StockpileArea>();
 
         public static void CountItems(Type itemType)
         {
@@ -55,12 +55,21 @@ namespace GJ2022.Managers.Stockpile
             return ListPicker.Pick(targetItems);
         }
 
-        public static void AddStockpileArea(StockpileArea area)
+        public static void AddStockpileArea(Vector<float> position)
         {
-            //Add the stockpile area
-            StockpileAreas.Add(area);
-            //Add the stockpile area's items
-            area.RegisterItemsInStockpile();
+            //Add all items at this position to the stockpile
+            foreach (Item item in World.GetItems((int)position[0], (int)position[1]))
+            {
+                AddItem(item);
+            }
+        }
+
+        public static void RemoveStockpileArea(Vector<float> position)
+        {
+            foreach (Item item in World.GetItems((int)position[0], (int)position[1]))
+            {
+                RemoveItem(item);
+            }
         }
 
         public static void AddItem(Item item)
