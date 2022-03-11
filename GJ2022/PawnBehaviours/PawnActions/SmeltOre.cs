@@ -34,7 +34,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         {
             if (parent.Owner.InCrit)
                 return false;
-            if (World.HasThingInRange("Furnace", (int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20, (List<IComponentHandler> area) =>
+            if (World.HasThingInRange("Furnace", (int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 20, (List<IComponentHandler> area) =>
             {
                 foreach (IComponentHandler structure in area)
                 {
@@ -46,7 +46,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 }
                 return false;
             })
-                && World.HasItemsInRange((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40, (List<Item> toCheck) =>
+                && World.HasItemsInRange((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40, (List<Item> toCheck) =>
                 {
                     foreach (Item item in toCheck)
                     {
@@ -183,7 +183,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         private Entity LocateValidFurnace(PawnBehaviour parent)
         {
-            foreach (Entity structure in World.GetSpiralThings<Entity>("Furnace", (int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 20))
+            foreach (Entity structure in World.GetSpiralThings<Entity>("Furnace", (int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 20))
             {
                 //If we marked this location as unreachable, ignore it.
                 if (unreachableLocations.Contains(structure.Position))
@@ -205,7 +205,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         /// </summary>
         private IronOre LocateMaterials(PawnBehaviour parent)
         {
-            foreach (Item item in World.GetSprialItems((int)parent.Owner.Position[0], (int)parent.Owner.Position[1], 40))
+            foreach (Item item in World.GetSprialItems((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40))
             {
                 //If we marked this location as unreachable, ignore it.
                 if (unreachableLocations.Contains(item.Position))

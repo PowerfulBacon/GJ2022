@@ -9,8 +9,8 @@ namespace GJ2022.Utility.Helpers
 
         public static Vector<float> GetScreenCoordinates(Window window, Vector<float> worldPosition)
         {
-            float worldX = worldPosition[0];
-            float worldY = worldPosition[1];
+            float worldX = worldPosition.X;
+            float worldY = worldPosition.Y;
             //Guess
             Matrix cameraMatrix = RenderMaster.mainCamera.ProjectionMatrix * RenderMaster.mainCamera.ViewMatrix;
             float translationX = cameraMatrix[4, 1];

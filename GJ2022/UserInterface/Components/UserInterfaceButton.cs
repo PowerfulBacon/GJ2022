@@ -23,9 +23,9 @@ namespace GJ2022.UserInterface.Components
 
         public CursorSpace PositionSpace { get; } = CursorSpace.SCREEN_SPACE;
 
-        public float WorldX => _position[0] * (1080.0f / 1920.0f) - Width / 2;
+        public float WorldX => _position.X * (1080.0f / 1920.0f) - Width / 2;
 
-        public float WorldY => -_position[1] - Height / 2;
+        public float WorldY => -_position.Y - Height / 2;
 
         public float Width => Scale[0] * (1080.0f / 1920.0f);
 

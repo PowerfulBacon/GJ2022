@@ -645,7 +645,7 @@ namespace GJ2022.Game.GameWorld
 
         public static bool IsSolid(Vector<int> position)
         {
-            return IsSolid(position[0], position[1]);
+            return IsSolid(position.X, position.Y);
         }
 
         /// <summary>
@@ -664,7 +664,7 @@ namespace GJ2022.Game.GameWorld
 
         public static bool HasGravity(Vector<int> position)
         {
-            return HasGravity(position[0], position[1]);
+            return HasGravity(position.X, position.Y);
         }
 
         public static bool HasGravity(int x, int y)

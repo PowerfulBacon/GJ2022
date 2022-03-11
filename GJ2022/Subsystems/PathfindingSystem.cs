@@ -201,25 +201,25 @@ namespace GJ2022.Subsystems
             ConnectingDirections connectingDirections = 0;
             //Check north
             if (!IsPointChecked(processData, position + new Vector<int>(0, 1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
-                    && position[1] < processData.MaximumY
+                    && position.Y < processData.MaximumY
                     && !World.IsSolid(position + new Vector<int>(0, 1))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.NORTH))
                 connectingDirections |= ConnectingDirections.NORTH;
             //Check east
             if (!IsPointChecked(processData, position + new Vector<int>(1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
-                    && position[0] < processData.MaximumX
+                    && position.X < processData.MaximumX
                     && !World.IsSolid(position + new Vector<int>(1, 0))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.EAST))
                 connectingDirections |= ConnectingDirections.EAST;
             //Check south
             if (!IsPointChecked(processData, position + new Vector<int>(0, -1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
-                    && position[1] > processData.MinimumY
+                    && position.Y > processData.MinimumY
                     && !World.IsSolid(position + new Vector<int>(0, -1))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.SOUTH))
                 connectingDirections |= ConnectingDirections.SOUTH;
             //Check west
             if (!IsPointChecked(processData, position + new Vector<int>(-1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
-                    && position[0] > processData.MinimumX
+                    && position.X > processData.MinimumX
                     && !World.IsSolid(position + new Vector<int>(-1, 0))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.WEST))
                 connectingDirections |= ConnectingDirections.WEST;
@@ -254,7 +254,7 @@ namespace GJ2022.Subsystems
             if ((ignoringHazards & PawnHazards.HAZARD_LOW_PRESSURE) != 0)
                 return true;
             //Check for pressure (50 should be safe)
-            return World.GetTurf(position[0], position[1])?.Atmosphere?.ContainedAtmosphere?.KiloPascalPressure > 50;
+            return World.GetTurf(position.X, position.Y)?.Atmosphere?.ContainedAtmosphere?.KiloPascalPressure > 50;
         }
 
         private bool BreathCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
@@ -263,7 +263,7 @@ namespace GJ2022.Subsystems
             if ((ignoringHazards & PawnHazards.HAZARD_BREATH) != 0)
                 return true;
             //Check air
-            if (World.GetTurf(position[0], position[1])?.Atmosphere?.ContainedAtmosphere?.GetMoles(Oxygen.Singleton) > 0.02f)
+            if (World.GetTurf(position.X, position.Y)?.Atmosphere?.ContainedAtmosphere?.GetMoles(Oxygen.Singleton) > 0.02f)
                 return true;
             //Area has no air
             return false;
@@ -278,8 +278,8 @@ namespace GJ2022.Subsystems
             if (World.HasGravity(position))
                 return true;
             //We can move in a straight line without gravity
-            int delta_x = position[0] - source[0];
-            int delta_y = position[1] - source[1];
+            int delta_x = position.X - source[0];
+            int delta_y = position.Y - source[1];
             //If the direction is north or south and we want to move vertically, allow it
             if (delta_x == 0 && (direction & ConnectingDirections.NORTH_SOUTH) != 0)
                 return true;

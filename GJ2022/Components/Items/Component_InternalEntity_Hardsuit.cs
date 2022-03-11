@@ -59,7 +59,7 @@ namespace GJ2022.Components.Items
 
         private bool ShouldDeployHelmet(Pawn pawn)
         {
-            Turf turf = World.GetTurf((int)pawn.Position[0], (int)pawn.Position[1]);
+            Turf turf = World.GetTurf((int)pawn.Position.X, (int)pawn.Position.Y);
             Atmosphere locatedAtmosphere = turf?.Atmosphere?.ContainedAtmosphere;
             if (locatedAtmosphere == null)
                 return true;

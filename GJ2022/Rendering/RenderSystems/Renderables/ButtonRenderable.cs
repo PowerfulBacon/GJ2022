@@ -87,8 +87,8 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         /// </summary>
         private void SetPosition(Vector<float> position)
         {
-            _position[0] = position[0];
-            _position[1] = position[1];
+            _position.X = position.X;
+            _position.Y = position.Y;
             //Update position in renderer
             if (renderableBatchIndex.Count > 0)
                 (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<IButtonRenderable, ButtonRenderSystem>)?.UpdateBatchData(this, 0);

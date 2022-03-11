@@ -28,9 +28,9 @@ namespace GJ2022.Entities.Pawns
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 
-        public float WorldX => Position[0] - 0.5f;
+        public float WorldX => Position.X - 0.5f;
 
-        public float WorldY => Position[1] - 0.5f;
+        public float WorldY => Position.Y - 0.5f;
 
         public float Width => 1.0f;
 
@@ -276,17 +276,17 @@ namespace GJ2022.Entities.Pawns
         /// </summary>
         public void OnMoved(Vector<float> oldPosition)
         {
-            if ((int)oldPosition[0] == (int)Position[0] && (int)oldPosition[1] == (int)Position[1])
+            if ((int)oldPosition.X == (int)Position.X && (int)oldPosition.Y == (int)Position.Y)
                 return;
-            World.RemovePawn((int)oldPosition[0], (int)oldPosition[1], this);
-            World.AddPawn((int)Position[0], (int)Position[1], this);
+            World.RemovePawn((int)oldPosition.X, (int)oldPosition.Y, this);
+            World.AddPawn((int)Position.X, (int)Position.Y, this);
         }
 
         public void OnMoved(Entity oldLocation)
         {
             if (oldLocation == Location)
                 return;
-            World.RemovePawn((int)Position[0], (int)Position[1], this);
+            World.RemovePawn((int)Position.X, (int)Position.Y, this);
         }
 
     }

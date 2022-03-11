@@ -27,14 +27,14 @@ namespace GJ2022.Entities.Structures
         public override void Initialize(Vector<float> initializePosition)
         {
             FireProcessingSystem.Singleton.StartProcessing(this);
-            GlobalFires.Add((int)Position[0], (int)Position[1], this);
+            GlobalFires.Add((int)Position.X, (int)Position.Y, this);
             base.Initialize(initializePosition);
         }
 
         public Fire(Vector<float> position) : base(position, Layers.LAYER_FIRE)
         {
             FireProcessingSystem.Singleton.StartProcessing(this);
-            GlobalFires.Add((int)position[0], (int)position[1], this);
+            GlobalFires.Add((int)position.X, (int)position.Y, this);
         }
 
         public override Renderable Renderable { get; set; } = new StandardRenderable("fire", true);
@@ -42,14 +42,14 @@ namespace GJ2022.Entities.Structures
         public override bool Destroy()
         {
             FireProcessingSystem.Singleton.StopProcessing(this);
-            GlobalFires.Remove((int)Position[0], (int)Position[1]);
+            GlobalFires.Remove((int)Position.X, (int)Position.Y);
             return base.Destroy();
         }
 
         public void Process(float deltaTime)
         {
             //Get the current turf
-            Turf turf = World.GetTurf((int)Position[0], (int)Position[1]);
+            Turf turf = World.GetTurf((int)Position.X, (int)Position.Y);
             //Check turf atmos
             if (turf == null || turf.Atmosphere == null)
             {
@@ -84,8 +84,8 @@ namespace GJ2022.Entities.Structures
                 new Vector<int>(0, -1)
             };
             //Get position
-            int x = (int)Position[0];
-            int y = (int)Position[1];
+            int x = (int)Position.X;
+            int y = (int)Position.Y;
             //Check if we want to spread
             if (Random.NextDouble() > FIRE_SPREAD_CHANCE * molesOfOxygenLeft)
                 return;

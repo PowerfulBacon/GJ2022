@@ -77,7 +77,7 @@ namespace GJ2022.Game.Power
                 conduit.attachedTextObject.Text = $"{PowernetId}";
                 conduits.Add(conduit);
                 //Update attached powernets
-                foreach (PowernetInteractor interactor in World.GetPowernetInteractors((int)conduit.Position[0], (int)conduit.Position[1]))
+                foreach (PowernetInteractor interactor in World.GetPowernetInteractors((int)conduit.Position.X, (int)conduit.Position.Y))
                 {
                     interactor.AttachedPowernet = this;
                 }

@@ -17,19 +17,19 @@ namespace GJ2022.Entities.Markers
                 Destroy();
                 return;
             }
-            Marker marker = World.GetMarker((int)position[0], (int)position[1]);
+            Marker marker = World.GetMarker((int)position.X, (int)position.Y);
             if (marker != null)
             {
                 marker.Destroy();
                 return;
             }
-            World.SetMarker((int)position[0], (int)position[1], this);
+            World.SetMarker((int)position.X, (int)position.Y, this);
         }
 
         public override bool Destroy()
         {
             Destroyed = true;
-            World.SetMarker((int)Position[0], (int)Position[1], null);
+            World.SetMarker((int)Position.X, (int)Position.Y, null);
             return base.Destroy();
         }
 
