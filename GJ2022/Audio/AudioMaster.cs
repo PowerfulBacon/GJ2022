@@ -12,10 +12,14 @@ namespace GJ2022.Audio
 
         private static List<uint> buffers = new List<uint>();
 
-        private static AL audioLib = AL.GetApi();
+        private static AL audioLib;
+
+        public static bool UsingAudio = false;
 
         public static void UpdateListener(float x, float y, float z)
         {
+            if (!UsingAudio)
+                return;
             audioLib.SetListenerProperty(ListenerVector3.Position, x, y, z);
         }
 
@@ -25,44 +29,59 @@ namespace GJ2022.Audio
         /// </summary>
         public static bool Initialize()
         {
-            //Get the AL context
-            ALContext audioLibraryContext = ALContext.GetApi();
-
-            //Delete existing audio device
-            if (audioDevice != null)
+            try
             {
-                audioLibraryContext.CloseDevice(audioDevice);
-                audioDevice = null;
+
+                if (audioLib == null)
+                    audioLib = AL.GetApi();
+
+                //Get the AL context
+                ALContext audioLibraryContext = ALContext.GetApi();
+
+                //Delete existing audio device
+                if (audioDevice != null)
+                {
+                    audioLibraryContext.CloseDevice(audioDevice);
+                    audioDevice = null;
+                }
+
+                //Delete existing audio context
+                if (audioContext != null)
+                {
+                    audioLibraryContext.DestroyContext(audioContext);
+                    audioContext = null;
+                }
+
+                UsingAudio = false;
+
+                //Setup the audio device
+                audioDevice = audioLibraryContext.OpenDevice("");
+
+                //Check to see if audio device creation was successful
+                if (audioDevice == null)
+                {
+                    Log.WriteLine("Error: Unable to create OpenAL audio device!", LogType.ERROR);
+                    return false;
+                }
+
+                //Create audio context
+                audioContext = audioLibraryContext.CreateContext(audioDevice, null);
+                audioLibraryContext.MakeContextCurrent(audioContext);
+
+                //Get errors
+                AudioError error = audioLib.GetError();
+                if (error != AudioError.NoError)
+                    throw new Exception($"Audio error: {error}");
+
+                UsingAudio = true;
+                //Setup was successful
+                return true;
             }
-
-            //Delete existing audio context
-            if (audioContext != null)
+            catch (Exception e)
             {
-                audioLibraryContext.DestroyContext(audioContext);
-                audioContext = null;
-            }
-
-            //Setup the audio device
-            audioDevice = audioLibraryContext.OpenDevice("");
-
-            //Check to see if audio device creation was successful
-            if (audioDevice == null)
-            {
-                Log.WriteLine("Error: Unable to create OpenAL audio device!", LogType.ERROR);
+                Log.WriteLine(e, LogType.ERROR);
                 return false;
             }
-
-            //Create audio context
-            audioContext = audioLibraryContext.CreateContext(audioDevice, null);
-            audioLibraryContext.MakeContextCurrent(audioContext);
-
-            //Get errors
-            AudioError error = audioLib.GetError();
-            if (error != AudioError.NoError)
-                throw new Exception($"Audio error: {error}");
-
-            //Setup was successful
-            return true;
         }
 
         /// <summary>
@@ -70,6 +89,8 @@ namespace GJ2022.Audio
         /// </summary>
         public static void Cleanup()
         {
+            if (!UsingAudio)
+                return;
             ALContext audioLibraryContext = ALContext.GetApi();
             AL audioLibrary = AL.GetApi();
             audioLibraryContext.CloseDevice(audioDevice);

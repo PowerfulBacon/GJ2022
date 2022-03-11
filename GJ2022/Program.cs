@@ -65,7 +65,15 @@ namespace GJ2022
             TextureCache.LoadTextureDataJson();
 
             //Setup open AL
-            AudioMaster.Initialize();
+            try
+            {
+                AudioMaster.Initialize();
+            }
+            catch (System.TypeInitializationException e)
+            {
+                Log.WriteLine("===FAILED TO LOAD AUDIO===", LogType.ERROR);
+                Log.WriteLine(e, LogType.ERROR);
+            }
             //new AudioSource().PlaySound("effects/picaxe1.wav", 0, 0, repeating: true);
             //new AudioSource().PlaySound("effects/picaxe1.wav", 0, -60, repeating: true);
 
