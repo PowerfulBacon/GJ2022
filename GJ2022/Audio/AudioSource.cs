@@ -10,6 +10,8 @@ namespace GJ2022.Audio
 
         public void PlaySound(string file, float x, float y, float z = 0, float gain = 1.0f, bool repeating = false)
         {
+            if (!AudioMaster.UsingAudio)
+                return;
             //Get the AL API
             AL al = AL.GetApi();
             //Get the audio file
