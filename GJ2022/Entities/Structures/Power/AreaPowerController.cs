@@ -40,8 +40,8 @@ namespace GJ2022.Entities.Structures.Power
                     offset = new Vector<float>(0, -offsetAmount);
                     break;
             }
-            World.AddAreaPowerController((int)position[0], (int)position[1], this);
-            World.AddPowernetInteractor((int)position[0], (int)position[1], PowernetInteractor);
+            World.AddAreaPowerController((int)position.X, (int)position.Y, this);
+            World.AddPowernetInteractor((int)position.X, (int)position.Y, PowernetInteractor);
             Position += offset;
             //TODO: Move this to a definition file
             insertedCell = EntityCreator.CreateEntity<Entity>("Cell_Standard", position);
@@ -64,8 +64,8 @@ namespace GJ2022.Entities.Structures.Power
         public override bool Destroy()
         {
             Position -= offset;
-            World.RemoveAreaPowerController((int)Position[0], (int)Position[1], this);
-            World.RemovePowernetInteractor((int)Position[0], (int)Position[1], PowernetInteractor);
+            World.RemoveAreaPowerController((int)Position.X, (int)Position.Y, this);
+            World.RemovePowernetInteractor((int)Position.X, (int)Position.Y, PowernetInteractor);
             PowerProcessingSystem.Singleton.StopProcessing(this);
             return base.Destroy();
         }

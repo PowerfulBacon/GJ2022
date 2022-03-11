@@ -31,8 +31,8 @@ namespace GJ2022.Rendering.RenderSystems
                 case 0:
                     Vector<float> position = targetItem.Position;
                     return new float[] {
-                        position[0],
-                        position[1],
+                        position.X,
+                        position.Y,
                         targetItem.Layer,
                         (float)targetItem.PositionMode
                     };

@@ -197,7 +197,7 @@ namespace GJ2022.Entities
                 _position = value;
                 Renderable?.UpdatePosition(_position);
                 (this as IMoveBehaviour)?.OnMoved(oldPosition);
-                if ((int)oldPosition[0] != (int)value[0] || (int)oldPosition[1] != (int)value[1])
+                if ((int)oldPosition.X != (int)value[0] || (int)oldPosition.Y != (int)value[1])
                     SendSignal(Signal.SIGNAL_ENTITY_MOVED, (Vector<int>)oldPosition, value);
                 if (attachedTextObject != null)
                     attachedTextObject.Position = value + textObjectOffset;

@@ -78,14 +78,14 @@ namespace GJ2022.UserInterface.Components.Advanced
             if (settings.OpenToSide)
             {
                 //We open to the side
-                component.Position = new Vector<float>(Position[0] + (settings.Scale[0] + component.Scale[0]) * 0.5f, Position[1] + cachedHeight);
+                component.Position = new Vector<float>(Position.X + (settings.Scale[0] + component.Scale[0]) * 0.5f, Position.Y + cachedHeight);
                 cachedHeight += component.Scale[1];
             }
             else
             {
                 //We open above.
                 cachedHeight += component.Scale[1];
-                component.Position = new Vector<float>(Position[0], Position[1] + cachedHeight);
+                component.Position = new Vector<float>(Position.X, Position.Y + cachedHeight);
             }
             //Hide components if the dropdown is toggled off.
             if (!toggled)
@@ -115,14 +115,14 @@ namespace GJ2022.UserInterface.Components.Advanced
                 if (settings.OpenToSide)
                 {
                     //We open to the side
-                    component.Position = new Vector<float>(Position[0] + (settings.Scale[0] + component.Scale[0]) * 0.5f, Position[1] + cachedHeight);
+                    component.Position = new Vector<float>(Position.X + (settings.Scale[0] + component.Scale[0]) * 0.5f, Position.Y + cachedHeight);
                     cachedHeight += component.Scale[1];
                 }
                 else
                 {
                     //We open above.
                     cachedHeight += component.Scale[1];
-                    component.Position = new Vector<float>(Position[0], Position[1] + cachedHeight);
+                    component.Position = new Vector<float>(Position.X, Position.Y + cachedHeight);
                 }
             }
         }

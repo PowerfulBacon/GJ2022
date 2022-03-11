@@ -16,15 +16,15 @@ namespace GJ2022.Entities.Areas
         public override bool Destroy()
         {
             Destroyed = true;
-            World.SetArea((int)Position[0], (int)Position[1], null);
+            World.SetArea((int)Position.X, (int)Position.Y, null);
             return base.Destroy();
         }
 
         public override void Initialize(Vector<float> initializePosition)
         {
             base.Initialize(initializePosition);
-            World.GetArea((int)initializePosition[0], (int)initializePosition[1])?.Destroy();
-            World.SetArea((int)initializePosition[0], (int)initializePosition[1], this);
+            World.GetArea((int)initializePosition.X, (int)initializePosition.Y)?.Destroy();
+            World.SetArea((int)initializePosition.X, (int)initializePosition.Y, this);
         }
     }
 }

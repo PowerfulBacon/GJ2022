@@ -22,9 +22,9 @@ namespace GJ2022.Entities.Items
 
         public CursorSpace PositionSpace => CursorSpace.WORLD_SPACE;
 
-        public float WorldX => Position[0] - 0.5f;
+        public float WorldX => Position.X - 0.5f;
 
-        public float WorldY => Position[1] - 0.5f;
+        public float WorldY => Position.Y - 0.5f;
 
         public float Width => 1.0f;
 
@@ -44,8 +44,8 @@ namespace GJ2022.Entities.Items
         {
             base.Destroy();
             Destroyed = true;
-            World.RemoveItem((int)Position[0], (int)Position[1], this);
-            World.GetArea((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
+            World.RemoveItem((int)Position.X, (int)Position.Y, this);
+            World.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
             //Handle inventory removal
             if (Location is Pawn holder)
             {
@@ -61,13 +61,13 @@ namespace GJ2022.Entities.Items
         /// </summary>
         public void OnMoved(Vector<float> oldPosition)
         {
-            if ((int)oldPosition[0] == (int)Position[0] && (int)oldPosition[1] == (int)Position[1])
+            if ((int)oldPosition.X == (int)Position.X && (int)oldPosition.Y == (int)Position.Y)
                 return;
-            World.RemoveItem((int)oldPosition[0], (int)oldPosition[1], this);
-            World.AddItem((int)Position[0], (int)Position[1], this);
+            World.RemoveItem((int)oldPosition.X, (int)oldPosition.Y, this);
+            World.AddItem((int)Position.X, (int)Position.Y, this);
             //Calculate stockpile
-            World.GetArea((int)oldPosition[0], (int)oldPosition[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
-            World.GetArea((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_ADDED, this);
+            World.GetArea((int)oldPosition.X, (int)oldPosition.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
+            World.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_ADDED, this);
         }
 
         public void OnMoved(Entity oldLocation)
@@ -80,8 +80,8 @@ namespace GJ2022.Entities.Items
                 return;
             }
             MouseCollisionSubsystem.Singleton.StopTracking(this);
-            World.RemoveItem((int)Position[0], (int)Position[1], this);
-            World.GetArea((int)Position[0], (int)Position[1])?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
+            World.RemoveItem((int)Position.X, (int)Position.Y, this);
+            World.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
         }
 
         public void UpdateCount()

@@ -40,9 +40,9 @@ namespace GJ2022.Rendering.RenderSystems
                 case 0:
                     Vector<float> position = targetItem.GetPosition();
                     return new float[] {
-                        position[0],
-                        position[1],
-                        position[2]
+                        position.X,
+                        position.Y,
+                        position.Z
                     };
                 case 1:
                     RendererTextureData texData = targetItem.GetRendererTextureData();

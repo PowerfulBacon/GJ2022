@@ -99,10 +99,10 @@ namespace GJ2022.Rendering
             //ProjectionMatrix = Matrix.Identity[4];
             //ViewMatrix = Matrix.GetTranslationMatrix(3 * (float)Math.Sin(Glfw.Time), 3 * (float)Math.Cos(Glfw.Time), -5);
             //ViewMatrix = Matrix.GetTranslationMatrix((float)Math.Sin(Glfw.Time) * 5.0f, (float)Math.Cos(Glfw.Time) * 5.0f, 0);
-            ViewMatrix = Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]) * Matrix.GetTranslationMatrix(Position[0], Position[1], Position[2]);
+            ViewMatrix = Matrix.GetScaleMatrix(Scale[0], Scale[1], Scale[2]) * Matrix.GetTranslationMatrix(Position.X, Position.Y, Position.Z);
 
             //Update audio
-            AudioMaster.UpdateListener(Position[0], Position[1], 0);
+            AudioMaster.UpdateListener(Position.X, Position.Y, 0);
 
         }
 

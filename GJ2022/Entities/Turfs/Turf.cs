@@ -41,8 +41,8 @@ namespace GJ2022.Entities.Turfs
 
         public override void Initialize(Vector<float> initializePosition)
         {
-            X = (int)initializePosition[0];
-            Y = (int)initializePosition[1];
+            X = (int)initializePosition.X;
+            Y = (int)initializePosition.Y;
             //Set the position to update the renderable
             Position = new Vector<float>(X, Y);
             //Destroy the old turf

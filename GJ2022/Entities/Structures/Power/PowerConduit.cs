@@ -17,7 +17,7 @@ namespace GJ2022.Entities.Structures.Power
     {
         public PowerConduit(Vector<float> position) : base(position, Layers.LAYER_CONDUIT)
         {
-            if (LocateConduit((int)position[0], (int)position[1]) != null)
+            if (LocateConduit((int)position.X, (int)position.Y) != null)
             {
                 Destroy(false);
             }
@@ -26,7 +26,7 @@ namespace GJ2022.Entities.Structures.Power
                 textObjectOffset = new Vector<float>(0, -0.6f);
                 attachedTextObject = new TextObject($"{Powernet?.PowernetId}", Colour.White, Position + textObjectOffset, TextObject.PositionModes.WORLD_POSITION, 0.4f);
                 AddNode();
-                World.SetPowerCable((int)position[0], (int)position[1], this);
+                World.SetPowerCable((int)position.X, (int)position.Y, this);
             }
         }
 
@@ -61,7 +61,7 @@ namespace GJ2022.Entities.Structures.Power
             if (!base.Destroy())
                 return false;
             RemoveNode();
-            World.SetPowerCable((int)Position[0], (int)Position[1], null);
+            World.SetPowerCable((int)Position.X, (int)Position.Y, null);
             return true;
         }
 
@@ -174,8 +174,8 @@ namespace GJ2022.Entities.Structures.Power
 
         public void LocateAdjacentConduits()
         {
-            int x = (int)Position[0];
-            int y = (int)Position[1];
+            int x = (int)Position.X;
+            int y = (int)Position.Y;
             //Locate adjacent nodes
             northConduit = LocateConduit(x, y + 1);
             eastConduit = LocateConduit(x + 1, y);

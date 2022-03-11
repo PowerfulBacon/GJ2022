@@ -32,7 +32,7 @@ namespace GJ2022.Entities.Pawns
                 }
             }
             //Return atmosphere at the current location
-            return World.GetTurf((int)Position[0], (int)Position[1])?.Atmosphere?.ContainedAtmosphere;
+            return World.GetTurf((int)Position.X, (int)Position.Y)?.Atmosphere?.ContainedAtmosphere;
         }
 
         /// <summary>

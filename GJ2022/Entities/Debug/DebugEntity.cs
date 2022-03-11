@@ -14,9 +14,9 @@ namespace GJ2022.Entities.Debug
     public class DebugEntity : Entity, IMouseEnter, IMouseExit, IDestroyable
     {
 
-        public float WorldX => Position[0] - 0.5f;
+        public float WorldX => Position.X - 0.5f;
 
-        public float WorldY => Position[1] - 0.5f;
+        public float WorldY => Position.Y - 0.5f;
 
         public float Width => 1.0f;
 

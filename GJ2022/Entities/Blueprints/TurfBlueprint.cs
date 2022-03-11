@@ -13,7 +13,7 @@ namespace GJ2022.Entities.Blueprints
         public override void Complete()
         {
             //Create an instance of the thingy
-            Activator.CreateInstance(BlueprintDetail.CreatedType, (int)Position[0], (int)Position[1]);
+            Activator.CreateInstance(BlueprintDetail.CreatedType, (int)Position.X, (int)Position.Y);
             //Destroy the blueprint
             Destroy();
         }

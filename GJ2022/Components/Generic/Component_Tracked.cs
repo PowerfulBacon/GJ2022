@@ -23,8 +23,8 @@ namespace GJ2022.Components.Generic
             if (parent.Location != null)
                 return;
             //Start tracking
-            trackedX = (int)parent.Position[0];
-            trackedY = (int)parent.Position[1];
+            trackedX = (int)parent.Position.X;
+            trackedY = (int)parent.Position.Y;
             World.AddThing(Key, trackedX, trackedY, Parent);
             Parent.RegisterSignal(Signal.SIGNAL_ENTITY_MOVED, -1, OnParentMoved);
             Parent.RegisterSignal(Signal.SIGNAL_ENTITY_LOCATION, -1, OnLocationChanged);
@@ -53,8 +53,8 @@ namespace GJ2022.Components.Generic
             if (newLocation == null && oldLocation != null)
             {
                 Entity parent = Parent as Entity;
-                trackedX = (int)parent.Position[0];
-                trackedY = (int)parent.Position[1];
+                trackedX = (int)parent.Position.X;
+                trackedY = (int)parent.Position.Y;
                 World.AddThing(Key, trackedX, trackedY, Parent);
             }
             return null;
@@ -70,8 +70,8 @@ namespace GJ2022.Components.Generic
             //Remove the old track
             World.RemoveThing(Key, trackedX, trackedY, Parent);
             //Start tracking
-            trackedX = (int)parent.Position[0];
-            trackedY = (int)parent.Position[1];
+            trackedX = (int)parent.Position.X;
+            trackedY = (int)parent.Position.Y;
             World.AddThing(Key, trackedX, trackedY, Parent);
 
             return null;

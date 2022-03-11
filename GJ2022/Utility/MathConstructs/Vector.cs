@@ -24,6 +24,23 @@ namespace GJ2022.Utility.MathConstructs
             set { Values[x] = value; }
         }
 
+        public T X {
+            get => Values[0];
+            set => Values[0] = value;
+        }
+
+        public T Y
+        {
+            get => Values[1];
+            set => Values[1] = value;
+        }
+
+        public T Z
+        {
+            get => Values[2];
+            set => Values[2] = value;
+        }
+
         /// <summary>
         /// Gets the dimensions of the vector
         /// </summary>

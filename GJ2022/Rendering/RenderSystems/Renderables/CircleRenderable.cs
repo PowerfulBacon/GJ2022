@@ -62,8 +62,8 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         /// </summary>
         private void SetPosition(Vector<float> position)
         {
-            _position[0] = position[0];
-            _position[1] = position[1];
+            _position.X = position.X;
+            _position.Y = position.Y;
             //Update position in renderer
             if (renderableBatchIndex.Count > 0)
                 (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<ICircleRenderable, CircleRenderSystem>)?.UpdateBatchData(this, 0);
@@ -74,7 +74,7 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
         /// </summary>
         private void SetLayer(float layer)
         {
-            _position[2] = layer;
+            _position.Z = layer;
             //Update position in renderer
             if (renderableBatchIndex.Count > 0)
                 (renderableBatchIndex.Keys.ElementAt(0) as RenderBatchSet<ICircleRenderable, CircleRenderSystem>)?.UpdateBatchData(this, 0);
