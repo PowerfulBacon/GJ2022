@@ -15,6 +15,8 @@ namespace GJ2022.Tests
         [TestMethod]
         public void TestDefs()
         {
+            //Reset for testing purposes
+            Log.ExceptionCount = 0;
             EntityLoader.LoadEntities();
             if (Log.ExceptionCount > 0)
                 Assert.Fail();
