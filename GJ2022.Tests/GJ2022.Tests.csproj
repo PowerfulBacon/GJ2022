@@ -168,6 +168,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>TestSettings.testsettings</DependentUpon>
     </Compile>
+    <Compile Include="RegionTests.cs" />
     <Compile Include="RendererTests\RenderBatchTests\TestRenderBatches.cs" />
     <Compile Include="RendererTests\ShaderTests\ShaderTests.cs" />
     <Compile Include="RendererTests\TextureTests\TestJsonTexture.cs" />
