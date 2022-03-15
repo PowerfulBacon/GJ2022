@@ -32,6 +32,17 @@ namespace GJ2022.Game.GameWorld.Regions
         public PositionBasedBinaryList<Region> regions = new PositionBasedBinaryList<Region>();
 
         /// <summary>
+        /// Contains a list that uses the index as the depth of the region and holds a position based binary list that holds the regions containers
+        /// stored at that location.
+        /// Example:
+        /// [0] = {(0, 0), (1, 0), (0, 1), (1, 1)}
+        /// [1] = {(0, 0)}
+        /// Where the coordinates represent keys of the position based binary list.
+        /// The associated value would be a list of regions within that section of the world.
+        /// </summary>
+        public List<PositionBasedBinaryList<RegionContainer>> regionContainersByPosition = new List<PositionBasedBinaryList<RegionContainer>>();
+
+        /// <summary>
         /// Generates the region that contains the provided X,Y world coordinates.
         /// </summary>
         public void GenerateWorldSection(int x, int y)
@@ -45,7 +56,18 @@ namespace GJ2022.Game.GameWorld.Regions
             if (regions.Get(regionX, regionY) != null)
                 return;
             //The region doesn't exist, so we need to generate one
-            //TODO
+            
+        }
+
+        /// <summary>
+        /// Returns the level at which 2 nodes would in theory have a shared parent.
+        /// </summary>
+        /// <param name="region">The first region</param>
+        /// <param name="sibling">The second region</param>
+        /// <returns>An integer value representing the theoretical level that 2 regions would have a shared parent on. If 2 nodes are siblings, 1 is returned. If the nodes are the same 0 is returned.</returns>
+        private int GetSharedParentLevel(Region region, Region sibling)
+        {
+            throw new NotImplementedException();
         }
 
     }

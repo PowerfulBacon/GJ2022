@@ -9,7 +9,5 @@ namespace GJ2022.Game.GameWorld.Regions
     public class RegionContainer
     {
 
-
-
     }
 }

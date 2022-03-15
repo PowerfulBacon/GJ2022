@@ -19,7 +19,7 @@ namespace GJ2022.Game.GameWorld.Regions
     /// =========
     ///  - For each point within a region, there must exist a valid path between those 2 points without leaving that region
     ///  - A region shares at least 1 superparent with any region that can be accessed by it.
-    ///  - At least 2 regions exist for each parent region. A region will never be an own child.
+    ///  - Regions can be only children as long as they have a parent up high enough that has 2 children.
     ///  
     /// Region Properties:
     /// =========
@@ -27,7 +27,12 @@ namespace GJ2022.Game.GameWorld.Regions
     ///  
     /// Region Functionality:
     /// =========
-    ///  - 
+    /// When a new region is created we need to create parent regions if neccessary.
+    /// To do this, we need to locate any regions that we are attached to directly.
+    /// We then need to calculate the level of our shared parent.
+    /// We then traverse up both trees until we hit the top level, or the level of the shared parent.
+    /// We then create parents where necessary until we hit the shared parent.
+    /// Both nodes should now have the same superparent
     /// </summary>
     public class Region
     {
@@ -38,6 +43,14 @@ namespace GJ2022.Game.GameWorld.Regions
         //The region height (How many parent's up are we)
         //A height of 0 indicates that this region is the parent of actual world positions.
         public int Height { get; }
+
+        //The X position of the region
+        //The world coordinated of the left divided by the primary level size
+        public int X { get; }
+
+        //The Y position of the region
+        //The world coordinated of the bottom divided by the primary level size
+        public int Y { get; }
 
         /// <summary>
         /// Instantiate an instance of region based on a parent instance.

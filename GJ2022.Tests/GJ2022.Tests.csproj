@@ -173,6 +173,7 @@
     <Compile Include="RendererTests\ShaderTests\ShaderTests.cs" />
     <Compile Include="RendererTests\TextureTests\TestJsonTexture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuperTest.cs" />
     <Compile Include="UtilityTests\ColourTests\TestColours.cs" />
     <Compile Include="UtilityTests\MatrixTests\GeneralMatrixTests.cs" />
     <Compile Include="UtilityTests\MatrixTests\IdentityMatrixTests.cs" />
