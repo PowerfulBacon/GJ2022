@@ -137,7 +137,7 @@ namespace GJ2022.Tests
             {
                 return logx;
             }
-            //Bottom Right
+            //Bottom Right, translate so that we aren't the top right anymore
             else
             {
                 return GetResult(x - powx, y - powy);
