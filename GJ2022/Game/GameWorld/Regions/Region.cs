@@ -6,6 +6,29 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Game.GameWorld.Regions
 {
+    /// <summary>
+    /// Region system:
+    /// ========
+    /// 
+    /// A region determines a section of the world in which all points are accessible to each other.
+    /// 
+    /// The world will be broken down into 8x8 chunks and each one designated regions.
+    /// If there is non passable turfs within any of the 8x8 chunks that split the region into pieces, then many regions can be generated for 1 of these.
+    /// 
+    /// Region Rules:
+    /// =========
+    ///  - For each point within a region, there must exist a valid path between those 2 points without leaving that region
+    ///  - A region shares at least 1 superparent with any region that can be accessed by it.
+    ///  - At least 2 regions exist for each parent region. A region will never be an own child.
+    ///  
+    /// Region Properties:
+    /// =========
+    ///  - Checking if a valid path exists between 2 points can be done by getting the regions of the 2 points and seeing if they have a shared super-parent.
+    ///  
+    /// Region Functionality:
+    /// =========
+    ///  - 
+    /// </summary>
     public class Region
     {
 
