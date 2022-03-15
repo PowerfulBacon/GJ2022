@@ -115,6 +115,8 @@ namespace GJ2022.Tests
         /// <summary>
         /// Recursive algorithm to calculate the parent level of regions.
         /// Recursion depth should never pass 1 in theory, however hits 2 for (1,0) and (0,1)
+        /// 
+        /// I am sure there is a way to mathematically optimise this but I am not sure how
         /// </summary>
         private int GetResult(int x, int y)
         {
