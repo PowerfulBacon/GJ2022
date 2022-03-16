@@ -37,8 +37,12 @@ namespace GJ2022.Game.GameWorld.Regions
     public class Region
     {
 
+        private static int count = 0;
+
+        public int Id { get; } = count++;
+
         //The parent region
-        public Region Parent { get; private set; }
+        public Region Parent { get; set; }
 
         //The region height (How many parent's up are we)
         //A height of 0 indicates that this region is the parent of actual world positions.
@@ -51,6 +55,13 @@ namespace GJ2022.Game.GameWorld.Regions
         //The Y position of the region
         //The world coordinated of the bottom divided by the primary level size
         public int Y { get; }
+
+        public Region(int x, int y, int height = 0)
+        {
+            X = x;
+            Y = y;
+            Height = height;
+        }
 
         /// <summary>
         /// Instantiate an instance of region based on a parent instance.

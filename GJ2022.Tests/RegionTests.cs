@@ -13,9 +13,25 @@ namespace GJ2022.Tests
     {
 
         [TestMethod]
-        public void TestRegionConnectivity()
+        public void TestRegionWorldSection()
         {
-            
+            WorldRegionList wrl = new WorldRegionList();
+            //Test pathing within a region
+            wrl.GenerateWorldSection(0, 0);
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(7, 7)), "Failed to locate valid path within own region");
+            //Test pathing to an adjacent region
+            wrl.GenerateWorldSection(8, 0);
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(8, 0)), "Failed to locate valid path within adjacent region");
+            //Test invalid pathing
+            wrl.GenerateWorldSection(24, 0);
+            Assert.IsFalse(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(24, 0)), "Failed to identify that a path shouldn't exist between 2 non-connected regions");
+            //Test connection
+            wrl.GenerateWorldSection(16, 0);
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(24, 0)), "Failed to identify completed path between a line of 4 regions");
+            //Test 2 dimension functionality
+            wrl.GenerateWorldSection(24, 16);
+            wrl.GenerateWorldSection(24, 8);
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(24, 16)), "Failed to identify completed path in a 2D grid");
         }
 
         [TestMethod]
@@ -109,9 +125,10 @@ namespace GJ2022.Tests
 
             foreach ((int, int, int) testValue in testValues)
             {
-                if (wrl.GetSharedParentLevel(testValue.Item1, testValue.Item2) != testValue.Item3)
+                int result = wrl.GetSharedParentLevel(testValue.Item1, testValue.Item2);
+                if (result != testValue.Item3)
                 {
-                    Log.WriteLine($"Fail: ({testValue.Item1}, {testValue.Item2}): Expected: {testValue.Item3} Actual: {GetResult(testValue.Item1, testValue.Item2)}");
+                    Log.WriteLine($"Fail: ({testValue.Item1}, {testValue.Item2}): Expected: {testValue.Item3} Actual: {result}");
                     failed = true;
                 }
             }
