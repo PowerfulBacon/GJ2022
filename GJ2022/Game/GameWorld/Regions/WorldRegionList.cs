@@ -1,4 +1,6 @@
-﻿using GJ2022.Utility.MathConstructs;
+﻿//#define REGION_LOGGING
+
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +62,9 @@ namespace GJ2022.Game.GameWorld.Regions
             //since we don't want region (x, y), (-x, y), (x, -y), (-x, -y) to all be assigned to region (0, 0)
             int regionX = (int)Math.Floor((float)x / REGION_PRIMARY_LEVEL_SIZE);
             int regionY = (int)Math.Floor((float)y / REGION_PRIMARY_LEVEL_SIZE);
+#if REGION_LOGGING
             Log.WriteLine($"Generating region ({regionX}, {regionY})");
+#endif
             //Check if the region exists already
             if (regions.Get(x, y) != null)
                 return;
@@ -82,10 +86,11 @@ namespace GJ2022.Game.GameWorld.Regions
                         continue;
                     //Create a new region and flood fill outwards
                     Region createdRegion = new Region(regionX, regionY);
+#if REGION_LOGGING
                     Log.WriteLine($"Created new region {createdRegion.Id} at ({regionX}, {regionY})");
+#endif
                     //Have the position join this region
                     regions.Add(realX, realY, createdRegion);
-                    Log.WriteLine($"({realX}, {realY}) joined region {createdRegion.Id}");
                     //During this process, get the adjacent regions so we can match up parents
                     List<Region> adjacentRegions = new List<Region>();
                     //Processing queue
@@ -108,7 +113,6 @@ namespace GJ2022.Game.GameWorld.Regions
                             continue;
                         //Join the region
                         regions.Add(worldPosition.X, worldPosition.Y, createdRegion);
-                        Log.WriteLine($"({worldPosition.X}, {worldPosition.Y}) joined region {createdRegion.Id}");
                         //Check if we have any adjacent regions
                         Region adjacent;
                         //Add adjacent nodes (Assuming they are within bounds)
@@ -133,10 +137,14 @@ namespace GJ2022.Game.GameWorld.Regions
                     //We now need to calculate parent regions with all adjacent regions
                     foreach (Region adjacentRegion in adjacentRegions)
                     {
+#if REGION_LOGGING
                         Log.WriteLine($"Joining region {createdRegion.Id} to {adjacentRegion.Id}");
+#endif
                         //The level of the shared parent
                         int sharedParentLevel = GetSharedParentLevel(createdRegion, adjacentRegion);
+#if REGION_LOGGING
                         Log.WriteLine($"Shared parent level: {sharedParentLevel}");
+#endif
                         //Since these regions are adjacent, they should share a parent at the shared parent level.
                         //Get pointers for the current region
                         Region leftParent = createdRegion;
@@ -155,8 +163,10 @@ namespace GJ2022.Game.GameWorld.Regions
                                     createdRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
                                     createdRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
                                     level);
+#if REGION_LOGGING
                                 Log.WriteLine($"Created new parent node for {leftParent.Id}, parent node {leftParent.Parent.Id} at depth {level}");
                                 Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
+#endif
                             }
                             if (rightParent.Parent == null)
                             {
@@ -164,8 +174,12 @@ namespace GJ2022.Game.GameWorld.Regions
                                     adjacentRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
                                     adjacentRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
                                     level);
+#if REGION_LOGGING
                                 Log.WriteLine($"Created new parent node for {rightParent.Id}, parent node {rightParent.Parent.Id} at depth {level}");
-                                Log.WriteLine($"Joined {rightParent.Id} --> {rightParent.Parent.Id}");
+                                Log.WriteLine($"Joined {rightParent.Id} --> {rightParent.Parent.Id}"); t depth { level}
+                                ");
+                                Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
+#endif
                             }
                             //Get the left and right parent
                             leftParent = leftParent.Parent;
@@ -177,7 +191,9 @@ namespace GJ2022.Game.GameWorld.Regions
                         if (rightParent.Parent != null)
                         {
                             leftParent.Parent = rightParent.Parent;
+#if REGION_LOGGING
                             Log.WriteLine($"Joined {leftParent.Id} --> {rightParent.Parent.Id}");
+#endif
                         }
                         else
                         {
@@ -187,11 +203,15 @@ namespace GJ2022.Game.GameWorld.Regions
                                     createdRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, sharedParentLevel),
                                     createdRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, sharedParentLevel),
                                     sharedParentLevel);
+#if REGION_LOGGING
                                 Log.WriteLine($"Created new parent node {leftParent.Parent.Id} at depth {sharedParentLevel}");
                                 Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
+#endif
                             }
                             rightParent.Parent = leftParent.Parent;
+#if REGION_LOGGING
                             Log.WriteLine($"Joined {rightParent.Id} --> {leftParent.Parent.Id}");
+#endif
                         }
                     }
                 }
