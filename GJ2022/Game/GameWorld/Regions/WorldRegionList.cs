@@ -33,24 +33,7 @@ namespace GJ2022.Game.GameWorld.Regions
         /// </summary>
         public PositionBasedBinaryList<Region> regions = new PositionBasedBinaryList<Region>();
 
-        /// <summary>
-        /// Contains a list that uses the index as the depth of the region and holds a position based binary list that holds the regions containers
-        /// stored at that location.
-        /// Example:
-        /// [0] = {(0, 0), (1, 0), (0, 1), (1, 1)}
-        /// [1] = {(0, 0)}
-        /// Where the coordinates represent keys of the position based binary list.
-        /// The associated value would be a list of regions within that section of the world.
-        /// </summary>
-        public List<PositionBasedBinaryList<RegionContainer>> regionContainersByPosition = new List<PositionBasedBinaryList<RegionContainer>>();
-
-        /// <summary>
-        /// Print the world region list
-        /// </summary>
-        public void Print()
-        {
-            Log.WriteLine(regions, LogType.DEBUG);
-        }
+        
 
         /// <summary>
         /// Generates the region that contains the provided X,Y world coordinates.
