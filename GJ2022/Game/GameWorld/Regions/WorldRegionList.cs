@@ -1,4 +1,4 @@
-﻿//#define REGION_LOGGING
+﻿#define REGION_LOGGING
 
 using GJ2022.Utility.MathConstructs;
 using System;
@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Game.GameWorld.Regions
 {
+    /// <summary>
+    /// Pretty complicated way of splitting the world into a region based tree
+    /// structure so that impossible path finding can be avoided, saving us from attempting
+    /// to calculate paths where there is none, resulting in every world tile needing to
+    /// be examined.
+    /// </summary>
     public class WorldRegionList
     {
 
@@ -45,101 +51,214 @@ namespace GJ2022.Game.GameWorld.Regions
             Region affectedRegion = regions.Get(x, y);
             regions.Remove(x, y);
             //Calculate if we need to take any action at all
+            Log.WriteLine("Checking...");
             if (!NodeSolidRequiresUpdate(affectedRegion, x, y))
                 return;
-            //Calculate the region's current adjacencies O(REGION_PRIMARY_LEVEL_SIZE)
-            //An update is required, subdivide the region
-
+            Log.WriteLine("Requires update!");
+            //Calculate the span of the subdivided region
+            //(Note that it is possible to subdivide into multiple regions at once (4 regions at max))
+            List<Region> createdRegions = new List<Region>();
+            List<Region> adjacentRegions = new List<Region>();
+            //Calculate required values
+            //Calculate region X and Y
+            int regionX = (int)Math.Floor((float)x / REGION_PRIMARY_LEVEL_SIZE);
+            int regionY = (int)Math.Floor((float)y / REGION_PRIMARY_LEVEL_SIZE);
+            //Calcualte relative X and Y
+            int relX = x - regionX * REGION_PRIMARY_LEVEL_SIZE;
+            int relY = y - regionY * REGION_PRIMARY_LEVEL_SIZE;
+            //Check each adjacent tile to the changed node
+            //Check if that tile is part of one of the regions we created already
+            //If not, create a new region at that location
+            if (relX < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(x + 1, y))
+            {
+                createdRegions.Add(FloodFillCreateRegion(x + 1, y, ref adjacentRegions));
+            }
+            if (relX > 0 && !World.Current.IsSolid(x - 1, y) && !createdRegions.Contains(regions.Get(x - 1, y)))
+            {
+                createdRegions.Add(FloodFillCreateRegion(x - 1, y, ref adjacentRegions));
+            }
+            if (relY < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(x, y + 1) && !createdRegions.Contains(regions.Get(x, y + 1)))
+            {
+                createdRegions.Add(FloodFillCreateRegion(x, y + 1, ref adjacentRegions));
+            }
+            if (relY > 0 && !World.Current.IsSolid(x, y - 1) && !createdRegions.Contains(regions.Get(x, y - 1)))
+            {
+                createdRegions.Add(FloodFillCreateRegion(x, y - 1, ref adjacentRegions));
+            }
+            //Recalculate adjacencies
+            foreach (Region r in createdRegions)
+            {
+                Log.WriteLine($"Created region {r.Id}");
+            }
+            foreach (Region r in adjacentRegions)
+            {
+                Log.WriteLine($"Adjacent to {r.Id}");
+            }
         }
 
         /// <summary>
-        /// Returns true if the position at X, Y will cause a region to
-        /// be subdivided.
-        /// General Theory:
-        /// If we have only 1 open side return false.
-        /// If we have more than 1 open side, choose any side.
-        /// Flood fill that side outwards applying a unique ID to all nodes that are flood filled.
-        /// Once completed, go to the original node and ensure that all adjacent nodes have the same ID from what we
-        /// flood filled.
-        /// If any open adjacent nodes didn't get tagged by the flood fill, it means our region has
-        /// been subdivided.
-        /// O(REGION_PRIMARY_LEVEL_SIZE^2)
+        /// Creates a region at {x, y} and flood fills the region outwards,
+        /// generating parents and adjacent regions where necessary.
         /// </summary>
-        public bool NodeSolidRequiresUpdate(Region actingRegion, int x, int y)
+        /// <param name="x">The X world coordinate of where to create the new region</param>
+        /// <param name="y">The Y world coordinate of where to create the new region</param>
+        /// <returns>The created region</returns>
+        private Region FloodFillCreateRegion(int x, int y, ref List<Region> adjacentRegions)
         {
-            //Get the relative X and Y with a safe mod operation
-            int relX = ((x % REGION_PRIMARY_LEVEL_SIZE) + REGION_PRIMARY_LEVEL_SIZE) % REGION_PRIMARY_LEVEL_SIZE;
-            int relY = ((y % REGION_PRIMARY_LEVEL_SIZE) + REGION_PRIMARY_LEVEL_SIZE) % REGION_PRIMARY_LEVEL_SIZE;
-            //Flood fill all nodes in the region and see if we can reconnect with ourselfs
-            //Flood fill with IDs, giving unique values to north, south, east and west
-            bool[,] floodFilledIds = new bool[REGION_PRIMARY_LEVEL_SIZE, REGION_PRIMARY_LEVEL_SIZE];
-            floodFilledIds[relX, relY] = true;
-            Queue<Vector<int>> updateQueue = new Queue<Vector<int>>();
-            //Locate an adjacent, open node.
-            //Insert the first node
-            if (relX < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX + 1, relY))
+            bool[,] nullRegion = null;
+            return FloodFillCreateRegion(x, y, ref nullRegion, ref adjacentRegions);
+        }
+
+        /// <summary>
+        /// Creates a region at {x, y} and flood fills the region outwards,
+        /// generating parents and adjacent regions where necessary.
+        /// </summary>
+        /// <param name="x">The X world coordinate of where to create the new region</param>
+        /// <param name="y">The Y world coordinate of where to create the new region</param>
+        /// <param name="processedNodes">A 2D array that will be set to indicate which nodes have been processed.</param>
+        /// <param name="adjacentRegions">A list of the regions adjacent to the created Region</param>
+        /// <returns>The created region</returns>
+        private Region FloodFillCreateRegion(int x, int y, ref bool[,] processedNodes, ref List<Region> adjacentRegions)
+        {
+            if (processedNodes == null)
+                processedNodes = new bool[REGION_PRIMARY_LEVEL_SIZE, REGION_PRIMARY_LEVEL_SIZE];
+            //Calculate region X and Y
+            int regionX = (int)Math.Floor((float)x / REGION_PRIMARY_LEVEL_SIZE);
+            int regionY = (int)Math.Floor((float)y / REGION_PRIMARY_LEVEL_SIZE);
+            //Calcualte relative X and Y
+            int relX = x - regionX * REGION_PRIMARY_LEVEL_SIZE;
+            int relY = y - regionY * REGION_PRIMARY_LEVEL_SIZE;
+            //Create a new region and flood fill outwards
+            Region createdRegion = new Region(regionX, regionY);
+#if REGION_LOGGING
+            Log.WriteLine($"Created new region {createdRegion.Id} at ({regionX}, {regionY})");
+#endif
+            //Have the position join this region
+            regions.Add(x, y, createdRegion);
+            //During this process, get the adjacent regions so we can match up parents
+            if(adjacentRegions == null)
+                adjacentRegions = new List<Region>();
+            //Processing queue
+            Queue<Vector<int>> toProcess = new Queue<Vector<int>>();
+            toProcess.Enqueue(new Vector<int>(relX, relY));
+            //While we still have places to floor fill
+            while (toProcess.Count > 0)
             {
-                updateQueue.Enqueue(new Vector<int>(relX + 1, relY));
+                //Dequeue
+                Vector<int> relativePosition = toProcess.Dequeue();
+                //If current node is already processed, skip
+                if (processedNodes[relativePosition.X, relativePosition.Y])
+                    continue;
+                //Calculate the world position of the current node
+                Vector<int> worldPosition = new Vector<int>(regionX * REGION_PRIMARY_LEVEL_SIZE, regionY * REGION_PRIMARY_LEVEL_SIZE) + relativePosition;
+                //Set node processed
+                processedNodes[relativePosition.X, relativePosition.Y] = true;
+                //If current node is a wall, skip
+                if (World.Current.IsSolid(worldPosition.X, worldPosition.Y))
+                    continue;
+                //Join the region
+                regions.Add(worldPosition.X, worldPosition.Y, createdRegion);
+                //Check if we have any adjacent regions
+                Region adjacent;
+                //Add adjacent nodes (Assuming they are within bounds)
+                if (relativePosition.X < REGION_PRIMARY_LEVEL_SIZE - 1)
+                    toProcess.Enqueue(new Vector<int>(relativePosition.X + 1, relativePosition.Y));
+                else if ((adjacent = regions.Get(worldPosition.X + 1, worldPosition.Y)) != null && !adjacentRegions.Contains(adjacent))
+                    adjacentRegions.Add(adjacent);
+                if (relativePosition.X > 0)
+                    toProcess.Enqueue(new Vector<int>(relativePosition.X - 1, relativePosition.Y));
+                else if ((adjacent = regions.Get(worldPosition.X - 1, worldPosition.Y)) != null && !adjacentRegions.Contains(adjacent))
+                    adjacentRegions.Add(adjacent);
+                if (relativePosition.Y < REGION_PRIMARY_LEVEL_SIZE - 1)
+                    toProcess.Enqueue(new Vector<int>(relativePosition.X, relativePosition.Y + 1));
+                else if ((adjacent = regions.Get(worldPosition.X, worldPosition.Y + 1)) != null && !adjacentRegions.Contains(adjacent))
+                    adjacentRegions.Add(adjacent);
+                if (relativePosition.Y > 0)
+                    toProcess.Enqueue(new Vector<int>(relativePosition.X, relativePosition.Y - 1));
+                else if ((adjacent = regions.Get(worldPosition.X, worldPosition.Y - 1)) != null && !adjacentRegions.Contains(adjacent))
+                    adjacentRegions.Add(adjacent);
             }
-            else if (relX > 0 && !World.Current.IsSolid(relX - 1, relY))
+            //Now we have assigned all tiles within our region to be associated to this region
+            //We now need to calculate parent regions with all adjacent regions
+            foreach (Region adjacentRegion in adjacentRegions)
             {
-                updateQueue.Enqueue(new Vector<int>(relX - 1, relY));
-            }
-            else if (relY < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX, relY + 1))
-            {
-                updateQueue.Enqueue(new Vector<int>(relX, relY + 1));
-            }
-            else if (relY > 0 && !World.Current.IsSolid(relX, relY - 1))
-            {
-                updateQueue.Enqueue(new Vector<int>(relX, relY - 1));
-            }
-            else
-            {
-                //We have no non-solid adjacent nodes, so we do not need to make an update
-                return false;
-            }
-            //Perform the flood fill operation
-            while (updateQueue.Count > 0)
-            {
-                Vector<int> current = updateQueue.Dequeue();
-                //Mark the current node
-                floodFilledIds[current.X, current.Y] = true;
-                //Add adjacent, non-solid, unmarked nodes
-                if (current.X < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(current.X + 1, current.Y) && !floodFilledIds[current.X + 1, current.Y])
+#if REGION_LOGGING
+                Log.WriteLine($"Joining region {createdRegion.Id} to {adjacentRegion.Id}");
+#endif
+                //The level of the shared parent
+                int sharedParentLevel = GetSharedParentLevel(createdRegion, adjacentRegion);
+#if REGION_LOGGING
+                Log.WriteLine($"Shared parent level: {sharedParentLevel}");
+#endif
+                //Since these regions are adjacent, they should share a parent at the shared parent level.
+                //Get pointers for the current region
+                Region leftParent = createdRegion;
+                Region rightParent = adjacentRegion;
+                //Iterate upwards, creating parent regions where none exist
+                for (int level = 1; level <= sharedParentLevel - 1; level++)
                 {
-                    updateQueue.Enqueue(new Vector<int>(current.X + 1, current.Y));
+                    //Create the parent if either are null
+                    if (leftParent.Parent == null)
+                    {
+                        //Parent position is the integer division result of any
+                        //child position divided by the region child size
+                        //We can work this out by doing integer division with the position of
+                        //The top level child and region children size ^ depth
+                        leftParent.Parent = new Region(
+                            createdRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
+                            createdRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
+                            level);
+#if REGION_LOGGING
+                        Log.WriteLine($"Created new parent node for {leftParent.Id}, parent node {leftParent.Parent.Id} at depth {level}");
+                        Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
+#endif
+                    }
+                    if (rightParent.Parent == null)
+                    {
+                        rightParent.Parent = new Region(
+                            adjacentRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
+                            adjacentRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
+                            level);
+#if REGION_LOGGING
+                        Log.WriteLine($"Created new parent node for {rightParent.Id}, parent node {rightParent.Parent.Id} at depth {level}");
+                        Log.WriteLine($"Joined {rightParent.Id} --> {rightParent.Parent.Id}");
+                        Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
+#endif
+                    }
+                    //Get the left and right parent
+                    leftParent = leftParent.Parent;
+                    rightParent = rightParent.Parent;
                 }
-                if (current.X > 0 && !World.Current.IsSolid(current.X - 1, current.Y) && !floodFilledIds[current.X - 1, current.Y])
+                //Now we are at a shared parent level, check if anything exists
+                //If so, then attach both to the shared parent
+                //If not, then create a new shared parent and attach both to it
+                if (rightParent.Parent != null)
                 {
-                    updateQueue.Enqueue(new Vector<int>(current.X - 1, current.Y));
+                    leftParent.Parent = rightParent.Parent;
+#if REGION_LOGGING
+                    Log.WriteLine($"Joined {leftParent.Id} --> {rightParent.Parent.Id}");
+#endif
                 }
-                if (current.Y < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(current.X, current.Y + 1) && !floodFilledIds[current.X, current.Y + 1])
+                else
                 {
-                    updateQueue.Enqueue(new Vector<int>(current.X, current.Y + 1));
+                    if (leftParent.Parent == null)
+                    {
+                        leftParent.Parent = new Region(
+                            createdRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, sharedParentLevel),
+                            createdRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, sharedParentLevel),
+                            sharedParentLevel);
+#if REGION_LOGGING
+                        Log.WriteLine($"Created new parent node {leftParent.Parent.Id} at depth {sharedParentLevel}");
+                        Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
+#endif
+                    }
+                    rightParent.Parent = leftParent.Parent;
+#if REGION_LOGGING
+                    Log.WriteLine($"Joined {rightParent.Id} --> {leftParent.Parent.Id}");
+#endif
                 }
-                if (current.Y > 0 && !World.Current.IsSolid(current.X, current.Y - 1) && !floodFilledIds[current.X, current.Y - 1])
-                {
-                    updateQueue.Enqueue(new Vector<int>(current.X, current.Y - 1));
-                }
             }
-            //Require an update if all adjacent, non-solid nodes are not marked
-            if (relX < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX + 1, relY) && !floodFilledIds[relX + 1, relY])
-            {
-                return true;
-            }
-            else if (relX > 0 && !World.Current.IsSolid(relX - 1, relY) && !floodFilledIds[relX - 1, relY])
-            {
-                return true;
-            }
-            else if (relY < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX, relY + 1) && !floodFilledIds[relX, relY + 1])
-            {
-                return true;
-            }
-            else if (relY > 0 && !World.Current.IsSolid(relX, relY - 1) && !floodFilledIds[relX, relY - 1])
-            {
-                return true;
-            }
-            return false;
+            return createdRegion;
         }
 
         /// <summary>
@@ -174,138 +293,105 @@ namespace GJ2022.Game.GameWorld.Regions
                     //This position is solid, ignore (We don't need to update processedNodes, since we will never again access it)
                     if (World.Current.IsSolid(realX, realY))
                         continue;
-                    //Create a new region and flood fill outwards
-                    Region createdRegion = new Region(regionX, regionY);
-#if REGION_LOGGING
-                    Log.WriteLine($"Created new region {createdRegion.Id} at ({regionX}, {regionY})");
-#endif
-                    //Have the position join this region
-                    regions.Add(realX, realY, createdRegion);
-                    //During this process, get the adjacent regions so we can match up parents
-                    List<Region> adjacentRegions = new List<Region>();
-                    //Processing queue
-                    Queue<Vector<int>> toProcess = new Queue<Vector<int>>();
-                    toProcess.Enqueue(new Vector<int>(nodeX, nodeY));
-                    //While we still have places to floor fill
-                    while (toProcess.Count > 0)
-                    {
-                        //Dequeue
-                        Vector<int> relativePosition = toProcess.Dequeue();
-                        //If current node is already processed, skip
-                        if (processedNodes[relativePosition.X, relativePosition.Y])
-                            continue;
-                        //Calculate the world position of the current node
-                        Vector<int> worldPosition = new Vector<int>(regionX * REGION_PRIMARY_LEVEL_SIZE, regionY * REGION_PRIMARY_LEVEL_SIZE) + relativePosition;
-                        //Set node processed
-                        processedNodes[relativePosition.X, relativePosition.Y] = true;
-                        //If current node is a wall, skip
-                        if (World.Current.IsSolid(worldPosition.X, worldPosition.Y))
-                            continue;
-                        //Join the region
-                        regions.Add(worldPosition.X, worldPosition.Y, createdRegion);
-                        //Check if we have any adjacent regions
-                        Region adjacent;
-                        //Add adjacent nodes (Assuming they are within bounds)
-                        if (relativePosition.X < REGION_PRIMARY_LEVEL_SIZE - 1)
-                            toProcess.Enqueue(new Vector<int>(relativePosition.X + 1, relativePosition.Y));
-                        else if ((adjacent = regions.Get(worldPosition.X + 1, worldPosition.Y)) != null && !adjacentRegions.Contains(adjacent))
-                            adjacentRegions.Add(adjacent);
-                        if (relativePosition.X > 0)
-                            toProcess.Enqueue(new Vector<int>(relativePosition.X - 1, relativePosition.Y));
-                        else if ((adjacent = regions.Get(worldPosition.X - 1, worldPosition.Y)) != null && !adjacentRegions.Contains(adjacent))
-                            adjacentRegions.Add(adjacent);
-                        if (relativePosition.Y < REGION_PRIMARY_LEVEL_SIZE - 1)
-                            toProcess.Enqueue(new Vector<int>(relativePosition.X, relativePosition.Y + 1));
-                        else if ((adjacent = regions.Get(worldPosition.X, worldPosition.Y + 1)) != null && !adjacentRegions.Contains(adjacent))
-                            adjacentRegions.Add(adjacent);
-                        if (relativePosition.Y > 0)
-                            toProcess.Enqueue(new Vector<int>(relativePosition.X, relativePosition.Y - 1));
-                        else if ((adjacent = regions.Get(worldPosition.X, worldPosition.Y - 1)) != null && !adjacentRegions.Contains(adjacent))
-                            adjacentRegions.Add(adjacent);
-                    }
-                    //Now we have assigned all tiles within our region to be associated to this region
-                    //We now need to calculate parent regions with all adjacent regions
-                    foreach (Region adjacentRegion in adjacentRegions)
-                    {
-#if REGION_LOGGING
-                        Log.WriteLine($"Joining region {createdRegion.Id} to {adjacentRegion.Id}");
-#endif
-                        //The level of the shared parent
-                        int sharedParentLevel = GetSharedParentLevel(createdRegion, adjacentRegion);
-#if REGION_LOGGING
-                        Log.WriteLine($"Shared parent level: {sharedParentLevel}");
-#endif
-                        //Since these regions are adjacent, they should share a parent at the shared parent level.
-                        //Get pointers for the current region
-                        Region leftParent = createdRegion;
-                        Region rightParent = adjacentRegion;
-                        //Iterate upwards, creating parent regions where none exist
-                        for (int level = 1; level <= sharedParentLevel - 1; level++)
-                        {
-                            //Create the parent if either are null
-                            if (leftParent.Parent == null)
-                            {
-                                //Parent position is the integer division result of any
-                                //child position divided by the region child size
-                                //We can work this out by doing integer division with the position of
-                                //The top level child and region children size ^ depth
-                                leftParent.Parent = new Region(
-                                    createdRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
-                                    createdRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
-                                    level);
-#if REGION_LOGGING
-                                Log.WriteLine($"Created new parent node for {leftParent.Id}, parent node {leftParent.Parent.Id} at depth {level}");
-                                Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
-#endif
-                            }
-                            if (rightParent.Parent == null)
-                            {
-                                rightParent.Parent = new Region(
-                                    adjacentRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
-                                    adjacentRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, level),
-                                    level);
-#if REGION_LOGGING
-                                Log.WriteLine($"Created new parent node for {rightParent.Id}, parent node {rightParent.Parent.Id} at depth {level}");
-                                Log.WriteLine($"Joined {rightParent.Id} --> {rightParent.Parent.Id}"); t depth { level}
-                                ");
-                                Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
-#endif
-                            }
-                            //Get the left and right parent
-                            leftParent = leftParent.Parent;
-                            rightParent = rightParent.Parent;
-                        }
-                        //Now we are at a shared parent level, check if anything exists
-                        //If so, then attach both to the shared parent
-                        //If not, then create a new shared parent and attach both to it
-                        if (rightParent.Parent != null)
-                        {
-                            leftParent.Parent = rightParent.Parent;
-#if REGION_LOGGING
-                            Log.WriteLine($"Joined {leftParent.Id} --> {rightParent.Parent.Id}");
-#endif
-                        }
-                        else
-                        {
-                            if (leftParent.Parent == null)
-                            {
-                                leftParent.Parent = new Region(
-                                    createdRegion.X / (int)Math.Pow(REGION_CHILDREN_SIZE, sharedParentLevel),
-                                    createdRegion.Y / (int)Math.Pow(REGION_CHILDREN_SIZE, sharedParentLevel),
-                                    sharedParentLevel);
-#if REGION_LOGGING
-                                Log.WriteLine($"Created new parent node {leftParent.Parent.Id} at depth {sharedParentLevel}");
-                                Log.WriteLine($"Joined {leftParent.Id} --> {leftParent.Parent.Id}");
-#endif
-                            }
-                            rightParent.Parent = leftParent.Parent;
-#if REGION_LOGGING
-                            Log.WriteLine($"Joined {rightParent.Id} --> {leftParent.Parent.Id}");
-#endif
-                        }
-                    }
+                    List<Region> adjacentRegions = null;
+                    FloodFillCreateRegion(realX, realY, ref processedNodes, ref adjacentRegions);
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns true if the position at X, Y will cause a region to
+        /// be subdivided.
+        /// General Theory:
+        /// If we have only 1 open side return false.
+        /// If we have more than 1 open side, choose any side.
+        /// Flood fill that side outwards applying a unique ID to all nodes that are flood filled.
+        /// Once completed, go to the original node and ensure that all adjacent nodes have the same ID from what we
+        /// flood filled.
+        /// If any open adjacent nodes didn't get tagged by the flood fill, it means our region has
+        /// been subdivided.
+        /// O(REGION_PRIMARY_LEVEL_SIZE^2)
+        /// </summary>
+        public bool NodeSolidRequiresUpdate(Region actingRegion, int x, int y)
+        {
+            //Calculate region X and Y
+            int regionX = (int)Math.Floor((float)x / REGION_PRIMARY_LEVEL_SIZE);
+            int regionY = (int)Math.Floor((float)y / REGION_PRIMARY_LEVEL_SIZE);
+            int regionOffsetX = regionX * REGION_PRIMARY_LEVEL_SIZE;
+            int regionOffsetY = regionY * REGION_PRIMARY_LEVEL_SIZE;
+            //Get the relative X and Y with a safe mod operation
+            int relX = ((x % REGION_PRIMARY_LEVEL_SIZE) + REGION_PRIMARY_LEVEL_SIZE) % REGION_PRIMARY_LEVEL_SIZE;
+            int relY = ((y % REGION_PRIMARY_LEVEL_SIZE) + REGION_PRIMARY_LEVEL_SIZE) % REGION_PRIMARY_LEVEL_SIZE;
+            //Flood fill all nodes in the region and see if we can reconnect with ourselfs
+            //Flood fill with IDs, giving unique values to north, south, east and west
+            bool[,] floodFilledIds = new bool[REGION_PRIMARY_LEVEL_SIZE, REGION_PRIMARY_LEVEL_SIZE];
+            floodFilledIds[relX, relY] = true;
+            Queue<Vector<int>> updateQueue = new Queue<Vector<int>>();
+            //Locate an adjacent, open node.
+            //Insert the first node
+            if (relX < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(x + 1, y))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX + 1, relY));
+            }
+            else if (relX > 0 && !World.Current.IsSolid(x - 1, y))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX - 1, relY));
+            }
+            else if (relY < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(x, y + 1))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX, relY + 1));
+            }
+            else if (relY > 0 && !World.Current.IsSolid(x, y - 1))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX, relY - 1));
+            }
+            else
+            {
+                //We have no non-solid adjacent nodes, so we do not need to make an update
+                return false;
+            }
+            //Perform the flood fill operation
+            while (updateQueue.Count > 0)
+            {
+                Vector<int> current = updateQueue.Dequeue();
+                //Mark the current node
+                floodFilledIds[current.X, current.Y] = true;
+                //Add adjacent, non-solid, unmarked nodes
+                if (current.X < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(regionOffsetX + current.X + 1, regionOffsetY + current.Y) && !floodFilledIds[current.X + 1, current.Y])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X + 1, current.Y));
+                }
+                if (current.X > 0 && !World.Current.IsSolid(regionOffsetX + current.X - 1, regionOffsetY + current.Y) && !floodFilledIds[current.X - 1, current.Y])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X - 1, current.Y));
+                }
+                if (current.Y < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(regionOffsetX + current.X, regionOffsetY + current.Y + 1) && !floodFilledIds[current.X, current.Y + 1])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X, current.Y + 1));
+                }
+                if (current.Y > 0 && !World.Current.IsSolid(regionOffsetX + current.X, regionOffsetY + current.Y - 1) && !floodFilledIds[current.X, current.Y - 1])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X, current.Y - 1));
+                }
+            }
+            //Require an update if all adjacent, non-solid nodes are not marked
+            if (relX < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(x + 1, y) && !floodFilledIds[relX + 1, relY])
+            {
+                return true;
+            }
+            else if (relX > 0 && !World.Current.IsSolid(x - 1, y) && !floodFilledIds[relX - 1, relY])
+            {
+                return true;
+            }
+            else if (relY < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(x, y + 1) && !floodFilledIds[relX, relY + 1])
+            {
+                return true;
+            }
+            else if (relY > 0 && !World.Current.IsSolid(x, y - 1) && !floodFilledIds[relX, relY - 1])
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

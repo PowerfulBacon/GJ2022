@@ -17,18 +17,18 @@ namespace GJ2022.Tests
         [TestMethod]
         public void TestValidPathThatGetsBlocked()
         {
-            //Reset the world
-            World.Current = new World();
-            //Generate a wall with a hole in it
+            //Generate a wall
             Turf solidTurf = new Turf();
             solidTurf.SetProperty("Solid", true);
-            World.Current.SetTurf(13, 0, solidTurf);
-            World.Current.SetTurf(13, 1, solidTurf);
-            World.Current.SetTurf(13, 2, solidTurf);
-            World.Current.SetTurf(13, 3, solidTurf);
-            World.Current.SetTurf(13, 5, solidTurf);
-            World.Current.SetTurf(13, 6, solidTurf);
-            World.Current.SetTurf(13, 7, solidTurf);
+            //Reset the world
+            World.Current = new World();
+            World.Current.SetTurf(12, 0, solidTurf);
+            World.Current.SetTurf(12, 1, solidTurf);
+            World.Current.SetTurf(12, 2, solidTurf);
+            World.Current.SetTurf(12, 3, solidTurf);
+            World.Current.SetTurf(12, 5, solidTurf);
+            World.Current.SetTurf(12, 6, solidTurf);
+            World.Current.SetTurf(12, 7, solidTurf);
             //Create a world region list
             WorldRegionList wrl = new WorldRegionList();
             wrl.GenerateWorldSection(0, 0);
@@ -40,9 +40,11 @@ namespace GJ2022.Tests
             Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(14, 5)), "There should exist a valid path from region (0, 0) to (14, 5)");
             Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(18, 5)), "There should exist a valid path from region (0, 0) to (18, 5)");
             Assert.IsTrue(wrl.regions.Get(14, 5).HasPath(wrl.regions.Get(18, 5)), "There should exist a valid path from region (14, 5) to (18, 5)");
+            //Check this
+            Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(12, 4), 12, 4));
             //Block off the wall
-            World.Current.SetTurf(13, 4, solidTurf);
-            wrl.SetNodeSolid(13, 4);
+            World.Current.SetTurf(12, 4, solidTurf);
+            wrl.SetNodeSolid(12, 4);
             Log.WriteLine("World has been divided");
             Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(5, 5)), "There should still exist a valid path from region (0, 0) to (5, 5)");
             Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(10, 5)), "There should still exist a valid path from region (0, 0) to (10, 5)");
@@ -145,6 +147,22 @@ namespace GJ2022.Tests
             Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 3, 3));
             Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 5, 4));
             Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 3, 4));
+            wrl.GenerateWorldSection(8, 0);
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(12, 4), 12, 4));
+            World.Current.SetTurf(12, 0, solidTurf);
+            World.Current.SetTurf(12, 1, solidTurf);
+            World.Current.SetTurf(12, 2, solidTurf);
+            World.Current.SetTurf(12, 3, solidTurf);
+            World.Current.SetTurf(12, 5, solidTurf);
+            World.Current.SetTurf(12, 6, solidTurf);
+            World.Current.SetTurf(12, 7, solidTurf);
+            Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(12, 4), 12, 4));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(11, 1), 11, 1));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(8, 0), 13, 5));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(8, 0), 12, 6));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(8, 0), 11, 3));
+            Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(8, 0), 13, 4));
+            Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(8, 0), 11, 4));
         }
 
         [TestMethod]
