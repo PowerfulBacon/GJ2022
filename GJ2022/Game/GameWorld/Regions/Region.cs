@@ -33,12 +33,21 @@ namespace GJ2022.Game.GameWorld.Regions
     /// We then traverse up both trees until we hit the top level, or the level of the shared parent.
     /// We then create parents where necessary until we hit the shared parent.
     /// Both nodes should now have the same superparent
+    /// 
+    /// When removing a region:
+    /// =========
+    /// Check if we have created a new region by blocking 2 nodes from each other within a region.
+    /// Create a new region if we need, setting the tiles that are in this region to be adjacent to this region
+    /// Locate the adjacent regions to the updated region
+    /// Calculate which adjacencies no longer exist but are represented in the data structure
+    /// Seperate the tree structure
     /// </summary>
     public class Region
     {
 
         private static int count = 0;
 
+        //The unique ID of this region, for debugging purposes
         public int Id { get; } = count++;
 
         //The parent region
@@ -56,6 +65,21 @@ namespace GJ2022.Game.GameWorld.Regions
         //The world coordinated of the bottom divided by the primary level size
         public int Y { get; }
 
+        //A list of adjacent regions to this region
+        //This is likely to be null for any region that isn't a primary
+        //level region.
+        //If this region isn't a primary region, then the adjacent regions is calculated
+        //by performing the union operation on the children's linked regions parents.
+        //TODO
+        public List<Region> AdjacentRegions { get; set; }
+
+        /// <summary>
+        /// Instantiates a region based on an X and Y position, setting the region's height
+        /// to the height parameter
+        /// </summary>
+        /// <param name="x">The X value of the bottom left part of region</param>
+        /// <param name="y">The Y value of the bottom left part of the region</param>
+        /// <param name="height">The height of the node in the tree data structure</param>
         public Region(int x, int y, int height = 0)
         {
             X = x;
