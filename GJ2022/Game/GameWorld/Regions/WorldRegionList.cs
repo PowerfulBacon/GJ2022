@@ -33,7 +33,15 @@ namespace GJ2022.Game.GameWorld.Regions
         /// </summary>
         public PositionBasedBinaryList<Region> regions = new PositionBasedBinaryList<Region>();
 
-        
+        /// <summary>
+        /// Update a node to no longer be solid
+        /// </summary>
+        public void SetNodeNonSolid(int x, int y)
+        {
+            //Calculate if we need to do anything at all within this region
+            //If we are now seperated from the rest of our region create
+            //a new region to represent this area and calculate adjacencies
+        }
 
         /// <summary>
         /// Generates the region that contains the provided X,Y world coordinates.
