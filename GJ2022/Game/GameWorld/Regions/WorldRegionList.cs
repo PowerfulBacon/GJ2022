@@ -33,7 +33,45 @@ namespace GJ2022.Game.GameWorld.Regions
         /// </summary>
         public PositionBasedBinaryList<Region> regions = new PositionBasedBinaryList<Region>();
 
-        
+        /// <summary>
+        /// Sets a node in the world to be solid
+        /// </summary>
+        /// <param name="x">The X position of the node to set to be solid</param>
+        /// <param name="y">The Y position of the node to set to be solid</param>
+        public void SetNodeSolid(int x, int y)
+        {
+            //Get and remove the node's region
+            Region affectedRegion = regions.Get(x, y);
+            regions.Remove(x, y);
+            //Calculate if we need to take any action at all
+            if (!NodeSolidRequiresUpdate(affectedRegion, x, y))
+                return;
+        }
+
+        /// <summary>
+        /// Returns true if the position at X, Y will cause a region to
+        /// be subdivided.
+        /// General Theory:
+        /// If we have only 1 open side return false.
+        /// If we have more than 1 open side, choose any side.
+        /// Flood fill that side outwards applying a unique ID to all nodes that are flood filled.
+        /// Once completed, go to the original node and ensure that all adjacent nodes have the same ID from what we
+        /// flood filled.
+        /// If any open adjacent nodes didn't get tagged by the flood fill, it means our region has
+        /// been subdivided.
+        /// </summary>
+        private bool NodeSolidRequiresUpdate(Region actingRegion, int x, int y)
+        {
+            //Flood fill all nodes in the region and see if we can reconnect with ourselfs
+            //Flood fill with IDs, giving unique values to north, south, east and west
+            int[,] floodFilledIds = new int[REGION_PRIMARY_LEVEL_SIZE, REGION_PRIMARY_LEVEL_SIZE];
+            Queue<Vector<int>> updateQueue = new Queue<Vector<int>>();
+            //Locate an adjacent, open node.
+            //Insert the first node
+
+            //We did not re-encounter ourselves, so we need to update
+            return true;
+        }
 
         /// <summary>
         /// Generates the region that contains the provided X,Y world coordinates.
