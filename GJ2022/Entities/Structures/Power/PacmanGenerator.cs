@@ -17,7 +17,7 @@ namespace GJ2022.Entities.Structures.Power
 
         public PacmanGenerator(Vector<float> position) : base(position, Layers.LAYER_STRUCTURE)
         {
-            World.AddPowernetInteractor((int)Position.X, (int)Position.Y, PowernetInteractor);
+            World.Current.AddPowernetInteractor((int)Position.X, (int)Position.Y, PowernetInteractor);
             PowerProcessingSystem.Singleton.StartProcessing(this);
         }
 
@@ -31,7 +31,7 @@ namespace GJ2022.Entities.Structures.Power
 
         public override bool Destroy()
         {
-            World.RemovePowernetInteractor((int)Position.X, (int)Position.Y, PowernetInteractor);
+            World.Current.RemovePowernetInteractor((int)Position.X, (int)Position.Y, PowernetInteractor);
             PowerProcessingSystem.Singleton.StopProcessing(this);
             return base.Destroy();
         }

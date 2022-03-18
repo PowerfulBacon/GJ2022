@@ -30,7 +30,7 @@ namespace GJ2022.Subsystems
         public static void QueueBlueprint(Vector<float> position, Blueprint blueprint, int layer)
         {
             //Check if the blueprint is redundant
-            if (World.GetTurf((int)position.X, (int)position.Y)?.GetType() == blueprint.BlueprintDetail.CreatedType)
+            if (World.Current.GetTurf((int)position.X, (int)position.Y)?.GetType() == blueprint.BlueprintDetail.CreatedType)
             {
                 blueprint.Destroy();
                 return;

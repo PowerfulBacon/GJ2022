@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GJ2022.Game.GameWorld.Regions
+namespace GJ2022.Game.GameWorld.Current.Regions
 {
     /// <summary>
     /// Region system:

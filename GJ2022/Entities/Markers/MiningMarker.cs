@@ -19,17 +19,17 @@ namespace GJ2022.Entities.Markers
             if (Destroyed)
                 return;
             //Register signal
-            World.GetTurf((int)Position.X, (int)Position.Y).RegisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
+            World.Current.GetTurf((int)Position.X, (int)Position.Y).RegisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, 0, DestroyMarker);
         }
 
         public override bool IsValidPosition()
         {
-            return World.GetThings("Mine", (int)Position.X, (int)Position.Y).Count > 0;
+            return World.Current.GetThings("Mine", (int)Position.X, (int)Position.Y).Count > 0;
         }
 
         public override bool Destroy()
         {
-            World.GetTurf((int)Position.X, (int)Position.Y)?.UnregisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
+            World.Current.GetTurf((int)Position.X, (int)Position.Y)?.UnregisterSignal(Signal.SIGNAL_ENTITY_DESTROYED, DestroyMarker);
             return base.Destroy();
         }
 
@@ -45,7 +45,7 @@ namespace GJ2022.Entities.Markers
         {
             new AudioSource().PlaySound($"effects/picaxe{World.Random.Next(1, 4)}.wav", Position.X, Position.Y);
             //Perform mining
-            World.GetTurf((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_ENTITY_MINE, pawn);
+            World.Current.GetTurf((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_ENTITY_MINE, pawn);
             if(!Destroyed)
                 Destroy();
         }

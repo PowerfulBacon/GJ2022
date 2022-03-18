@@ -99,9 +99,9 @@ namespace GJ2022.UserInterface
                         CreateEntitySpawnDD();
                     },
                     () => {
-                        foreach(string key in World.TrackedComponentHandlers.Keys)
+                        foreach(string key in World.Current.TrackedComponentHandlers.Keys)
                         {
-                            Log.WriteLine($"{key} => {World.TrackedComponentHandlers[key]}", LogType.DEBUG);
+                            Log.WriteLine($"{key} => {World.Current.TrackedComponentHandlers[key]}", LogType.DEBUG);
                         }
                     },
                 });

@@ -17,8 +17,10 @@ using System.Collections.Generic;
 namespace GJ2022.Game.GameWorld
 {
 
-    public static class World
+    public class World
     {
+
+        public static World Current { get; set; } = new World();
 
         public static Random Random { get; } = new Random();
 
@@ -43,76 +45,76 @@ namespace GJ2022.Game.GameWorld
         /// is the position based binary list containing the details of the 
         /// things being tracked.
         /// </summary>
-        public static Dictionary<string, PositionBasedBinaryList<List<IComponentHandler>>> TrackedComponentHandlers = new Dictionary<string, PositionBasedBinaryList<List<IComponentHandler>>>();
+        public Dictionary<string, PositionBasedBinaryList<List<IComponentHandler>>> TrackedComponentHandlers = new Dictionary<string, PositionBasedBinaryList<List<IComponentHandler>>>();
 
         //Dictionary of turfs in the world
-        public static PositionBasedBinaryList<Turf> WorldTurfs = new PositionBasedBinaryList<Turf>();
+        public PositionBasedBinaryList<Turf> WorldTurfs = new PositionBasedBinaryList<Turf>();
 
         //Dictionary of areas in the world
-        public static PositionBasedBinaryList<Area> WorldAreas = new PositionBasedBinaryList<Area>();
+        public PositionBasedBinaryList<Area> WorldAreas = new PositionBasedBinaryList<Area>();
 
         //Dictionary of markers in the world
-        public static PositionBasedBinaryList<Marker> WorldMarkers = new PositionBasedBinaryList<Marker>();
+        public PositionBasedBinaryList<Marker> WorldMarkers = new PositionBasedBinaryList<Marker>();
 
         //Dictionary of power cables in the world
-        public static PositionBasedBinaryList<PowerConduit> PowerCables = new PositionBasedBinaryList<PowerConduit>();
+        public PositionBasedBinaryList<PowerConduit> PowerCables = new PositionBasedBinaryList<PowerConduit>();
 
         //Collection of interactors with the powernet.
-        public static PositionBasedBinaryList<List<PowernetInteractor>> PowernetInteractors = new PositionBasedBinaryList<List<PowernetInteractor>>();
+        public PositionBasedBinaryList<List<PowernetInteractor>> PowernetInteractors = new PositionBasedBinaryList<List<PowernetInteractor>>();
 
         //Dictionary containing all items in the world at a specified position.
         //When an item moves, it needs to be updated in this list.
-        public static PositionBasedBinaryList<List<Item>> WorldItems = new PositionBasedBinaryList<List<Item>>();
+        public PositionBasedBinaryList<List<Item>> WorldItems = new PositionBasedBinaryList<List<Item>>();
 
         //Dictionary containing all structures in the world
-        public static PositionBasedBinaryList<List<Structure>> WorldStructures = new PositionBasedBinaryList<List<Structure>>();
+        public PositionBasedBinaryList<List<Structure>> WorldStructures = new PositionBasedBinaryList<List<Structure>>();
 
         //Dictionary containing all mobs in the world
-        public static PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
+        public PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
 
         //Dictionary containing all mobs in the world
-        public static PositionBasedBinaryList<List<AreaPowerController>> AreaPowerControllers = new PositionBasedBinaryList<List<AreaPowerController>>();
+        public PositionBasedBinaryList<List<AreaPowerController>> AreaPowerControllers = new PositionBasedBinaryList<List<AreaPowerController>>();
 
         //An integer storing the amount of atmospheric blocking things at this location
-        private static PositionBasedBinaryList<IntegerReference> AtmosphericBlockers = new PositionBasedBinaryList<IntegerReference>();
+        private PositionBasedBinaryList<IntegerReference> AtmosphericBlockers = new PositionBasedBinaryList<IntegerReference>();
 
         //======================
         // In range detectors
         //======================
 
-        public static bool HasThingInRange(string thingGroup, int x, int y, int range, BinaryList<List<IComponentHandler>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        public bool HasThingInRange(string thingGroup, int x, int y, int range, BinaryList<List<IComponentHandler>>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             if (!TrackedComponentHandlers.ContainsKey(thingGroup))
                 return false;
             return TrackedComponentHandlers[thingGroup].ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
         }
 
-        public static bool HasMarkerInRange(int x, int y, int range, BinaryList<Marker>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        public bool HasMarkerInRange(int x, int y, int range, BinaryList<Marker>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             return WorldMarkers.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
         }
 
-        public static bool HasTurfInRange(int x, int y, int range, BinaryList<Turf>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        public bool HasTurfInRange(int x, int y, int range, BinaryList<Turf>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             return WorldTurfs.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
         }
 
-        public static bool HasAreaInRange(int x, int y, int range, BinaryList<Area>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        public bool HasAreaInRange(int x, int y, int range, BinaryList<Area>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             return WorldAreas.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
         }
 
-        public static bool HasItemsInRange(int x, int y, int range, BinaryList<List<Item>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        public bool HasItemsInRange(int x, int y, int range, BinaryList<List<Item>>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             return WorldItems.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
         }
 
-        public static bool HasStructuresInRange(int x, int y, int range, BinaryList<List<Structure>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        public bool HasStructuresInRange(int x, int y, int range, BinaryList<List<Structure>>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             return WorldStructures.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
         }
 
-        public static bool HasPawnsInRange(int x, int y, int range, BinaryList<List<Pawn>>.BinaryListValidityCheckDelegate conditionalCheck = null)
+        public bool HasPawnsInRange(int x, int y, int range, BinaryList<List<Pawn>>.BinaryListValidityCheckDelegate conditionalCheck = null)
         {
             return WorldPawns.ElementsInRange(x - range, y - range, x + range, y + range, 0, -1, conditionalCheck);
         }
@@ -122,7 +124,7 @@ namespace GJ2022.Game.GameWorld
         //======================
 
         //TODO: Optimise me :)
-        public static List<T> GetSpiralThings<T>(string thingGroup, int original_x, int original_y, int range)
+        public List<T> GetSpiralThings<T>(string thingGroup, int original_x, int original_y, int range)
             where T : IComponentHandler
         {
             List<T> output = new List<T>();
@@ -150,7 +152,7 @@ namespace GJ2022.Game.GameWorld
         /// NOTE: It would be better to just iterate all the items (although that would
         /// require a distance check)
         /// </summary>
-        public static List<Marker> GetSprialMarkers(int original_x, int original_y, int range)
+        public List<Marker> GetSprialMarkers(int original_x, int original_y, int range)
         {
             List<Marker> output = new List<Marker>();
             for (int r = 0; r <= range; r++)
@@ -172,7 +174,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Get spiral items, ordered by distance from the origin
         /// </summary>
-        public static List<Area> GetSprialAreas(int original_x, int original_y, int range)
+        public List<Area> GetSprialAreas(int original_x, int original_y, int range)
         {
             List<Area> output = new List<Area>();
             for (int r = 0; r <= range; r++)
@@ -194,7 +196,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Get spiral items, ordered by distance from the origin
         /// </summary>
-        public static List<Item> GetSprialItems(int original_x, int original_y, int range)
+        public List<Item> GetSprialItems(int original_x, int original_y, int range)
         {
             List<Item> output = new List<Item>();
             for (int r = 0; r <= range; r++)
@@ -216,7 +218,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Get spiral structures, ordered by distance from the origin
         /// </summary>
-        public static List<Structure> GetSprialStructure(int original_x, int original_y, int range)
+        public List<Structure> GetSprialStructure(int original_x, int original_y, int range)
         {
             List<Structure> output = new List<Structure>();
             for (int r = 0; r <= range; r++)
@@ -239,7 +241,7 @@ namespace GJ2022.Game.GameWorld
         // Atmospheric Blockers
         //======================
 
-        public static void AddAtmosphericBlocker(int x, int y, bool updateAtmos = true)
+        public void AddAtmosphericBlocker(int x, int y, bool updateAtmos = true)
         {
             IntegerReference reference = AtmosphericBlockers.Get(x, y);
             if (reference == null)
@@ -252,7 +254,7 @@ namespace GJ2022.Game.GameWorld
                 reference.Value++;
         }
 
-        public static void RemoveAtmosphericBlock(int x, int y, bool updateAtmos = true)
+        public void RemoveAtmosphericBlock(int x, int y, bool updateAtmos = true)
         {
             IntegerReference reference = AtmosphericBlockers.Get(x, y);
             if (reference == null)
@@ -270,7 +272,7 @@ namespace GJ2022.Game.GameWorld
         // Atmospheric Flow
         //======================
 
-        public static bool AllowsAtmosphericFlow(int x, int y)
+        public bool AllowsAtmosphericFlow(int x, int y)
         {
             return AtmosphericBlockers.Get(x, y) == null;
         }
@@ -279,7 +281,7 @@ namespace GJ2022.Game.GameWorld
         // Things
         //======================
 
-        public static List<IComponentHandler> GetThings(string thingGroup, int x, int y)
+        public List<IComponentHandler> GetThings(string thingGroup, int x, int y)
         {
             if (!TrackedComponentHandlers.ContainsKey(thingGroup))
                 return new List<IComponentHandler>() { };
@@ -289,7 +291,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Add an pawn to the world list
         /// </summary>
-        public static void AddThing(string thingGroup, int x, int y, IComponentHandler thing)
+        public void AddThing(string thingGroup, int x, int y, IComponentHandler thing)
         {
             if (!TrackedComponentHandlers.ContainsKey(thingGroup))
                 TrackedComponentHandlers.Add(thingGroup, new PositionBasedBinaryList<List<IComponentHandler>>());
@@ -303,7 +305,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Remove the pawn from the world list
         /// </summary>
-        public static bool RemoveThing(string thingGroup, int x, int y, IComponentHandler thing)
+        public bool RemoveThing(string thingGroup, int x, int y, IComponentHandler thing)
         {
             if (!TrackedComponentHandlers.ContainsKey(thingGroup))
                 return false;
@@ -320,7 +322,7 @@ namespace GJ2022.Game.GameWorld
         // APCs
         //======================
 
-        public static List<AreaPowerController> GetAreaPowerControllers(int x, int y)
+        public List<AreaPowerController> GetAreaPowerControllers(int x, int y)
         {
             return AreaPowerControllers.Get(x, y) ?? new List<AreaPowerController>() { };
         }
@@ -328,7 +330,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Add an pawn to the world list
         /// </summary>
-        public static void AddAreaPowerController(int x, int y, AreaPowerController apc)
+        public void AddAreaPowerController(int x, int y, AreaPowerController apc)
         {
             List<AreaPowerController> located = AreaPowerControllers.Get(x, y);
             if (located != null)
@@ -340,7 +342,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Remove the pawn from the world list
         /// </summary>
-        public static bool RemoveAreaPowerController(int x, int y, AreaPowerController apc)
+        public bool RemoveAreaPowerController(int x, int y, AreaPowerController apc)
         {
             List<AreaPowerController> located = AreaPowerControllers.Get(x, y);
             if (located == null)
@@ -355,7 +357,7 @@ namespace GJ2022.Game.GameWorld
         // Pawns
         //======================
 
-        public static List<Pawn> GetPawns(int x, int y)
+        public List<Pawn> GetPawns(int x, int y)
         {
             return WorldPawns.Get(x, y) ?? new List<Pawn>() { };
         }
@@ -363,7 +365,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Add an pawn to the world list
         /// </summary>
-        public static void AddPawn(int x, int y, Pawn pawn)
+        public void AddPawn(int x, int y, Pawn pawn)
         {
             List<Pawn> located = WorldPawns.Get(x, y);
             if (located != null)
@@ -375,7 +377,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Remove the pawn from the world list
         /// </summary>
-        public static bool RemovePawn(int x, int y, Pawn pawn)
+        public bool RemovePawn(int x, int y, Pawn pawn)
         {
             List<Pawn> located = WorldPawns.Get(x, y);
             if (located == null)
@@ -390,7 +392,7 @@ namespace GJ2022.Game.GameWorld
         // Structures
         //======================
 
-        public static List<Structure> GetStructures(int x, int y)
+        public List<Structure> GetStructures(int x, int y)
         {
             return WorldStructures.Get(x, y) ?? new List<Structure>() { };
         }
@@ -398,7 +400,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Add an structure to the world list
         /// </summary>
-        public static void AddStructure(int x, int y, Structure structure)
+        public void AddStructure(int x, int y, Structure structure)
         {
             List<Structure> located = WorldStructures.Get(x, y);
             if (located != null)
@@ -410,7 +412,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Remove the istructuretem from the world list
         /// </summary>
-        public static bool RemoveStructure(int x, int y, Structure structure)
+        public bool RemoveStructure(int x, int y, Structure structure)
         {
             List<Structure> located = WorldStructures.Get(x, y);
             if (located == null)
@@ -425,7 +427,7 @@ namespace GJ2022.Game.GameWorld
         // All Entities
         //======================
 
-        public static List<Entity> GetEntities(int x, int y)
+        public List<Entity> GetEntities(int x, int y)
         {
             List<Entity> output = new List<Entity>();
             output.AddRange(GetItems(x, y));
@@ -444,7 +446,7 @@ namespace GJ2022.Game.GameWorld
         // Items
         //======================
 
-        public static List<Item> GetItems(int x, int y)
+        public List<Item> GetItems(int x, int y)
         {
             return WorldItems.Get(x, y) ?? new List<Item>() { };
         }
@@ -452,7 +454,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Add an item to the world list
         /// </summary>
-        public static void AddItem(int x, int y, Item item)
+        public void AddItem(int x, int y, Item item)
         {
             List<Item> located = WorldItems.Get(x, y);
             if (located != null)
@@ -464,7 +466,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Remove the item from the world list
         /// </summary>
-        public static bool RemoveItem(int x, int y, Item item)
+        public bool RemoveItem(int x, int y, Item item)
         {
             List<Item> located = WorldItems.Get(x, y);
             if (located == null)
@@ -482,7 +484,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Get the area at the specified location.
         /// </summary>
-        public static PowerConduit GetPowerCable(int x, int y)
+        public PowerConduit GetPowerCable(int x, int y)
         {
             return PowerCables.Get(x, y);
         }
@@ -490,7 +492,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Set the area at the specified location
         /// </summary>
-        public static void SetPowerCable(int x, int y, PowerConduit cable)
+        public void SetPowerCable(int x, int y, PowerConduit cable)
         {
             if (cable == null)
                 PowerCables.Remove(x, y);
@@ -510,7 +512,7 @@ namespace GJ2022.Game.GameWorld
         // Powernet Interactors
         //======================
 
-        public static List<PowernetInteractor> GetPowernetInteractors(int x, int y)
+        public List<PowernetInteractor> GetPowernetInteractors(int x, int y)
         {
             return PowernetInteractors.Get(x, y) ?? new List<PowernetInteractor>() { };
         }
@@ -518,7 +520,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Add an structure to the world list
         /// </summary>
-        public static void AddPowernetInteractor(int x, int y, PowernetInteractor interactor)
+        public void AddPowernetInteractor(int x, int y, PowernetInteractor interactor)
         {
             List<PowernetInteractor> located = PowernetInteractors.Get(x, y);
             if (located != null)
@@ -537,7 +539,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Remove the istructuretem from the world list
         /// </summary>
-        public static bool RemovePowernetInteractor(int x, int y, PowernetInteractor interactor)
+        public bool RemovePowernetInteractor(int x, int y, PowernetInteractor interactor)
         {
             List<PowernetInteractor> located = PowernetInteractors.Get(x, y);
             if (located == null)
@@ -555,7 +557,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Get the area at the specified location.
         /// </summary>
-        public static Area GetArea(int x, int y)
+        public Area GetArea(int x, int y)
         {
             return WorldAreas.Get(x, y);
         }
@@ -563,7 +565,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Set the area at the specified location
         /// </summary>
-        public static void SetArea(int x, int y, Area area)
+        public void SetArea(int x, int y, Area area)
         {
             if (area == null)
                 WorldAreas.Remove(x, y);
@@ -578,7 +580,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Get the turf at the specified location.
         /// </summary>
-        public static Marker GetMarker(int x, int y)
+        public Marker GetMarker(int x, int y)
         {
             return WorldMarkers.Get(x, y);
         }
@@ -586,7 +588,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Set the turfs
         /// </summary>
-        public static void SetMarker(int x, int y, Marker marker)
+        public void SetMarker(int x, int y, Marker marker)
         {
             if (marker == null)
                 WorldMarkers.Remove(x, y);
@@ -601,7 +603,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Get the turf at the specified location.
         /// </summary>
-        public static Turf GetTurf(int x, int y)
+        public Turf GetTurf(int x, int y)
         {
             return WorldTurfs.Get(x, y);
         }
@@ -609,7 +611,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Set the turfs
         /// </summary>
-        public static void SetTurf(int x, int y, Turf turf)
+        public void SetTurf(int x, int y, Turf turf)
         {
             if (turf == null)
                 WorldTurfs.Remove(x, y);
@@ -621,12 +623,12 @@ namespace GJ2022.Game.GameWorld
         // Surrounded detected
         //======================
 
-        public static bool IsLocationFullyEnclosed(int x, int y)
+        public bool IsLocationFullyEnclosed(int x, int y)
         {
             return IsSolid(x, y + 1) && IsSolid(x + 1, y) && IsSolid(x, y - 1) && IsSolid(x - 1, y);
         }
 
-        public static Vector<float>? GetFreeAdjacentLocation(int x, int y)
+        public Vector<float>? GetFreeAdjacentLocation(int x, int y)
         {
             if (!IsSolid(x, y + 1))
                 return new Vector<float>(x, y + 1);
@@ -643,7 +645,7 @@ namespace GJ2022.Game.GameWorld
         // Solidity
         //======================
 
-        public static bool IsSolid(Vector<int> position)
+        public bool IsSolid(Vector<int> position)
         {
             return IsSolid(position.X, position.Y);
         }
@@ -651,7 +653,7 @@ namespace GJ2022.Game.GameWorld
         /// <summary>
         /// Check if a position is solid or not
         /// </summary>
-        public static bool IsSolid(int x, int y)
+        public bool IsSolid(int x, int y)
         {
             Turf locatedTurf = GetTurf(x, y);
             //TODO: Proper ISolid + directional solidity
@@ -662,12 +664,12 @@ namespace GJ2022.Game.GameWorld
         // Gravity
         //======================
 
-        public static bool HasGravity(Vector<int> position)
+        public bool HasGravity(Vector<int> position)
         {
             return HasGravity(position.X, position.Y);
         }
 
-        public static bool HasGravity(int x, int y)
+        public bool HasGravity(int x, int y)
         {
             //Structure = gravity
             if (GetStructures(x, y).Count > 0)

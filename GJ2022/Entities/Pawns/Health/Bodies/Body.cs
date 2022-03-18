@@ -164,7 +164,7 @@ namespace GJ2022.Entities.Pawns.Health.Bodies
             //Process bleeding
             ProcessBleeding(deltaTime);
             //Process pressure damage (TODO: If not protected via pressure resistant clothing)
-            Turf location = World.GetTurf((int)Parent.Position.X, (int)Parent.Position.Y);
+            Turf location = World.Current.GetTurf((int)Parent.Position.X, (int)Parent.Position.Y);
             float pressure = location?.Atmosphere?.ContainedAtmosphere.KiloPascalPressure ?? 0;
             for (int i = InsertedLimbs.Count - 1; i >= 0; i--)
             {

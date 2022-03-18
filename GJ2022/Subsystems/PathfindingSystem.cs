@@ -85,13 +85,13 @@ namespace GJ2022.Subsystems
         private void ProcessPath(PathfindingRequest request)
         {
             //If the end of the request is blocked, don't both
-            if (World.IsSolid(request.End))
+            if (World.Current.IsSolid(request.End))
             {
                 request.failedDelegate?.Invoke();
                 return;
             }
             //If the start has no pressure and the end does, allow low-pressure pathfinding
-            Atmosphere startAtmos = World.GetTurf(request.Start[0], request.Start[1])?.Atmosphere?.ContainedAtmosphere;
+            Atmosphere startAtmos = World.Current.GetTurf(request.Start[0], request.Start[1])?.Atmosphere?.ContainedAtmosphere;
             if (startAtmos == null || startAtmos.KiloPascalPressure < 50)
             {
                 request.ignoringHazards |= PawnHazards.HAZARD_LOW_PRESSURE;
@@ -145,13 +145,13 @@ namespace GJ2022.Subsystems
                 CheckAddNode(current, ref processData, new Vector<int>(0, -1), ConnectingDirections.SOUTH);
             if ((validDirections & ConnectingDirections.WEST) != 0)
                 CheckAddNode(current, ref processData, new Vector<int>(-1, 0), ConnectingDirections.WEST);
-            if ((validDirections & ConnectingDirections.NORTH_EAST) == ConnectingDirections.NORTH_EAST && !World.IsSolid(current.Position + new Vector<int>(1, 1)))
+            if ((validDirections & ConnectingDirections.NORTH_EAST) == ConnectingDirections.NORTH_EAST && !World.Current.IsSolid(current.Position + new Vector<int>(1, 1)))
                 CheckAddNode(current, ref processData, new Vector<int>(1, 1), ConnectingDirections.NORTH_EAST);
-            if ((validDirections & ConnectingDirections.SOUTH_EAST) == ConnectingDirections.SOUTH_EAST && !World.IsSolid(current.Position + new Vector<int>(1, -1)))
+            if ((validDirections & ConnectingDirections.SOUTH_EAST) == ConnectingDirections.SOUTH_EAST && !World.Current.IsSolid(current.Position + new Vector<int>(1, -1)))
                 CheckAddNode(current, ref processData, new Vector<int>(1, -1), ConnectingDirections.SOUTH_EAST);
-            if ((validDirections & ConnectingDirections.SOUTH_WEST) == ConnectingDirections.SOUTH_WEST && !World.IsSolid(current.Position + new Vector<int>(-1, -1)))
+            if ((validDirections & ConnectingDirections.SOUTH_WEST) == ConnectingDirections.SOUTH_WEST && !World.Current.IsSolid(current.Position + new Vector<int>(-1, -1)))
                 CheckAddNode(current, ref processData, new Vector<int>(-1, -1), ConnectingDirections.SOUTH_WEST);
-            if ((validDirections & ConnectingDirections.NORTH_WEST) == ConnectingDirections.NORTH_WEST && !World.IsSolid(current.Position + new Vector<int>(-1, 1)))
+            if ((validDirections & ConnectingDirections.NORTH_WEST) == ConnectingDirections.NORTH_WEST && !World.Current.IsSolid(current.Position + new Vector<int>(-1, 1)))
                 CheckAddNode(current, ref processData, new Vector<int>(-1, 1), ConnectingDirections.NORTH_WEST);
         }
 
@@ -202,25 +202,25 @@ namespace GJ2022.Subsystems
             //Check north
             if (!IsPointChecked(processData, position + new Vector<int>(0, 1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
                     && position.Y < processData.MaximumY
-                    && !World.IsSolid(position + new Vector<int>(0, 1))
+                    && !World.Current.IsSolid(position + new Vector<int>(0, 1))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.NORTH))
                 connectingDirections |= ConnectingDirections.NORTH;
             //Check east
             if (!IsPointChecked(processData, position + new Vector<int>(1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
                     && position.X < processData.MaximumX
-                    && !World.IsSolid(position + new Vector<int>(1, 0))
+                    && !World.Current.IsSolid(position + new Vector<int>(1, 0))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.EAST))
                 connectingDirections |= ConnectingDirections.EAST;
             //Check south
             if (!IsPointChecked(processData, position + new Vector<int>(0, -1), ConnectingDirections.NORTH_SOUTH, ignoringHazards)
                     && position.Y > processData.MinimumY
-                    && !World.IsSolid(position + new Vector<int>(0, -1))
+                    && !World.Current.IsSolid(position + new Vector<int>(0, -1))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.SOUTH))
                 connectingDirections |= ConnectingDirections.SOUTH;
             //Check west
             if (!IsPointChecked(processData, position + new Vector<int>(-1, 0), ConnectingDirections.EAST_WEST, ignoringHazards)
                     && position.X > processData.MinimumX
-                    && !World.IsSolid(position + new Vector<int>(-1, 0))
+                    && !World.Current.IsSolid(position + new Vector<int>(-1, 0))
                     && HazardCheck(ignoringHazards, position, source, ConnectingDirections.WEST))
                 connectingDirections |= ConnectingDirections.WEST;
             //Return valid directions
@@ -236,7 +236,7 @@ namespace GJ2022.Subsystems
             if (!processData.ProcessedPoints.ContainsKey(position))
                 return false;
             //If this location has gravity, then we checked it
-            if (World.HasGravity(position))
+            if (World.Current.HasGravity(position))
                 return true;
             //Check if we have scanned the incomming direction
             ConnectingDirections scannedDirections = processData.ProcessedPoints[position];
@@ -254,7 +254,7 @@ namespace GJ2022.Subsystems
             if ((ignoringHazards & PawnHazards.HAZARD_LOW_PRESSURE) != 0)
                 return true;
             //Check for pressure (50 should be safe)
-            return World.GetTurf(position.X, position.Y)?.Atmosphere?.ContainedAtmosphere?.KiloPascalPressure > 50;
+            return World.Current.GetTurf(position.X, position.Y)?.Atmosphere?.ContainedAtmosphere?.KiloPascalPressure > 50;
         }
 
         private bool BreathCheck(PawnHazards ignoringHazards, Vector<int> position, Vector<int> source, ConnectingDirections direction)
@@ -263,7 +263,7 @@ namespace GJ2022.Subsystems
             if ((ignoringHazards & PawnHazards.HAZARD_BREATH) != 0)
                 return true;
             //Check air
-            if (World.GetTurf(position.X, position.Y)?.Atmosphere?.ContainedAtmosphere?.GetMoles(Oxygen.Singleton) > 0.02f)
+            if (World.Current.GetTurf(position.X, position.Y)?.Atmosphere?.ContainedAtmosphere?.GetMoles(Oxygen.Singleton) > 0.02f)
                 return true;
             //Area has no air
             return false;
@@ -275,7 +275,7 @@ namespace GJ2022.Subsystems
             if ((ignoringHazards & PawnHazards.HAZARD_GRAVITY) != 0)
                 return true;
             //Place has gravity
-            if (World.HasGravity(position))
+            if (World.Current.HasGravity(position))
                 return true;
             //We can move in a straight line without gravity
             int delta_x = position.X - source[0];

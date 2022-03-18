@@ -1,4 +1,6 @@
-﻿using GJ2022.Game.GameWorld.Regions;
+﻿using GJ2022.Entities.Turfs;
+using GJ2022.Game.GameWorld;
+using GJ2022.Game.GameWorld.Current.Regions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,69 @@ namespace GJ2022.Tests
     [TestClass]
     public class RegionTests
     {
+
+        [TestMethod]
+        public void TestRegionCreation()
+        {
+            //Generate a wall
+            Turf solidTurf = new Turf();
+            solidTurf.SetProperty("Solid", true);
+            //Reset the world
+            World.Current = new World();
+            World.Current.SetTurf(4, 0, solidTurf);
+            World.Current.SetTurf(4, 1, solidTurf);
+            World.Current.SetTurf(4, 2, solidTurf);
+            World.Current.SetTurf(4, 3, solidTurf);
+            World.Current.SetTurf(4, 4, solidTurf);
+            World.Current.SetTurf(4, 5, solidTurf);
+            World.Current.SetTurf(4, 6, solidTurf);
+            World.Current.SetTurf(4, 7, solidTurf);
+            WorldRegionList wrl = new WorldRegionList();
+            wrl.GenerateWorldSection(0, 0);
+            Region left = null;
+            for (int x = 0; x < 4; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    if (left == null)
+                        left = wrl.regions.Get(x, y);
+                    Assert.AreEqual(left, wrl.regions.Get(x, y), "Expected left region to be the same");
+                }
+            }
+            for (int x = 5; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    Assert.AreNotEqual(left, wrl.regions.Get(x, y), "Expected right region to be different");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestRegionUpdateRequirements()
+        {
+            //Generate a wall
+            Turf solidTurf = new Turf();
+            solidTurf.SetProperty("Solid", true);
+            //Reset the world
+            World.Current = new World();
+            World.Current.SetTurf(4, 0, solidTurf);
+            World.Current.SetTurf(4, 1, solidTurf);
+            World.Current.SetTurf(4, 2, solidTurf);
+            World.Current.SetTurf(4, 3, solidTurf);
+            World.Current.SetTurf(4, 5, solidTurf);
+            World.Current.SetTurf(4, 6, solidTurf);
+            World.Current.SetTurf(4, 7, solidTurf);
+            WorldRegionList wrl = new WorldRegionList();
+            wrl.GenerateWorldSection(0, 0);
+            Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 4, 4));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 3, 1));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 5, 5));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 4, 6));
+            Assert.IsFalse(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 3, 3));
+            Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 5, 4));
+            Assert.IsTrue(wrl.NodeSolidRequiresUpdate(wrl.regions.Get(0, 0), 3, 4));
+        }
 
         [TestMethod]
         public void TestRegionWorldSection()

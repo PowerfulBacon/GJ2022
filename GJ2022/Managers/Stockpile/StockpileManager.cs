@@ -58,7 +58,7 @@ namespace GJ2022.Managers.Stockpile
         public static void AddStockpileArea(Vector<float> position)
         {
             //Add all items at this position to the stockpile
-            foreach (Item item in World.GetItems((int)position.X, (int)position.Y))
+            foreach (Item item in World.Current.GetItems((int)position.X, (int)position.Y))
             {
                 AddItem(item);
             }
@@ -66,7 +66,7 @@ namespace GJ2022.Managers.Stockpile
 
         public static void RemoveStockpileArea(Vector<float> position)
         {
-            foreach (Item item in World.GetItems((int)position.X, (int)position.Y))
+            foreach (Item item in World.Current.GetItems((int)position.X, (int)position.Y))
             {
                 RemoveItem(item);
             }

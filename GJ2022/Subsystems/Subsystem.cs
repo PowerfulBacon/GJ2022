@@ -182,7 +182,7 @@ namespace GJ2022.Subsystems
                 stopwatch = new Stopwatch();
                 stopwatch.Start();
                 //Check if the world has been initialized yet.
-                if (/*World.Initialized*/ true)
+                if (/*World.Current.Initialized*/ true)
                 {
                     //Check the subsystem fires.
                     if ((SubsystemFlags & SubsystemFlags.NO_FIRE) == 0)

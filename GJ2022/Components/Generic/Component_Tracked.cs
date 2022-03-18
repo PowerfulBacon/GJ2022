@@ -25,7 +25,7 @@ namespace GJ2022.Components.Generic
             //Start tracking
             trackedX = (int)parent.Position.X;
             trackedY = (int)parent.Position.Y;
-            World.AddThing(Key, trackedX, trackedY, Parent);
+            World.Current.AddThing(Key, trackedX, trackedY, Parent);
             Parent.RegisterSignal(Signal.SIGNAL_ENTITY_MOVED, -1, OnParentMoved);
             Parent.RegisterSignal(Signal.SIGNAL_ENTITY_LOCATION, -1, OnLocationChanged);
         }
@@ -36,7 +36,7 @@ namespace GJ2022.Components.Generic
             Entity parent = Parent as Entity;
             //No track will exist
             if (parent.Location == null)
-                World.RemoveThing(Key, trackedX, trackedY, Parent);
+                World.Current.RemoveThing(Key, trackedX, trackedY, Parent);
             Parent.UnregisterSignal(Signal.SIGNAL_ENTITY_MOVED, OnParentMoved);
             Parent.UnregisterSignal(Signal.SIGNAL_ENTITY_LOCATION, OnLocationChanged);
         }
@@ -48,14 +48,14 @@ namespace GJ2022.Components.Generic
             
             //Remove the old track
             if(newLocation != null && oldLocation == null)
-                World.RemoveThing(Key, trackedX, trackedY, Parent);
+                World.Current.RemoveThing(Key, trackedX, trackedY, Parent);
             //Start tracking
             if (newLocation == null && oldLocation != null)
             {
                 Entity parent = Parent as Entity;
                 trackedX = (int)parent.Position.X;
                 trackedY = (int)parent.Position.Y;
-                World.AddThing(Key, trackedX, trackedY, Parent);
+                World.Current.AddThing(Key, trackedX, trackedY, Parent);
             }
             return null;
         }
@@ -68,11 +68,11 @@ namespace GJ2022.Components.Generic
             if (parent.Location != null)
                 return null;
             //Remove the old track
-            World.RemoveThing(Key, trackedX, trackedY, Parent);
+            World.Current.RemoveThing(Key, trackedX, trackedY, Parent);
             //Start tracking
             trackedX = (int)parent.Position.X;
             trackedY = (int)parent.Position.Y;
-            World.AddThing(Key, trackedX, trackedY, Parent);
+            World.Current.AddThing(Key, trackedX, trackedY, Parent);
 
             return null;
         }

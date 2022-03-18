@@ -31,7 +31,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             if (parent.Owner.InCrit)
                 return false;
             //Quick check
-            return World.HasMarkerInRange((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 60, (Marker toCheck) =>
+            return World.Current.HasMarkerInRange((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 60, (Marker toCheck) =>
             {
                 return !unreachableLocations.Contains(toCheck.Position);
             });
@@ -64,7 +64,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 return;
             }
             //Go towards the blueprint
-            Vector<float>? targetPosition = World.GetFreeAdjacentLocation((int)target.Position.X, (int)target.Position.Y);
+            Vector<float>? targetPosition = World.Current.GetFreeAdjacentLocation((int)target.Position.X, (int)target.Position.Y);
             if (targetPosition != null)
                 parent.Owner.MoveTowardsPosition(targetPosition.Value);
             else
@@ -111,7 +111,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         /// <returns></returns>
         private MiningMarker LocateValidMarker(PawnBehaviour parent)
         {
-            foreach (Marker marker in World.GetSprialMarkers((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 60))
+            foreach (Marker marker in World.Current.GetSprialMarkers((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 60))
             {
                 if (!(marker is MiningMarker))
                     continue;
@@ -122,7 +122,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 if (marker.IsClaimed || marker.Destroyed)
                     continue;
                 //Is the marker completed surrounded?
-                if (World.IsLocationFullyEnclosed((int)marker.Position.X, (int)marker.Position.Y))
+                if (World.Current.IsLocationFullyEnclosed((int)marker.Position.X, (int)marker.Position.Y))
                     continue;
                 //Return the marker
                 return marker as MiningMarker;
