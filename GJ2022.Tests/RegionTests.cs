@@ -1,6 +1,6 @@
 ﻿using GJ2022.Entities.Turfs;
 using GJ2022.Game.GameWorld;
-using GJ2022.Game.GameWorld.Current.Regions;
+using GJ2022.Game.GameWorld.Regions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,72 @@ namespace GJ2022.Tests
     [TestClass]
     public class RegionTests
     {
+
+        [TestMethod]
+        public void TestValidPathThatGetsBlocked()
+        {
+            //Reset the world
+            World.Current = new World();
+            //Generate a wall with a hole in it
+            Turf solidTurf = new Turf();
+            solidTurf.SetProperty("Solid", true);
+            World.Current.SetTurf(13, 0, solidTurf);
+            World.Current.SetTurf(13, 1, solidTurf);
+            World.Current.SetTurf(13, 2, solidTurf);
+            World.Current.SetTurf(13, 3, solidTurf);
+            World.Current.SetTurf(13, 5, solidTurf);
+            World.Current.SetTurf(13, 6, solidTurf);
+            World.Current.SetTurf(13, 7, solidTurf);
+            //Create a world region list
+            WorldRegionList wrl = new WorldRegionList();
+            wrl.GenerateWorldSection(0, 0);
+            wrl.GenerateWorldSection(8, 0);
+            wrl.GenerateWorldSection(16, 0);
+            //Test accessability
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(5, 5)), "There should exist a valid path from region (0, 0) to (5, 5)");
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(10, 5)), "There should exist a valid path from region (0, 0) to (10, 5)");
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(14, 5)), "There should exist a valid path from region (0, 0) to (14, 5)");
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(18, 5)), "There should exist a valid path from region (0, 0) to (18, 5)");
+            Assert.IsTrue(wrl.regions.Get(14, 5).HasPath(wrl.regions.Get(18, 5)), "There should exist a valid path from region (14, 5) to (18, 5)");
+            //Block off the wall
+            World.Current.SetTurf(13, 4, solidTurf);
+            wrl.SetNodeSolid(13, 4);
+            Log.WriteLine("World has been divided");
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(5, 5)), "There should still exist a valid path from region (0, 0) to (5, 5)");
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(10, 5)), "There should still exist a valid path from region (0, 0) to (10, 5)");
+            Assert.IsFalse(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(14, 5)), "There should no longer exist a valid path from region (0, 0) to (14, 5)");
+            Assert.IsFalse(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(18, 5)), "There should no longer exist a valid path from region (0, 0) to (18, 5)");
+            Assert.IsTrue(wrl.regions.Get(14, 5).HasPath(wrl.regions.Get(18, 5)), "There should still exist a valid path from region (14, 5) to (18, 5)");
+        }
+
+        [TestMethod]
+        public void TestVerticalWall()
+        {
+            //Reset the world
+            World.Current = new World();
+            //Generate a wall
+            Turf solidTurf = new Turf();
+            solidTurf.SetProperty("Solid", true);
+            World.Current.SetTurf(13, 0, solidTurf);
+            World.Current.SetTurf(13, 1, solidTurf);
+            World.Current.SetTurf(13, 2, solidTurf);
+            World.Current.SetTurf(13, 3, solidTurf);
+            World.Current.SetTurf(13, 4, solidTurf);
+            World.Current.SetTurf(13, 5, solidTurf);
+            World.Current.SetTurf(13, 6, solidTurf);
+            World.Current.SetTurf(13, 7, solidTurf);
+            //Create a world region list
+            WorldRegionList wrl = new WorldRegionList();
+            wrl.GenerateWorldSection(0, 0);
+            wrl.GenerateWorldSection(8, 0);
+            wrl.GenerateWorldSection(16, 0);
+            //Test accessability
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(5, 5)), "There should exist a valid path from region (0, 0) to (5, 5)");
+            Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(10, 5)), "There should exist a valid path from region (0, 0) to (10, 5)");
+            Assert.IsFalse(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(14, 5)), "There should not exist a valid path from region (0, 0) to (14, 5)");
+            Assert.IsFalse(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(18, 5)), "There should not exist a valid path from region (0, 0) to (18, 5)");
+            Assert.IsTrue(wrl.regions.Get(14, 5).HasPath(wrl.regions.Get(18, 5)), "There should exist a valid path from region (14, 5) to (18, 5)");
+        }
 
         [TestMethod]
         public void TestRegionCreation()
@@ -41,6 +107,10 @@ namespace GJ2022.Tests
                         left = wrl.regions.Get(x, y);
                     Assert.AreEqual(left, wrl.regions.Get(x, y), "Expected left region to be the same");
                 }
+            }
+            for (int y = 0; y < 8; y++)
+            {
+                Assert.AreEqual(null, wrl.regions.Get(4, y), "Expected center line to be null");
             }
             for (int x = 5; x < 8; x++)
             {

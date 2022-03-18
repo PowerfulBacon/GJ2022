@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GJ2022.Game.GameWorld.Current.Regions
+namespace GJ2022.Game.GameWorld.Regions
 {
     /// <summary>
     /// Region system:
@@ -147,5 +147,9 @@ namespace GJ2022.Game.GameWorld.Current.Regions
             return false;
         }
 
+        public override string ToString()
+        {
+            return $"Region {Id}";
+        }
     }
 }

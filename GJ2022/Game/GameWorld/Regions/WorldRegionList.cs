@@ -34,7 +34,8 @@ namespace GJ2022.Game.GameWorld.Regions
         public PositionBasedBinaryList<Region> regions = new PositionBasedBinaryList<Region>();
 
         /// <summary>
-        /// Sets a node in the world to be solid
+        /// Sets a node in the world to be solid.
+        /// Time complexity of O(REGION_PRIMARY_LEVEL_SIZE^2)
         /// </summary>
         /// <param name="x">The X position of the node to set to be solid</param>
         /// <param name="y">The Y position of the node to set to be solid</param>
@@ -46,6 +47,9 @@ namespace GJ2022.Game.GameWorld.Regions
             //Calculate if we need to take any action at all
             if (!NodeSolidRequiresUpdate(affectedRegion, x, y))
                 return;
+            //Calculate the region's current adjacencies O(REGION_PRIMARY_LEVEL_SIZE)
+            //An update is required, subdivide the region
+
         }
 
         /// <summary>
@@ -59,18 +63,83 @@ namespace GJ2022.Game.GameWorld.Regions
         /// flood filled.
         /// If any open adjacent nodes didn't get tagged by the flood fill, it means our region has
         /// been subdivided.
+        /// O(REGION_PRIMARY_LEVEL_SIZE^2)
         /// </summary>
-        private bool NodeSolidRequiresUpdate(Region actingRegion, int x, int y)
+        public bool NodeSolidRequiresUpdate(Region actingRegion, int x, int y)
         {
+            //Get the relative X and Y with a safe mod operation
+            int relX = ((x % REGION_PRIMARY_LEVEL_SIZE) + REGION_PRIMARY_LEVEL_SIZE) % REGION_PRIMARY_LEVEL_SIZE;
+            int relY = ((y % REGION_PRIMARY_LEVEL_SIZE) + REGION_PRIMARY_LEVEL_SIZE) % REGION_PRIMARY_LEVEL_SIZE;
             //Flood fill all nodes in the region and see if we can reconnect with ourselfs
             //Flood fill with IDs, giving unique values to north, south, east and west
-            int[,] floodFilledIds = new int[REGION_PRIMARY_LEVEL_SIZE, REGION_PRIMARY_LEVEL_SIZE];
+            bool[,] floodFilledIds = new bool[REGION_PRIMARY_LEVEL_SIZE, REGION_PRIMARY_LEVEL_SIZE];
+            floodFilledIds[relX, relY] = true;
             Queue<Vector<int>> updateQueue = new Queue<Vector<int>>();
             //Locate an adjacent, open node.
             //Insert the first node
-
-            //We did not re-encounter ourselves, so we need to update
-            return true;
+            if (relX < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX + 1, relY))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX + 1, relY));
+            }
+            else if (relX > 0 && !World.Current.IsSolid(relX - 1, relY))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX - 1, relY));
+            }
+            else if (relY < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX, relY + 1))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX, relY + 1));
+            }
+            else if (relY > 0 && !World.Current.IsSolid(relX, relY - 1))
+            {
+                updateQueue.Enqueue(new Vector<int>(relX, relY - 1));
+            }
+            else
+            {
+                //We have no non-solid adjacent nodes, so we do not need to make an update
+                return false;
+            }
+            //Perform the flood fill operation
+            while (updateQueue.Count > 0)
+            {
+                Vector<int> current = updateQueue.Dequeue();
+                //Mark the current node
+                floodFilledIds[current.X, current.Y] = true;
+                //Add adjacent, non-solid, unmarked nodes
+                if (current.X < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(current.X + 1, current.Y) && !floodFilledIds[current.X + 1, current.Y])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X + 1, current.Y));
+                }
+                if (current.X > 0 && !World.Current.IsSolid(current.X - 1, current.Y) && !floodFilledIds[current.X - 1, current.Y])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X - 1, current.Y));
+                }
+                if (current.Y < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(current.X, current.Y + 1) && !floodFilledIds[current.X, current.Y + 1])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X, current.Y + 1));
+                }
+                if (current.Y > 0 && !World.Current.IsSolid(current.X, current.Y - 1) && !floodFilledIds[current.X, current.Y - 1])
+                {
+                    updateQueue.Enqueue(new Vector<int>(current.X, current.Y - 1));
+                }
+            }
+            //Require an update if all adjacent, non-solid nodes are not marked
+            if (relX < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX + 1, relY) && !floodFilledIds[relX + 1, relY])
+            {
+                return true;
+            }
+            else if (relX > 0 && !World.Current.IsSolid(relX - 1, relY) && !floodFilledIds[relX - 1, relY])
+            {
+                return true;
+            }
+            else if (relY < REGION_PRIMARY_LEVEL_SIZE - 1 && !World.Current.IsSolid(relX, relY + 1) && !floodFilledIds[relX, relY + 1])
+            {
+                return true;
+            }
+            else if (relY > 0 && !World.Current.IsSolid(relX, relY - 1) && !floodFilledIds[relX, relY - 1])
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -103,7 +172,7 @@ namespace GJ2022.Game.GameWorld.Regions
                     int realX = regionX * REGION_PRIMARY_LEVEL_SIZE + nodeX;
                     int realY = regionY * REGION_PRIMARY_LEVEL_SIZE + nodeY;
                     //This position is solid, ignore (We don't need to update processedNodes, since we will never again access it)
-                    if (World.IsSolid(realX, realY))
+                    if (World.Current.IsSolid(realX, realY))
                         continue;
                     //Create a new region and flood fill outwards
                     Region createdRegion = new Region(regionX, regionY);
@@ -130,7 +199,7 @@ namespace GJ2022.Game.GameWorld.Regions
                         //Set node processed
                         processedNodes[relativePosition.X, relativePosition.Y] = true;
                         //If current node is a wall, skip
-                        if (World.IsSolid(worldPosition.X, worldPosition.Y))
+                        if (World.Current.IsSolid(worldPosition.X, worldPosition.Y))
                             continue;
                         //Join the region
                         regions.Add(worldPosition.X, worldPosition.Y, createdRegion);
