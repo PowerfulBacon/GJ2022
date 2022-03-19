@@ -54,7 +54,7 @@ namespace GJ2022.Game.Construction
                         //Load the blueprint type
                         Type blueprintType = possibleTypes[blueprintToken.Value<string>("blueprintType")];
                         //Load the created type
-                        Type createdType = possibleTypes[blueprintToken.Value<string>("created_type")];
+                        string createdDef = blueprintToken.Value<string>("created_type");
                         //Parse the cost data
                         ConstructionCostData costData = new ConstructionCostData();
                         //Get each cost
@@ -62,7 +62,7 @@ namespace GJ2022.Game.Construction
                         {
                             foreach (JProperty costToken in blueprintToken["cost"])
                             {
-                                costData.Cost.Add(possibleTypes[costToken.Name], costToken.Value.Value<int>());
+                                //costData.Cost.Add(possibleTypes[costToken.Name], costToken.Value.Value<int>());
                             }
                         }
                         //Load the blueprint texture
@@ -74,7 +74,7 @@ namespace GJ2022.Game.Construction
                         //Load instant
                         bool instant = blueprintToken.Value<bool?>("instant") ?? false;
 
-                        BlueprintDetail blueprintDetail = new BlueprintDetail(blueprintType, costData, layer, texture, createdType, priority, instant);
+                        BlueprintDetail blueprintDetail = new BlueprintDetail(blueprintType, costData, layer, texture, createdDef, priority, instant);
                         loadedBlueprintDictionary.Add(blueprintToken.Value<string>("id"), blueprintDetail);
                     }
                     catch (Exception e)
