@@ -8,6 +8,35 @@ namespace GJ2022.Tests.UtilityTests
     {
 
         [TestMethod]
+        [ExpectedException(typeof(System.IndexOutOfRangeException))]
+        public void TestInsertionFailure()
+        {
+            PositionBasedBinaryList<int> randomList = new PositionBasedBinaryList<int>();
+            randomList.Add(0, 0, 1);
+            randomList.Add(0, 0, 2);
+        }
+
+        [TestMethod]
+        public void TestReplace()
+        {
+            PositionBasedBinaryList<int> randomList = new PositionBasedBinaryList<int>();
+            randomList.Add(0, 0, 1);
+            randomList.Add(0, 1, 2);
+            randomList.Add(0, 2, 4);
+            randomList.Add(0, 3, 5);
+            randomList.Add(0, 1, 3, true);
+            randomList.Add(0, 2, 3, true);
+            //Account for both cases of midpoint rounding
+            Assert.AreEqual(3, randomList.Get(0, 1), "Expected 3 at (0, 1)");
+            Assert.AreEqual(3, randomList.Get(0, 2), "Expected 3 at (0, 2)");
+            for (int i = 0; i < 4; i++)
+            {
+                randomList.TakeFirst();
+            }
+            Assert.IsFalse(randomList.HasElements, $"Expected list to only contain 4 elements, actually contains {randomList}");
+        }
+
+        [TestMethod]
         public void TestTakeFirst()
         {
             PositionBasedBinaryList<int> randomList = new PositionBasedBinaryList<int>();

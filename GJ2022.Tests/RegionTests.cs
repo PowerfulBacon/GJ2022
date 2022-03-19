@@ -46,6 +46,8 @@ namespace GJ2022.Tests
             World.Current.SetTurf(12, 4, solidTurf);
             wrl.SetNodeSolid(12, 4);
             Log.WriteLine("World has been divided");
+            Log.WriteLine("World status:");
+            Log.WriteLine(wrl.regions);
             Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(5, 5)), "There should still exist a valid path from region (0, 0) to (5, 5)");
             Assert.IsTrue(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(10, 5)), "There should still exist a valid path from region (0, 0) to (10, 5)");
             Assert.IsFalse(wrl.regions.Get(0, 0).HasPath(wrl.regions.Get(14, 5)), "There should no longer exist a valid path from region (0, 0) to (14, 5)");

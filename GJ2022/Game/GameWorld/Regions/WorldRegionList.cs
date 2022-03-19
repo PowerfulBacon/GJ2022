@@ -85,7 +85,7 @@ namespace GJ2022.Game.GameWorld.Regions
             {
                 createdRegions.Add(FloodFillCreateRegion(x, y - 1, ref adjacentRegions));
             }
-            //Recalculate adjacencies
+            //Recalculate adjacencies of the created regions
             foreach (Region r in createdRegions)
             {
                 Log.WriteLine($"Created region {r.Id}");
@@ -134,7 +134,7 @@ namespace GJ2022.Game.GameWorld.Regions
             Log.WriteLine($"Created new region {createdRegion.Id} at ({regionX}, {regionY})");
 #endif
             //Have the position join this region
-            regions.Add(x, y, createdRegion);
+            regions.Add(x, y, createdRegion, true);
             //During this process, get the adjacent regions so we can match up parents
             if(adjacentRegions == null)
                 adjacentRegions = new List<Region>();
@@ -157,7 +157,7 @@ namespace GJ2022.Game.GameWorld.Regions
                 if (World.Current.IsSolid(worldPosition.X, worldPosition.Y))
                     continue;
                 //Join the region
-                regions.Add(worldPosition.X, worldPosition.Y, createdRegion);
+                regions.Add(worldPosition.X, worldPosition.Y, createdRegion, true);
                 //Check if we have any adjacent regions
                 Region adjacent;
                 //Add adjacent nodes (Assuming they are within bounds)
