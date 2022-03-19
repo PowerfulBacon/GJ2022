@@ -85,7 +85,7 @@ namespace GJ2022.Subsystems
                 int x = worldTile[0];
                 int y = worldTile[1];
                 //Get clickable things at these world coordinates
-                foreach (Entity entity in World.GetEntities(x, y))
+                foreach (Entity entity in World.Current.GetEntities(x, y))
                 {
                     if (mousePressed)
                         (entity as IMousePress)?.OnPressed();

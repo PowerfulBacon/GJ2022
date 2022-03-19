@@ -42,7 +42,7 @@ namespace GJ2022.Utility.MathConstructs
             return binaryListElements.Count;
         }
 
-        public int Add(int key, T toAdd, int start = 0, int _end = -1)
+        public int Add(int key, T toAdd, bool replace = false, int start = 0, int _end = -1)
         {
             //No elements, just add
             if (binaryListElements.Count == 0)
@@ -62,19 +62,43 @@ namespace GJ2022.Utility.MathConstructs
             {
                 //Check if the midpoint is too small or too large
                 BinaryListElement<T> convergedPoint = binaryListElements.ElementAt(midPoint);
+                //Check regular cases
                 if (convergedPoint.key > key)
-                    binaryListElements.Insert(midPoint, new BinaryListElement<T>(key, toAdd));
+                {
+                    //Check next element is what we were looking for
+                    if (midPoint > 0 && binaryListElements.ElementAt(midPoint - 1).key == key)
+                    {
+                        if (replace)
+                            binaryListElements.ElementAt(midPoint - 1).value = toAdd;
+                        else
+                            throw new IndexOutOfRangeException($"Duplicate element added to binary list at {key}");
+                    }
+                    else
+                        binaryListElements.Insert(midPoint, new BinaryListElement<T>(key, toAdd));
+                }
+                else if (convergedPoint.key < key)
+                    if (midPoint < binaryListElements.Count - 1 && binaryListElements.ElementAt(midPoint + 1).key == key)
+                    {
+                        if (replace)
+                            binaryListElements.ElementAt(midPoint + 1).value = toAdd;
+                        else
+                            throw new IndexOutOfRangeException($"Duplicate element added to binary list at {key}");
+                    }
+                    else
+                        binaryListElements.Insert(midPoint + 1, new BinaryListElement<T>(key, toAdd));
+                else if (replace)
+                    convergedPoint.value = toAdd;
                 else
-                    binaryListElements.Insert(midPoint + 1, new BinaryListElement<T>(key, toAdd));
+                    throw new IndexOutOfRangeException($"Duplicate element added to binary list at {key}");
                 return -1;
             }
             //Locate the element at the midpoint
             BinaryListElement<T> current = binaryListElements.ElementAt(midPoint);
             //Perform next search
             if (current.key > key)
-                return Add(key, toAdd, start, Math.Max(midPoint - 1, 0));
+                return Add(key, toAdd, replace, start, Math.Max(midPoint - 1, 0));
             else
-                return Add(key, toAdd, midPoint + 1, end);
+                return Add(key, toAdd, replace, midPoint + 1, end);
         }
 
         public void Remove(int key)
@@ -170,7 +194,7 @@ namespace GJ2022.Utility.MathConstructs
             return list.First().First();
         }
 
-        public void Add(int x, int y, T element)
+        public void Add(int x, int y, T element, bool replace = false)
         {
             //Locate the X element
             BinaryList<T> located = list.ElementWithKey(x);
@@ -182,7 +206,7 @@ namespace GJ2022.Utility.MathConstructs
                 list.Add(x, located);
             }
             //Add the y element
-            located.Add(y, element);
+            located.Add(y, element, replace);
         }
 
         public void Remove(int x, int y)

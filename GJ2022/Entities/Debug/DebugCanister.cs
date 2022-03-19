@@ -14,7 +14,7 @@ namespace GJ2022.Entities.Debug
 
         public DebugCanister(Vector<float> position) : base(position, Layers.LAYER_STRUCTURE)
         {
-            Turf turf = World.GetTurf((int)position.X, (int)position.Y);
+            Turf turf = World.Current.GetTurf((int)position.X, (int)position.Y);
             if (turf == null)
                 return;
             if (turf.Atmosphere == null)

@@ -26,7 +26,7 @@ namespace GJ2022.Entities.Structures.Power
                 textObjectOffset = new Vector<float>(0, -0.6f);
                 attachedTextObject = new TextObject($"{Powernet?.PowernetId}", Colour.White, Position + textObjectOffset, TextObject.PositionModes.WORLD_POSITION, 0.4f);
                 AddNode();
-                World.SetPowerCable((int)position.X, (int)position.Y, this);
+                World.Current.SetPowerCable((int)position.X, (int)position.Y, this);
             }
         }
 
@@ -61,7 +61,7 @@ namespace GJ2022.Entities.Structures.Power
             if (!base.Destroy())
                 return false;
             RemoveNode();
-            World.SetPowerCable((int)Position.X, (int)Position.Y, null);
+            World.Current.SetPowerCable((int)Position.X, (int)Position.Y, null);
             return true;
         }
 
@@ -212,7 +212,7 @@ namespace GJ2022.Entities.Structures.Power
 
         private PowerConduit LocateConduit(int x, int y)
         {
-            List<Structure> locatedStructures = World.GetStructures(x, y);
+            List<Structure> locatedStructures = World.Current.GetStructures(x, y);
             for (int i = locatedStructures.Count - 1; i >= 0; i = Math.Min(i - 1, locatedStructures.Count - 1))
             {
                 Structure structure = locatedStructures[i];

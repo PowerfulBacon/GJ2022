@@ -195,7 +195,7 @@ namespace GJ2022.Entities.Pawns
         private float CalculateSpeed()
         {
             //If we have gravity return movement factor
-            if (World.HasGravity(Position))
+            if (World.Current.HasGravity(Position))
                 return 0.04f * PawnBody.Movement;
             //Return regular speed
             return 4f;
@@ -278,15 +278,15 @@ namespace GJ2022.Entities.Pawns
         {
             if ((int)oldPosition.X == (int)Position.X && (int)oldPosition.Y == (int)Position.Y)
                 return;
-            World.RemovePawn((int)oldPosition.X, (int)oldPosition.Y, this);
-            World.AddPawn((int)Position.X, (int)Position.Y, this);
+            World.Current.RemovePawn((int)oldPosition.X, (int)oldPosition.Y, this);
+            World.Current.AddPawn((int)Position.X, (int)Position.Y, this);
         }
 
         public void OnMoved(Entity oldLocation)
         {
             if (oldLocation == Location)
                 return;
-            World.RemovePawn((int)Position.X, (int)Position.Y, this);
+            World.Current.RemovePawn((int)Position.X, (int)Position.Y, this);
         }
 
     }

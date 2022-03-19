@@ -44,8 +44,8 @@ namespace GJ2022.Entities.Items
         {
             base.Destroy();
             Destroyed = true;
-            World.RemoveItem((int)Position.X, (int)Position.Y, this);
-            World.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
+            World.Current.RemoveItem((int)Position.X, (int)Position.Y, this);
+            World.Current.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
             //Handle inventory removal
             if (Location is Pawn holder)
             {
@@ -63,11 +63,11 @@ namespace GJ2022.Entities.Items
         {
             if ((int)oldPosition.X == (int)Position.X && (int)oldPosition.Y == (int)Position.Y)
                 return;
-            World.RemoveItem((int)oldPosition.X, (int)oldPosition.Y, this);
-            World.AddItem((int)Position.X, (int)Position.Y, this);
+            World.Current.RemoveItem((int)oldPosition.X, (int)oldPosition.Y, this);
+            World.Current.AddItem((int)Position.X, (int)Position.Y, this);
             //Calculate stockpile
-            World.GetArea((int)oldPosition.X, (int)oldPosition.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
-            World.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_ADDED, this);
+            World.Current.GetArea((int)oldPosition.X, (int)oldPosition.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
+            World.Current.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_ADDED, this);
         }
 
         public void OnMoved(Entity oldLocation)
@@ -80,8 +80,8 @@ namespace GJ2022.Entities.Items
                 return;
             }
             MouseCollisionSubsystem.Singleton.StopTracking(this);
-            World.RemoveItem((int)Position.X, (int)Position.Y, this);
-            World.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
+            World.Current.RemoveItem((int)Position.X, (int)Position.Y, this);
+            World.Current.GetArea((int)Position.X, (int)Position.Y)?.SendSignal(Signal.SIGNAL_AREA_CONTENTS_REMOVED, this);
         }
 
         public void UpdateCount()

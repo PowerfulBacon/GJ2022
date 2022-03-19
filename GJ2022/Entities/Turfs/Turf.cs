@@ -46,15 +46,15 @@ namespace GJ2022.Entities.Turfs
             //Set the position to update the renderable
             Position = new Vector<float>(X, Y);
             //Destroy the old turf
-            Turf oldTurf = World.GetTurf(X, Y);
+            Turf oldTurf = World.Current.GetTurf(X, Y);
             //Set the new turf
             oldTurf?.Destroy(true);
-            World.SetTurf(X, Y, this);
+            World.Current.SetTurf(X, Y, this);
             //Set the direction
             Direction = Directions.NONE;
             //Atmos flow blocking
             if (!AllowAtmosphericFlow)
-                World.AddAtmosphericBlocker(X, Y, false);
+                World.Current.AddAtmosphericBlocker(X, Y, false);
             //Tell the atmos system a turf was created / changed at this location
             if (oldTurf == null)
                 AtmosphericsSystem.Singleton.OnTurfCreated(this);
@@ -79,7 +79,7 @@ namespace GJ2022.Entities.Turfs
 #endif
             //Atmos flow blocking
             if (!AllowAtmosphericFlow)
-                World.RemoveAtmosphericBlock(X, Y, false);
+                World.Current.RemoveAtmosphericBlock(X, Y, false);
             //If we weren't changed, destroy the turf
             if (!changed)
                 AtmosphericsSystem.Singleton.OnTurfDestroyed(this);
@@ -89,7 +89,7 @@ namespace GJ2022.Entities.Turfs
         public override bool Destroy()
         {
             //Dereference
-            World.SetTurf(X, Y, null);
+            World.Current.SetTurf(X, Y, null);
             //Set destroyed
             Destroyed = true;
             return base.Destroy();

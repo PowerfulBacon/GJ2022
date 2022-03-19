@@ -46,21 +46,21 @@ namespace GJ2022.PawnBehaviours.PawnActions
         {
             if (parent.Owner.InCrit)
                 return false;
-            if (World.HasAreaInRange((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40, (Area area) =>
+            if (World.Current.HasAreaInRange((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40, (Area area) =>
             {
                 if (unreachablePositions.Contains(area.Position))
                     return false;
-                if (World.GetThings("Stockpile", (int)area.Position.X, (int)area.Position.Y).Count > 0)
+                if (World.Current.GetThings("Stockpile", (int)area.Position.X, (int)area.Position.Y).Count > 0)
                     return false;
                 return true;
             })
-                && World.HasItemsInRange((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40, (List<Item> toCheck) =>
+                && World.Current.HasItemsInRange((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40, (List<Item> toCheck) =>
                 {
                     foreach (Item item in toCheck)
                     {
                         if (unreachablePositions.Contains(item.Position))
                             continue;
-                        if (World.GetThings("Stockpile", (int)item.Position.X, (int)item.Position.Y).Count > 0)
+                        if (World.Current.GetThings("Stockpile", (int)item.Position.X, (int)item.Position.Y).Count > 0)
                             continue;
                         return true;
                     }
@@ -166,7 +166,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 StoreHeldItems(parent);
             }
             //Check if the claimed area location is still empty
-            else if (World.GetItems((int)claimedArea.Position.X, (int)claimedArea.Position.Y).Count > 0)
+            else if (World.Current.GetItems((int)claimedArea.Position.X, (int)claimedArea.Position.Y).Count > 0)
             {
                 //Redeliver items
                 StoreHeldItems(parent);
@@ -193,7 +193,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 return;
             }
             //Attempt to locate items
-            List<Item> itemsToSearch = World.GetSprialItems((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40);
+            List<Item> itemsToSearch = World.Current.GetSprialItems((int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, 40);
             Item targetItem = null;
             if (forcedTarget == null)
             {
@@ -211,7 +211,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                         continue;
                     //Check if the item
                     //is in a stockpile, if it is, skip it
-                    if (World.GetThings("Stockpile", (int)item.Position.X, (int)item.Position.Y).Count > 0)
+                    if (World.Current.GetThings("Stockpile", (int)item.Position.X, (int)item.Position.Y).Count > 0)
                         continue;
                     //Looks like the item is valid!
                     targetItem = item;
@@ -220,7 +220,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             }
             else
             {
-                if (!forcedTarget.IsClaimed && forcedTarget.Location == null && !unreachablePositions.Contains(forcedTarget.Position) && World.GetThings("Stockpile", (int)forcedTarget.Position.X, (int)forcedTarget.Position.Y).Count == 0)
+                if (!forcedTarget.IsClaimed && forcedTarget.Location == null && !unreachablePositions.Contains(forcedTarget.Position) && World.Current.GetThings("Stockpile", (int)forcedTarget.Position.X, (int)forcedTarget.Position.Y).Count == 0)
                     targetItem = forcedTarget;
             }
             //No item was located
@@ -257,7 +257,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
             }
             Area freeStockpileArea = null;
             //Extend range for forced haul
-            foreach (Area area in World.GetSpiralThings<Area>("Stockpile", (int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, forcedTarget == null ? 60 : 120))
+            foreach (Area area in World.Current.GetSpiralThings<Area>("Stockpile", (int)parent.Owner.Position.X, (int)parent.Owner.Position.Y, forcedTarget == null ? 60 : 120))
             {
                 //If the area is claimed, skip it
                 if (area.IsClaimed)
@@ -266,7 +266,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                 if (unreachablePositions.Contains(area.Position))
                     continue;
                 //If the area has items in it, skip it
-                if (World.GetItems((int)area.Position.X, (int)area.Position.Y).Count > 0)
+                if (World.Current.GetItems((int)area.Position.X, (int)area.Position.Y).Count > 0)
                     continue;
                 //A good stockpile area
                 freeStockpileArea = area;

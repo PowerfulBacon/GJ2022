@@ -49,7 +49,7 @@ namespace GJ2022.Entities.Structures
         public void Process(float deltaTime)
         {
             //Get the current turf
-            Turf turf = World.GetTurf((int)Position.X, (int)Position.Y);
+            Turf turf = World.Current.GetTurf((int)Position.X, (int)Position.Y);
             //Check turf atmos
             if (turf == null || turf.Atmosphere == null)
             {
@@ -67,7 +67,7 @@ namespace GJ2022.Entities.Structures
                 return;
             }
             //Hurt pawns
-            foreach (Pawn pawn in World.GetPawns(turf.X, turf.Y))
+            foreach (Pawn pawn in World.Current.GetPawns(turf.X, turf.Y))
             {
                 pawn.PawnBody.ApplyDamageRandomly(new Burn(0.5f * deltaTime));
             }
@@ -94,7 +94,7 @@ namespace GJ2022.Entities.Structures
             //Go through directions
             Vector<int> spreadDirction = directions[i];
             //Check for atmospheric flow allowance
-            if (!World.AllowsAtmosphericFlow(x + spreadDirction[0], y + spreadDirction[1]))
+            if (!World.Current.AllowsAtmosphericFlow(x + spreadDirction[0], y + spreadDirction[1]))
                 return;
             //Check for fires
             if (GlobalFires.Get(x + spreadDirction[0], y + spreadDirction[1]) != null)
