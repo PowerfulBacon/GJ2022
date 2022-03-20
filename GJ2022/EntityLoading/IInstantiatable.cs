@@ -1,4 +1,5 @@
-﻿using GJ2022.Utility.MathConstructs;
+﻿using GJ2022.EntityLoading.XmlDataStructures;
+using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace GJ2022.EntityLoading
 {
     public interface IInstantiatable
     {
+
+        EntityDef TypeDef { get; set; }
 
         /// <summary>
         /// Set the property of this object

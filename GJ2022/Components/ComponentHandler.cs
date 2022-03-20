@@ -13,6 +13,9 @@ namespace GJ2022.Components
     public abstract class ComponentHandler : IComponentHandler, IInstantiatable
     {
 
+        //The attached type definiton, provided during instantiation
+        public EntityDef TypeDef { get; set; }
+
         /// <summary>
         /// The signal delegate.
         /// </summary>

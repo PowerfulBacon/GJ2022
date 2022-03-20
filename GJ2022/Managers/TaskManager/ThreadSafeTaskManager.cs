@@ -57,10 +57,10 @@ namespace GJ2022.Managers.TaskManager
             }
             catch (Exception e)
             {
-                Log.WriteLine($"Error while performing {action.Method.Name} on {action.Method.DeclaringType.FullName}", LogType.ERROR);
+                Log.WriteLine($"Error while performing {action.Method.Name} on {action.Method.DeclaringType.Name}", LogType.ERROR);
                 Log.WriteLine(e, LogType.ERROR);
                 Complete(threadSafeId);
-                throw e;
+                throw;
             }
             //Complete action
             Complete(threadSafeId);

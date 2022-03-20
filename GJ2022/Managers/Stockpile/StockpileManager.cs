@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities.Areas;
 using GJ2022.Entities.Items;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Utility.Helpers;
@@ -17,9 +18,9 @@ namespace GJ2022.Managers.Stockpile
         //First key = The item type
         //Second key = the stockpile area the items are stored in
         //Value = A list of items with the type and stockpile area specified
-        public static Dictionary<Type, List<Item>> StockpileItems { get; } = new Dictionary<Type, List<Item>>();
+        public static Dictionary<EntityDef, List<Item>> StockpileItems { get; } = new Dictionary<EntityDef, List<Item>>();
 
-        public static void CountItems(Type itemType)
+        public static void CountItems(EntityDef itemType)
         {
             ThreadSafeTaskManager.ExecuteThreadSafeActionUnblocking(ThreadSafeTaskManager.TASK_STOCKPILE_MANAGER, () =>
             {
@@ -45,7 +46,7 @@ namespace GJ2022.Managers.Stockpile
         /// Returns the reference to an item in the stockpile.
         /// Returns null if the requested type is not in the stockpile.
         /// </summary>
-        public static Item LocateItemInStockpile(Type wantedType)
+        public static Item LocateItemInStockpile(EntityDef wantedType)
         {
             if (!StockpileItems.ContainsKey(wantedType))
                 return null;
@@ -76,27 +77,27 @@ namespace GJ2022.Managers.Stockpile
         {
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_STOCKPILE_MANAGER, () =>
             {
-                if (StockpileItems.ContainsKey(item.GetType()))
-                    StockpileItems[item.GetType()].Add(item);
+                if (StockpileItems.ContainsKey(item.TypeDef))
+                    StockpileItems[item.TypeDef].Add(item);
                 else
-                    StockpileItems.Add(item.GetType(), new List<Item>() { item });
+                    StockpileItems.Add(item.TypeDef, new List<Item>() { item });
                 return true;
             });
-            CountItems(item.GetType());
+            CountItems(item.TypeDef);
         }
 
         public static void RemoveItem(Item item)
         {
             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_STOCKPILE_MANAGER, () =>
             {
-                if (!StockpileItems.ContainsKey(item.GetType()))
+                if (!StockpileItems.ContainsKey(item.TypeDef))
                     return false;
-                StockpileItems[item.GetType()].Remove(item);
-                if (StockpileItems[item.GetType()].Count == 0)
-                    StockpileItems.Remove(item.GetType());
+                StockpileItems[item.TypeDef].Remove(item);
+                if (StockpileItems[item.TypeDef].Count == 0)
+                    StockpileItems.Remove(item.TypeDef);
                 return true;
             });
-            CountItems(item.GetType());
+            CountItems(item.TypeDef);
         }
 
     }

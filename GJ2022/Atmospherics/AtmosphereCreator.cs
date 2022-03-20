@@ -1,4 +1,5 @@
 ﻿using GJ2022.EntityLoading;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace GJ2022.Atmospherics
         public float Oxygen { private get; set; } = 0;
         public float CarbonDioxide { private get; set; } = 0;
         public float Hydrogen { private get; set; } = 0;
+        public EntityDef TypeDef { get; set; }
 
         public Atmosphere Generate()
         {

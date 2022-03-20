@@ -52,6 +52,8 @@ namespace GJ2022.EntityLoading.XmlDataStructures
             {
                 throw new XmlException($"The class {className} is not an instantiatable type. It must implement IInstantiable.");
             }
+            //Set the typeDef
+            created.TypeDef = this;
             //Call the pre init behaviour
             created.PreInitialize(initializePosition);
             //Set the properties of this object

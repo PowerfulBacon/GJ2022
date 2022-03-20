@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GJ2022.EntityLoading.XmlDataStructures;
+using System;
 using System.Collections.Generic;
 
 namespace GJ2022.Game.Construction.Cost
@@ -6,7 +7,7 @@ namespace GJ2022.Game.Construction.Cost
     public class ConstructionCostData
     {
 
-        public Dictionary<Type, int> Cost { get; } = new Dictionary<Type, int>();
+        public Dictionary<EntityDef, int> Cost { get; } = new Dictionary<EntityDef, int>();
 
     }
 }

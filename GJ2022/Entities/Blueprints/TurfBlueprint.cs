@@ -1,4 +1,5 @@
-﻿using GJ2022.Game.Construction.Blueprints;
+﻿using GJ2022.EntityLoading;
+using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Utility.MathConstructs;
 using System;
 
@@ -13,7 +14,7 @@ namespace GJ2022.Entities.Blueprints
         public override void Complete()
         {
             //Create an instance of the thingy
-            Activator.CreateInstance(BlueprintDetail.CreatedType, (int)Position.X, (int)Position.Y);
+            EntityCreator.CreateEntity(BlueprintDetail.CreatedDef, Position);
             //Destroy the blueprint
             Destroy();
         }

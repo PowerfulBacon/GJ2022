@@ -102,6 +102,8 @@ namespace GJ2022.Entities.Pawns
             {
                 helpfulLine?.StopDrawing();
                 helpfulLine = null;
+                attachedTextObject?.StopRendering();
+                attachedTextObject = null;
                 return;
             }
             if (helpfulLine == null)
@@ -109,6 +111,9 @@ namespace GJ2022.Entities.Pawns
             helpfulLine.Start = Position.SetZ(10);
             helpfulLine.End = endPos.SetZ(10);
             helpfulLine.Colour = followingPath != null ? Colour.Green : Colour.Red;
+            if (attachedTextObject == null)
+                attachedTextObject = new Rendering.Text.TextObject("", Colour.White, Position, Rendering.Text.TextObject.PositionModes.WORLD_POSITION, 0.6f);
+            attachedTextObject.Text = $"{behaviourController?.CurrentAction}";
         }
 
         public void Process(float deltaTime)

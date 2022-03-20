@@ -1,4 +1,5 @@
 ﻿using GJ2022.EntityLoading;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,9 @@ namespace GJ2022.Components
 {
     public abstract class Component : IInstantiatable
     {
+
+        //The attached type definiton, provided during instantiation
+        public EntityDef TypeDef { get; set; }
 
         public ComponentHandler Parent { get; private set; }
 

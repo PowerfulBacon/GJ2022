@@ -1,4 +1,5 @@
 ﻿using GJ2022.Entities.Items;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Rendering.Text;
 using GJ2022.UserInterface.Components.Advanced;
 using GJ2022.Utility.Helpers;
@@ -12,9 +13,9 @@ namespace GJ2022.Managers.Stockpile
     {
 
         //List of UI text objects currently being displayed
-        public static Dictionary<Type, UserInterfaceTextIcon> displayedUiComponents = new Dictionary<Type, UserInterfaceTextIcon>();
+        public static Dictionary<EntityDef, UserInterfaceTextIcon> displayedUiComponents = new Dictionary<EntityDef, UserInterfaceTextIcon>();
 
-        public static void UpdateUserInterface(Item item, Type type, int amount)
+        public static void UpdateUserInterface(Item item, EntityDef type, int amount)
         {
             if (amount == 0)
             {
@@ -23,7 +24,7 @@ namespace GJ2022.Managers.Stockpile
                     displayedUiComponents[type].Hide();
                     displayedUiComponents.Remove(type);
                     int i = 0;
-                    foreach (Type uiType in displayedUiComponents.Keys)
+                    foreach (EntityDef uiType in displayedUiComponents.Keys)
                     {
                         displayedUiComponents[uiType].Position = CoordinateHelper.PixelsToScreen(-1920 + 60, 1080 - 70 - 100 * i);
                         i++;
@@ -31,13 +32,13 @@ namespace GJ2022.Managers.Stockpile
                 }
                 return;
             }
-            if (displayedUiComponents.ContainsKey(item.GetType()))
+            if (displayedUiComponents.ContainsKey(item.TypeDef))
             {
-                displayedUiComponents[item.GetType()].Text.Text = $"{item.Name} x{amount}";
+                displayedUiComponents[item.TypeDef].Text.Text = $"{item.Name} x{amount}";
             }
             else
             {
-                displayedUiComponents.Add(item.GetType(), new UserInterfaceTextIcon(
+                displayedUiComponents.Add(item.TypeDef, new UserInterfaceTextIcon(
                     $"{item.Name} x{amount}",
                     item.UiTexture,
                     Colour.White,

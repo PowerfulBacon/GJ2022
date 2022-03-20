@@ -27,7 +27,7 @@ namespace GJ2022.PawnBehaviours
         public abstract Dictionary<PawnAction, double> Actions { get; }
 
         //The currently running action
-        private PawnAction currentAction;
+        public PawnAction CurrentAction { get; private set; }
 
         //Are we processing?
         private volatile bool firing = false;
@@ -57,7 +57,7 @@ namespace GJ2022.PawnBehaviours
         /// </summary>
         public void PawnActionReached()
         {
-            currentAction.OnPawnReachedLocation(this);
+            CurrentAction.OnPawnReachedLocation(this);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace GJ2022.PawnBehaviours
         /// </summary>
         public void PawnActionUnreachable(Vector<float> unreachableLocation)
         {
-            currentAction.OnActionUnreachable(this, unreachableLocation);
+            CurrentAction.OnActionUnreachable(this, unreachableLocation);
         }
 
         /// <summary>
@@ -74,13 +74,13 @@ namespace GJ2022.PawnBehaviours
         /// </summary>
         public void PawnActionIntercept(PawnAction forcedAction)
         {
-            if (currentAction != null && !currentAction.Completed(this))
+            if (CurrentAction != null && !CurrentAction.Completed(this))
             {
-                currentAction.OnActionCancel(this);
+                CurrentAction.OnActionCancel(this);
             }
-            currentAction = forcedAction;
-            currentAction?.OnActionStart(this);
-            currentAction?.PerformProcess(this);
+            CurrentAction = forcedAction;
+            CurrentAction?.OnActionStart(this);
+            CurrentAction?.PerformProcess(this);
         }
 
         public void PauseActionFor(PawnAction action, double time)
@@ -117,23 +117,23 @@ namespace GJ2022.PawnBehaviours
                     }
                 }
                 //If our current action is completed, smoothly swap to the next action
-                if ((currentAction == null || currentAction.Completed(this) || (currentAction.ForceOverride && performingAction != currentAction)) && performingAction != null)
+                if ((CurrentAction == null || CurrentAction.Completed(this) || (CurrentAction.ForceOverride && performingAction != CurrentAction)) && performingAction != null)
                 {
-                    currentAction?.OnActionEnd(this);
-                    currentAction = performingAction;
-                    currentAction.OnActionStart(this);
+                    CurrentAction?.OnActionEnd(this);
+                    CurrentAction = performingAction;
+                    CurrentAction.OnActionStart(this);
                 }
                 //Replace current action with overriding actions if available
-                else if (performingAction != null && performingAction.Overriding && performingAction != currentAction)
+                else if (performingAction != null && performingAction.Overriding && performingAction != CurrentAction)
                 {
-                    currentAction?.OnActionCancel(this);
-                    currentAction = performingAction;
-                    currentAction.OnActionStart(this);
+                    CurrentAction?.OnActionCancel(this);
+                    CurrentAction = performingAction;
+                    CurrentAction.OnActionStart(this);
                 }
                 //Perform current action
-                if (currentAction != null)
+                if (CurrentAction != null)
                 {
-                    currentAction.PerformProcess(this);
+                    CurrentAction.PerformProcess(this);
                 }
                 firing = false;
             }

@@ -1,6 +1,7 @@
 ﻿using GJ2022.Components;
 using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.EntityLoading;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.Managers.TaskManager;
