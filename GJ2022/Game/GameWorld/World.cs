@@ -70,9 +70,6 @@ namespace GJ2022.Game.GameWorld
         //Dictionary containing all mobs in the world
         public static PositionBasedBinaryList<List<Pawn>> WorldPawns = new PositionBasedBinaryList<List<Pawn>>();
 
-        //Dictionary containing all mobs in the world
-        public static PositionBasedBinaryList<List<AreaPowerController>> AreaPowerControllers = new PositionBasedBinaryList<List<AreaPowerController>>();
-
         //An integer storing the amount of atmospheric blocking things at this location
         private static PositionBasedBinaryList<IntegerReference> AtmosphericBlockers = new PositionBasedBinaryList<IntegerReference>();
 
@@ -313,41 +310,6 @@ namespace GJ2022.Game.GameWorld
             located.Remove(thing);
             if (located.Count == 0)
                 TrackedComponentHandlers[thingGroup].Remove(x, y);
-            return true;
-        }
-
-        //======================
-        // APCs
-        //======================
-
-        public static List<AreaPowerController> GetAreaPowerControllers(int x, int y)
-        {
-            return AreaPowerControllers.Get(x, y) ?? new List<AreaPowerController>() { };
-        }
-
-        /// <summary>
-        /// Add an pawn to the world list
-        /// </summary>
-        public static void AddAreaPowerController(int x, int y, AreaPowerController apc)
-        {
-            List<AreaPowerController> located = AreaPowerControllers.Get(x, y);
-            if (located != null)
-                located.Add(apc);
-            else
-                AreaPowerControllers.Add(x, y, new List<AreaPowerController>() { apc });
-        }
-
-        /// <summary>
-        /// Remove the pawn from the world list
-        /// </summary>
-        public static bool RemoveAreaPowerController(int x, int y, AreaPowerController apc)
-        {
-            List<AreaPowerController> located = AreaPowerControllers.Get(x, y);
-            if (located == null)
-                return false;
-            located.Remove(apc);
-            if (located.Count == 0)
-                AreaPowerControllers.Remove(x, y);
             return true;
         }
 
