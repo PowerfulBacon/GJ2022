@@ -1,6 +1,7 @@
 ﻿using GJ2022.Components;
 using GJ2022.Entities;
 using GJ2022.Entities.Pawns;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,10 @@ namespace GJ2022.PawnBehaviours.InteractionEvents
 {
     public class MineInteraction : IInteractionEvent
     {
+
+        //The attached type definiton, provided during instantiation
+        public EntityDef TypeDef { get; set; }
+
         public void Initialize(Vector<float> initializePosition)
         { }
 

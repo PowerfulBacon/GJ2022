@@ -2,6 +2,7 @@
 using GJ2022.Entities.Items;
 using GJ2022.Entities.Items.Stacks;
 using GJ2022.EntityLoading;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.Models;
@@ -19,7 +20,7 @@ namespace GJ2022.Entities.Blueprints
     public class Blueprint : Entity, IDestroyable
     {
         //Materials loaded into this blueprint
-        public Dictionary<Type, int> LoadedMaterials { get; } = new Dictionary<Type, int>();
+        public Dictionary<EntityDef, int> LoadedMaterials { get; } = new Dictionary<EntityDef, int>();
 
         public BlueprintDetail BlueprintDetail { get; set; }
 
@@ -74,17 +75,17 @@ namespace GJ2022.Entities.Blueprints
             if (!(item is Stack stackItem))
             {
                 item.Location = this;
-                LazyHelper.LazyIntegerAdd(LoadedMaterials, item.GetType(), item.Count());
+                LazyHelper.LazyIntegerAdd(LoadedMaterials, item.TypeDef, item.Count());
             }
             else
             {
-                Stack toPut = stackItem.Take(Math.Min(stackItem.StackSize, BlueprintDetail.Cost.Cost[item.GetType()]));
+                Stack toPut = stackItem.Take(Math.Min(stackItem.StackSize, BlueprintDetail.Cost.Cost[item.TypeDef]));
                 toPut.Location = this;
-                LazyHelper.LazyIntegerAdd(LoadedMaterials, item.GetType(), toPut.StackSize);
+                LazyHelper.LazyIntegerAdd(LoadedMaterials, item.TypeDef, toPut.StackSize);
             }
         }
 
-        public bool RequiresMaterial(Type materialType)
+        public bool RequiresMaterial(EntityDef materialType)
         {
             return BlueprintDetail.Cost.Cost.ContainsKey(materialType);
         }
@@ -92,9 +93,9 @@ namespace GJ2022.Entities.Blueprints
         /// <summary>
         /// Returns a tuple containing the first required material type and the amount needed
         /// </summary>
-        public (Type, int)? GetRequiredMaterial()
+        public (EntityDef, int)? GetRequiredMaterial()
         {
-            foreach (Type requiredType in BlueprintDetail.Cost.Cost.Keys)
+            foreach (EntityDef requiredType in BlueprintDetail.Cost.Cost.Keys)
             {
                 int requiredAmount = BlueprintDetail.Cost.Cost[requiredType];
                 if (!LoadedMaterials.ContainsKey(requiredType))

@@ -86,7 +86,7 @@ namespace GJ2022.Entities.Items
 
         public void UpdateCount()
         {
-            StockpileManager.CountItems(GetType());
+            StockpileManager.CountItems(TypeDef);
         }
 
         public virtual int Count()

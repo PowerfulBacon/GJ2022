@@ -1,4 +1,5 @@
 ﻿using GJ2022.EntityLoading;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Game.GameWorld;
 using GJ2022.Rendering.RenderSystems.Interfaces;
 using GJ2022.Rendering.Textures;
@@ -10,6 +11,9 @@ namespace GJ2022.Rendering.RenderSystems.Renderables
 {
     public abstract class Renderable : IInternalRenderable, IInstantiatable
     {
+
+        //The attached type definiton, provided during instantiation
+        public EntityDef TypeDef { get; set; }
 
         //Delegates
         public delegate void MoveDelegate(Vector<float> position);

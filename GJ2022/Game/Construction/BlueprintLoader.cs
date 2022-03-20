@@ -1,5 +1,6 @@
 ﻿using GJ2022.Entities;
 using GJ2022.Entities.Turfs;
+using GJ2022.EntityLoading;
 using GJ2022.Game.Construction.Blueprints;
 using GJ2022.Game.Construction.BlueprintSets;
 using GJ2022.Game.Construction.Cost;
@@ -62,7 +63,7 @@ namespace GJ2022.Game.Construction
                         {
                             foreach (JProperty costToken in blueprintToken["cost"])
                             {
-                                //costData.Cost.Add(possibleTypes[costToken.Name], costToken.Value.Value<int>());
+                                costData.Cost.Add(EntityConfig.LoadedEntityDefs[costToken.Name], costToken.Value.Value<int>());
                             }
                         }
                         //Load the blueprint texture

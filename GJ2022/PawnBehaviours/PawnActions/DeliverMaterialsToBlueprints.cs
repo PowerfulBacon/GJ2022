@@ -1,6 +1,7 @@
 ﻿using GJ2022.Entities;
 using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.Items;
+using GJ2022.EntityLoading.XmlDataStructures;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Subsystems;
@@ -117,11 +118,11 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     }
                     //Get items we are holding and put them into the blueprint
                     //Put the item inside the blueprint
-                    Type firstType = null;
+                    EntityDef firstType = null;
                     foreach (Item item in parent.Owner.GetHeldItems())
                     {
-                        firstType = item.GetType();
-                        if (targetBlueprint.RequiresMaterial(item.GetType()))
+                        firstType = item.TypeDef;
+                        if (targetBlueprint.RequiresMaterial(item.TypeDef))
                         {
                             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
                             {
@@ -181,7 +182,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     if (blueprint.IsClaimed)
                         continue;
                     //Check if there are materials in storage, and the blueprint requires materials
-                    (Type, int)? requiredMaterial = blueprint.GetRequiredMaterial();
+                    (EntityDef, int)? requiredMaterial = blueprint.GetRequiredMaterial();
                     if (requiredMaterial == null || StockpileManager.LocateItemInStockpile(requiredMaterial.Value.Item1) == null)
                         continue;
                     //If the blueprint has materials, then we can build it.
@@ -202,7 +203,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         {
             if (blueprint.GetRequiredMaterial() == null)
                 return null;
-            Type wantedType = blueprint.GetRequiredMaterial().Value.Item1;
+            EntityDef wantedType = blueprint.GetRequiredMaterial().Value.Item1;
             Item coolItem = StockpileManager.LocateItemInStockpile(wantedType);
             if (coolItem == null)
                 return null;
@@ -214,7 +215,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         /// <summary>
         /// Attempt to locate blueprints that need the material we have
         /// </summary>
-        private void LocateSimilarBlueprints(PawnBehaviour parent, Type desiredMaterialType)
+        private void LocateSimilarBlueprints(PawnBehaviour parent, EntityDef desiredMaterialType)
         {
             foreach (Vector<float> blueprintPosition in PawnControllerSystem.QueuedBlueprints.Keys)
             {
@@ -230,7 +231,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     if (blueprint.IsClaimed)
                         continue;
                     //Check if there are materials in storage, and the blueprint requires materials
-                    (Type, int)? requiredMaterial = blueprint.GetRequiredMaterial();
+                    (EntityDef, int)? requiredMaterial = blueprint.GetRequiredMaterial();
                     if (requiredMaterial == null || requiredMaterial?.Item1 != desiredMaterialType)
                         continue;
                     //If we couldn't locate a blueprint, or claim a blueprint
