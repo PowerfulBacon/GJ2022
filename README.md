@@ -14,6 +14,11 @@ A lot of time was spent making the engine robust, so there wasn't as many gamepl
 
 The main issue with this project is that due to running out of time, there is almost nothing in the game related to the theme of Duality and the theme was pretty much abandoned during development to focus on creating the internal systems.
 
+## Documentation
+
+TypeDef:
+https://hackmd.io/O7jh4iHcQ-KjkA7b_3P8Xw?edit
+
 ## Initial Game Plan
 
 A game made around the theme of Duality.
