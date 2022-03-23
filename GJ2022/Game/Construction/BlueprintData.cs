@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GJ2022.Game.Construction
 {
-    class BlueprintCategory
+    class BlueprintData
     {
     }
 }
