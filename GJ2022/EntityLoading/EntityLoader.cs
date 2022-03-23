@@ -184,6 +184,12 @@ namespace GJ2022.EntityLoading
                     Log.WriteLine(xmlException, LogType.ERROR);
                 }
             }
+            //Parsing of this has been completed
+            CompleteParse(createdProperty, element, parentProperty);
+        }
+
+        private static void CompleteParse(PropertyDef createdProperty, XElement element, PropertyDef parentProperty)
+        {
             //Add as property
             if (parentProperty != null)
             {
@@ -191,15 +197,22 @@ namespace GJ2022.EntityLoading
             }
             else
             {
+                //Top level properties
                 //Add to the list of EntityDefs or ConstDefs or whatever
                 Log.WriteLine($"Successfully created {(createdProperty.Tags.ContainsKey("Name") ? createdProperty.Tags["Name"] : createdProperty.Name)}", LogType.LOG);
-                if (createdProperty.Name == "Constant")
+                switch (element.Parent.Name.ToString())
                 {
-                    EntityConfig.LoadedConstants.Add(createdProperty.Tags["Name"], createdProperty);
-                }
-                else if (createdProperty is EntityDef)
-                {
-                    EntityConfig.LoadedEntityDefs.Add(createdProperty.Tags["Name"], createdProperty as EntityDef);
+                    case "Constants":
+                        EntityConfig.LoadedConstants.Add(createdProperty.Tags["Name"], createdProperty);
+                        break;
+                    case "Entities":
+                        EntityConfig.LoadedEntityDefs.Add(createdProperty.Tags["Name"], createdProperty as EntityDef);
+                        break;
+                    case "InstantiateOnLoad":
+                        createdProperty.GetValue(Vector<float>.Zero);
+                        break;
+                    default:
+                        throw new Exception($"Could not determine the type of object ({element.Parent.Name})");
                 }
             }
         }
