@@ -1,8 +1,8 @@
 ﻿using GJ2022.Components.Bespoke;
 using GJ2022.Entities;
-using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.Items;
 using GJ2022.EntityLoading.XmlDataStructures;
+using GJ2022.Game.Construction;
 using GJ2022.Managers.Stockpile;
 using GJ2022.Managers.TaskManager;
 using GJ2022.Subsystems;
@@ -200,9 +200,9 @@ namespace GJ2022.PawnBehaviours.PawnActions
         /// <summary>
         /// Find required materials in the stockpile
         /// </summary>
-        private Item LocateMaterials(PawnBehaviour parent, Blueprint blueprint)
+        private Item LocateMaterials(PawnBehaviour parent, Entity blueprint)
         {
-            if (blueprint.GetRequiredMaterial() == null)
+            if (!BlueprintSystem.Singleton.BlueprintHasMaterials(blueprint.GetComponent<Component_Blueprint>()))
                 return null;
             EntityDef wantedType = blueprint.GetRequiredMaterial().Value.Item1;
             Item coolItem = StockpileManager.LocateItemInStockpile(wantedType);
