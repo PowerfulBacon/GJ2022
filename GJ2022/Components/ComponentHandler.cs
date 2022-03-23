@@ -208,5 +208,13 @@ namespace GJ2022.Components
 
         public abstract void Initialize(Vector<float> initializePosition);
 
+        public T GetComponent<T>() where T : Component
+        {
+            foreach (Component component in Components)
+                if (component is T returnType)
+                    return returnType;
+            return null;
+        }
+
     }
 }

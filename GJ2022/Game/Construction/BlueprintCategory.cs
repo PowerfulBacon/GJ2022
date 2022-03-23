@@ -1,5 +1,6 @@
 ﻿using GJ2022.EntityLoading;
 using GJ2022.EntityLoading.XmlDataStructures;
+using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,15 @@ namespace GJ2022.Game.Construction
         /// <summary>
         /// The set of blueprints contained by this category
         /// </summary>
-        public IEnumerable<BlueprintData> Blueprints { get; private set; }
+        public IEnumerable<BlueprintSet> BlueprintSets { get; private set; }
 
         public EntityDef TypeDef { get; set; }
 
         public void Initialize(Vector<float> initializePosition)
-        { }
+        {
+            //Store the blueprint in a global list somewhere
+            BlueprintSystem.Singleton.Blueprints.Add(this);
+        }
 
         public void PreInitialize(Vector<float> initializePosition)
         { }
@@ -37,8 +41,8 @@ namespace GJ2022.Game.Construction
                 case "Name":
                     Name = (string)property;
                     return;
-                case "Blueprints":
-                    Blueprints = ((List<object>)property).OfType<BlueprintData>();
+                case "BlueprintSets":
+                    BlueprintSets = ((List<object>)property).OfType<BlueprintSet>();
                     return;
             }
             throw new NotImplementedException($"Unrecognised property {name}");

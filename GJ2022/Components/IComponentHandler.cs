@@ -56,5 +56,13 @@ namespace GJ2022.Components
 
         void Initialize(Vector<float> initializePosition);
 
+        /// <summary>
+        /// Gets the component with the specified type.
+        /// Time complexity is proportional to the number of components on the object.
+        /// </summary>
+        /// <typeparam name="T">The type of the component to return</typeparam>
+        /// <returns>The component with type T</returns>
+        T GetComponent<T>() where T : Component;
+
     }
 }

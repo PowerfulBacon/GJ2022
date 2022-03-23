@@ -115,6 +115,28 @@ namespace GJ2022.Game.GameWorld
         }
 
         //======================
+        // Get the closest thing
+        //======================
+
+        public static T GetClosestThing<T>(string thingGroup, int original_x, int original_y, int range, BinaryList<T>.BinaryListValidityCheckDelegate conditionalCheck = null)
+            where T : IComponentHandler
+        {
+            if (!TrackedComponentHandlers.ContainsKey(thingGroup))
+                return default;
+            for (int r = 0; r <= range; r++)
+                for (int x = original_x - r; x <= original_x + r; x++)
+                    for (int y = original_y - r; y <= original_y + r; y += (x == original_x - r || x == original_x + r) ? 1 : r * 2)
+                    {
+                        List<IComponentHandler> located = TrackedComponentHandlers[thingGroup].Get(x, y);
+                        if (located != null)
+                            foreach (IComponentHandler thing in located)
+                                if (conditionalCheck == null || conditionalCheck.Invoke((T)thing))
+                                    return (T)located[0];
+                    }
+            return default;
+        }
+
+        //======================
         // Spiral Distance Getters
         //======================
 

@@ -43,7 +43,9 @@ namespace GJ2022.Game.Construction
         public EntityDef TypeDef { get; set; }
 
         public void Initialize(Vector<float> initializePosition)
-        { }
+        {
+            //Add ourselves to the blueprint system
+        }
 
         public void PreInitialize(Vector<float> initializePosition)
         { }

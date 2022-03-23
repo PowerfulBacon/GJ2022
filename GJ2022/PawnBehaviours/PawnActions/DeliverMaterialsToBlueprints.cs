@@ -1,4 +1,5 @@
-﻿using GJ2022.Entities;
+﻿using GJ2022.Components.Bespoke;
+using GJ2022.Entities;
 using GJ2022.Entities.Blueprints;
 using GJ2022.Entities.Items;
 using GJ2022.EntityLoading.XmlDataStructures;
@@ -40,7 +41,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         {
             if (parent.Owner.InCrit)
                 return false;
-            return PawnControllerSystem.QueuedBlueprints.Count > 0;
+            return BlueprintSystem.Singleton.HasBlueprints();
         }
 
         public override bool Completed(PawnBehaviour parent)
@@ -69,7 +70,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
         public override void OnActionStart(PawnBehaviour parent)
         {
             ReleaseBlueprintClaimedItems(parent);
-            Blueprint located = LocateValidBlueprint(parent);
+            Entity located = LocateValidBlueprint(parent);
             //If we couldn't locate a blueprint, or claim a blueprint
             if (located == null || !ThreadSafeClaimManager.ReserveClaimBlocking(parent.Owner, located))
             {
@@ -104,7 +105,7 @@ namespace GJ2022.PawnBehaviours.PawnActions
 
         public override void OnPawnReachedLocation(PawnBehaviour parent)
         {
-            Blueprint targetBlueprint = ThreadSafeClaimManager.GetClaimedItem(parent.Owner) as Blueprint;
+            Entity targetBlueprint = ThreadSafeClaimManager.GetClaimedItem(parent.Owner);
             switch (haulActionState)
             {
                 case HaulItemActionModes.DELIVER_ITEM:
@@ -122,11 +123,11 @@ namespace GJ2022.PawnBehaviours.PawnActions
                     foreach (Item item in parent.Owner.GetHeldItems())
                     {
                         firstType = item.TypeDef;
-                        if (targetBlueprint.RequiresMaterial(item.TypeDef))
+                        if (BlueprintSystem.Singleton.BlueprintRequiresMaterial(targetBlueprint.GetComponent<Component_Blueprint>(), item.TypeDef))
                         {
                             ThreadSafeTaskManager.ExecuteThreadSafeAction(ThreadSafeTaskManager.TASK_PAWN_INVENTORY, () =>
                             {
-                                targetBlueprint.PutMaterials(item);
+                                BlueprintSystem.Singleton.BlueprintInsertMaterials(targetBlueprint.GetComponent<Component_Blueprint>(), item);
                                 return true;
                             });
                         }
