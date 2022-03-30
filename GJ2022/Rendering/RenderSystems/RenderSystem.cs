@@ -190,7 +190,7 @@ namespace GJ2022.Rendering.RenderSystems
 
             //Attach the shader set so we can grab uniform locations
             //Link program and use program are required here, not sure what they do exactly.
-            SystemShaders.AttachShaders(programUint);
+            //SystemShaders.AttachShaders(programUint);
             //glLinkProgram(programUint);
 
             //Load the camera's view matrix
@@ -202,7 +202,7 @@ namespace GJ2022.Rendering.RenderSystems
             glUniformMatrix4fv(uniformVariableLocations["projectionMatrix"], 1, false, mainCamera.ProjectionMatrix.GetPointer());
 
             //Detatch the shaders
-            SystemShaders.DetatchShaders(programUint);
+            //SystemShaders.DetatchShaders(programUint);
         }
 
         private unsafe void LoadUniformLocations()
