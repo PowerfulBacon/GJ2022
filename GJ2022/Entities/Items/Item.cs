@@ -4,7 +4,7 @@ using GJ2022.Entities.ComponentInterfaces;
 using GJ2022.Entities.ComponentInterfaces.MouseEvents;
 using GJ2022.Entities.Pawns;
 using GJ2022.Game.GameWorld;
-using GJ2022.Managers.Stockpile;
+using GJ2022.Game.Stockpile;
 using GJ2022.PawnBehaviours.PawnActions;
 using GJ2022.Subsystems;
 using GJ2022.Utility.MathConstructs;

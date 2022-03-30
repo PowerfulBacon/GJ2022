@@ -7,7 +7,7 @@ using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
 
-namespace GJ2022.Managers.Stockpile
+namespace GJ2022.Game.Stockpile
 {
     public static class StockpileUserInterfaceManager
     {

@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GJ2022.Managers.Stockpile
+namespace GJ2022.Game.Stockpile
 {
     public static class StockpileManager
     {

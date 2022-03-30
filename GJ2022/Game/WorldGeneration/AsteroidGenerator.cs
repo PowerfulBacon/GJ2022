@@ -1,7 +1,7 @@
 ﻿using GJ2022.EntityLoading;
 using LibNoise;
 
-namespace GJ2022.WorldGeneration
+namespace GJ2022.Game.WorldGeneration
 {
     public class AsteroidGenerator : WorldGenerator
     {

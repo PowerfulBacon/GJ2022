@@ -1,4 +1,4 @@
-﻿namespace GJ2022.WorldGeneration
+﻿namespace GJ2022.Game.WorldGeneration
 {
     public abstract class WorldGenerator
     {

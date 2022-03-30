@@ -1,6 +1,6 @@
-﻿using GJ2022.Rendering;
+﻿using GJ2022.Game.WorldGeneration;
+using GJ2022.Rendering;
 using GJ2022.Utility.MathConstructs;
-using GJ2022.WorldGeneration;
 using GLFW;
 using System.Collections.Generic;
 

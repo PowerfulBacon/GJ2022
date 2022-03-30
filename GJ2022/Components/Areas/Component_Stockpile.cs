@@ -1,7 +1,7 @@
 ﻿using GJ2022.Components.Generic;
 using GJ2022.Entities;
 using GJ2022.Entities.Items;
-using GJ2022.Managers.Stockpile;
+using GJ2022.Game.Stockpile;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
