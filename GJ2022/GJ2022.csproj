@@ -288,6 +288,10 @@
 
   <ItemGroup>
     <Folder Include="Data\GameData\Core\Effects\" />
+    <Folder Include="EntityComponentSystem\Components\" />
+    <Folder Include="EntityComponentSystem\Entities\" />
+    <Folder Include="EntityComponentSystem\Events\" />
+    <Folder Include="EntityComponentSystem\Systems\" />
   </ItemGroup>
 
 </Project>
