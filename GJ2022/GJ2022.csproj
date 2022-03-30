@@ -224,9 +224,6 @@
     <None Update="glfw.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="GLFW.NET.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="png16.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
