@@ -1,4 +1,4 @@
-﻿using GJ2022.Entities.Turfs;
+﻿using GJ2022.EntityComponentSystem.Entities;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -15,14 +15,14 @@ namespace GJ2022.Atmospherics.Block
         public Atmosphere ContainedAtmosphere { get; }
 
         //List of turfs that are in our atmospheric block
-        private List<Turf> containedTurfs = new List<Turf>();
+        private List<Entity> containedTurfs = new List<Entity>();
 
         public int BlockId { get; } = AtmosphericBlocks++;
 
         //If outdated, the atmos system won't merge into this
         public bool Outdated { get; set; } = false;
 
-        public AtmosphericBlock(Turf parent)
+        public AtmosphericBlock(Entity parent)
         {
             //Setup the initial atmosphere
             ContainedAtmosphere = Atmosphere.SpaceAtmosphere;
@@ -85,7 +85,7 @@ namespace GJ2022.Atmospherics.Block
             }
         }
 
-        public void ChangeTurf(Turf oldTurf, Turf newTurf)
+        public void ChangeTurf(Entity oldTurf, Entity newTurf)
         {
             if (newTurf.Destroyed)
                 throw new Exception("Turf destroyed exception!");
@@ -98,7 +98,7 @@ namespace GJ2022.Atmospherics.Block
         /// <summary>
         /// Add a turf to our atmospheric block and adjust the volume to accomodate it.
         /// </summary>
-        public void AddTurf(Turf turf)
+        public void AddTurf(Entity turf)
         {
             if (turf.Destroyed)
                 throw new Exception("Turf destroyed exception!");
@@ -112,7 +112,7 @@ namespace GJ2022.Atmospherics.Block
         /// Remove a turf from our atmospheric block and adjust the volume to accomodate it.
         /// This pushes the gas that was on that turf back into this, increasing the overall pressure and temperature.
         /// </summary>
-        public void RemoveTurf(Turf turf)
+        public void RemoveTurf(Entity turf)
         {
             containedTurfs.Remove(turf);
             ContainedAtmosphere.SetVolume(ContainedAtmosphere.LitreVolume - AtmosphericConstants.TILE_GAS_VOLUME);
@@ -123,7 +123,7 @@ namespace GJ2022.Atmospherics.Block
 
         public void UpdateGasTurfs()
         {
-            foreach (Turf turf in containedTurfs)
+            foreach (Entity turf in containedTurfs)
             {
                 turf.OnAtmopshereContentsChanged(this);
             }

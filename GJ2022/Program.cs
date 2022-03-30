@@ -1,13 +1,6 @@
 ﻿using GJ2022.Audio;
-using GJ2022.Entities;
-using GJ2022.Entities.Items.Stacks;
-using GJ2022.Entities.Pawns;
-using GJ2022.Entities.Pawns.Mobs;
-using GJ2022.Entities.Pawns.Mobs.Humans;
-using GJ2022.Entities.Structures.Power;
 using GJ2022.EntityLoading;
 using GJ2022.Game.Construction;
-using GJ2022.Game.GameWorld;
 using GJ2022.Managers;
 using GJ2022.PawnBehaviours.Behaviours;
 using GJ2022.Rendering;
@@ -19,8 +12,6 @@ using GJ2022.UserInterface;
 using GJ2022.Utility.MathConstructs;
 using GLFW;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using static OpenGL.Gl;
 
@@ -102,47 +93,11 @@ namespace GJ2022
             //Create the background first
             new BackgroundRenderable().StartRendering();
 
-            for (int i = 0; i < 4; i++)
-            {
-                Human p = new Human(new Vector<float>(2.3f, 7.3f));
-                EntityCreator.CreateEntity<Entity>("OxygenTank", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
-                EntityCreator.CreateEntity<Entity>("SpaceSuit", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
-                EntityCreator.CreateEntity<Entity>("SpaceHelmet", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
-                EntityCreator.CreateEntity<Entity>("BreathMask", new Vector<float>(1, 3)).SendSignal(Components.Signal.SIGNAL_ITEM_EQUIP_TO_PAWN, p);
-                new CrewmemberBehaviour(p);
-            }
-
-            for (int x = 4; x < 6; x++)
-            {
-                for (int y = 4; y < 6; y++)
-                {
-                    EntityCreator.CreateEntity<Entity>("Iron", new Vector<float>(x, y))
-                        .SendSignal(Components.Signal.SIGNAL_SET_STACK_SIZE, 50);
-                }
-            }
-
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 10; y++)
                 {
                     EntityCreator.CreateEntity("Plating", new Vector<float>(x, y));
-                }
-            }
-
-            //new BreathMask(new Vector<float>(3, 3));
-
-            Dog dog = new Dog(new Vector<float>(2, 2));
-            new DogBehaviour(dog);
-
-            new PacmanGenerator(new Vector<float>(7, 4));
-
-            Random r = new Random();
-            for (int x = 20; x < 100; x += r.Next(1, 10))
-            {
-                for (int y = 20; y < 100; y += r.Next(1, 10))
-                {
-                    EntityCreator.CreateEntity<Entity>("Gold", new Vector<float>(x, y))
-                        .SendSignal(Components.Signal.SIGNAL_SET_STACK_SIZE, 50);
                 }
             }
 

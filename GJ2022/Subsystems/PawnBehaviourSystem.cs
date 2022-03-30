@@ -1,4 +1,4 @@
-﻿using GJ2022.Entities.Pawns;
+﻿using GJ2022.EntityComponentSystem.Entities;
 using GJ2022.Managers;
 using GJ2022.PawnBehaviours;
 using GLFW;
@@ -31,7 +31,7 @@ namespace GJ2022.Subsystems
                 });
         }
 
-        public void ApplyPawnBehaviour(Pawn target, PawnBehaviour behaviour)
+        public void ApplyPawnBehaviour(Entity target, PawnBehaviour behaviour)
         {
             if (target.behaviourController != null)
                 processingBehaviours.Remove(target.behaviourController);

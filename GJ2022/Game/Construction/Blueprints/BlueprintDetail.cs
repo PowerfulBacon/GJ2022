@@ -1,5 +1,4 @@
-﻿using GJ2022.Entities.Blueprints;
-using GJ2022.Game.Construction.Cost;
+﻿using GJ2022.Game.Construction.Cost;
 using System;
 
 namespace GJ2022.Game.Construction.Blueprints

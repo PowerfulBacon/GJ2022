@@ -71,12 +71,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\Structures\Machines\**" />
-    <EmbeddedResource Remove="Entities\Structures\Machines\**" />
-    <None Remove="Entities\Structures\Machines\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Data\TextureData.json~RF8ecf5ae2.TMP" />
   </ItemGroup>
 
@@ -287,6 +281,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\" />
     <Folder Include="Data\GameData\Core\Effects\" />
     <Folder Include="EntityComponentSystem\Components\" />
     <Folder Include="EntityComponentSystem\Entities\" />

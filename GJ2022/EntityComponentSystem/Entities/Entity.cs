@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GJ2022.EntityComponentSystem.Entities
 {
-    public class Entity
+    public partial class Entity
     {
 
         internal delegate void InternalSignalHandleDelegate(Entity entity, Event signal);
