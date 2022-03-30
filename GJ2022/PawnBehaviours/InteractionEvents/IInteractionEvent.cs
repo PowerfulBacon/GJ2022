@@ -1,5 +1,4 @@
-﻿using GJ2022.Entities;
-using GJ2022.Entities.Pawns;
+﻿using GJ2022.EntityComponentSystem.Entities;
 using GJ2022.EntityLoading;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace GJ2022.PawnBehaviours.InteractionEvents
         /// <summary>
         /// A pawn interacts with a target
         /// </summary>
-        void Interact(Entity target, Pawn interactor);
+        void Interact(Entity target, Entity interactor);
 
     }
 }

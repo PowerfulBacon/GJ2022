@@ -287,6 +287,8 @@
     <Folder Include="EntityComponentSystem\Entities\" />
     <Folder Include="EntityComponentSystem\Events\" />
     <Folder Include="EntityComponentSystem\Systems\" />
+    <Folder Include="PawnBehaviours\Behaviours\" />
+    <Folder Include="PawnBehaviours\PawnActions\" />
   </ItemGroup>
 
 </Project>

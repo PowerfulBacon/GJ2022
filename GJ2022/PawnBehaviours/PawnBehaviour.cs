@@ -1,6 +1,4 @@
-﻿using GJ2022.Entities.Pawns;
-using GJ2022.Managers;
-using GJ2022.Subsystems;
+﻿using GJ2022.Managers;
 using GJ2022.Utility.MathConstructs;
 using System;
 using System.Collections.Generic;
@@ -32,17 +30,8 @@ namespace GJ2022.PawnBehaviours
         //Are we processing?
         private volatile bool firing = false;
 
-        //The owner of the pawn behaviour
-        public Pawn Owner { get; }
-
         //The behavioural faction of this pawn behaviour
         public string Faction { get; } = "crew";
-
-        public PawnBehaviour(Pawn owner)
-        {
-            Owner = owner;
-            PawnBehaviourSystem.Singleton.ApplyPawnBehaviour(owner, this);
-        }
 
         public T GetMemory<T>(string key)
             where T : class
